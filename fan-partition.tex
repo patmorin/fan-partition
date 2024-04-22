@@ -1,0 +1,159 @@
+\documentclass{patmorin}
+\listfiles
+\usepackage{pat}
+\usepackage{paralist}
+\usepackage[OT1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{paralist}
+\usepackage{bbm}  % needed for \mathbbm{1}
+
+
+\usepackage{todonotes}
+
+% etoolbox allows for robust commands that don't need \protect, e.g.
+% \newrobustcmd{\onesub}{\mathord{\includegraphics{figs/one-sub}}}
+% \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
+\usepackage{etoolbox}
+
+\usepackage[longnamesfirst,numbers,sort&compress]{natbib}
+
+\usepackage[mathlines]{lineno}
+\setlength{\linenumbersep}{2em}
+% \linenumbers
+% \rightlinenumbers
+% \linenumbers
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+ \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+ \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+ \renewenvironment{#1}%
+    {\linenomath\csname old#1\endcsname}%
+    {\csname oldend#1\endcsname\endlinenomath}}%
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+ \patchAmsMathEnvironmentForLineno{#1}%
+ \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
+
+
+% Taken from
+% https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\definecolor{brightmaroon}{rgb}{0.76, 0.13, 0.28}
+\definecolor{linkblue}{rgb}{0, 0.337, 0.227}
+\newcommand{\defin}[1]{\emph{\textcolor{brightmaroon}{#1}}}
+\makeatletter
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%
+  \endgroup
+}
+\makeatother
+\newcommand{\mathdefin}[1]{\mathcolor{brightmaroon}{#1}}
+% \newcommand{\mathdefin}[1]{\color{brightmaroon}#1}}
+\setlength{\parskip}{1ex}
+
+% Document-specific commands and math operators
+\DeclareMathOperator{\tw}{tw}
+\DeclareMathOperator{\evol}{Evol}
+\DeclareMathOperator{\ivol}{Ivol}
+\DeclareMathOperator{\tvol}{Tvol}
+
+
+\title{\MakeUppercase{Fan-Partitions of Planar Graphs (and Beyond)
+  \newline by Local Sparsification and Volume-Preserving Emeddings}}
+\author{TBD}
+
+
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  We show that every $n$-vertex planar graph is contained in the strong product of a fan and a clique of size $\sqrt{n}\log^{O(1)} n$.
+\end{abstract}
+
+\section{Introduction}
+
+
+Notations: $D$ is local density.  $d$ is a distance function. $\Delta$ will be a ``ball radius''.
+
+\section{Local Sparsification}
+
+\begin{lem}\label{sparsifier}
+  Let $H$ be a graph of treewidth at most $t\ge 1$ and let $P$ be a path.  Then there exists a constant $c$ such that, for any positive integers $D$ and $n$ with $D\le n$ and any $n$-vertex subgraph $G$ of $H\boxtimes P$, there exists a $X\subseteq V(G)$ with $|X\cap V(G)|\le c(n/D)\log_2 n$ such that each positive integer $r$, each subpath $y_1,\ldots,y_r$ of $P$, and each component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_r\}]-X$ satisfies $|V(C)\cap V(G)|\le Dr$.
+\end{lem}
+
+
+
+\begin{cor}
+  Let $H$, $P$, $D$, $n$, $G$, $c$, and $X$ be defined as in \cref{sparsifier}.  Then, for any positive integer $r$ and any $v\in V(H\boxtimes P)$, $|B_{(H\boxtimes P)-X}(v,r)\cap V(G)|\le D(2r+1)$.
+\end{cor}
+
+\begin{proof}
+  For any $v\in V(H)$, there exists a subpath $y_1,\ldots,y_{r'}$ of $P$ with $r'\le 2r+1$ such that $B_{H\boxtimes P}(v,r)$ is contained in $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{r'}\}]$.  Therefore $B_{(H\boxtimes P)-X}(v,r)$ is contained in a single component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{r'}\}]-X$.  Thus $|V(C)\cap V(G)|\le Dr'\le D(2r+1)$.
+\end{proof}
+
+
+\section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
+
+
+A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  A \defin{metric space} $(S,d)$ consists of a set $S$ and a distance function $d$ over $S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denote the Euclidean distance between $x$ and $y$.
+
+A \defin{contraction} of a metric space $(S,d)$ into a metric space $(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each distinct $x,y\in S$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.
+
+For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}$ to denote the minimum number of edges in any path from $v$ to $w$ in $G$, or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different connected components of $G$.  If $G$ is connected, then $d_G$ is a distance function over $V(G)$ so $(V(G),d_G)$ is a metric space.
+
+\begin{obs}\label{supergraph_contraction}
+  For any connected graph $I$ and any connected subgraph $G$ of $I$, $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
+\end{obs}
+
+\begin{proof}
+  From the definitions, it follows that $d_I$, restricted to $V(G)$ is a distance function over $V(G)$, so $(V(G),d_I)$ is a metric space.  Since $G$ is a subgraph of $I$, every path in $G$ is also a path in $I$ so, $d_I(x,y)\le d_G(x,y)$ for each $x,y\in V(G)$.  Therefore $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
+\end{proof}
+
+We will be working with a connected subgraph $G$ of $H\boxtimes P$ where $H$ is a graph of treewidth at most $t$ and $P$ is a path and we will be using \cref{supergraph_contraction} with $I=H\boxtimes P$.  That is, we will be working in the metric space $(V(G),d_{H\boxtimes P})$, which is a contraction of $(V(G),d_G)$.
+
+\subsection{Volumes}
+
+For a set $K$ of $k\le \ell+1$ points in $\R^\ell$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
+
+The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(S)):\text{$\phi$ is a Euclidean contraction of $S$}\}$.
+
+The \defin{tree volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\tvol_d(K)}:=\prod_{xy\in E(T)} d(x,y)$ where $T$ is a minimum spanning tree of the weighted complete graph with vertex set $K$ where the weight of any edge $xy$ is equal to $d(x,y)$.
+
+A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,c)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/c^{k-1}$ for each $k$-element $K$ subset of $S$.
+
+\subsection{The Process}
+
+Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_0,y_1,\ldots,y_h$ is a path and let $\Delta$ be a positive integer.  Choose a uniformly random $r_0\in \{0,\ldots,\Delta-1\}$ and let $X_0:=V(H)\times\{y_i:i\equiv r_0\pmod\Delta\}$.
+
+For each $v\in V(G)$, define $\phi_0(v)=d_{H\boxtimes P}(v,X_0)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
