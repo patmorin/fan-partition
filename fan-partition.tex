@@ -15,6 +15,9 @@
 % \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
 \usepackage{etoolbox}
 
+
+\renewenvironment{clmproof}{\noindent\emph{Proof of Claim:}}{\hfill\rule{1ex}{1ex}}
+
 \usepackage[longnamesfirst,numbers,sort&compress]{natbib}
 
 \usepackage[mathlines]{lineno}
@@ -92,29 +95,13 @@ Notations: $D$ is local density.  $d$ is a distance function. $\Delta$ will be a
 
 \section{Local Sparsification}
 
-\begin{lem}\label{sparsifier}
-  Let $H$ be a graph of treewidth at most $t\ge 1$ and let $P$ be a path.  Then there exists a constant $c$ such that, for any positive integers $D$ and $n$ with $D\le n$ and any $n$-vertex subgraph $G$ of $H\boxtimes P$, there exists a $X\subseteq V(G)$ with $|X\cap V(G)|\le c(n/D)\log_2 n$ such that each positive integer $r$, each subpath $y_1,\ldots,y_r$ of $P$, and each component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_r\}]-X$ satisfies $|V(C)\cap V(G)|\le Dr$.
-\end{lem}
+A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over $S$.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.
 
+For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}$ to denote the minimum number of edges in any path from $v$ to $w$ in $G$, or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different connected components of $G$.  If $G$ is connected, then $d_G$ is a distance function over $V(G)$ so $(V(G),d_G)$ is a metric space.  In this case we will use the shorthand $B_{G}(x,r):=B_{V(G),d_G}(x,r)$.
 
+Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$, $d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\}$.
 
-\begin{cor}
-  Let $H$, $P$, $D$, $n$, $G$, $c$, and $X$ be defined as in \cref{sparsifier}.  Then, for any positive integer $r$ and any $v\in V(H\boxtimes P)$, $|B_{(H\boxtimes P)-X}(v,r)\cap V(G)|\le D(2r+1)$.
-\end{cor}
-
-\begin{proof}
-  For any $v\in V(H)$, there exists a subpath $y_1,\ldots,y_{r'}$ of $P$ with $r'\le 2r+1$ such that $B_{H\boxtimes P}(v,r)$ is contained in $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{r'}\}]$.  Therefore $B_{(H\boxtimes P)-X}(v,r)$ is contained in a single component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{r'}\}]-X$.  Thus $|V(C)\cap V(G)|\le Dr'\le D(2r+1)$.
-\end{proof}
-
-
-\section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
-
-
-A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  A \defin{metric space} $(S,d)$ consists of a set $S$ and a distance function $d$ over $S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denote the Euclidean distance between $x$ and $y$.
-
-A \defin{contraction} of a metric space $(S,d)$ into a metric space $(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each distinct $x,y\in S$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.
-
-For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}$ to denote the minimum number of edges in any path from $v$ to $w$ in $G$, or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different connected components of $G$.  If $G$ is connected, then $d_G$ is a distance function over $V(G)$ so $(V(G),d_G)$ is a metric space.
+We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each $r\ge 1$ and each $x\in S$.
 
 \begin{obs}\label{supergraph_contraction}
   For any connected graph $I$ and any connected subgraph $G$ of $I$, $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
@@ -124,9 +111,29 @@ For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}
   From the definitions, it follows that $d_I$, restricted to $V(G)$ is a distance function over $V(G)$, so $(V(G),d_I)$ is a metric space.  Since $G$ is a subgraph of $I$, every path in $G$ is also a path in $I$ so, $d_I(x,y)\le d_G(x,y)$ for each $x,y\in V(G)$.  Therefore $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
 \end{proof}
 
-We will be working with a connected subgraph $G$ of $H\boxtimes P$ where $H$ is a graph of treewidth at most $t$ and $P$ is a path and we will be using \cref{supergraph_contraction} with $I=H\boxtimes P$.  That is, we will be working in the metric space $(V(G),d_{H\boxtimes P})$, which is a contraction of $(V(G),d_G)$.
+\begin{lem}\label{sparsifier_simple}
+  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(G)$ with $|X|\le ?t(n/D)\log_2 n$ such that the metric space $(V(G)\setminus X, d_{H\boxtimes P-X})$ has local density at most $D$.
+\end{lem}
 
-\subsection{Volumes}
+\Cref{sparsifier_simple} is a consequence of the following technical lemma.
+
+\begin{lem}\label{sparsifier}
+  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(G)$ with $|X|\le ?tn/D$  there exists a $X\subseteq V(G)$ with $|X\cap V(G)|\le ?(n/D)\log_2 n$ such that each positive integer $\ell$, each subpath $y_1,\ldots,y_\ell$ of $P$, and each component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_r\}]-X$ satisfies $|V(C)\cap V(G)|\le D\ell$.
+\end{lem}
+
+\begin{proof}[Proof of \cref{sparsifier_simple} assuming \cref{sparsifier}]
+  For any $v\in V(G)$, there exists a subpath $y_1,\ldots,y_{\ell}$ of $P$ with $\ell\le 2r+1$ such that $B_{H\boxtimes P}(v,r)$ is contained in $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{r'}\}]$.  Therefore $B_{(H\boxtimes P)-X}(v,r)$ is contained in a single component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{r'}\}]-X$.  Thus $|V(C)\cap V(G)|\le Dr'\le D(2r+1)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{sparsifier}]
+\end{proof}
+
+
+\section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
+
+
+A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.
+
 
 For a set $K$ of $k\le \ell+1$ points in $\R^\ell$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
 
@@ -134,25 +141,131 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathde
 
 The \defin{tree volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\tvol_d(K)}:=\prod_{xy\in E(T)} d(x,y)$ where $T$ is a minimum spanning tree of the weighted complete graph with vertex set $K$ where the weight of any edge $xy$ is equal to $d(x,y)$.
 
+\begin{thm}
+  Let $(S,d)$ be a finite metric space with $|S|=k$.  Then
+  \[
+    \ivol_{d}(S) \le \frac{\tvol_d(S)}{(k-1)!} \le \ivol_d(S)2^{(k-2)/2} \enspace .
+  \]
+\end{thm}
+
+
 A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,c)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/c^{k-1}$ for each $k$-element $K$ subset of $S$.
+
+We will prove the following result:
+
+\begin{lem}
+  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
+\end{lem}
+
+
 
 \subsection{The Process}
 
-Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_0,y_1,\ldots,y_h$ is a path and let $\Delta$ be a positive integer.  Choose a uniformly random $r_0\in \{0,\ldots,\Delta-1\}$ and let $X_0:=V(H)\times\{y_i:i\equiv r_0\pmod\Delta\}$.
+First, fix some integer $\Delta \ge 1$.
 
-For each $v\in V(G)$, define $\phi_0(v)=d_{H\boxtimes P}(v,X_0)$.
+\subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
 
+Consider the following random process that, given a connected graph $H$ constructs a random subset $\textsc{Chop}_{\Delta,t}(H)$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r_1\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(H)$.
 
-
-
-
-
-
-
+\begin{lem}\label{component_diameter_h}
+  If $H$ is a connected graph of treewidth $t$, then each component of $H-\textsc{Chop}_{\Delta,t}(H)$ has diameter at most $?t\Delta$.
+\end{lem}
 
 
+% Say that a vertex $x$ of $H$ is \defin{$\delta$-good} with respect to a set $X\substeq V(H)$ if $d_{H}(x,X)\ge \delta$ and $x$ is \defin{$\delta$-bad} with respect to $X$ otherwise.
+
+\begin{lem}\label{delta_bad_h}
+  For any vertex $x$ of $H$ and any integer $\delta\ge 1$, $\Pr(d_H(x, \textsc{Chop}_{\Delta,t}(H)< \delta)\le t\,(2\delta-1)/\Delta$.
+\end{lem}
+
+\begin{proof}
+  The proof is by induction on $t$.
+  If $d_H(x,\textsc{Chop}_{\Delta,t}(H) < \delta)$ then $d(x,R)< \delta$ or, if $t>1$,  $d_H(x,\textsc{Chop}_{\Delta,t-1}(C) < \delta)$ where $C$ is the component of $H-R$ that contains $x$.  Since there are at most $2\delta-1$ choices of $r$ for which $d_H(x,R)<\delta$, $\Pr(d_H(x,R)<\delta) \le (2\delta-1)/\Delta$. For $t=1$, this completes the proof.  For $t>1$, the proof follows from the inductive hypothesis on $\textsc{Chop}_{\Delta,t-1}(C)$ and the union bound.
+\end{proof}
+
+% Applying \cref{delta_bad_h} with $\delta=1$, we obtain
+%
+% \begin{cor}
+%   For any vertex $x$ of $H$, $\Pr(x\in\textsc{Chop}_{\Delta,t}(H))\le t/\Delta$.
+% \end{cor}
+
+[TODO: Verify later if we really need to choose a random $r$ or if we can use averaging to pick an $r$ that guarantees that the number of $\delta$-good nodes is small.]
+
+\subsection{\boldmath Decomposing $H\boxtimes P$}
+
+Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$. Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=V(H)\times Y_0$.  Let $P_1,\ldots,P_q$ be the components (each of which is a path) of $P-Y_0$ and let $X_1,\ldots,X_q$ be the results of independent executions of $\textsc{Chop}_{\Delta,t}(H)$ and let $X:=\bigcup_{i=1}^q (X_i\times V(P_i))$.  Finally, let $Z:=X\cup Y$.
+
+[TODO: Do we need indepdent chops here?  Do we even need random chops at all?]
+
+\begin{lem}
+  Each component of $H\boxtimes P-Z$ has diameter at most $?t\Delta$.
+\end{lem}
+
+\begin{proof}
+  Let $C$ be a component of $H\boxtimes P-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C$, $d_{C}(x,y) = \max\{d_{H-X_j}(x_1,y_1),d_{P}(x_2,y_2)$ where $X_j$ is the result of running $\textsc{Chop}_{\Delta,t}(H)$. By \cref{component_diameter_h},  $d_{H-X_j}(x_1,y_1)=O(t\Delta)$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
+\end{proof}
 
 
+
+\begin{lem}\label{delta_bad_product}
+  For any vertex $x$ of $H\boxtimes P$ and any integer $\delta\ge 1$, $\Pr(d_{H\boxtimes P}(x,Z)< \delta)\le (t+1)(2\delta-1)/\Delta$.
+\end{lem}
+
+\begin{proof}
+  If $d_{H\boxtimes P}(x,Z)<\delta$ then $d_{H\boxtimes P}(x,Y)<\delta$ or $d_{C}(x,Z)<\delta$ where $C$ is the component of $H\boxtimes P-Y$ that contains $x$.  Again, there are at most $2\delta-1$ choices of $r_0$ for which $d_{H\boxtimes P}(x,Y)<\delta$, so $\Pr(d_{H\boxtimes P}(x,Y)<\delta)\le (2\delta-1)/\Delta$.  The proof now follows from the union bound and \cref{delta_bad_h}.
+\end{proof}
+
+\cref{delta_bad_product} with $\delta=1$ yields the following results:
+
+\begin{cor}
+  For any $x\in V(H\boxtimes P)$, $\Pr(x\in Z)\le (t+1)/\Delta$.
+\end{cor}
+
+\subsection{\boldmath The Mapping $\phi$}
+
+Let $C_1,\ldots,C_p$ be the components of $H\boxtimes P-Z$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_\Delta(x):=(1+\alpha_i)\,d_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.
+
+\begin{lem}
+  For any two vertices $x,y\in V(H\boxtimes P)$ with $d_{H\boxtimes P}(x,y)>?t\Delta$, $\varphi_\Delta(x)$ and $\varphi_\Delta(y)$ are independent.   [TODO: Read ahead to find out exactly what we need here.]
+\end{lem}
+
+
+[Do some stuff.....]
+
+\begin{thm}
+  The embedding $\phi$ is $(k,O(\sqrt{\log n}))$-volume-preserving.
+\end{thm}
+
+\begin{proof}
+  Let $K$ be a set of $k$ vertices of $G$.  Let $T$ be a minimum spanning tree of the complete graph on $K$ where the weight of an edge $xy$ is $d_{H\boxtimes P}(x,y)$.  Let $x_1,\ldots,x_k$ be an ordering of the vertices in $K$ and $T_1,\ldots,T_k$ be a sequence of trees such that $T_{i+1}$ is a minimum spanning tree of $x_1,\ldots,x_{i+1}$ and that contains $T_i$ as a subgraph, for each $i\in\{2,\ldots,k\}$.  That such an ordering and sequence of trees exists follows from the correctness of Prim's Algorithm. For each $i\in\{2,\ldots,k\}$, let $q_i:=d_{H\boxtimes P}(x_i,\{x_1,\ldots,x_{i-1}\})$ be the cost of the unique edge in $E(T_i)\setminus E(T_{i-1})$.
+
+  We will show, by induction on $i$ that that exists $\eta\in O(\sqrt{\log n})$ such that, for each $i\in\{2,\ldots,k\}$,
+  \begin{equation}
+     \evol(\{\phi(x_1),\ldots,\phi(x_i)\}) \ge \prod_{j=2}^i \frac{q_j}{j\eta}
+  \end{equation}
+  so
+  \[
+     \evol(K) \ge \prod_{j=2}^k \frac{q_j}{j\eta}
+      = \frac{\tvol_{d_{H\boxtimes P}}(K)}{k!\eta^{k-1}}
+      \ge \frac{\ivol_{d_{H\boxtimes P}}(K)}{k\eta^{k-1}} \enspace .
+  \]
+  [TODO: There is an extra $k$ in the denominator here that Rao missed!]
+
+  Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in [0,1]^k:\sum_{j=1}^k\lambda_j=1\}$.
+
+
+  \begin{clm}
+    Fix any function $\lambda:(\R^{r})^{i-1}\to \Gamma_{i-1}$, let $(\lambda_1,\ldots,\lambda_{i-1}):=\lambda(\phi(v_1),\ldots,\phi(v_{i-1}))$ and let $x:=\sum_{j=1}^{i-1}\lambda_j\phi(v_j)$.
+    Then, with probability at least $1-n^{-3k}$, $d_2(v_i,x)\ge q_i/\eta$.
+  \end{clm}
+
+  \begin{clmproof}
+    Let $\Delta$ be an integer power of $2$ such that $q_i/2? \le\Delta\le q_i/?$, where $?$ is the constant in \cref{component_diameter_h}.  Then there are $r:=?k\log n$ coordinates of $\phi(v_i)$ that were defined with parameter $\Delta$. Let $Z_1,\ldots,Z_{r}$ be the sets that define each of these coordinates.  We say that $Z_j$ is \defin{good} if $d_{H\boxtimes P}(v_i,Z_j)\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$Z_j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Since each set $Z_j$ is generated by a different process, the number of $j\in\{1,\ldots,r\}$ such that $Z_j$ is good dominates a $\operatorname{binomial}(r,3/5)$ random variable. By Chernoff's Bounds, the number of good $Z_j$ is at least $r/2$ with probability at least $1-\exp(-\Omega(r))$.
+
+    Since $d_{H\boxtimes P}(v_i,\{v_1,\ldots,v_{i-1})\ge q_i$, the component of $H\boxtimes P-Z_j$ that contains $v_i$ does not contain any of $v_1,\ldots,v_{i-1}$.  Therefore, the coordinate of $\phi(v_i)$ corresponding to a good $Z_j$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$.  Furthermore, since $\lambda$ is defined entirely by $\phi(v_1),\ldots,\phi(v_{i-1})$, the coordinate of $\phi(v_i)$ corresponding to a good $Z_j$ is independent of the corresponding coordinate in $x$. [TODO\ldots]. Therefore, with probability at least $1-\exp(-\Omega(r))$, $d_1(v_i,x)$ is at least $r$
+  \end{clmproof}
+
+\end{proof}
 
 
 
