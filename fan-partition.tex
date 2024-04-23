@@ -67,6 +67,7 @@
 
 % Document-specific commands and math operators
 \DeclareMathOperator{\tw}{tw}
+\DeclareMathOperator{\bw}{bw}
 \DeclareMathOperator{\evol}{Evol}
 \DeclareMathOperator{\ivol}{Ivol}
 \DeclareMathOperator{\tvol}{Tvol}
@@ -85,7 +86,7 @@
 \maketitle
 
 \begin{abstract}
-  We show that every $n$-vertex planar graph is contained in the strong product of a fan and a clique of size $\sqrt{n}\log^{O(1)} n$.
+  We show that every $n$-vertex planar graph is contained in the strong product of a fan and a clique of size $\sqrt{n}\log^2 n$.  Equivalently, every $n$-vertex planar graph $G$ contains a vertex subset $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
 \end{abstract}
 
 \section{Introduction}
@@ -93,7 +94,10 @@
 
 Notations: $D$ is local density.  $d$ is a distance function. $\Delta$ will be a ``ball radius''.
 
-\section{Local Sparsification}
+
+\section{Background}
+
+\subsection{Distance Functions and Metric Spaces}
 
 A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over $S$.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.
 
@@ -101,7 +105,9 @@ For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}
 
 Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$, $d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\}$.
 
-We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each $r\ge 1$ and each $x\in S$.
+We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each $r\ge 1$ and each $x\in S$.  This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has local density at most $D$.
+
+A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.
 
 \begin{obs}\label{supergraph_contraction}
   For any connected graph $I$ and any connected subgraph $G$ of $I$, $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
@@ -110,6 +116,77 @@ We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric s
 \begin{proof}
   From the definitions, it follows that $d_I$, restricted to $V(G)$ is a distance function over $V(G)$, so $(V(G),d_I)$ is a metric space.  Since $G$ is a subgraph of $I$, every path in $G$ is also a path in $I$ so, $d_I(x,y)\le d_G(x,y)$ for each $x,y\in V(G)$.  Therefore $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
 \end{proof}
+
+
+\subsection{Volume-Preserving Contractions}
+
+For a set $K$ of $k\le \ell+1$ points in $\R^\ell$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
+
+The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(S)):\text{$\phi$ is a Euclidean contraction of $S$}\}$.  A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,\eta)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/\eta^{k-1}$ for each $k$-element subset $K$ of $S$.
+
+\citet{feige:approximating} introduces the following definition and theorem as a bridge between ideal volume and Euclidean volume. The \defin{tree volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\tvol_d(K)}:=\prod_{xy\in E(T)} d(x,y)$ where $T$ is a minimum spanning tree of the weighted complete graph with vertex set $K$ where the weight of any edge $xy$ is equal to $d(x,y)$.
+
+\begin{lem}[{\citet[Theorem~3]{feige:approximating}}]
+  Let $(S,d)$ be a finite metric space with $|S|=k$.  Then
+  \[
+    \ivol_{d}(S) \le \frac{\tvol_d(S)}{(k-1)!} \le \ivol_d(S)2^{(k-2)/2} \enspace .
+  \]
+\end{lem}
+
+The following result gives a connection between tree volume and local density:
+
+\begin{lem}[{\citet[Theorem~10]{feige:approximating}}]\label{reciprocal_sum}
+  For any connected graph $G$ with local density at most $D$ and any positive integer $k$,
+  \[  \sum_{K\in \binom{V(G)}{k}}\frac{1}{\tvol_{d_G}(K)}\le n(D(1+\ln(n/D)))^{k-1} \enspace .
+  \]
+\end{lem}
+
+\todo[inline]{Does \cref{reciprocal_sum} genralize to metric spaces with local density $D$?}
+
+\subsection{Bandwidth from Local Density and XXX}
+
+The following Theorem is proved implicitly by \citet{feige:approximating}. We recap the proof here in order to make the relationship between the parameters $n$, $D$, and $\eta$.
+
+\begin{thm}
+  Let $G$ be a connected $n$-vertex graph with local density at most $D$ and let $\phi:V(G)\to \R^L$ be a $(k,\eta)$-volume respecting Euclidean contraction of $(V(G),d_G)$.  Then $\bw(G) \in O(D\eta\log^{3/2} n)$.
+\end{thm}
+
+\begin{proof}
+  Let $r$ be a random unit vector in $\R^L$ and for each $v\in V(G)$, let $h(v):=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the vertices of $G$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(G)$, it suffices to upper bound the maximum, over all edges $vw$ of $G$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
+
+  Consider some edge $vw$ of $G$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a>0$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each edge $vw$ of $G$.
+
+  Let $K$ be a $k$-element subset of $V(G)$ and let $\ell(K):=\max_{v\in K}h(v)-\min_{v\in K} h(v)$.  By \cite[Theorem~9]{feige:approximating} there exists a universal constant $\beta$ such that, for any $c\ge 1$,
+  \[
+      \Pr(\ell(K) \le c)
+        < \frac{(\beta L)^{k/2}c^k\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))} \enspace .
+  \]
+  In particular,
+  \begin{align*}
+    \Pr(\ell(K) \le \sqrt{4a\ln n/L})
+      & < \frac{(4\beta a\ln n)^{k/2}\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))} \\
+      & < \frac{(4\beta a\ln n)^{k/2}\, L\log n}{k^k\evol(\phi(K))} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}\, L\log n}{k^k\evol(\phi(K))} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}(k-1)!2^{(k-2)/2}\, L\log n}{k^k\tvol_{d_G}(K)} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}2^{(k-2)/2}\,L\log n}{\tvol_{d_G}(K)} \\
+      & \le \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\,L\log n}{\tvol_{d_G}(K)} \\
+  \end{align*}
+  We say that $K$ is \defin{bad} if $\ell(K) \le \sqrt{4a\ln n/L}$. Then the expected number of bad sets is at most
+  \begin{align}
+    \sum_{K\in \binom{V(G)}{k}} \Pr(\text{$K$ is bad})
+    & \le \sum_{K\in \binom{V(G)}{k}} \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\, L\log n}{\tvol_{d_G}(K)} \notag \\
+    & \le \left((8\beta a)^{1/2}\eta D\ln^{3/2} n\right)^{k}\, nL\log n \enspace .
+    \label{bad_expectation}
+  \end{align}
+  Let $B$ the a maximum cardinality subset of $V(G)$ with $\ell(B)<\sqrt{4a\ln n/L}$.  These $B$ vertices define $\binom{B}{k}$ bad $k$-element sets. Therefore, by Markov's Inequality, the probability that $\binom{B}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{B}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $B\in O(D\eta\log^{3/2} n)$ with probability at least $1/2$.  Therefore, with probability at least $1/2-n^{-a+2}$, the ordering $x_1,\ldots,x_n$ defines a layout of $G$ with bandwidth $O(D\eta\log^{3/2} n)$.
+\end{proof}
+
+
+
+
+
+\section{Local Sparsification}
+
 
 \begin{lem}\label{sparsifier_simple}
   For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(G)$ with $|X|\le ?t(n/D)\log_2 n$ such that the metric space $(V(G)\setminus X, d_{H\boxtimes P-X})$ has local density at most $D$.
@@ -132,30 +209,12 @@ We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric s
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
 
 
-A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.
 
-
-For a set $K$ of $k\le \ell+1$ points in $\R^\ell$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
-
-The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(S)):\text{$\phi$ is a Euclidean contraction of $S$}\}$.
-
-The \defin{tree volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\tvol_d(K)}:=\prod_{xy\in E(T)} d(x,y)$ where $T$ is a minimum spanning tree of the weighted complete graph with vertex set $K$ where the weight of any edge $xy$ is equal to $d(x,y)$.
+We will prove the following result, which generalizes a result of \citet{rao:small} for planar graphs:
 
 \begin{thm}
-  Let $(S,d)$ be a finite metric space with $|S|=k$.  Then
-  \[
-    \ivol_{d}(S) \le \frac{\tvol_d(S)}{(k-1)!} \le \ivol_d(S)2^{(k-2)/2} \enspace .
-  \]
+  For any $K_{t+1}$-minor-free graph $H$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
 \end{thm}
-
-
-A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,c)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/c^{k-1}$ for each $k$-element $K$ subset of $S$.
-
-We will prove the following result:
-
-\begin{lem}
-  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
-\end{lem}
 
 
 
