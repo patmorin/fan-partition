@@ -16,7 +16,7 @@
 \usepackage{etoolbox}
 
 
-\renewenvironment{clmproof}{\noindent\emph{Proof of Claim:}}{\hfill\rule{1ex}{1ex}}
+\newenvironment{clmproof}{\noindent\emph{Proof of Claim:}}{\hfill\rule{1ex}{1ex}}
 
 \usepackage[longnamesfirst,numbers,sort&compress]{natbib}
 
@@ -159,16 +159,19 @@ We will prove the following result:
 
 
 
-\subsection{The Process}
+\subsection{Volume-Preserving Contractions}
 
 First, fix some integer $\Delta \ge 1$.
 
 \subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
 
-Consider the following random process that, given a connected graph $H$ constructs a random subset $\textsc{Chop}_{\Delta,t}(H)$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r_1\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(H)$.
+Consider the following random process that, given a connected graph $H$ constructs a random subset $\textsc{Chop}_{\Delta,t}(H)$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(H)$.
+
+
+The following lemma, with a greater dependence on $t$, is due to \citet{klein.plotkin.ea:excluded}. The version shown here was proved by \citet{fakcharoenphol.talwar:improved}. The presentation here closely follows that of \citet{lee:simpler}.
 
 \begin{lem}\label{component_diameter_h}
-  If $H$ is a connected graph of treewidth $t$, then each component of $H-\textsc{Chop}_{\Delta,t}(H)$ has diameter at most $?t\Delta$.
+  If $H$ is a connected $K_{t+1}$-minor-free connected graph of treewidth $t$, then each component of $H-\textsc{Chop}_{\Delta,t}(H)$ has diameter at most $?t\Delta$.
 \end{lem}
 
 
@@ -183,26 +186,18 @@ Consider the following random process that, given a connected graph $H$ construc
   If $d_H(x,\textsc{Chop}_{\Delta,t}(H) < \delta)$ then $d(x,R)< \delta$ or, if $t>1$,  $d_H(x,\textsc{Chop}_{\Delta,t-1}(C) < \delta)$ where $C$ is the component of $H-R$ that contains $x$.  Since there are at most $2\delta-1$ choices of $r$ for which $d_H(x,R)<\delta$, $\Pr(d_H(x,R)<\delta) \le (2\delta-1)/\Delta$. For $t=1$, this completes the proof.  For $t>1$, the proof follows from the inductive hypothesis on $\textsc{Chop}_{\Delta,t-1}(C)$ and the union bound.
 \end{proof}
 
-% Applying \cref{delta_bad_h} with $\delta=1$, we obtain
-%
-% \begin{cor}
-%   For any vertex $x$ of $H$, $\Pr(x\in\textsc{Chop}_{\Delta,t}(H))\le t/\Delta$.
-% \end{cor}
-
-[TODO: Verify later if we really need to choose a random $r$ or if we can use averaging to pick an $r$ that guarantees that the number of $\delta$-good nodes is small.]
-
 \subsection{\boldmath Decomposing $H\boxtimes P$}
 
-Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$. Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=V(H)\times Y_0$.  Let $P_1,\ldots,P_q$ be the components (each of which is a path) of $P-Y_0$ and let $X_1,\ldots,X_q$ be the results of independent executions of $\textsc{Chop}_{\Delta,t}(H)$ and let $X:=\bigcup_{i=1}^q (X_i\times V(P_i))$.  Finally, let $Z:=X\cup Y$.
+Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$. Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t}(P):=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=Y_{\Delta,t}(P):=V(H)\times Y_0$.  Let $P_1,\ldots,P_q$ be the components (each of which is a path) of $P-Y_0$ and let $X_1,\ldots,X_q$ be the results of independent executions of $\textsc{Chop}_{\Delta,t}(H)$ and let $X:=\bigcup_{i=1}^q (X_i\times V(P_i))$.  Finally, let $Z:=Z_{\Delta,t}(H,P):=X\cup Y$.
 
-[TODO: Do we need indepdent chops here?  Do we even need random chops at all?]
+For some intuition, it is helpful to consider the case when $H$ is a path and $t=1$.  In this case, $H\boxtimes P$ is a grid with diagonal edges.  Starting from row $r\in\{0,\ldots,\Delta-1\}$, the set $Y$ contains one out of every $\Delta$ rows of this grid.  Each of the components $C_1,\ldots,C_m$ of $H\boxtimes P-Y$, except the top-most, $C_1$ and bottom-most, $C_m$ is a grid with $\Delta-1$ rows.  For each component $C_i$, the set $X$ contains one out of every $\Delta$ columns of $C_i$, starting from column $r_i\in\{0,\ldots,\Delta-1\}$. \todo{Add figure}
 
-\begin{lem}
-  Each component of $H\boxtimes P-Z$ has diameter at most $?t\Delta$.
+\begin{lem}\label{component_diameter}
+  If $H$ is $K_{t+1}$-minor-free, then each component of $H\boxtimes P-Z$ has diameter at most $?t\Delta$.
 \end{lem}
 
 \begin{proof}
-  Let $C$ be a component of $H\boxtimes P-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C$, $d_{C}(x,y) = \max\{d_{H-X_j}(x_1,y_1),d_{P}(x_2,y_2)$ where $X_j$ is the result of running $\textsc{Chop}_{\Delta,t}(H)$. By \cref{component_diameter_h},  $d_{H-X_j}(x_1,y_1)=O(t\Delta)$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
+  Let $C$ be a component of $H\boxtimes P-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C$, $d_{C}(x,y) = \max\{d_{H-X_j}(x_1,y_1),d_{P}(x_2,y_2)$ where $X_j$ is the result of running $\textsc{Chop}_{\Delta,t}(H)$. By \cref{component_diameter_h},  $d_{H-X_j}(x_1,y_1)\le ?t\Delta$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
 \end{proof}
 
 
@@ -215,7 +210,7 @@ Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$. Choose a unif
   If $d_{H\boxtimes P}(x,Z)<\delta$ then $d_{H\boxtimes P}(x,Y)<\delta$ or $d_{C}(x,Z)<\delta$ where $C$ is the component of $H\boxtimes P-Y$ that contains $x$.  Again, there are at most $2\delta-1$ choices of $r_0$ for which $d_{H\boxtimes P}(x,Y)<\delta$, so $\Pr(d_{H\boxtimes P}(x,Y)<\delta)\le (2\delta-1)/\Delta$.  The proof now follows from the union bound and \cref{delta_bad_h}.
 \end{proof}
 
-\cref{delta_bad_product} with $\delta=1$ yields the following results:
+\Cref{delta_bad_product} with $\delta=1$ yields the following results:
 
 \begin{cor}
   For any $x\in V(H\boxtimes P)$, $\Pr(x\in Z)\le (t+1)/\Delta$.
@@ -223,50 +218,85 @@ Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$. Choose a unif
 
 \subsection{\boldmath The Mapping $\phi$}
 
-Let $C_1,\ldots,C_p$ be the components of $H\boxtimes P-Z$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_\Delta(x):=(1+\alpha_i)\,d_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.
+Let $Z:=Z_{\Delta,t}(H,P)$ a subset of $V(H\boxtimes P)$ generated by running the procedure described above.  Let $C_1,\ldots,C_p$ be the components of $H\boxtimes P-Z$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_Z(x):=(1+\alpha_i)\,d_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.
 
-\begin{lem}
-  For any two vertices $x,y\in V(H\boxtimes P)$ with $d_{H\boxtimes P}(x,y)>?t\Delta$, $\varphi_\Delta(x)$ and $\varphi_\Delta(y)$ are independent.   [TODO: Read ahead to find out exactly what we need here.]
+\begin{obs}\label{uniform}
+  For any vertex $x$ of $H\boxtimes P$, $\varphi_Z(x)$ is uniformly distributed in the real interval $[d_{H\boxtimes P}(x,Z), d_{H\boxtimes P}(x,Z)]$.
+\end{obs}
+
+The following observation follows immediately from \cref{component_diameter}:
+\begin{obs}\label{independent}
+  Let $x_1,\ldots,x_i$ be distinct vertices $V(H\boxtimes P)$ such that $d_{H\boxtimes P}(x_i,\{x_1,\ldots,x_{i-1}\})> ?t\Delta$. Then $\varphi_Z(x_i)$ is independent of $\varphi_Z(x_1),\ldots,\varphi_Z(x_{i-1})$.
+\end{obs}
+
+
+Let $a$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V(G)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\lfloor \log_2 n\rfloor\}$ and each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $Z_{i,j}\sim Z_{\Delta,t}(H,P)$ be the random subset of $V(H\boxtimes P)$ obtained by using the procedure described above with parameters $\Delta$ and $t$ with all random choices made independently.  For each $x\in V(H\boxtimes P)$, let $\phi_{i,j}(x)\sim \varphi_{Z_{i,j}}(x)$ again with all choices made independently.  Finally,
+\[
+   \phi(x) := (\phi_{i,j}(x))_{(i,j)\in \{0,\ldots,\lfloor \log_2 n\rfloor\}\times\{1,\ldots,\lceil a k\ln n\rceil\}} \enspace .
+\]
+
+The rest of the analysis in this section closely follows \citet{rao:small}, which in turn closely follows \citet{feige:approximating} with modifications needed to work in the metric $(V(G),d_{H\boxtimes P})$.  Nevertheless, we proceed slowly and carefully since our setting is significantly different (we are working in a subgraph $G$ of $H\boxtimes P$ but using the metric space $(V(G),d_{H\boxtimes P})$) and we expect that some readers will not be familiar with some methods introduced by \citet{feige:approximating} that are only sketched in \citet{rao:small}.
+
+
+We make use of this simple \defin{Chernoff Bound}: For a $\operatorname{binomial}(n,p)$ random variable $B$ and any $0<\delta<1$, $\Pr(B \le np/2) \le \exp(-np/8)$.
+
+% Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in [0,1]^k:\sum_{j=1}^k\lambda_j=1\}$, that is, $\Gamma_k$ is the set of coefficients that can be used to obtain a convex combination of $k$ items.
+
+
+\begin{lem}\label{crux}
+  Fix some function $\lambda:(\R^{L})^{p-1}\to \R^{p-1}$. Let $v_1,\ldots,v_p$ be distinct vertices of $H\boxtimes P$ with $d_{H\boxtimes p}(v_p,\{v_1,\ldots,v_{p-1}\})> q$.  Let $(\lambda_1,\ldots,\lambda_{p-1}):=\lambda(\phi(v_1),\ldots,\phi(v_{p-1}))$ and let $x:=\sum_{j=1}^{p-1}\lambda_j\phi(v_j)$.
+  Then, with probability at least $1-n^{-3k}$,
+  \[
+    d_2(\phi(v_p),x)\ge \frac{q\sqrt{ak\ln  n}}{160?(t+1)} \enspace
+  . \]
 \end{lem}
 
-
-[Do some stuff.....]
-
-\begin{thm}
-  The embedding $\phi$ is $(k,O(\sqrt{\log n}))$-volume-preserving.
-\end{thm}
-
 \begin{proof}
-  Let $K$ be a set of $k$ vertices of $G$.  Let $T$ be a minimum spanning tree of the complete graph on $K$ where the weight of an edge $xy$ is $d_{H\boxtimes P}(x,y)$.  Let $x_1,\ldots,x_k$ be an ordering of the vertices in $K$ and $T_1,\ldots,T_k$ be a sequence of trees such that $T_{i+1}$ is a minimum spanning tree of $x_1,\ldots,x_{i+1}$ and that contains $T_i$ as a subgraph, for each $i\in\{2,\ldots,k\}$.  That such an ordering and sequence of trees exists follows from the correctness of Prim's Algorithm. For each $i\in\{2,\ldots,k\}$, let $q_i:=d_{H\boxtimes P}(x_i,\{x_1,\ldots,x_{i-1}\})$ be the cost of the unique edge in $E(T_i)\setminus E(T_{i-1})$.
+  Let $i$ be an integer such that $q/2?\le 2^i < q/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ dominates a random variable $Y$ if $Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
 
-  We will show, by induction on $i$ that that exists $\eta\in O(\sqrt{\log n})$ such that, for each $i\in\{2,\ldots,k\}$,
-  \begin{equation}
-     \evol(\{\phi(x_1),\ldots,\phi(x_i)\}) \ge \prod_{j=2}^i \frac{q_j}{j\eta}
-  \end{equation}
-  so
-  \[
-     \evol(K) \ge \prod_{j=2}^k \frac{q_j}{j\eta}
-      = \frac{\tvol_{d_{H\boxtimes P}}(K)}{k!\eta^{k-1}}
-      \ge \frac{\ivol_{d_{H\boxtimes P}}(K)}{k\eta^{k-1}} \enspace .
-  \]
-  [TODO: There is an extra $k$ in the denominator here that Rao missed!]
-
-  Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in [0,1]^k:\sum_{j=1}^k\lambda_j=1\}$.
-
-
-  \begin{clm}
-    Fix any function $\lambda:(\R^{r})^{i-1}\to \Gamma_{i-1}$, let $(\lambda_1,\ldots,\lambda_{i-1}):=\lambda(\phi(v_1),\ldots,\phi(v_{i-1}))$ and let $x:=\sum_{j=1}^{i-1}\lambda_j\phi(v_j)$.
-    Then, with probability at least $1-n^{-3k}$, $d_2(v_i,x)\ge q_i/\eta$.
-  \end{clm}
-
-  \begin{clmproof}
-    Let $\Delta$ be an integer power of $2$ such that $q_i/2? \le\Delta\le q_i/?$, where $?$ is the constant in \cref{component_diameter_h}.  Then there are $r:=?k\log n$ coordinates of $\phi(v_i)$ that were defined with parameter $\Delta$. Let $Z_1,\ldots,Z_{r}$ be the sets that define each of these coordinates.  We say that $Z_j$ is \defin{good} if $d_{H\boxtimes P}(v_i,Z_j)\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$Z_j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Since each set $Z_j$ is generated by a different process, the number of $j\in\{1,\ldots,r\}$ such that $Z_j$ is good dominates a $\operatorname{binomial}(r,3/5)$ random variable. By Chernoff's Bounds, the number of good $Z_j$ is at least $r/2$ with probability at least $1-\exp(-\Omega(r))$.
-
-    Since $d_{H\boxtimes P}(v_i,\{v_1,\ldots,v_{i-1})\ge q_i$, the component of $H\boxtimes P-Z_j$ that contains $v_i$ does not contain any of $v_1,\ldots,v_{i-1}$.  Therefore, the coordinate of $\phi(v_i)$ corresponding to a good $Z_j$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$.  Furthermore, since $\lambda$ is defined entirely by $\phi(v_1),\ldots,\phi(v_{i-1})$, the coordinate of $\phi(v_i)$ corresponding to a good $Z_j$ is independent of the corresponding coordinate in $x$. [TODO\ldots]. Therefore, with probability at least $1-\exp(-\Omega(r))$, $d_1(v_i,x)$ is at least $r$
-  \end{clmproof}
-
+  Since $d_{H\boxtimes P}(v_p,\{v_1,\ldots,v_{p-1}\})\ge q$, \cref{component_diameter} implies that the component of $H\boxtimes P-Z_{i,j}$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$. Since $\lambda$ is defined entirely by $\phi(v_1),\ldots,\phi(v_{p-1})$,   \cref{uniform,independent} implies that, for $j\in J$, $\phi_{i,j}(v_p)$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$ and the location of $\phi_{i,j}(v_p)$ in this interval is independent of the corresponding coordinate, $x_{i,j}$ of $x$.
+  Therefore, for $j\in J$, $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge 1/2$.\footnote{The coordinate $\phi_{i,j}(v_p)$ is uniform over some interval $[a,b]$ of length $b-a\ge \Delta/10(t+1)$ whereas $[x_{i,j}-\Delta/40(t+1),x_{i,j}+\Delta/40(t+1)]$ has length $\Delta/20(t+1)$, so $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge (b-a-\Delta/20(t+1))/(b-a)\ge 1/2$.}
+  Let $J':=\{j\in J:  |\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1)\}$.  Then $|J'|$ dominates a $\operatorname{binomial}(|J|,1/2)$ random variable.  By the Chernoff Bound (and the union bound), $\Pr(|J'|\ge \tfrac{3}{40}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/160)-\exp(-3ak\ln n/80)\ge 1-n^{-3k}$ for all $a\ge 500$, $n\ge 2$, and $k\ge 2$. Therefore,
+  \begin{align*}
+    d_2(\phi(v_p),x)
+    & = \left(\sum_{i'=0}^{\lfloor\log_2 n\rfloor}\sum_{j=1}^{\lceil ak\ln  n\rceil}(\phi_{i',j}(v_p)-x_{i',j})^2\right)^{1/2} \\
+    & \ge \left(\sum_{j=1}^{\lceil ak\ln  n\rceil}(\phi_{i,j}(v_p)-x_{i,j})^2\right)^{1/2} \\
+    & \ge \left(\sum_{j\in J'}(\Delta/40(t+1))^2\right)^{1/2} \\
+    & \ge \left((\Delta/40(t+1))^2\cdot \tfrac{1}{4}\lceil ak\ln  n\rceil\right)^{1/2}
+      & \text{(with probability at least $1-n^{-3k}$)} \\
+    & = \frac{\Delta\sqrt{\lceil ak\ln  n\rceil}}{80(t+1)} \\
+    & \ge \frac{q\sqrt{\lceil ak\ln n\rceil}}{160?(t+1)} \enspace . &
+    % & \text{(since $\Delta\ge q/2?$)}\enspace .
+    \qedhere
+  \end{align*}
 \end{proof}
 
+\begin{lem}
+  Let $H$ be $K_{t+1}$-minor-free graph with at most $n$ vertices, let $P$ be a path with at most $n$ vertex, and let $\phi:V(H\boxtimes P)\to\R^L$ be the probablistic embedding defined above.  Then, for any $k$-element subset $K$ of $V(H\boxtimes P)$,
+  \[
+    \Pr\left(\evol(\phi(K)) \ge \frac{\tvol_{d_{H\boxtimes P}}(K)\cdot(2\zeta/3)^{k-1}}{(k-1)!}\right) \ge 1- O(kn^{-k}) \enspace .
+  \]
+  where $\zeta:=\sqrt{\lceil ak\ln n\rceil}/160?(t+1)$ is the expression that also appears in \cref{crux}.
+\end{lem}
 
+\begin{proof}
+  The following argument is due to \citet{feige:approximating}.  Let $K$ be a set of $k$ vertices of $G$.  Let $T$ be a minimum spanning tree of the complete graph on $K$ where the weight of an edge $xy$ is $d_{H\boxtimes P}(x,y)$.  Let $x_1,\ldots,x_k$ be an ordering of the vertices in $K$ and $T_1,\ldots,T_k$ be a sequence of trees such that $T_{p}$ is a minimum spanning tree of $x_1,\ldots,x_{p}$ that contains $T_{p-1}$ as a subgraph, for each $p\in\{2,\ldots,k\}$.  That such an ordering and sequence of trees exists follows from the correctness of Prim's Algorithm. For each $p\in\{2,\ldots,k\}$, let $q_p:=d_{H\boxtimes P}(x_p,\{x_1,\ldots,x_{p-1}\})$ be the cost of the unique edge in $E(T_p)\setminus E(T_{p-1})$.  Observe that $\prod_{p=2}^k q_p = \tvol_{d_{H\boxtimes P}}(K)$.
+
+  Let $Q_{p-1}:=\left\{\sum_{i=1}^{p-1}\lambda_i\phi(v_i):(\lambda_1,\ldots,\lambda_{p-1})\in\R^{p-1}\right\}$ be the subspace of $\R^L$ spanned by $\phi(v_1),\ldots,\phi(v_{p-1})$.  Observe that each coordinate $\phi_{i,j}(v_p)$ of $\phi(v_p)$ is at most $2(n-1)$, since $\phi_{i,j}(v_p)=\alpha_{Z_{i,j}}(v_p)\cdot d_{H\boxtimes P}(v_p, Z_{i,j})\le 2(n-1)$. Therefore, $\phi(v_p)$ is contained in a ball $B$ of radius $2(n-1)\sqrt{L}$ around the origin. \citet{feige:approximating} uses these two facts to show $Q_{p-1}\cap B$ can be covered by $\Theta(n^{2k})$ balls, each of radius $q\zeta$, such that, if $\phi(v_p)$ is not contained in any of these balls, then $d_2(\phi(v_p),Q)\ge 2q\zeta/3$.  When this happens, $\evol(\{\phi(v_1),\ldots,\phi(v_p)\})\ge (2q\zeta/3)\cdot\evol(\{\phi(v_1),\ldots,\phi(v_{p-1})\})/(p-1)$.  By \cref{crux} and the union bound, the probability that this happens for each $p\in\{2,\ldots,k\}$ is at least $1-O(kn^{-k})$.  Therefore, with probability at least $1-O(kn^{-k})$,
+  \[
+    \evol(\phi(K)) \ge \prod_{p=2}^{k}\frac{q_p(2\zeta/3)}{p-1} = \frac{\tvol_{d_{H\boxtimes P}(K)}(2\zeta/3)^{k-1}}{(k-1)!} \enspace . \qedhere
+  \]
+\end{proof}
+
+\begin{thm}
+  Let $H$ be $K_{t+1}$-minor-free graph, let $P$ be a path, and let $G$ be an $n$-vertex subgraph of $H\boxtimes P$.  Then there exists a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction $\phi:V(G)\to\R^{L}$, for some $L\in O(k\log^2 n)$.
+\end{thm}
+
+% ?Let $\phi'(x):=\phi(x)/\sqrt{L}$ for each $x\in V(H\boxtimes P)$.
+
+
+
+\bibliographystyle{plainurlnat}
+\bibliography{fan-partition}
 
 \end{document}
