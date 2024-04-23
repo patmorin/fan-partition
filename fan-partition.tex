@@ -148,8 +148,10 @@ The following result gives a connection between tree volume and local density:
 The following Theorem is proved implicitly by \citet{feige:approximating}. We recap the proof here in order to make the relationship between the parameters $n$, $D$, and $\eta$.
 
 \begin{thm}
-  Let $G$ be a connected $n$-vertex graph with local density at most $D$ and let $\phi:V(G)\to \R^L$ be a $(k,\eta)$-volume respecting Euclidean contraction of $(V(G),d_G)$.  Then $\bw(G) \in O(D\eta\log^{3/2} n)$.
+  Let $G$ be a connected $n$-vertex graph with local density at most $D$ and let $\phi:V(G)\to \R^L$ be a $(k,\eta)$-volume respecting Euclidean contraction of $(V(G),d_G)$.  Then $\bw(G) \in O(Dk\eta\log^{3/2} n)$.
 \end{thm}
+
+\todo[inline]{There must be a lower bound of $\Omega(\log n)$ on $k$ in this theorem/proof. Figure out where it's used.}
 
 \begin{proof}
   Let $r$ be a random unit vector in $\R^L$ and for each $v\in V(G)$, let $h(v):=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the vertices of $G$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(G)$, it suffices to upper bound the maximum, over all edges $vw$ of $G$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
@@ -178,7 +180,7 @@ The following Theorem is proved implicitly by \citet{feige:approximating}. We re
     & \le \left((8\beta a)^{1/2}\eta D\ln^{3/2} n\right)^{k}\, nL\log n \enspace .
     \label{bad_expectation}
   \end{align}
-  Let $B$ the a maximum cardinality subset of $V(G)$ with $\ell(B)<\sqrt{4a\ln n/L}$.  These $B$ vertices define $\binom{B}{k}$ bad $k$-element sets. Therefore, by Markov's Inequality, the probability that $\binom{B}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{B}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $B\in O(D\eta\log^{3/2} n)$ with probability at least $1/2$.  Therefore, with probability at least $1/2-n^{-a+2}$, the ordering $x_1,\ldots,x_n$ defines a layout of $G$ with bandwidth $O(D\eta\log^{3/2} n)$.
+  Let $B$ the a maximum cardinality subset of $V(G)$ with $\ell(B)<\sqrt{4a\ln n/L}$.  These $B$ vertices define $\binom{B}{k}$ bad $k$-element sets. Therefore, by Markov's Inequality, the probability that $\binom{B}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{B}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $B\in O(Dk\eta\log^{3/2} n)$ with probability at least $1/2$.  Therefore, with probability at least $1/2-n^{-a+2}$, the ordering $x_1,\ldots,x_n$ defines a layout of $G$ with bandwidth $O(Dk\eta\log^{3/2} n)$.
 \end{proof}
 
 
