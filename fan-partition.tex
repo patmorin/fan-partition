@@ -108,7 +108,8 @@ For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}
 
 Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$, $d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\}$.
 
-We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each $r\ge 1$ and each $x\in S$.  This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has local density at most $D$.
+We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each $r\ge 1$ and each $x\in S$.  It will be convenient for us to work with a discrete version of local density:  A finite metric space $\mathcal{M}:=(S,d)$ \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each \emph{integer} $r\ge 1$ and each $x\in S$.
+Both definitions are consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has (discrete) local density at most $D$.
 
 A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.
 
@@ -138,33 +139,59 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathde
 
 \subsection{Bandwidth from Local Density and XXX}
 
-The following result gives a bridge between tree volume and local density:
+\citet[Theorem~10]{feige:approximating} proves the following result for graph metrics:
 
 \begin{lem}[{\citet[Theorem~10]{feige:approximating}}]\label{reciprocal_sum}
-  For any connected graph $G$ with local density at most $D$ and any positive integer $k$,
-  \[  \sum_{K\in \binom{V(G)}{k}}\frac{1}{\tvol_{d_G}(K)}\le n(D(1+\ln(n/D)))^{k-1} \enspace .
+  For any $n$-element metric space $(S,d)$ with local density at most $D$ and minimum distance $\min_{\{x,y\}\in\binom{S}{2}} d(x,y)\ge 1$, and any positive integer $k$,
+  \[
+    \sum_{K\in \binom{V(G)}{k}}\frac{1}{\tvol_{d_G}(K)}\le n(D(1+\ln(n/D)))^{k-1} \enspace .
   \]
 \end{lem}
 
-\todo[inline]{Does \cref{reciprocal_sum} generalize to metric spaces with local density $D$?}
+\begin{proof}
+  First we claim that, for any $x\in S$,
+  \begin{equation}
+    \sum_{y\in S\setminus\{x\}} \frac{1}{d(x,y)} \le 2D\ln(n/D) \enspace . \label{reciprocal_crux}
+  \end{equation}
+  \todo[inline]{[TODO: PRove this]}
+  For a set $K$, let $\Pi(K)$ denote the set of all permutations $\pi:\{1,\ldots,k\}\to K$.
+  \citet[Lemma~17]{feige:approximating} shows that, for any $k$-element subset $K$ of $S$,
+  \[
+    \frac{2^{k-1}}{\tvol(K)} \le \sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))}
+  \]
+  Therefore, to prove the lemma it is sufficient to show that
+  \begin{equation}
+    \sum_{K\in\binom{S}{k}}\sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))} \le n(2D(1+\ln(n/D)))^{k-1} \enspace .
+    \label{volume_sum}
+  \end{equation}
+  The proof is by induction on $k$.  When $k=1$, the outer sum in \cref{volume_sum} has $\binom{n}{1}=n$ terms, each inner sum has $1!=1$ terms, and the denomiator in each term is an empty product whose value is $1$, by convention.  Therefore, for $k=1$, \cref{volume_sum} asserts that $n \le n$, which is certainly true.  Now assume that \cref{volume_sum} holds for $k-1$.  Then
+  \begin{align*}
+    & \quad \sum_{K\in\binom{S}{k}}\sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))} \\
+    & = \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\sum_{y\in S\setminus K'}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot\frac{1}{d(\pi(k-1),y)} \\
+    & = \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot\sum_{y\in S\setminus K'}\frac{1}{d(\pi(k-1),y)} \\
+    & \le \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot 2D(1+\ln(n/D) & \text{(by \cref{reciprocal_crux})}\\
+    & \le n(2D(1+\ln(n/D)))^{k-2}(2D(1+\ln(n/D) & \text{(by induction)}\\
+    & = n(2D(1+\ln(n/D)))^{k-1} \enspace . & & \qedhere
+  \end{align*}
+\end{proof}
 
 
 
-
-The following Theorem is proved implicitly by \citet{feige:approximating}. We recap the proof here in order to make the relationship between the parameters $n$, $D$, and $\eta$.
+The following Theorem is proved implicitly by \citet{feige:approximating} for graph metrics. We recap the proof here for metric spaces and do so in order to make the relationship between the parameters $n$, $D$, and $\eta$.
 
 \begin{thm}
-  Let $G$ be a connected $n$-vertex graph with local density at most $D$ and let $\phi:V(G)\to \R^L$ be a $(k,\eta)$-volume respecting Euclidean contraction of $(V(G),d_G)$.  Then $\bw(G) \in O(Dk\eta\log^{3/2} n)$.
+  Let $(S,d)$ be a $n$-element metric space with local density at most $D$ and minimum-distance $\min_{\{x,y\}\in\binom{S}{2}}d(x,y)=1$, and let $\phi:S\to \R^L$ be a $(k,\eta)$-volume respecting Euclidean contraction of $(V(G),d_G)$. Then $\bw(S,d) \in O(Dk\eta\log^{3/2} n)$.
 \end{thm}
 
+\todo[inline]{Define a version of bandwidth for metric spaces. For a layout $x_1,\ldots,x_n$, $\bw(x_1,\ldots,x_n)=\max\{j-i:d(x_i,x_j)=1\}$. Actually, I think this is just the minimum distortion of a Euclidean embedding of $\phi:S\to\Z$.}
 \todo[inline]{There must be a lower bound of $\Omega(\log n)$ on $k$ in this theorem/proof. Figure out where it's used.}
 
 \begin{proof}
-  Let $r$ be a random unit vector in $\R^L$ and for each $v\in V(G)$, let $h(v):=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the vertices of $G$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(G)$, it suffices to upper bound the maximum, over all edges $vw$ of $G$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
+  Let $r$ be a random unit vector in $\R^L$ and for each $v\in S$, let $h(v):=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the elements of $S$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(S,d)$, it suffices to upper bound the maximum, over all $vw$ with $d(v,w)=1$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
 
-  Consider some edge $vw$ of $G$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a>0$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each edge $vw$ of $G$.
+  Consider some pair $v,w\in S$ with $d(v,w)=1$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a>0$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each edge $vw$ of $G$.
 
-  Let $K$ be a $k$-element subset of $V(G)$ and let $\ell(K):=\max_{v\in K}h(v)-\min_{v\in K} h(v)$.  By \cite[Theorem~9]{feige:approximating} there exists a universal constant $\beta$ such that, for any $c\ge 1$,
+  Let $K$ be a $k$-element subset of $S$ and let $\ell(K):=\max_{v\in K}h(v)-\min_{v\in K} h(v)$.  By \cite[Theorem~9]{feige:approximating} there exists a universal constant $\beta$ such that, for any $c\ge 1$,
   \[
       \Pr(\ell(K) \le c)
         < \frac{(\beta L)^{k/2}c^k\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))} \enspace .
@@ -186,7 +213,7 @@ The following Theorem is proved implicitly by \citet{feige:approximating}. We re
     & \le \left((8\beta a)^{1/2}\eta D\ln^{3/2} n\right)^{k}\, nL\log n \enspace .
     \label{bad_expectation}
   \end{align}
-  Let $B$ a maximum cardinality subset of $V(G)$ with $\ell(B)<\sqrt{4a\ln n/L}$.  These $B$ vertices define $\binom{B}{k}$ bad $k$-element sets. Therefore, by Markov's Inequality, the probability that $\binom{B}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O(Dk\eta\log^{3/2} n)$ with probability at least $1/2$.  Therefore, with probability at least $1/2-n^{-a+2}$, the ordering $x_1,\ldots,x_n$ defines a layout of $G$ with bandwidth $O(Dk\eta\log^{3/2} n)$.
+  Let $B$ a maximum cardinality subset of $V(G)$ with $\ell(B)<\sqrt{4a\ln n/L}$.  These $B$ vertices define $\binom{B}{k}$ bad $k$-element sets. Therefore, by Markov's Inequality, the probability that $\binom{B}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O(Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw(x_1,\ldots,x_n)\in O(Dk\eta\log^{3/2} n)$, so $\bw(S,d)\in O(Dk\eta\log^{3/2} n)$.
 \end{proof}
 
 
