@@ -86,7 +86,7 @@
 \maketitle
 
 \begin{abstract}
-  We show that every $n$-vertex planar graph is contained in the strong product of a fan and a clique of size $\sqrt{n}\log^2 n$.  Equivalently, every $n$-vertex planar graph $G$ contains a vertex subset $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
+  We show that every $n$-vertex planar graph is contained in the strong product of a fan and a clique of size $\sqrt{n}\log^2 n$.  Equivalently, every $n$-vertex planar graph $G$ contains a vertex subset $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.  This result holds in the more general setting of product structured graphs, which includes bounded genus graphs and $k$-planar graphs for fixed $k$.
 \end{abstract}
 
 \section{Introduction}
@@ -101,7 +101,10 @@ Notations: $D$ is local density.  $d$ is a distance function. $\Delta$ will be a
 
 A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over $S$.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.
 
-For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}$ to denote the minimum number of edges in any path from $v$ to $w$ in $G$, or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different connected components of $G$.  If $G$ is connected, then $d_G$ is a distance function over $V(G)$ so $(V(G),d_G)$ is a metric space.  In this case we will use the shorthand $B_{G}(x,r):=B_{V(G),d_G}(x,r)$.
+For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}$ to denote the minimum number of edges in any path from $v$ to $w$ in $G$, or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different connected components of $G$.  If $G$ is connected, then $d_G$ is a distance function over $V(G)$ so $\mathdefin{\mathcal{M}_G}:=(V(G),d_G)$ is a metric space. Any metric space that can be defined this way is referred to as a \defin{graph metric}.
+
+
+% In this case we will use the shorthand $B_{G}(x,r):=B_{V(G),d_G}(x,r)$.
 
 Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$, $d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\}$.
 
@@ -122,14 +125,14 @@ A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space
 
 For a set $K$ of $k\le \ell+1$ points in $\R^\ell$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
 
-The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(S)):\text{$\phi$ is a Euclidean contraction of $S$}\}$.  A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,\eta)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/\eta^{k-1}$ for each $k$-element subset $K$ of $S$.
+The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(K)):\text{$\phi$ is a Euclidean contraction of $(K,d)$}\}$.  A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,\eta)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/\eta^{k-1}$ for each $k$-element subset $K$ of $S$.
 
 \citet{feige:approximating} introduces the following definition and theorem as a bridge between ideal volume and Euclidean volume. The \defin{tree volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\tvol_d(K)}:=\prod_{xy\in E(T)} d(x,y)$ where $T$ is a minimum spanning tree of the weighted complete graph with vertex set $K$ where the weight of any edge $xy$ is equal to $d(x,y)$.
 
 \begin{lem}[{\citet[Theorem~3]{feige:approximating}}]
   Let $(S,d)$ be a finite metric space with $|S|=k$.  Then
   \[
-    \ivol_{d}(S) \le \frac{\tvol_d(S)}{(k-1)!} \le \ivol_d(S)2^{(k-2)/2} \enspace .
+    \ivol_{d}(S) \le \frac{\tvol_d(S)}{(k-1)!} \le 2^{(k-2)/2}\ivol_d(S) \enspace .
   \]
 \end{lem}
 
