@@ -99,19 +99,19 @@ Notations: $D$ is local density.  $d$ is a distance function. $\Delta$ will be a
 
 \subsection{Distance Functions and Metric Spaces}
 
-A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over $S$.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.
+A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over some superset of $S$.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.
 
 For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}$ to denote the minimum number of edges in any path from $v$ to $w$ in $G$, or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different connected components of $G$.  If $G$ is connected, then $d_G$ is a distance function over $V(G)$ so $\mathdefin{\mathcal{M}_G}:=(V(G),d_G)$ is a metric space. Any metric space that can be defined this way is referred to as a \defin{graph metric}.
-
 
 % In this case we will use the shorthand $B_{G}(x,r):=B_{V(G),d_G}(x,r)$.
 
 Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$, $d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\}$.
 
-We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each $r\ge 1$ and each $x\in S$.  It will be convenient for us to work with a discrete version of local density:  A finite metric space $\mathcal{M}:=(S,d)$ \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each \emph{integer} $r\ge 1$ and each $x\in S$.
-Both definitions are consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has (discrete) local density at most $D$.
+We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each $r\ge 1$ and each $x\in S$.
+% It will be convenient for us to work with a discrete version of local density:  A finite metric space $\mathcal{M}:=(S,d)$ \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each \emph{integer} $r\ge 1$ and each $x\in S$.
+This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has (discrete) local density at most $D$.
 
-A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.
+A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.
 
 \begin{obs}\label{supergraph_contraction}
   For any connected graph $I$ and any connected subgraph $G$ of $I$, $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
@@ -124,7 +124,7 @@ A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space
 
 \subsection{Volume-Preserving Contractions}
 
-For a set $K$ of $k\le \ell+1$ points in $\R^\ell$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
+For a set $K$ of $k\le L$ points in $\R^L$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
 
 The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(K)):\text{$\phi$ is a Euclidean contraction of $(K,d)$}\}$.  A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,\eta)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/\eta^{k-1}$ for each $k$-element subset $K$ of $S$.
 
@@ -139,21 +139,23 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathde
 
 \subsection{Bandwidth from Local Density and XXX}
 
-\citet[Theorem~10]{feige:approximating} proves the following result for graph metrics, which establishes a critical connection between local density and tree volume:
+The following lemma generalizes \citet[Theorem~10]{feige:approximating} from graph metric to general metric spaces and establishes a critical connection between local density and tree volume.
 
 \begin{lem}[{\citet[Theorem~10]{feige:approximating}}]\label{reciprocal_sum}
-  For any $n$-element metric space $(S,d)$ with local density at most $D$ and minimum distance $\min_{\{x,y\}\in\binom{S}{2}} d(x,y)\ge 1$, and any positive integer $k$,
+  For any $n$-element metric space $\mathcal{M}:=(S,d)$ with local density at most $D$ and any positive integer $k$,
   \[
-    \sum_{K\in \binom{V(G)}{k}}\frac{1}{\tvol_{d_G}(K)}\le n(D(1+\ln(n/D)))^{k-1} \enspace .
+    \sum_{K\in \binom{V(G)}{k}}\frac{1}{\tvol_{d_G}(K)}\le n(DH_n/2)^{k-1} \enspace ,
   \]
+  where $\mathdefin{H_n}:=\sum_{i=1}^n\le 1+\ln n$ is the $n$-th harmonic number.
 \end{lem}
 
 \begin{proof}
   First we claim that, for any $x\in S$,
   \begin{equation}
-    \sum_{y\in S\setminus\{x\}} \frac{1}{d(x,y)} \le 2D\ln(n/D) \enspace . \label{reciprocal_crux}
+    \sum_{y\in S\setminus\{x\}} \frac{1}{d(x,y)} \le \sum_{i=1}^{n-1}\frac{1}{i/D} = DH_{n-1} < DH_n \enspace . \label{reciprocal_crux}
   \end{equation}
-  \todo[inline]{[TODO: PRove this]}
+  To see why this is so, let $d_1\le\cdots\le d_{n-1}$ denote the distances of the elements in $S\setminus\{x\}$ from $x$.  For each $i\in\{1,\ldots,n-1\}$, let $\mathdefin{z_i}:=\max\{j: d_j \le i/D\}$. Observe that $z_i \le i$ since, otherwise $B_{(S,i/D)}(x)$ has radius $r:=i/D$ and size $j>i=rD$, contradicting the fact that $(S,d)$ has local density at most $D$.  If $z_i=i$ for each $i\in\{1,\ldots,n-1\}$ then $d_i=i/D$ for each $i\in\{1,\ldots,n-1\}$ and $\sum_{y\in S\setminus\{x\}}=\sum_{i=1}^{n-1}\frac{1}{i/D}$, so there is nothing to prove.  Otherwise, consider the minimum $i$ such that $z_i < i$.  Then $z_i=i-1$ and $d_i > i/D$. By reducing $d_i$ to $i/D$ we increase $\sum_{i=1}^{n-1} 1/d_i$ and increase the minimum $i$ such that $z_i < i$.  Repeating this only increases $\sum_{i=1}^{n-1} 1/d_i$ and finishes with $\sum_{i=1}^{n-1} 1/d_i= H_{n-1}$.
+
   For a set $K$, let $\Pi(K)$ denote the set of all permutations $\pi:\{1,\ldots,k\}\to K$.
   \citet[Lemma~17]{feige:approximating} shows that, for any $k$-element subset $K$ of $S$,
   \[
@@ -161,7 +163,7 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathde
   \]
   Therefore, to prove the lemma it is sufficient to show that
   \begin{equation}
-    \sum_{K\in\binom{S}{k}}\sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))} \le n(2D(1+\ln(n/D)))^{k-1} \enspace .
+    \sum_{K\in\binom{S}{k}}\sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))} \le n(DH_n)^{k-1} \enspace .
     \label{volume_sum}
   \end{equation}
   The proof is by induction on $k$.  When $k=1$, the outer sum in \cref{volume_sum} has $\binom{n}{1}=n$ terms, each inner sum has $1!=1$ terms, and the denomiator in each term is an empty product whose value is $1$, by convention.  Therefore, for $k=1$, \cref{volume_sum} asserts that $n \le n$, which is certainly true.  Now assume that \cref{volume_sum} holds for $k-1$.  Then
@@ -169,58 +171,81 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathde
     & \quad \sum_{K\in\binom{S}{k}}\sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))} \\
     & = \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\sum_{y\in S\setminus K'}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot\frac{1}{d(\pi(k-1),y)} \\
     & = \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot\sum_{y\in S\setminus K'}\frac{1}{d(\pi(k-1),y)} \\
-    & \le \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot 2D(1+\ln(n/D)) & \text{(by \cref{reciprocal_crux})}\\
-    & \le n(2D(1+\ln(n/D)))^{k-2}(2D(1+\ln(n/D)) & \text{(by induction)}\\
-    & = n(2D(1+\ln(n/D)))^{k-1} \enspace . & & \qedhere
+    & \le \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot DH_n & \text{(by \cref{reciprocal_crux})}\\
+    & \le n(DH_n)^{k-2}DH_n & \text{(by induction)}\\
+    & = n(DH_n)^{k-1} \enspace . & & \qedhere
   \end{align*}
 \end{proof}
 
+The following theorem is proved implicitly by \citet{feige:approximating} for graph metrics, although the dependence on the parameters $n$, $D$, $k$, and $\eta$ are not stated explicitly there. Here we give a generalization for metric spaces and make the bound on the bandwidth explicit in terms of the parameters $n$, $D$, and $\eta$.  First we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a metric space and let $x_1,\ldots,x_n$ be an ordering of $S$.  Then $\bw(x_1,\ldots,x_n):=\max\{j-i:d(x_i,x_j)=1\}$ and $\bw(S,d)$ is the minimum bandwidth taken over all orderings of $S$.  Note that if $S$ is a graph metric, then this definition coincides exactly with the
 
 
-The following Theorem is proved implicitly by \citet{feige:approximating} for graph metrics. We recap the proof here for metric spaces and do so in order to make the relationship between the parameters $n$, $D$, and $\eta$.
+
 
 \begin{thm}
-  Let $(S,d)$ be a $n$-element metric space with local density at most $D$ and minimum-distance $\min_{\{x,y\}\in\binom{S}{2}}d(x,y)=1$, and let $\phi:S\to \R^L$ be a $(k,\eta)$-volume respecting Euclidean contraction of $(V(G),d_G)$. Then $\bw(S,d) \in O(Dk\eta\log^{3/2} n)$.
+  Let $(S,d)$ be a $n$-element metric space with local density at most $D$, minimum-distance $\min_{\{x,y\}\in\binom{S}{2}}d(x,y)=1$, and diameter $\max_{\{x,y\}\in\binom{S}{2}}d(x,y)\le n$.  If $(S,d)$ has a $(k,\eta)$-volume-respecting Euclidean contraction $\phi:S\to\R^L$ with $L\ge 4a\ln n$ then
+  \[
+    \bw(S,d) \in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n) \enspace .
+  \]
 \end{thm}
 
-\todo[inline]{Define a version of bandwidth for metric spaces. For a layout $x_1,\ldots,x_n$, $\bw(x_1,\ldots,x_n)=\max\{j-i:d(x_i,x_j)=1\}$. Actually, I think this is just the minimum distortion of a Euclidean embedding of $\phi:S\to\Z$.}
-\todo[inline]{There must be a lower bound of $\Omega(\log n)$ on $k$ in this theorem/proof. Figure out where it's used.}
+% \todo[inline]{Define a version of bandwidth for metric spaces. For a layout $x_1,\ldots,x_n$, $\bw(x_1,\ldots,x_n)=\max\{j-i:d(x_i,x_j)=1\}$. Because paths in graphs are made up of steps of length $1$, this is just the minimum distortion of a Euclidean embedding of $\phi:S\to\Z$.  I wonder if we could strengthen this theorem to show $(S,d)$ has an embedding where $|j-i|\le ?d(x_i,x_j)$?  Probably not!}
 
 \begin{proof}
-  Let $r$ be a random unit vector in $\R^L$ and for each $v\in S$, let $h(v):=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the elements of $S$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(S,d)$, it suffices to upper bound the maximum, over all $vw$ with $d(v,w)=1$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
+  Let $r$ be a random unit vector in $\R^L$ and for each $v\in S$, let $\mathdefin{h(v)}:=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the elements of $S$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(S,d)$, it suffices to show an upper bound that holds with positive probability on the maximum, over all $vw$ with $d(v,w)=1$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
 
-  Consider some pair $v,w\in S$ with $d(v,w)=1$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a>0$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each edge $vw$ of $G$.
+  Consider some pair $v,w\in S$ with $d(v,w)=1$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a>0$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each pair $v,w\in S$ with $d(v,w)=1$.
 
-  Let $K$ be a $k$-element subset of $S$ and let $\ell(K):=\max_{v\in K}h(v)-\min_{v\in K} h(v)$.  By \cite[Theorem~9]{feige:approximating} there exists a universal constant $\beta$ such that, for any $c\ge 1$,
+  Let  $K:=\{v_1,\ldots,v_k\}$ be a $k$-element subset of $S$. First observe that $\evol(\phi(K)\le n^k$, since $\evol(\phi(K))\le\prod_{i=2}^k d_2(\phi(v_{i-1}),\phi(v_i))\le \prod_{i=2}^k d(v_{i-1},v_i)$.  In particular, $\log\evol(\phi(K))\le k\log n$.  Define $\mathdefin{\ell(K)}:=\max_{v\in K}h(v)-\min_{v\in K} h(v)$.  By \cite[Theorem~9]{feige:approximating} there exists a universal constant $\beta$ such that, for any $c\le 1$,
   \[
       \Pr(\ell(K) \le c)
-        < \frac{(\beta L)^{k/2}c^k\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))} \enspace .
+        < \frac{(\beta L)^{k/2}c^k\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))}
+        \le \frac{(\beta L)^{k/2}c^kk\log n}{k^k\evol(\phi(K))} \enspace .
   \]
   In particular,
   \begin{align*}
     \Pr(\ell(K) \le \sqrt{4a\ln n/L})
-      & < \frac{(4\beta a\ln n)^{k/2}\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))} \\
-      & < \frac{(4\beta a\ln n)^{k/2}\, L\log n}{k^k\evol(\phi(K))} \\
-      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}\, L\log n}{k^k\evol(\phi(K))} \\
-      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}(k-1)!2^{(k-2)/2}\, L\log n}{k^k\tvol_{d_G}(K)} \\
-      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}2^{(k-2)/2}\,L\log n}{\tvol_{d_G}(K)} \\
-      & \le \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\,L\log n}{\tvol_{d_G}(K)} \\
+      & <
+      % \frac{(4\beta a\ln n)^{k/2}\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))} \\
+      % & <
+      \frac{(4\beta a\ln n)^{k/2}\, L\log n}{k^k\evol(\phi(K))} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}\, k\log n}{k^k\evol(\phi(K))} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}(k-1)!2^{(k-2)/2}\, k\log n}{k^k\tvol_{d}(K)} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}2^{(k-2)/2}\,k\log n}{\tvol_{d}(K)} \\
+      & \le \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\,k\log n}{\tvol_{d}(K)} \\
   \end{align*}
-  We say that $K$ is \defin{bad} if $\ell(K) \le \sqrt{4a\ln n/L}$. Then the expected number of bad sets is at most
+  We say that $K\in\binom{S}{k}$ is \defin{bad} if $\ell(K) \le \sqrt{4a\ln n/L}$. Then the expected number of bad sets is at most
   \begin{align}
-    \sum_{K\in \binom{V(G)}{k}} \Pr(\text{$K$ is bad})
-    & \le \sum_{K\in \binom{V(G)}{k}} \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\, L\log n}{\tvol_{d_G}(K)} \notag \\
-    & \le \left((8\beta a)^{1/2}\eta D\ln^{3/2} n\right)^{k}\, nL\log n \enspace .
+    \sum_{K\in \binom{S}{k}} \Pr(\text{$K$ is bad})
+    & \le \sum_{K\in \binom{S}{k}} \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\, k\log n}{\tvol_{d}(K)} \notag \\
+    & \le \left((8\beta a\ln n)^{1/2}\eta DH_n\right)^{k}\, nk\log n
+    & \text{(by \cref{reciprocal_sum})} \notag \\
+    & \le \left(O(\eta D\log^{3/2}n)\right)^{k}\, nk\log n \enspace .
     \label{bad_expectation}
   \end{align}
-  Let $B$ a maximum cardinality subset of $V(G)$ with $\ell(B)<\sqrt{4a\ln n/L}$.  These $B$ vertices define $\binom{B}{k}$ bad $k$-element sets. Therefore, by Markov's Inequality, the probability that $\binom{B}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O(Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw(x_1,\ldots,x_n)\in O(Dk\eta\log^{3/2} n)$, so $\bw(S,d)\in O(Dk\eta\log^{3/2} n)$.
+  Let $B$ a maximum cardinality subset of $S$ with $\ell(B)<\sqrt{4a\ln n/L}$.  The vertices in $B$ form $\binom{|B|}{k}$ bad sets. Therefore, by Markov's Inequality, the probability that $\binom{B}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw_d(x_1,\ldots,x_n)\in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n)$.
 \end{proof}
 
 
-
-
-
 \section{Local Sparsification}
+
+In this section we will prove a generalization of the following result:
+
+\begin{lem}\label{planar_sparsifier}
+  For each $D\le n$, every $n$-planar graph $G$ contains contains a subset $X$ of $O(n\log n/D)$ vertices such that $G-X$ has local density at most $n/D$.
+\end{lem}
+
+Before continuing, we show that this, combined with the following result of \citet{rao:small}, establishes our results for planar graphs.
+
+\begin{thm}[{\citet{rao:small}}]
+  For every $k\le n$, every $n$-vertex planar graph $G$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
+\end{thm}
+
+\begin{cor}
+
+\end{cor}
+
+Let $G$ be an $n$-vertex planar graph.  By \cref{planar_sparsifier}, $G$ contains a vertex set $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has local density at most $\sqrt{n}/\log n$.  By \cref{}
 
 
 \begin{lem}\label{sparsifier_simple}
