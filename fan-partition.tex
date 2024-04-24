@@ -113,6 +113,10 @@ This definition is consistent with the definition of local density of graphs:  A
 
 A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.
 
+\begin{obs}\label{contraction_increases_density}
+  If a metric space $\mathcal{M}$ has a contraction into a metric space $\mathcal{M}'$ of local density at most $D$ then $\mathcal{M}$ has local density at most $D$.
+\end{obs}
+
 \begin{obs}\label{supergraph_contraction}
   For any connected graph $I$ and any connected subgraph $G$ of $I$, $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
 \end{obs}
@@ -182,7 +186,7 @@ The following theorem is proved implicitly by \citet{feige:approximating} for gr
 
 
 
-\begin{thm}
+\begin{thm}\label{volume_density_bandwidth}
   Let $(S,d)$ be a $n$-element metric space with local density at most $D$, minimum-distance $\min_{\{x,y\}\in\binom{S}{2}}d(x,y)=1$, and diameter $\max_{\{x,y\}\in\binom{S}{2}}d(x,y)\le n$.  If $(S,d)$ has a $(k,\eta)$-volume-respecting Euclidean contraction $\phi:S\to\R^L$ with $L\ge 4a\ln n$ then
   \[
     \bw(S,d) \in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n) \enspace .
@@ -237,22 +241,29 @@ In this section we will prove a generalization of the following result:
 
 Before continuing, we show that this, combined with the following result of \citet{rao:small}, establishes our results for planar graphs.
 
-\begin{thm}[{\citet{rao:small}}]
+\begin{thm}[{\citet{rao:small}}]\label{rao}
   For every $k\le n$, every $n$-vertex planar graph $G$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
 \end{thm}
 
-\begin{cor}
+Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yields the following corollary:
 
+\begin{cor}\label{planar_density_bandwidth}
+  Every $n$-vertex planar graph $G$ with local density at most $D$ has bandwidth $O(D\log^{3} n)$.
 \end{cor}
 
-Let $G$ be an $n$-vertex planar graph.  By \cref{planar_sparsifier}, $G$ contains a vertex set $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has local density at most $\sqrt{n}/\log n$.  By \cref{}
+\begin{thm}
+  Every $n$-vertex planar graph $G$ contains a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
+\end{thm}
 
+\begin{proof}
+  Let $G$ be an $n$-vertex planar graph.  By \cref{planar_sparsifier}, $G$ contains a vertex set $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has local density at most $D:=\sqrt{n}/\log n$.  By \cref{planar_density_bandwidth}, $G-X$ has bandwidth at most $O(D\log^{3} n)=O(\sqrt{n}\log^2 n)$.
+\end{proof}
 
 \begin{lem}\label{sparsifier_simple}
   For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(G)$ with $|X|\le ?t(n/D)\log_2 n$ such that the metric space $(V(G)\setminus X, d_{H\boxtimes P-X})$ has local density at most $D$.
 \end{lem}
 
-\Cref{sparsifier_simple} is a consequence of the following technical lemma.
+\Cref{sparsifier_simple} is a consequence of the following stronger technical lemma, which says that after removing the vertices of $X$, the subgraph of $G$ induced by $\ell$ consecutive layers of $H\boxtimes P-X$ has components of size at most $?tn/D$.
 
 \begin{lem}\label{sparsifier}
   For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(G)$ with $|X|\le ?tn/D$  there exists a $X\subseteq V(G)$ with $|X\cap V(G)|\le ?(n/D)\log_2 n$ such that each positive integer $\ell$, each subpath $y_1,\ldots,y_\ell$ of $P$, and each component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_r\}]-X$ satisfies $|V(C)\cap V(G)|\le D\ell$.

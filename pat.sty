@@ -6,10 +6,12 @@
 \usepackage[nameinlink,noabbrev,capitalise]{cleveref}
 
 \declaretheorem[name=Theorem]{thm}
+\crefname{thm}{Theorem}{Theorems}
 \declaretheorem[name=Lemma,sibling=thm]{lem}
 \declaretheorem[name=Corollary,sibling=thm]{cor}
 \declaretheorem[name=Conjecture,sibling=thm]{conj}
 \declaretheorem[name=Observation,sibling=thm]{obs}
+\crefname{obs}{Observation}{Observations}
 \declaretheorem[name=Property,sibling=thm]{prop}
 \declaretheorem[name=Claim,sibling=thm]{clm}
 
@@ -18,7 +20,6 @@
 % \newtheorem{thm}{Theorem}{\bfseries}{\itshape}
 % \newcommand{\thmlabel}[1]{\showlabel{thm:#1}}
 % \newcommand{\thmref}[1]{Theorem~\ref{thm:#1}}
-% \crefname{thm}{Theorem}{Theorem}
 
 
 % \newtheorem{lem}[thm]{Lemma}{\bfseries}{\itshape}
@@ -39,7 +40,6 @@
 % \newtheorem{obs}[thm]{Observation}{\bfseries}{\itshape}
 % \newcommand{\obslabel}[1]{\showlabel{obs:#1}}
 % \newcommand{\obsref}[1]{Observation~\ref{obs:#1}}
-\crefname{obs}{Observation}{Observations}
 
 % \newtheorem{prop}[thm]{Proposition}{\bfseries}{\itshape}
 % \newcommand{\proplabel}[1]{\showlabel{prop:#1}}
@@ -53,34 +53,22 @@
 
 \newtheorem{assumption}{Assumption}{\bfseries}{\rm}
 \newenvironment{ass}{\begin{assumption}\rm}{\end{assumption}}
-\newcommand{\asslabel}[1]{\showlabel{ass:#1}}
-\newcommand{\assref}[1]{Assumption~\ref{ass:#1}}
 \crefname{assumption}{Assumption}{Assumption}
 
-\newcommand{\proclabel}[1]{\showlabel{alg:#1}}
-\newcommand{\procref}[1]{Procedure~\ref{alg:#1}}
 \crefname{proc}{Procedure}{Procedure}
 
 \theoremstyle{definition}
 
 \newtheorem{defn}{Definition}
-\newcommand{\deflabel}[1]{\showlabel{rem:#1}}
-\newcommand{\defref}[1]{Definition~\ref{rem:#1}}
 \crefname{defn}{Definition}{Definition}
 
 \newtheorem{rem}[thm]{Remark}
-\newcommand{\remlabel}[1]{\showlabel{rem:#1}}
-\newcommand{\remref}[1]{Remark~\ref{rem:#1}}
 \crefname{rem}{Remark}{Remark}
 
 \newtheorem{lesson}{Lesson}
-\newcommand{\leslabel}[1]{\showlabel{les:#1}}
-\newcommand{\lesref}[1]{Lesson~\ref{les:#1}}
 \crefname{lesson}{Lesson}{Lesson}
 
 \newtheorem{op}{Open Problem}
-\newcommand{\oplabel}[1]{\showlabel{op:#1}}
-\newcommand{\opref}[1]{Open Problem~\ref{op:#1}}
 \crefname{op}{Open Problem}{Open Problem}
 
 \newtheorem{prb}{Problem}{\bfseries}{\rm}
