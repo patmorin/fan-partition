@@ -139,7 +139,7 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathde
 
 \subsection{Bandwidth from Local Density and XXX}
 
-\citet[Theorem~10]{feige:approximating} proves the following result for graph metrics:
+\citet[Theorem~10]{feige:approximating} proves the following result for graph metrics, which establishes a critical connection between local density and tree volume:
 
 \begin{lem}[{\citet[Theorem~10]{feige:approximating}}]\label{reciprocal_sum}
   For any $n$-element metric space $(S,d)$ with local density at most $D$ and minimum distance $\min_{\{x,y\}\in\binom{S}{2}} d(x,y)\ge 1$, and any positive integer $k$,
@@ -169,8 +169,8 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathde
     & \quad \sum_{K\in\binom{S}{k}}\sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))} \\
     & = \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\sum_{y\in S\setminus K'}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot\frac{1}{d(\pi(k-1),y)} \\
     & = \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot\sum_{y\in S\setminus K'}\frac{1}{d(\pi(k-1),y)} \\
-    & \le \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot 2D(1+\ln(n/D) & \text{(by \cref{reciprocal_crux})}\\
-    & \le n(2D(1+\ln(n/D)))^{k-2}(2D(1+\ln(n/D) & \text{(by induction)}\\
+    & \le \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot 2D(1+\ln(n/D)) & \text{(by \cref{reciprocal_crux})}\\
+    & \le n(2D(1+\ln(n/D)))^{k-2}(2D(1+\ln(n/D)) & \text{(by induction)}\\
     & = n(2D(1+\ln(n/D)))^{k-1} \enspace . & & \qedhere
   \end{align*}
 \end{proof}
