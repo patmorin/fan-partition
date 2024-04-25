@@ -111,7 +111,7 @@ We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric s
 % It will be convenient for us to work with a discrete version of local density:  A finite metric space $\mathcal{M}:=(S,d)$ \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each \emph{integer} $r\ge 1$ and each $x\in S$.
 This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has (discrete) local density at most $D$.
 
-A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.
+A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.  When $S\subseteq S'$ and $\phi$ is the identity function we say that $\mathcal{M'}$ is a contraction of $\mathcal{M}$.
 
 \begin{obs}\label{contraction_increases_density}
   If a metric space $\mathcal{M}$ has a contraction into a metric space $\mathcal{M}'$ of local density at most $D$ then $\mathcal{M}$ has local density at most $D$.
@@ -141,7 +141,7 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathde
   \]
 \end{lem}
 
-\subsection{Bandwidth from Local Density and XXX}
+\subsection{Bandwidth from Local Density and Volume-Preserving Contractions}
 
 The following lemma generalizes \citet[Theorem~10]{feige:approximating} from graph metric to general metric spaces and establishes a critical connection between local density and tree volume.
 
@@ -227,7 +227,7 @@ The following theorem is proved implicitly by \citet{feige:approximating} for gr
     & \le \left(O(\eta D\log^{3/2}n)\right)^{k}\, nk\log n \enspace .
     \label{bad_expectation}
   \end{align}
-  Let $B$ a maximum cardinality subset of $S$ with $\ell(B)<\sqrt{4a\ln n/L}$.  The vertices in $B$ form $\binom{|B|}{k}$ bad sets. Therefore, by Markov's Inequality, the probability that $\binom{B}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw_d(x_1,\ldots,x_n)\in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n)$.
+  Let $B$ a maximum cardinality subset of $S$ with $\ell(B)<\sqrt{4a\ln n/L}$.  The vertices in $B$ form $\binom{|B|}{k}$ bad sets. Therefore, by Markov's Inequality, the probability that $\binom{|B|}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw_d(x_1,\ldots,x_n)\in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n)$.
 \end{proof}
 
 
@@ -236,7 +236,7 @@ The following theorem is proved implicitly by \citet{feige:approximating} for gr
 In this section we will prove a generalization of the following result:
 
 \begin{lem}\label{planar_sparsifier}
-  For each $D\le n$, every $n$-planar graph $G$ contains contains a subset $X$ of $O(n\log n/D)$ vertices such that $G-X$ has local density at most $n/D$.
+  For each $D\le n$, every $n$-planar graph $G$ contains contains a subset $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $n/D$.
 \end{lem}
 
 Before continuing, we show that this, combined with the following result of \citet{rao:small}, establishes our results for planar graphs.
@@ -251,7 +251,7 @@ Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yiel
   Every $n$-vertex planar graph $G$ with local density at most $D$ has bandwidth $O(D\log^{3} n)$.
 \end{cor}
 
-\begin{thm}
+\begin{thm}\label{fan_partition_planar}
   Every $n$-vertex planar graph $G$ contains a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
 \end{thm}
 
@@ -259,18 +259,26 @@ Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yiel
   Let $G$ be an $n$-vertex planar graph.  By \cref{planar_sparsifier}, $G$ contains a vertex set $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has local density at most $D:=\sqrt{n}/\log n$.  By \cref{planar_density_bandwidth}, $G-X$ has bandwidth at most $O(D\log^{3} n)=O(\sqrt{n}\log^2 n)$.
 \end{proof}
 
+We now turn to the proof of \cref{planar_sparsifier}.  We work in the more general setting of product structured graphs.
+
+
 \begin{lem}\label{sparsifier_simple}
-  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(G)$ with $|X|\le ?t(n/D)\log_2 n$ such that the metric space $(V(G)\setminus X, d_{H\boxtimes P-X})$ has local density at most $D$.
+  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(H\boxtimes P)$ with $|X|\le 3?t(n/D)\log_2 n$ such that the metric space $(V(G)\setminus X, d_{H\boxtimes P-X})$ has local density at most $D$.
 \end{lem}
 
-\Cref{sparsifier_simple} is a consequence of the following stronger technical lemma, which says that after removing the vertices of $X$, the subgraph of $G$ induced by $\ell$ consecutive layers of $H\boxtimes P-X$ has components of size at most $?tn/D$.
+\begin{proof}[Proof of \cref{planar_sparsifier} assuming \cref{sparsifier_simple}]
+  \citet{ueckerdt.wood.ea:improved} show that, for any planar graph $G$, there exists a graph $H$ of treewidth at most $6$ and a path $P$ such that $G$ is isomorphic to a subgraph of $H\boxtimes P$.  Without loss of generality, we treat $G$ as a subgraph of $H\boxtimes P$.  Apply \cref{sparsifier_simple} to $G$, $H$, and $P$ to obtain a set $X'\subseteq V(H\boxtimes P)$ of size $O((n/D)\log_2 n)$ and let $X:=V(G)\cap X'$.  Then $G-X$ is a subgraph of $H\boxtimes P-X'$ so, by \cref{supergraph_contraction}, $(V(G-X),d_{H\boxtimes P-X'})$ is a contraction of $(V(G-X),d_{G-X})$.  By \cref{contraction_increases_density}, the local density of $(V(G-X),d_{G-X})$ is at most the local density of $(V(G-X),d_{H\boxtimes P-X'})$, which is at most $D$.
+\end{proof}
+
+\Cref{sparsifier_simple} is a consequence of the following stronger technical lemma, which says that after removing the vertices in $X$, each component of the subgraph induced by $\ell$ consecutive layers of $H\boxtimes P-X$ contains at most $D\ell$ vertices of $G$.
+% This immediately implies \cref{sparsifier_simple} because, for any vertex $v$ of $H\boxtimes P-X$ and any radius $r$,  $B_{H\boxtimes P-X}(v,r)$ is contained in at most $2r+1$ consecutive layers of $H\boxtimes P$, so $B_{H\boxtimes P-X}(v,r)$ contains at most $D(2r+1)\le 3Dr$ vertices of $G$.
 
 \begin{lem}\label{sparsifier}
-  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(G)$ with $|X|\le ?tn/D$  there exists a $X\subseteq V(G)$ with $|X\cap V(G)|\le ?(n/D)\log_2 n$ such that each positive integer $\ell$, each subpath $y_1,\ldots,y_\ell$ of $P$, and each component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_r\}]-X$ satisfies $|V(C)\cap V(G)|\le D\ell$.
+  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(H\boxtimes P)$ with $|X|\le ?t(n/D)\log_2 n$ such that each positive integer $\ell$, each subpath $y_1,\ldots,y_\ell$ of $P$, and each component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_r\}]-X$ satisfies $|V(C)\cap V(G)|\le D\ell$.
 \end{lem}
 
 \begin{proof}[Proof of \cref{sparsifier_simple} assuming \cref{sparsifier}]
-  For any $v\in V(G)$, there exists a subpath $y_1,\ldots,y_{\ell}$ of $P$ with $\ell\le 2r+1$ such that $B_{H\boxtimes P}(v,r)$ is contained in $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{r'}\}]$.  Therefore $B_{(H\boxtimes P)-X}(v,r)$ is contained in a single component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{r'}\}]-X$.  Thus $|V(C)\cap V(G)|\le Dr'\le D(2r+1)$.
+  For any $v\in V(G)$, there exists a subpath $y_1,\ldots,y_{\ell}$ of $P$ with $\ell\le 2r+1$ such that $B_{H\boxtimes P}(v,r)$ is contained in $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{\ell}\}]$.  Apply \cref{sparsifier} to $G$, $H$, $P$ and $D'=D/3$.  Then, for any $v$ and $r$, $B_{(H\boxtimes P)-X}(v,r)$ is contained in a single component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{\ell}\}]-X$.  Thus $|V(C)\cap V(G)|\le D'\ell= D'(2r+1)\le 3D'r=D$.
 \end{proof}
 
 \begin{proof}[Proof of \cref{sparsifier}]
@@ -279,29 +287,27 @@ Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yiel
 
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
 
+Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, it would be helpful to   We will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs. This immediately generalizes \cref{fan_partition_planar} to all of these other graph classes.
 
-
-We will prove the following result, which generalizes a result of \citet{rao:small} for planar graphs:
-
-\begin{thm}
+\begin{thm}\label{product_contraction}
   For any $K_{t+1}$-minor-free graph $H$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
 \end{thm}
 
+The proof of \cref{product_contraction} closely follows Rao's proof of \cref{rao}
 
 
-\subsection{Volume-Preserving Contractions}
 
-First, fix some integer $\Delta \ge 1$.
 
 \subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
 
-Consider the following random process that, given a connected graph $H$ constructs a random subset $\textsc{Chop}_{\Delta,t}(H)$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(H)$.
+First, fix some integer $\Delta \ge 1$.
+Consider the following random process that, given a connected graph $H$ constructs a random subset $\textsc{Chop}_{\Delta,t}(H)$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(C_i)$.
 
 
 The following lemma, with a greater dependence on $t$, is due to \citet{klein.plotkin.ea:excluded}. The version shown here was proved by \citet{fakcharoenphol.talwar:improved}. The presentation here closely follows that of \citet{lee:simpler}.
 
-\begin{lem}\label{component_diameter_h}
-  If $H$ is a connected $K_{t+1}$-minor-free connected graph of treewidth $t$, then each component of $H-\textsc{Chop}_{\Delta,t}(H)$ has diameter at most $?t\Delta$.
+\begin{lem}[{\citet{klein.plotkin.ea:excluded,fakcharoenphol.talwar:improved}}]\label{component_diameter_h}
+  If $H$ is a connected $K_{t+1}$-minor-free connected graph, then each component of $H-\textsc{Chop}_{\Delta,t}(H)$ has diameter at most $?t\Delta$.
 \end{lem}
 
 
@@ -348,7 +354,7 @@ For some intuition, it is helpful to consider the case when $H$ is a path and $t
 
 \subsection{\boldmath The Mapping $\phi$}
 
-Let $Z:=Z_{\Delta,t}(H,P)$ a subset of $V(H\boxtimes P)$ generated by running the procedure described above.  Let $C_1,\ldots,C_p$ be the components of $H\boxtimes P-Z$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_Z(x):=(1+\alpha_i)\,d_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.
+Let $Z:=Z_{\Delta,t}(H,P)$ a subset of $V(H\boxtimes P)$ generated by running the procedure described above.  Let $C_1,\ldots,C_p$ be the components of $H\boxtimes P-Z$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_Z(x):=(1+\alpha_i)\,d_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.  Note that for two vertices $x$ and $y$, $|\varphi_Z(x)-\varphi_Z(y)|\le 2d_{H\boxtimes P}(x,y)$.
 
 \begin{obs}\label{uniform}
   For any vertex $x$ of $H\boxtimes P$, $\varphi_Z(x)$ is uniformly distributed in the real interval $[d_{H\boxtimes P}(x,Z), d_{H\boxtimes P}(x,Z)]$.
@@ -364,9 +370,9 @@ Let $a$ be a constant whose value will be lower-bounded later.  We now define a 
 \[
    \phi(x) := (\phi_{i,j}(x))_{(i,j)\in \{0,\ldots,\lfloor \log_2 n\rfloor\}\times\{1,\ldots,\lceil a k\ln n\rceil\}} \enspace .
 \]
+Note that $\phi$ is not a Euclidean contraction: $\phi$ has $L$ coordinates and for two vertices $x$ and $y$, the difference between $\phi_{i,j}(x)$ and $\phi_{i,j}(y)$ can be as much as $2d_{H\boxtimes P}(x,y)$ (but not more).  Thus, $d_2(\phi(x),\phi(y))$ can exceed $d_{H\boxtimes P}(x,y)$ by a factor of up to $2\sqrt{L}$ (but not more).  In a final step, we will divide each coordinate of $\phi$ by $2\sqrt{L}$ but, until then, it is more convenient to work with $\phi$.
 
-The rest of the analysis in this section closely follows \citet{rao:small}, which in turn closely follows \citet{feige:approximating} with modifications needed to work in the metric $(V(G),d_{H\boxtimes P})$.  Nevertheless, we proceed slowly and carefully since our setting is significantly different (we are working in a subgraph $G$ of $H\boxtimes P$ but using the metric space $(V(G),d_{H\boxtimes P})$) and we expect that some readers will not be familiar with some methods introduced by \citet{feige:approximating} that are only sketched in \citet{rao:small}.
-
+The rest of the analysis in this section closely follows \citet{rao:small}, which in turn closely follows \citet{feige:approximating} with modifications needed to work in the metric $(V(G),d_{H\boxtimes P})$.  Nevertheless, we proceed slowly and carefully since our setting is significantly different (we are working in a subgraph $G$ of $H\boxtimes P$ but using the metric space $(V(G),d_{H\boxtimes P})$) and we expect that some readers will not be familiar with some methods introduced by \citet{feige:approximating} that are only sketched by \citet{rao:small}.
 
 We make use of this simple \defin{Chernoff Bound}: For a $\operatorname{binomial}(n,p)$ random variable $B$ and any $0<\delta<1$, $\Pr(B \le np/2) \le \exp(-np/8)$.
 
@@ -402,7 +408,7 @@ We make use of this simple \defin{Chernoff Bound}: For a $\operatorname{binomial
 \end{proof}
 
 \begin{lem}
-  Let $H$ be $K_{t+1}$-minor-free graph with at most $n$ vertices, let $P$ be a path with at most $n$ vertex, and let $\phi:V(H\boxtimes P)\to\R^L$ be the probablistic embedding defined above.  Then, for any $k$-element subset $K$ of $V(H\boxtimes P)$,
+  Let $H$ be $K_{t+1}$-minor-free graph with at most $n$ vertices, let $P$ be a path with at most $n$ vertices, and let $\phi:V(H\boxtimes P)\to\R^L$ be the probablistic embedding defined above.  Then, for any $k$-element subset $K$ of $V(H\boxtimes P)$,
   \[
     \Pr\left(\evol(\phi(K)) \ge \frac{\tvol_{d_{H\boxtimes P}}(K)\cdot(2\zeta/3)^{k-1}}{(k-1)!}\right) \ge 1- O(kn^{-k}) \enspace .
   \]
@@ -418,9 +424,11 @@ We make use of this simple \defin{Chernoff Bound}: For a $\operatorname{binomial
   \]
 \end{proof}
 
-\begin{thm}
-  Let $H$ be $K_{t+1}$-minor-free graph, let $P$ be a path, and let $G$ be an $n$-vertex subgraph of $H\boxtimes P$.  Then there exists a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction $\phi:V(G)\to\R^{L}$, for some $L\in O(k\log^2 n)$.
-\end{thm}
+We now have all the pieces needed to complete the proof of \cref{product_contraction}.
+
+\begin{proof}[Proof of \cref{product_contraction}]
+  Pffffffft
+\end{proof}
 
 % ?Let $\phi'(x):=\phi(x)/\sqrt{L}$ for each $x\in V(H\boxtimes P)$.
 
