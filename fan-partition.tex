@@ -91,11 +91,17 @@
 
 \section{Introduction}
 
+The \defin{$k$-blowup} of a graph $H$ the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of size $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$.  The current work is motivated by the following question: What is the simplest family of graphs $\mathcal{H}$ such that for each $n$-vertex planar graph $G$ there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G'$ contains a subgraph isomorphic to $G$.}
 
-Notations: $D$ is local density.  $d$ is a distance function. $\Delta$ will be a ``ball radius''.
+\cite{illingworth.scott.ea:product} show that one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs. \citet{distel.dujmovic.ea:product} show that even the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of pathwidth-$2$ graphs.  Even more specifically, every $n$-vertex planar graph is isomorphic to a $\tilde{O}(\sqrt{n})$-blowup of a fan.\footnote{A \defin{fan} $F_k$ is a graph with vertex set $V(F_k):=\{v_0,\ldots,v_k\}$ whose edge set consists of a path on $v_1,\ldots,v_k$ and an edge from $v_0$ to each of $v_1,\ldots,v_k$.}
+\begin{thm}
+  For every $n$-vertex planar $G$ there is a $O(\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
+\end{thm}
 
+\todo[inline]{Motivation.  Explain relationship with bandwidth. For a bit more than the cost of one separator we get a much simpler graph.  Explain that removing the apex of the fan must give a graph of bounded local density. Explain that the relationship between local-density and bandwidth is still a big open problem.  Even for trees, the best bound is $O(D\log^{2.5} n)$. }
 
-\section{Background}
+\todo[inline]{Somewhere explain that  }
+
 
 \subsection{Distance Functions and Metric Spaces}
 
@@ -113,9 +119,15 @@ This definition is consistent with the definition of local density of graphs:  A
 
 A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.  When $S\subseteq S'$ and $\phi$ is the identity function we say that $\mathcal{M'}$ is a contraction of $\mathcal{M}$.
 
+We use two easy observations that follow quickly from these definitions:
+
 \begin{obs}\label{contraction_increases_density}
-  If a metric space $\mathcal{M}$ has a contraction into a metric space $\mathcal{M}'$ of local density at most $D$ then $\mathcal{M}$ has local density at most $D$.
+  If a metric space $\mathcal{M}:=(S,d)$ has a contraction $\phi$ into a metric space $\mathcal{M}':=(S',d')$ of local density at most $D$ then $\mathcal{M}$ has local density at most $D$.
 \end{obs}
+
+\begin{proof}
+  For any $x\in S$, any $r\ge 1$, and any $y\in B_\mathcal{M}(x,r)$, $d'(\phi(x),\phi(y))\le d(x,y)\le r$, since $\phi$ is a contraction.  Therefore, $B_{\mathcal{M'}}(\phi(x),r)\supseteq\{\phi(y):y\in B_{\mathcal{M}}(x,r)\}$.  Since $\mathcal{M'}$ has local density at most $D$,  $Dr \ge |B_\mathcal{M'}(\phi(x),r)|\ge |B_{\mathcal{M}}(x,r)|$.
+\end{proof}
 
 \begin{obs}\label{supergraph_contraction}
   For any connected graph $I$ and any connected subgraph $G$ of $I$, $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
@@ -148,9 +160,9 @@ The following lemma generalizes \citet[Theorem~10]{feige:approximating} from gra
 \begin{lem}[{\citet[Theorem~10]{feige:approximating}}]\label{reciprocal_sum}
   For any $n$-element metric space $\mathcal{M}:=(S,d)$ with local density at most $D$ and any positive integer $k$,
   \[
-    \sum_{K\in \binom{V(G)}{k}}\frac{1}{\tvol_{d_G}(K)}\le n(DH_n/2)^{k-1} \enspace ,
+    \sum_{K\in \binom{V(G)}{k}}\frac{1}{\tvol_{d_G}(K)} < n(DH_n/2)^{k-1} \enspace ,
   \]
-  where $\mathdefin{H_n}:=\sum_{i=1}^n\le 1+\ln n$ is the $n$-th harmonic number.
+  where $\mathdefin{H_n}:=\sum_{i=1}^n 1/i\le 1+\ln n$ is the \defin{$n$-th harmonic number}.
 \end{lem}
 
 \begin{proof}
@@ -158,7 +170,7 @@ The following lemma generalizes \citet[Theorem~10]{feige:approximating} from gra
   \begin{equation}
     \sum_{y\in S\setminus\{x\}} \frac{1}{d(x,y)} \le \sum_{i=1}^{n-1}\frac{1}{i/D} = DH_{n-1} < DH_n \enspace . \label{reciprocal_crux}
   \end{equation}
-  To see why this is so, let $d_1\le\cdots\le d_{n-1}$ denote the distances of the elements in $S\setminus\{x\}$ from $x$.  For each $i\in\{1,\ldots,n-1\}$, let $\mathdefin{z_i}:=\max\{j: d_j \le i/D\}$. Observe that $z_i \le i$ since, otherwise $B_{(S,i/D)}(x)$ has radius $r:=i/D$ and size $j>i=rD$, contradicting the fact that $(S,d)$ has local density at most $D$.  If $z_i=i$ for each $i\in\{1,\ldots,n-1\}$ then $d_i=i/D$ for each $i\in\{1,\ldots,n-1\}$ and $\sum_{y\in S\setminus\{x\}}=\sum_{i=1}^{n-1}\frac{1}{i/D}$, so there is nothing to prove.  Otherwise, consider the minimum $i$ such that $z_i < i$.  Then $z_i=i-1$ and $d_i > i/D$. By reducing $d_i$ to $i/D$ we increase $\sum_{i=1}^{n-1} 1/d_i$ and increase the minimum $i$ such that $z_i < i$.  Repeating this only increases $\sum_{i=1}^{n-1} 1/d_i$ and finishes with $\sum_{i=1}^{n-1} 1/d_i= H_{n-1}$.
+  To see why this is so, let $d_1\le\cdots\le d_{n-1}$ denote the distances of the elements in $S\setminus\{x\}$ from $x$.  For each $i\in\{1,\ldots,n-1\}$, let $\mathdefin{z_i}:=\max\{0\}\cup\{j: d_j \le i/D\}$. Observe that $z_i \le i$ since, otherwise $B_{(S,i/D)}(x,i/D)$ has radius $r:=i/D$ and size $j>i=rD$, contradicting the fact that $(S,d)$ has local density at most $D$.  If $z_i=i$ for each $i\in\{1,\ldots,n-1\}$ then $d_i=i/D$ for each $i\in\{1,\ldots,n-1\}$ and $\sum_{y\in S\setminus\{x\}}=\sum_{i=1}^{n-1}1/d_i=\sum_{i=1}^{n-1}\frac{1}{i/D}$, so \eqref{reciprocal_crux} holds.  Otherwise, consider the minimum $i$ such that $z_i < i$.  Then $z_i=i-1$, $d_{i-1}=(i-1)/D$ and $d_i > i/D$. By reducing $d_i$ to $i/D$ we increase $\sum_{i=1}^{n-1} 1/d_i$ and increase the minimum $i$ such that $z_i < i$.  Repeating this only increases $\sum_{i=1}^{n-1} 1/d_i$ and finishes with $\sum_{i=1}^{n-1} 1/d_i= H_{n-1}$.
 
   For a set $K$, let $\Pi(K)$ denote the set of all permutations $\pi:\{1,\ldots,k\}\to K$.
   \citet[Lemma~17]{feige:approximating} shows that, for any $k$-element subset $K$ of $S$,
@@ -170,7 +182,7 @@ The following lemma generalizes \citet[Theorem~10]{feige:approximating} from gra
     \sum_{K\in\binom{S}{k}}\sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))} \le n(DH_n)^{k-1} \enspace .
     \label{volume_sum}
   \end{equation}
-  The proof is by induction on $k$.  When $k=1$, the outer sum in \cref{volume_sum} has $\binom{n}{1}=n$ terms, each inner sum has $1!=1$ terms, and the denomiator in each term is an empty product whose value is $1$, by convention.  Therefore, for $k=1$, \cref{volume_sum} asserts that $n \le n$, which is certainly true.  Now assume that \cref{volume_sum} holds for $k-1$.  Then
+  The proof is by induction on $k$.  When $k=1$, the outer sum in \cref{volume_sum} has $\binom{n}{1}=n$ terms, each inner sum has $1!=1$ terms, and the denominator in each term is an empty product whose value is $1$, by convention.  Therefore, for $k=1$, \cref{volume_sum} asserts that $n \le n$, which is certainly true.  Now assume that \cref{volume_sum} holds for $k-1$.  Then
   \begin{align*}
     & \quad \sum_{K\in\binom{S}{k}}\sum_{\pi\in\Pi(K)}\frac{1}{\prod_{i=1}^{k-1}d(\pi(i),\pi(i+1))} \\
     & = \sum_{K'\in\binom{S}{k-1}}\sum_{\pi\in\Pi(K')}\sum_{y\in S\setminus K'}\frac{1}{\prod_{i=1}^{k-2}d(\pi(i),\pi(i+1))}\cdot\frac{1}{d(\pi(k-1),y)} \\
@@ -181,15 +193,17 @@ The following lemma generalizes \citet[Theorem~10]{feige:approximating} from gra
   \end{align*}
 \end{proof}
 
-The following theorem is proved implicitly by \citet{feige:approximating} for graph metrics, although the dependence on the parameters $n$, $D$, $k$, and $\eta$ are not stated explicitly there. Here we give a generalization for metric spaces and make the bound on the bandwidth explicit in terms of the parameters $n$, $D$, and $\eta$.  First we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a metric space and let $x_1,\ldots,x_n$ be an ordering of $S$.  Then $\bw(x_1,\ldots,x_n):=\max\{j-i:d(x_i,x_j)=1\}$ and $\bw(S,d)$ is the minimum bandwidth taken over all orderings of $S$.  Note that if $S$ is a graph metric, then this definition coincides exactly with the
+The following theorem is proved implicitly by \citet{feige:approximating} for graph metrics, although the dependence on the parameters $n$, $D$, $k$, and $\eta$ are not stated explicitly in \cite{feige:approximating}. Here we give a generalization for metric spaces and make the bound on the bandwidth explicit in terms of the parameters $n$, $D$, and $\eta$.  First we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a metric space and let $x_1,\ldots,x_n$ be a permutation $S$.  Then $\bw_{(S,d)}(x_1,\ldots,x_n):=\max\{j-i:d(x_i,x_j)=1\}$ and $\bw(S,d)$ is the minimum of $\bw_{(S,d)}(x_1,\ldots,x_n)$ taken over all $n!$ permutations $x_1,\ldots,x_n$ of $S$.  Note that this coincides with the definition of the bandwidth of a graph: For any connected graph $G$, $\bw(V(G),d_G)=\bw(G)$.
 
 
 
 
 \begin{thm}\label{volume_density_bandwidth}
-  Let $(S,d)$ be a $n$-element metric space with local density at most $D$, minimum-distance $\min_{\{x,y\}\in\binom{S}{2}}d(x,y)=1$, and diameter $\max_{\{x,y\}\in\binom{S}{2}}d(x,y)\le n$.  If $(S,d)$ has a $(k,\eta)$-volume-respecting Euclidean contraction $\phi:S\to\R^L$ with $L\ge 4a\ln n$ then
+  Let $(S,d)$ be a $n$-element metric space with local density at most $D$ and diameter at most $\Delta$.  If $(S,d)$ has a $(k,\eta)$-volume-respecting Euclidean contraction $\phi:S\to\R^L$
+  % with $L\ge 4a\ln n$ --- not needed, I think
+  then
   \[
-    \bw(S,d) \in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n) \enspace .
+    \bw(S,d) \in O((nk\log\Delta)^{1/k}\,Dk\eta\log^{3/2} n) \enspace .
   \]
 \end{thm}
 
@@ -198,13 +212,15 @@ The following theorem is proved implicitly by \citet{feige:approximating} for gr
 \begin{proof}
   Let $r$ be a random unit vector in $\R^L$ and for each $v\in S$, let $\mathdefin{h(v)}:=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the elements of $S$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(S,d)$, it suffices to show an upper bound that holds with positive probability on the maximum, over all $vw$ with $d(v,w)=1$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
 
-  Consider some pair $v,w\in S$ with $d(v,w)=1$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a>0$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each pair $v,w\in S$ with $d(v,w)=1$.
+  Consider some pair $v,w\in S$ with $d(v,w)=1$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a\ge 1/4\ln n$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each pair $v,w\in S$ with $d(v,w)=1$.
 
-  Let  $K:=\{v_1,\ldots,v_k\}$ be a $k$-element subset of $S$. First observe that $\evol(\phi(K)\le n^k$, since $\evol(\phi(K))\le\prod_{i=2}^k d_2(\phi(v_{i-1}),\phi(v_i))\le \prod_{i=2}^k d(v_{i-1},v_i)$.  In particular, $\log\evol(\phi(K))\le k\log n$.  Define $\mathdefin{\ell(K)}:=\max_{v\in K}h(v)-\min_{v\in K} h(v)$.  By \cite[Theorem~9]{feige:approximating} there exists a universal constant $\beta$ such that, for any $c\le 1$,
+  Let  $K:=\{v_1,\ldots,v_k\}$ be a $k$-element subset of $S$. First observe that $\evol(\phi(K)\le n^k$, since $\evol(\phi(K))\le\prod_{i=2}^k d_2(\phi(v_{i-1}),\phi(v_i))\le \prod_{i=2}^k d(v_{i-1},v_i)\le \Delta^{k-2}$.  In particular, $\log\evol(\phi(K))\le k\log \Delta$.
+
+  Define $\mathdefin{\ell(K)}:=\max_{v\in K}h(v)-\min_{v\in K} h(v)$.  By \cite[Theorem~9]{feige:approximating} there exists a universal constant $\beta$ such that, for any $c>0$,
   \[
       \Pr(\ell(K) \le c)
         < \frac{(\beta L)^{k/2}c^k\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))}
-        \le \frac{(\beta L)^{k/2}c^kk\log n}{k^k\evol(\phi(K))} \enspace .
+        \le \frac{(\beta L)^{k/2}c^kk\log\Delta}{k^k\evol(\phi(K))} \enspace .
   \]
   In particular,
   \begin{align*}
@@ -212,22 +228,22 @@ The following theorem is proved implicitly by \citet{feige:approximating} for gr
       & <
       % \frac{(4\beta a\ln n)^{k/2}\max\{1,\log(\evol(\phi(K))\}}{k^k\evol(\phi(K))} \\
       % & <
-      \frac{(4\beta a\ln n)^{k/2}\, L\log n}{k^k\evol(\phi(K))} \\
-      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}\, k\log n}{k^k\evol(\phi(K))} \\
-      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}(k-1)!2^{(k-2)/2}\, k\log n}{k^k\tvol_{d}(K)} \\
-      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}2^{(k-2)/2}\,k\log n}{\tvol_{d}(K)} \\
-      & \le \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\,k\log n}{\tvol_{d}(K)} \\
+      \frac{(4\beta a\ln n)^{k/2}\, k\log\Delta}{k^k\evol(\phi(K))} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}\, k\log\Delta}{k^k\evol(\phi(K))} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}(k-1)!2^{(k-2)/2}\, k\log\Delta}{k^k\tvol_{d}(K)} \\
+      & \le \frac{(4\beta a\ln n)^{k/2}\eta^{k-1}2^{(k-2)/2}\,k\log\Delta}{\tvol_{d}(K)} \\
+      & \le \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\,k\log\Delta}{\tvol_{d}(K)} \\
   \end{align*}
   We say that $K\in\binom{S}{k}$ is \defin{bad} if $\ell(K) \le \sqrt{4a\ln n/L}$. Then the expected number of bad sets is at most
   \begin{align}
     \sum_{K\in \binom{S}{k}} \Pr(\text{$K$ is bad})
-    & \le \sum_{K\in \binom{S}{k}} \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\, k\log n}{\tvol_{d}(K)} \notag \\
-    & \le \left((8\beta a\ln n)^{1/2}\eta DH_n\right)^{k}\, nk\log n
+    & \le \sum_{K\in \binom{S}{k}} \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\, k\log\Delta}{\tvol_{d}(K)} \notag \\
+    & \le \left((8\beta a\ln n)^{1/2}\eta DH_n\right)^{k}\, nk\log\Delta
     & \text{(by \cref{reciprocal_sum})} \notag \\
-    & \le \left(O(\eta D\log^{3/2}n)\right)^{k}\, nk\log n \enspace .
+    & \le \left(O(\eta D\log^{3/2}n)\right)^{k}\, nk\log\Delta \enspace .
     \label{bad_expectation}
   \end{align}
-  Let $B$ a maximum cardinality subset of $S$ with $\ell(B)<\sqrt{4a\ln n/L}$.  The vertices in $B$ form $\binom{|B|}{k}$ bad sets. Therefore, by Markov's Inequality, the probability that $\binom{|B|}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw_d(x_1,\ldots,x_n)\in O((nk\log n)^{1/k}\,Dk\eta\log^{3/2} n)$.
+  Let $B$ a maximum cardinality subset of $S$ with $\ell(B)<\sqrt{4a\ln n/L}$.  The vertices in $B$ form $\binom{|B|}{k}$ bad sets. Therefore, by Markov's Inequality, the probability that $\binom{|B|}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O((nk\log\Delta)^{1/k}\,Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw_d(x_1,\ldots,x_n)\in O((nk\log\Delta)^{1/k}\,Dk\eta\log^{3/2} n)$.
 \end{proof}
 
 
@@ -274,26 +290,38 @@ We now turn to the proof of \cref{planar_sparsifier}.  We work in the more gener
 % This immediately implies \cref{sparsifier_simple} because, for any vertex $v$ of $H\boxtimes P-X$ and any radius $r$,  $B_{H\boxtimes P-X}(v,r)$ is contained in at most $2r+1$ consecutive layers of $H\boxtimes P$, so $B_{H\boxtimes P-X}(v,r)$ contains at most $D(2r+1)\le 3Dr$ vertices of $G$.
 
 \begin{lem}\label{sparsifier}
-  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(H\boxtimes P)$ with $|X|\le ?t(n/D)\log_2 n$ such that each positive integer $\ell$, each subpath $y_1,\ldots,y_\ell$ of $P$, and each component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_r\}]-X$ satisfies $|V(C)\cap V(G)|\le D\ell$.
+  For any graph $H$ of treewidth less than $t$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$ there exists $X\subseteq V(H\boxtimes P)$ with $|X|\le ?t(n/D)\log_2 n$ such that each positive integer $\ell$, each subpath $y_1,\ldots,y_\ell$ of $P$, and each component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_\ell\}]-X$ satisfies $|V(C)\cap V(G)|\le D\ell$.
 \end{lem}
 
 \begin{proof}[Proof of \cref{sparsifier_simple} assuming \cref{sparsifier}]
   For any $v\in V(G)$, there exists a subpath $y_1,\ldots,y_{\ell}$ of $P$ with $\ell\le 2r+1$ such that $B_{H\boxtimes P}(v,r)$ is contained in $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{\ell}\}]$.  Apply \cref{sparsifier} to $G$, $H$, $P$ and $D'=D/3$.  Then, for any $v$ and $r$, $B_{(H\boxtimes P)-X}(v,r)$ is contained in a single component $C$ of $(H\boxtimes P)[V(H)\times \{y_1,\ldots,y_{\ell}\}]-X$.  Thus $|V(C)\cap V(G)|\le D'\ell= D'(2r+1)\le 3D'r=D$.
 \end{proof}
 
+
+To prove \cref{sparsifier} we make use of the following frequently-used separator result (see, for example \cite[Lemma~11]{bose.dujmovic.ea:asymptotically}):
+
+
+\begin{lem}\label{pq_separator}
+  There exists a constant $c$ such that the following is true.
+  Let $G$ be an $n$-vertex graph of treewidth at most $t$ and let $P$ be a subset of $V(G)$.  Then there exists $X\subseteq V(G)$ of size at most $ct|P|/D$ such that each component of $G-X$ contains at most $D$ vertices in $P$.
+\end{lem}
+
 \begin{proof}[Proof of \cref{sparsifier}]
+  For each $i\in\{0,\ldots,\lfloor\log_2 n\rfloor$ and each $j\in\N$, let $Q_{i,j}:=(H\boxtimes P)[V(H)\times\{y_{(i-1)2^i+1},\ldots,y_{(i+1)2^i}]$ be a subgraph that contains $3\cdot 2^i$ consecutive layers of $H\boxtimes P$.  Observe that the treewidth of $Q_{i,j}$ is at most $3(t+1)2^i-1\in O(t2^i)$.  By \cref{pq_separator}, there exists $X_{i,j}\subseteq Q_{i,j}$ of size $ct|V(G)\cap V(Q_{i,j})|/D$ such that each component of $Q_{i,j}-X_{i,j}$ contains at most $D\Delta/2$ vertices of $G$.  Observe that $\sum_{j\in\mathbb{N}}|V(G)\cap V(Q_{i,j})| \le 3|V(G)|$ since each vertex of $G$ contributes to at most $3$ consecutive terms in this sum.  Therefore $\sum_{j\in\mathbb{N}}|X_{i,j}|\le 3ctn/D=O(tn/D)$.
+
+  Now let $X:=\bigcup_{i=0}^{\lfloor\log_2 n\rfloor}\{X_{i,j}:,\, i\in\mathbb{N}\}$.  Then $|X|=\sum_{j=0}^{\lfloor\log_2 n\rfloor}O(tn/D)=O((tn/D)\log n)$. For any subpath $y_1,\ldots,y_{\ell}$ of $P$, there exists some $i$ such that $V(H)\times\{y_1,\ldots,y_\ell\}\subseteq V(Q_{\lceil\log_2\ell\rceil,i})$. Therefore each component of $(H\boxtimes P)[V(H)\times\{y_1,\ldots,y_\ell\}]-X$ is contained in a component of $Q_{\lceil\log_2\ell\rceil,i}-X$ and therefore contains at most $D 2^{\lceil\log_2\ell\rceil-1}\le D\ell$ vertices of $G$.
 \end{proof}
 
 
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
 
-Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, it would be helpful to   We will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs. This immediately generalizes \cref{fan_partition_planar} to all of these other graph classes.
+Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, we will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs. This immediately generalizes \cref{fan_partition_planar} to all of these other graph classes.
 
 \begin{thm}\label{product_contraction}
-  For any $K_{t+1}$-minor-free graph $H$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
+  For any $K_{t+1}$-minor-free graph $H$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(t\sqrt{\log n}))$-volume-preserving Euclidean contraction.
 \end{thm}
 
-The proof of \cref{product_contraction} closely follows Rao's proof of \cref{rao}
+% The proof of \cref{product_contraction} closely follows Rao's proof of \cref{rao}.
 
 
 
@@ -307,7 +335,7 @@ Consider the following random process that, given a connected graph $H$ construc
 The following lemma, with a greater dependence on $t$, is due to \citet{klein.plotkin.ea:excluded}. The version shown here was proved by \citet{fakcharoenphol.talwar:improved}. The presentation here closely follows that of \citet{lee:simpler}.
 
 \begin{lem}[{\citet{klein.plotkin.ea:excluded,fakcharoenphol.talwar:improved}}]\label{component_diameter_h}
-  If $H$ is a connected $K_{t+1}$-minor-free connected graph, then each component of $H-\textsc{Chop}_{\Delta,t}(H)$ has diameter at most $?t\Delta$.
+  If $H$ is a connected $K_{t+1}$-minor-free graph, then each component of $H-\textsc{Chop}_{\Delta,t}(H)$ has diameter at most $?t\Delta$.
 \end{lem}
 
 
@@ -326,7 +354,7 @@ The following lemma, with a greater dependence on $t$, is due to \citet{klein.pl
 
 Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$. Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t}(P):=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=Y_{\Delta,t}(P):=V(H)\times Y_0$.  Let $P_1,\ldots,P_q$ be the components (each of which is a path) of $P-Y_0$ and let $X_1,\ldots,X_q$ be the results of independent executions of $\textsc{Chop}_{\Delta,t}(H)$ and let $X:=\bigcup_{i=1}^q (X_i\times V(P_i))$.  Finally, let $Z:=Z_{\Delta,t}(H,P):=X\cup Y$.
 
-For some intuition, it is helpful to consider the case when $H$ is a path and $t=1$.  In this case, $H\boxtimes P$ is a grid with diagonal edges.  Starting from row $r\in\{0,\ldots,\Delta-1\}$, the set $Y$ contains one out of every $\Delta$ rows of this grid.  Each of the components $C_1,\ldots,C_m$ of $H\boxtimes P-Y$, except the top-most, $C_1$ and bottom-most, $C_m$ is a grid with $\Delta-1$ rows.  For each component $C_i$, the set $X$ contains one out of every $\Delta$ columns of $C_i$, starting from column $r_i\in\{0,\ldots,\Delta-1\}$. \todo{Add figure}
+% For some intuition, it is helpful to consider the case when $H$ is a path and $t=1$.  In this case, $H\boxtimes P$ is a grid with diagonal edges.  Starting from row $r\in\{0,\ldots,\Delta-1\}$, the set $Y$ contains one out of every $\Delta$ rows of this grid.  Each of the components $C_1,\ldots,C_m$ of $H\boxtimes P-Y$, except the top-most, $C_1$ and bottom-most, $C_m$ is a grid with $\Delta-1$ rows.  For each component $C_i$, the set $X$ contains one out of every $\Delta$ columns of $C_i$, starting from column $r_i\in\{0,\ldots,\Delta-1\}$. \todo{Add figure}
 
 \begin{lem}\label{component_diameter}
   If $H$ is $K_{t+1}$-minor-free, then each component of $H\boxtimes P-Z$ has diameter at most $?t\Delta$.
@@ -346,18 +374,20 @@ For some intuition, it is helpful to consider the case when $H$ is a path and $t
   If $d_{H\boxtimes P}(x,Z)<\delta$ then $d_{H\boxtimes P}(x,Y)<\delta$ or $d_{C}(x,Z)<\delta$ where $C$ is the component of $H\boxtimes P-Y$ that contains $x$.  Again, there are at most $2\delta-1$ choices of $r_0$ for which $d_{H\boxtimes P}(x,Y)<\delta$, so $\Pr(d_{H\boxtimes P}(x,Y)<\delta)\le (2\delta-1)/\Delta$.  The proof now follows from the union bound and \cref{delta_bad_h}.
 \end{proof}
 
-\Cref{delta_bad_product} with $\delta=1$ yields the following results:
-
-\begin{cor}
-  For any $x\in V(H\boxtimes P)$, $\Pr(x\in Z)\le (t+1)/\Delta$.
-\end{cor}
+% \Cref{delta_bad_product} with $\delta=1$ yields the following results:
+%
+% \begin{cor}
+%   For any $x\in V(H\boxtimes P)$, $\Pr(x\in Z)\le (t+1)/\Delta$.
+% \end{cor}
+%
+% I don't think this is relevant.
 
 \subsection{\boldmath The Mapping $\phi$}
 
 Let $Z:=Z_{\Delta,t}(H,P)$ a subset of $V(H\boxtimes P)$ generated by running the procedure described above.  Let $C_1,\ldots,C_p$ be the components of $H\boxtimes P-Z$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_Z(x):=(1+\alpha_i)\,d_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.  Note that for two vertices $x$ and $y$, $|\varphi_Z(x)-\varphi_Z(y)|\le 2d_{H\boxtimes P}(x,y)$.
 
 \begin{obs}\label{uniform}
-  For any vertex $x$ of $H\boxtimes P$, $\varphi_Z(x)$ is uniformly distributed in the real interval $[d_{H\boxtimes P}(x,Z), d_{H\boxtimes P}(x,Z)]$.
+  For any vertex $x$ of $H\boxtimes P$, $\varphi_Z(x)$ is uniformly distributed in the real interval $[d_{H\boxtimes P}(x,Z), 2d_{H\boxtimes P}(x,Z)]$.
 \end{obs}
 
 The following observation follows immediately from \cref{component_diameter}:
@@ -370,27 +400,27 @@ Let $a$ be a constant whose value will be lower-bounded later.  We now define a 
 \[
    \phi(x) := (\phi_{i,j}(x))_{(i,j)\in \{0,\ldots,\lfloor \log_2 n\rfloor\}\times\{1,\ldots,\lceil a k\ln n\rceil\}} \enspace .
 \]
-Note that $\phi$ is not a Euclidean contraction: $\phi$ has $L$ coordinates and for two vertices $x$ and $y$, the difference between $\phi_{i,j}(x)$ and $\phi_{i,j}(y)$ can be as much as $2d_{H\boxtimes P}(x,y)$ (but not more).  Thus, $d_2(\phi(x),\phi(y))$ can exceed $d_{H\boxtimes P}(x,y)$ by a factor of up to $2\sqrt{L}$ (but not more).  In a final step, we will divide each coordinate of $\phi$ by $2\sqrt{L}$ but, until then, it is more convenient to work with $\phi$.
+Although $\phi$ maps vertices of $H\boxtimes P$, it is not necessarily a Euclidean contraction: $\phi$ has $L$ coordinates and for two vertices $x$ and $y$, the difference between $\phi_{i,j}(x)$ and $\phi_{i,j}(y)$ can be as much as $2d_{H\boxtimes P}(x,y)$ (but not more).  Thus, $d_2(\phi(x),\phi(y))$ can exceed $d_{H\boxtimes P}(x,y)$ by a factor of up to $2\sqrt{L}$ (but not more).  In a final step, we will divide each coordinate of $\phi$ by $2\sqrt{L}$ but, until then, it is more convenient to work with $\phi$.
 
 The rest of the analysis in this section closely follows \citet{rao:small}, which in turn closely follows \citet{feige:approximating} with modifications needed to work in the metric $(V(G),d_{H\boxtimes P})$.  Nevertheless, we proceed slowly and carefully since our setting is significantly different (we are working in a subgraph $G$ of $H\boxtimes P$ but using the metric space $(V(G),d_{H\boxtimes P})$) and we expect that some readers will not be familiar with some methods introduced by \citet{feige:approximating} that are only sketched by \citet{rao:small}.
 
 We make use of this simple \defin{Chernoff Bound}: For a $\operatorname{binomial}(n,p)$ random variable $B$ and any $0<\delta<1$, $\Pr(B \le np/2) \le \exp(-np/8)$.
 
-% Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in [0,1]^k:\sum_{j=1}^k\lambda_j=1\}$, that is, $\Gamma_k$ is the set of coefficients that can be used to obtain a convex combination of $k$ items.
+Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in \R^k:\sum_{j=1}^k\lambda_j=1\}$, that is, $\Gamma_k$ is the set of coefficients that can be used to obtain an affine combination of $k$ items.
 
 
 \begin{lem}\label{crux}
-  Fix some function $\lambda:(\R^{L})^{p-1}\to \R^{p-1}$. Let $v_1,\ldots,v_p$ be distinct vertices of $H\boxtimes P$ with $d_{H\boxtimes p}(v_p,\{v_1,\ldots,v_{p-1}\})> q$.  Let $(\lambda_1,\ldots,\lambda_{p-1}):=\lambda(\phi(v_1),\ldots,\phi(v_{p-1}))$ and let $x:=\sum_{j=1}^{p-1}\lambda_j\phi(v_j)$.
+  Fix some function $\lambda:(\R^{L})^{p-1}\to \Gamma_{p-1}$. Let $H$ be $K_{t+1}$-minor-free graph with at most $n$ vertices, let $P$ be a path with at most $n$ vertices, and let $\phi:V(H\boxtimes P)\to\R^L$ be the probablistic embedding defined above.  Let $v_1,\ldots,v_p$ be distinct vertices of $H\boxtimes P$ and let $h:=d_{H\boxtimes p}(v_p,\{v_1,\ldots,v_{p-1}\})$.  Let $(\lambda_1,\ldots,\lambda_{p-1}):=\lambda(\phi(v_1),\ldots,\phi(v_{p-1}))$ and let $x:=\sum_{j=1}^{p-1}\lambda_j\phi(v_j)$.
   Then, with probability at least $1-n^{-3k}$,
   \[
-    d_2(\phi(v_p),x)\ge \frac{q\sqrt{ak\ln  n}}{160?(t+1)} \enspace
+    d_2(\phi(v_p),x)\ge \frac{h\sqrt{ak\ln n}}{160?(t+1)} \enspace
   . \]
 \end{lem}
 
 \begin{proof}
-  Let $i$ be an integer such that $q/2?\le 2^i < q/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ dominates a random variable $Y$ if $Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
+  Let $i$ be an integer such that $h/2?\le 2^i < h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ dominates a random variable $Y$ if $Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
 
-  Since $d_{H\boxtimes P}(v_p,\{v_1,\ldots,v_{p-1}\})\ge q$, \cref{component_diameter} implies that the component of $H\boxtimes P-Z_{i,j}$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$. Since $\lambda$ is defined entirely by $\phi(v_1),\ldots,\phi(v_{p-1})$,   \cref{uniform,independent} implies that, for $j\in J$, $\phi_{i,j}(v_p)$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$ and the location of $\phi_{i,j}(v_p)$ in this interval is independent of the corresponding coordinate, $x_{i,j}$ of $x$.
+  Since $d_{H\boxtimes P}(v_p,\{v_1,\ldots,v_{p-1}\})= h$, \cref{component_diameter} implies that the component of $H\boxtimes P-Z_{i,j}$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$. Since $\lambda$ is defined entirely by $\phi(v_1),\ldots,\phi(v_{p-1})$,   \cref{uniform,independent} imply that, for $j\in J$, $\phi_{i,j}(v_p)$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$ and the location of $\phi_{i,j}(v_p)$ in this interval is independent of the corresponding coordinate, $x_{i,j}$, of $x$.
   Therefore, for $j\in J$, $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge 1/2$.\footnote{The coordinate $\phi_{i,j}(v_p)$ is uniform over some interval $[a,b]$ of length $b-a\ge \Delta/10(t+1)$ whereas $[x_{i,j}-\Delta/40(t+1),x_{i,j}+\Delta/40(t+1)]$ has length $\Delta/20(t+1)$, so $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge (b-a-\Delta/20(t+1))/(b-a)\ge 1/2$.}
   Let $J':=\{j\in J:  |\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1)\}$.  Then $|J'|$ dominates a $\operatorname{binomial}(|J|,1/2)$ random variable.  By the Chernoff Bound (and the union bound), $\Pr(|J'|\ge \tfrac{3}{40}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/160)-\exp(-3ak\ln n/80)\ge 1-n^{-3k}$ for all $a\ge 500$, $n\ge 2$, and $k\ge 2$. Therefore,
   \begin{align*}
@@ -401,13 +431,13 @@ We make use of this simple \defin{Chernoff Bound}: For a $\operatorname{binomial
     & \ge \left((\Delta/40(t+1))^2\cdot \tfrac{1}{4}\lceil ak\ln  n\rceil\right)^{1/2}
       & \text{(with probability at least $1-n^{-3k}$)} \\
     & = \frac{\Delta\sqrt{\lceil ak\ln  n\rceil}}{80(t+1)} \\
-    & \ge \frac{q\sqrt{\lceil ak\ln n\rceil}}{160?(t+1)} \enspace . &
-    % & \text{(since $\Delta\ge q/2?$)}\enspace .
+    & \ge \frac{h\sqrt{\lceil ak\ln n\rceil}}{160?(t+1)}
+     & \text{(since $\Delta\ge h/2?$)}. &
     \qedhere
   \end{align*}
 \end{proof}
 
-\begin{lem}
+\begin{lem}\label{volume_preserver}
   Let $H$ be $K_{t+1}$-minor-free graph with at most $n$ vertices, let $P$ be a path with at most $n$ vertices, and let $\phi:V(H\boxtimes P)\to\R^L$ be the probablistic embedding defined above.  Then, for any $k$-element subset $K$ of $V(H\boxtimes P)$,
   \[
     \Pr\left(\evol(\phi(K)) \ge \frac{\tvol_{d_{H\boxtimes P}}(K)\cdot(2\zeta/3)^{k-1}}{(k-1)!}\right) \ge 1- O(kn^{-k}) \enspace .
@@ -416,23 +446,59 @@ We make use of this simple \defin{Chernoff Bound}: For a $\operatorname{binomial
 \end{lem}
 
 \begin{proof}
-  The following argument is due to \citet{feige:approximating}.  Let $K$ be a set of $k$ vertices of $G$.  Let $T$ be a minimum spanning tree of the complete graph on $K$ where the weight of an edge $xy$ is $d_{H\boxtimes P}(x,y)$.  Let $x_1,\ldots,x_k$ be an ordering of the vertices in $K$ and $T_1,\ldots,T_k$ be a sequence of trees such that $T_{p}$ is a minimum spanning tree of $x_1,\ldots,x_{p}$ that contains $T_{p-1}$ as a subgraph, for each $p\in\{2,\ldots,k\}$.  That such an ordering and sequence of trees exists follows from the correctness of Prim's Algorithm. For each $p\in\{2,\ldots,k\}$, let $q_p:=d_{H\boxtimes P}(x_p,\{x_1,\ldots,x_{p-1}\})$ be the cost of the unique edge in $E(T_p)\setminus E(T_{p-1})$.  Observe that $\prod_{p=2}^k q_p = \tvol_{d_{H\boxtimes P}}(K)$.
+  The following argument is due to \citet[Pages~529--530]{feige:approximating}.  Let $K$ be a set of $k$ vertices of $G$.  Let $T$ be a minimum spanning tree of the complete graph on $K$ where the weight of an edge $xy$ is $d_{H\boxtimes P}(x,y)$.  Let $x_1,\ldots,x_k$ be an ordering of the vertices in $K$ and $T_1,\ldots,T_k$ be a sequence of trees such that $T_{p}$ is a minimum spanning tree of $x_1,\ldots,x_{p}$ that contains $T_{p-1}$ as a subgraph, for each $p\in\{2,\ldots,k\}$.  That such an ordering and sequence of trees exists follows from the correctness of Prim's Algorithm. For each $p\in\{2,\ldots,k\}$, let $h_p:=d_{H\boxtimes P}(x_p,\{x_1,\ldots,x_{p-1}\})$ be the cost of the unique edge in $E(T_p)\setminus E(T_{p-1})$.  Observe that $\prod_{p=2}^k h_p = \tvol_{d_{H\boxtimes P}}(K)$.
 
-  Let $Q_{p-1}:=\left\{\sum_{i=1}^{p-1}\lambda_i\phi(v_i):(\lambda_1,\ldots,\lambda_{p-1})\in\R^{p-1}\right\}$ be the subspace of $\R^L$ spanned by $\phi(v_1),\ldots,\phi(v_{p-1})$.  Observe that each coordinate $\phi_{i,j}(v_p)$ of $\phi(v_p)$ is at most $2(n-1)$, since $\phi_{i,j}(v_p)=\alpha_{Z_{i,j}}(v_p)\cdot d_{H\boxtimes P}(v_p, Z_{i,j})\le 2(n-1)$. Therefore, $\phi(v_p)$ is contained in a ball $B$ of radius $2(n-1)\sqrt{L}$ around the origin. \citet{feige:approximating} uses these two facts to show $Q_{p-1}\cap B$ can be covered by $\Theta(n^{2k})$ balls, each of radius $q\zeta$, such that, if $\phi(v_p)$ is not contained in any of these balls, then $d_2(\phi(v_p),Q)\ge 2q\zeta/3$.  When this happens, $\evol(\{\phi(v_1),\ldots,\phi(v_p)\})\ge (2q\zeta/3)\cdot\evol(\{\phi(v_1),\ldots,\phi(v_{p-1})\})/(p-1)$.  By \cref{crux} and the union bound, the probability that this happens for each $p\in\{2,\ldots,k\}$ is at least $1-O(kn^{-k})$.  Therefore, with probability at least $1-O(kn^{-k})$,
+  For each $p\in\{2,\ldots,k\}$, let $B_{p-1}:=\left\{\sum_{i=1}^{p-1}\lambda_i\phi(v_i):(\lambda_1,\ldots,\lambda_{p-1})\in\Gamma_{p-1}\right\}$ be the subspace of $\R^L$ spanned by $\phi(v_1),\ldots,\phi(v_{p-1})$.  Then
   \[
-    \evol(\phi(K)) \ge \prod_{p=2}^{k}\frac{q_p(2\zeta/3)}{p-1} = \frac{\tvol_{d_{H\boxtimes P}(K)}(2\zeta/3)^{k-1}}{(k-1)!} \enspace . \qedhere
+    \evol(\{v_1,\ldots,v_p\})=\evol(\{v_1,\ldots,v_{p-1}\}\cdot d_2(v_p,B_{p-1})/(p-1))\enspace .\footnotemark
+  \]
+  \footnotetext{This is the $(p-1)$-dimensional generalization of the formula $a:=bh/2$ for the area $a$ of a triangle $v_1,v_2,v_3$ with base length $b=\evol(\{v_1,v_2\})$ and height $h=d_2(v_3,B_2)$, where $B_2$ is the line containing $v_1$ and $v_2$.}  Observe that each coordinate $\phi_{i,j}(v_p)$ of $\phi(v_p)$ is at most $2(n-1)$, since $\phi_{i,j}(v_p)=\alpha_{Z_{i,j}}(v_p)\cdot d_{H\boxtimes P}(v_p, Z_{i,j})\le 2(n-1)$. Therefore, $\phi(v_p)$ is contained in a ball $B$ of radius $2(n-1)\sqrt{L}$ around the origin. \citet{feige:approximating} uses these two facts to show $Q_{p-1}\cap B$ can be covered by $\Theta(n^{2k})$ balls, each of radius $h\zeta$, such that, if $\phi(v_p)$ is not contained in any of these balls, then $d_2(\phi(v_p),Q_{p-1})\ge 2q\zeta/3$.  When this happens,
+  \[
+    \evol(\{\phi(v_1),\ldots,\phi(v_p)\})\ge (2q\zeta/3)\cdot\evol(\{\phi(v_1),\ldots,\phi(v_{p-1})\})/(p-1).
+  \]
+  By \cref{crux}, the probability that $\phi(p)$ is not contained in any of these balls is at least $1-O(n^{-k})$. By the union bound, the probability that this occurs for each $p\in\{2,\ldots,k\}$ is at least $1-O(kn^{-k})$.  Therefore, with probability at least $1-O(kn^{-k})$,
+  \[
+    \evol(\phi(K)) \ge \prod_{p=2}^{k}\frac{h_p(2\zeta/3)}{p-1} = \frac{\tvol_{d_{H\boxtimes P}(K)}(2\zeta/3)^{k-1}}{(k-1)!} \enspace . \qedhere
   \]
 \end{proof}
 
 We now have all the pieces needed to complete the proof of \cref{product_contraction}.
 
 \begin{proof}[Proof of \cref{product_contraction}]
-  Pffffffft
+  For each $v\in V(H\boxtimes P)$, let $\phi'(p):=\phi(p)/2\sqrt{L}$, so that $\phi'$ is a Euclidean contraction of $(V(H\boxtimes P),d_{H\boxtimes P})$.  By \cref{volume_preserver}, for each $K\in \binom{V(G)}{k}$,
+  \begin{equation}
+    \Pr\left(\evol(\phi'(K)) \ge \frac{\tvol_{d_{H\boxtimes P}}(K)\cdot(2\zeta/3)^{k-1}}{(k-1)!(2\sqrt{L})^{k-1}}\right) \ge 1- O(kn^{-k}) \enspace .
+    \label{zippy}
+  \end{equation}
+  By the union bound, the probability that the volume bound in \cref{zippy} holds for every $K\in\binom{V(G)}{k}$ is at least $1-O(\binom{n}{k}kn^{-k}) > 0$ for sufficiently large $n$.  When this occurs,
+  \[
+    \evol(\phi'(K)) \ge \frac{\tvol_{d_{H\boxtimes P}}(K)\cdot(2\zeta/3)^{k-1}}{(k-1)!(2\sqrt{L})^{k-1}} \ge
+    \frac{\ivol_{d_{H\boxtimes P}}(K)\cdot(2\zeta/3)^{k-1}}{(2\sqrt{L})^{k-1}} \enspace ,
+  \]
+  so $\phi'$ is a $(k,\eta)$-volume-preserving contraction for
+  \[
+    \eta = \frac{2\sqrt{L}}{\zeta} = \frac{160?(t+1)2\sqrt{L}}{\sqrt{\lceil ak\ln n\rceil}} = {160?(t+1)2\sqrt{1+\log_2 n}} = O(t\sqrt{\log n}) \enspace . \qedhere
+  \]
 \end{proof}
 
+Exactly the same proofs used for planar graphs give the following results:
+
+\begin{thm}\label{product_bandwidth}
+  Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P$ is a path.  Then there exist a subset $X$ of $V(G)$ of size $O(t\log^{2} n)$ such that $G-X$ has bandwidth at most $O(t\log^2 n)$.
+\end{thm}
+
+\section{Discussion}
+
+For fixed $t\ge 3$, the $O(\sqrt{\log n})$ bound in \cref{product_contraction} is tight, since it is already tight for planar graphs.
+
+\Cref{product_contraction} extends easily to any $n$-vertex subgraph $G$ of $H\boxtimes P\boxtimes P\cdots\boxtimes P$ where $H$ is $K_{t+1}$-minor-free and $P$ appears $s$ times in the product.  In this case, one obtains a $(k,O(st\sqrt{\log n}))$-volume-preserving Euclidean contractions of $(V(G),d_{H\boxtimes P\boxtimes P\cdots\boxtimes P})$.
+
+Using our methods, \cref{planar_density_bandwidth}, which states that planar graphs of local density $D$ have bandwidth $O(D\log^3 n)$, does not extend to $n$-vertex subgraphs $G$ of  $H\boxtimes P$. This is because the graph metric space $(V(G),d_G)$ can be wildly different than the metric space $(V(G),d_{H\boxtimes P})$. Indeed, any $n$-vertex path $G$ in $H\boxtimes P$ has local density $2$, even if a ball of radius $1$ in $H\boxtimes P$ contains $V(G)$.  Of course, Feige's bound of $O(D\log^3\sqrt{\log n\log\log n})$ still holds for arbitrary graphs.
+
+\todo[inline]{Note that the situation described above never occurs when the mapping of $G$ into $H\boxtimes P$ comes from the existence proof in, e.g., \cite{dujmovic.joret.ea:planar}.  If $G$ has local density $D$ then it has diameter $\Omega(n/D)$, so any BFS layering of $G$ uses $\Omega(n/D)$ layers, so the mapping of $G$ into $H\boxtimes P$ uses a path $P$ with $\Omega(n/D)$ vertices.  This doesn't immediately mean that the metric space $(V(G),d_{H\boxtimes P})$ has local density $O(D)$, but maybe this actually happens for free? Probably not, but maybe it's worth looking into local-density preserving embeddings of graphs into $H\boxtimes P$.}
+
+
 % ?Let $\phi'(x):=\phi(x)/\sqrt{L}$ for each $x\in V(H\boxtimes P)$.
-
-
 
 \bibliographystyle{plainurlnat}
 \bibliography{fan-partition}
