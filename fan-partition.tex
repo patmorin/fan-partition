@@ -3,12 +3,13 @@
 \usepackage{pat}
 \usepackage{paralist}
 \usepackage[OT1]{fontenc}
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{paralist}
 \usepackage{bbm}  % needed for \mathbbm{1}
 
 
 \usepackage{todonotes}
+\usepackage{tcolorbox}
 
 % etoolbox allows for robust commands that don't need \protect, e.g.
 % \newrobustcmd{\onesub}{\mathord{\includegraphics{figs/one-sub}}}
@@ -491,11 +492,25 @@ Exactly the same proofs used for planar graphs give the following results:
 
 For fixed $t\ge 3$, the $O(\sqrt{\log n})$ bound in \cref{product_contraction} is tight, since it is already tight for planar graphs.
 
-\Cref{product_contraction} extends easily to any $n$-vertex subgraph $G$ of $H\boxtimes P\boxtimes P\cdots\boxtimes P$ where $H$ is $K_{t+1}$-minor-free and $P$ appears $s$ times in the product.  In this case, one obtains a $(k,O(st\sqrt{\log n}))$-volume-preserving Euclidean contractions of $(V(G),d_{H\boxtimes P\boxtimes P\cdots\boxtimes P})$.
+\Cref{product_contraction} extends easily to any $n$-vertex subgraph $G$ of $H\boxtimes P\boxtimes P\boxtimes\cdots\boxtimes P$ where $H$ is $K_{t+1}$-minor-free and $P$ appears $s$ times in the product.  In this case, one obtains a $(k,O(st\sqrt{\log n}))$-volume-preserving Euclidean contractions of $(V(G),d_{H\boxtimes P\boxtimes P\cdots\boxtimes P})$.
+
+\begin{tcolorbox}[width=\textwidth,colback={orange}]
+  One direction for future work is to look at the algorithmic results in \citet{klein.plotkin.ea:excluded} and see if they can be extended to subgraphs of $H\boxtimes P\boxtimes\cdots\boxtimes P$.  This paper seems to be quite influential and I think the decomposition is used in a bunch of other problems.  Here's a starting point:
+
+  \begin{thm}
+    Let $G$ be an $n$-vertex subgraph of $H\boxtimes P\boxtimes\cdots\boxtimes P$ where $H$ is $K_{t+1}$-minor-free and $P$ appears $s$ times in the product.  Then for every number $\Delta\ge 1$ there exists a partition $\mathcal{P}$ of $V(H\boxtimes P\boxtimes \cdots\boxtimes P)$ such that
+    \begin{compactenum}[(i)]
+      \item For each part $P\in\mathcal{P}$, $(H\boxtimes P\boxtimes \cdots\boxtimes P)[P]$ has diameter $O(t\Delta)$; and
+      \item the number of edges of $G$ with endpoints in two different parts of $\mathcal{P}$ is $O((t+s)n/\Delta)$.
+    \end{compactenum}
+  \end{thm}
+  The catch, here, is that the diameter of the parts is measured by distances in $H\boxtimes P\boxtimes\cdots\boxtimes P$, not by distances in $G$.  (See, also, the next paragraph.)  I don't know if this is enough to make the algorithmic applications work.
+\end{tcolorbox}
 
 Using our methods, \cref{planar_density_bandwidth}, which states that planar graphs of local density $D$ have bandwidth $O(D\log^3 n)$, does not extend to $n$-vertex subgraphs $G$ of  $H\boxtimes P$. This is because the graph metric space $(V(G),d_G)$ can be wildly different than the metric space $(V(G),d_{H\boxtimes P})$. Indeed, any $n$-vertex path $G$ in $H\boxtimes P$ has local density $2$, even if a ball of radius $1$ in $H\boxtimes P$ contains $V(G)$.  Of course, Feige's bound of $O(D\log^3\sqrt{\log n\log\log n})$ still holds for arbitrary graphs.
 
 \todo[inline]{Note that the situation described above never occurs when the mapping of $G$ into $H\boxtimes P$ comes from the existence proof in, e.g., \cite{dujmovic.joret.ea:planar}.  If $G$ has local density $D$ then it has diameter $\Omega(n/D)$, so any BFS layering of $G$ uses $\Omega(n/D)$ layers, so the mapping of $G$ into $H\boxtimes P$ uses a path $P$ with $\Omega(n/D)$ vertices.  This doesn't immediately mean that the metric space $(V(G),d_{H\boxtimes P})$ has local density $O(D)$, but maybe this actually happens for free? Probably not, but maybe it's worth looking into local-density preserving embeddings of graphs into $H\boxtimes P$.}
+
 
 
 % ?Let $\phi'(x):=\phi(x)/\sqrt{L}$ for each $x\in V(H\boxtimes P)$.
