@@ -16,6 +16,12 @@
 % \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
 \usepackage{etoolbox}
 
+\newcommand{\david}[1]{{\color{orange} David: #1}}
+\newcommand{\vida}[1]{{\color{DarkGreen} Vida: #1}}
+\newcommand{\pat}[1]{\textcolor{Maroon}{Pat: #1}}
+\newcommand{\gwen}[1]{\textcolor{Purple}{Gwen: #1}}
+\newcommand{\piotr}[1]{\textcolor{red}{Piotr: #1}}
+
 
 \newenvironment{clmproof}{\noindent\emph{Proof of Claim:}}{\hfill\rule{1ex}{1ex}}
 
@@ -75,7 +81,7 @@
 
 
 \title{\MakeUppercase{Fan-Partitions of Planar Graphs (and Beyond)
-  \newline by Local Sparsification and Volume-Preserving Emeddings}}
+  \newline by Local Sparsification and Volume-Preserving Embeddings}}
 \author{TBD}
 
 
@@ -87,22 +93,43 @@
 \maketitle
 
 \begin{abstract}
-  We show that every $n$-vertex planar graph is contained in the strong product of a fan and a clique of size $\sqrt{n}\log^2 n$.  Equivalently, every $n$-vertex planar graph $G$ contains a vertex subset $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.  This result holds in the more general setting of product structured graphs, which includes bounded genus graphs and $k$-planar graphs for fixed $k$.
+  We show that every $n$-vertex planar graph is contained in the strong product of a fan and a clique of size $O(\sqrt{n}\log^2 n)$.  Equivalently, every $n$-vertex planar graph $G$ contains a vertex subset $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.  This result holds in the more general setting of product structured graphs, which includes bounded genus graphs and $k$-planar graphs for fixed $k$.
 \end{abstract}
 
 \section{Introduction}
 
-The \defin{$k$-blowup} of a graph $H$ the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of size $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$.  The current work is motivated by the following question: What is the simplest family of graphs $\mathcal{H}$ such that for each $n$-vertex planar graph $G$ there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G'$ contains a subgraph isomorphic to $G$.}
+The \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of size $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$.  The current work is motivated by the following question: What is the simplest family of graphs $\mathcal{H}$ such that for each $n$-vertex planar graph $G$ there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G'$ contains a subgraph isomorphic to $G$.}
 
-\cite{illingworth.scott.ea:product} show that one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs. \citet{distel.dujmovic.ea:product} show that even the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of pathwidth-$2$ graphs.  Even more specifically, every $n$-vertex planar graph is isomorphic to a $\tilde{O}(\sqrt{n})$-blowup of a fan.\footnote{A \defin{fan} $F_k$ is a graph with vertex set $V(F_k):=\{v_0,\ldots,v_k\}$ whose edge set consists of a path on $v_1,\ldots,v_k$ and an edge from $v_0$ to each of $v_1,\ldots,v_k$.}
-\begin{thm}
+\citet{illingworth.scott.ea:product} show that one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs. \citet{distel.dujmovic.ea:product} show that even the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of pathwidth-$2$ graphs.  Even more specifically, every $n$-vertex planar graph is isomorphic to a $\tilde{O}(\sqrt{n})$-blowup of a fan.\footnote{A \defin{fan} $F_k$ is a graph with vertex set $V(F_k):=\{v_0,\ldots,v_k\}$ whose edge set consists of a path on $v_1,\ldots,v_k$ and an edge from $v_0$ to each of $v_1,\ldots,v_k$.}
+\begin{thm}\label{main_thm_planar}
   For every $n$-vertex planar $G$ there is a $O(\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
 \end{thm}
 
+\cref{main_thm_planar} is follows from a more general theorem about subgraphs of certain strong graph products.  The \defin{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph with vertex set $V(A\boxtimes B):=V(A)\times V(B)$ and that contains an edge with endpoints $(v_1,v_2)$f and $(w_1,w_2)$ if and only if
+\begin{compactenum}
+    \item $v_1w_1\in E(A)$ and $v_2=w_2$;
+    \item $v_1=w_1$ and $v_2w_2\in E(B)$; or
+    \item $v_1w_1\in E(A)$ and $v_2w_2\in E(B)$.
+\end{compactenum}
+
+\begin{thm}
+  For every graph $H$ with treewidth $t$, for every path $P$, and for every $n$-vertex subgraph $G$ of $H\boxtimes P$ there is a $O(\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
+\end{thm}
+
+
+
 \todo[inline]{Motivation.  Explain relationship with bandwidth. For a bit more than the cost of one separator we get a much simpler graph.  Explain that removing the apex of the fan must give a graph of bounded local density. Explain that the relationship between local-density and bandwidth is still a big open problem.  Even for trees, the best bound is $O(D\log^{2.5} n)$. }
 
-\todo[inline]{Somewhere explain that  }
+\todo[inline]{Somewhere explain that $\sqrt{n}$ is the magic number here because planar graphs have treewidth up to, but not exceeding $\Theta(\sqrt{n})$.  Explain why we can have tree-partitions of width $O(\sqrt{n})$ (the graph $F_n$ is a good reason).}
 
+\david{I suggest we get products in the intro, and state the following theorem including the dependence on $t$:
+\begin{thm}
+For every graph $H$ with treewidth $t$ and for every path $P$, for every $n$-vertex subgraph $G$ of $H\boxtimes P$ there is a $O(\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
+\end{thm}
+Then give several examples: graphs $G$ of Euler genus $g$ with $t=2g+6$, apex-minor-free graphs, $(g,k)$-planar graphs. \\
+Say that working with the metric of products is essential to the proof. This is a really important point. \\
+Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=3$ and $c=c_k$). 
+}
 
 \subsection{Distance Functions and Metric Spaces}
 
@@ -114,9 +141,9 @@ For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}
 
 Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$, $d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\}$.
 
-We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each $r\ge 1$ and each $x\in S$.
-% It will be convenient for us to work with a discrete version of local density:  A finite metric space $\mathcal{M}:=(S,d)$ \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le Dr$ for each \emph{integer} $r\ge 1$ and each $x\in S$.
-This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has (discrete) local density at most $D$.
+We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le 1+Dr$, for each $r\ge 0$ and each $x\in S$.  
+\todo[inline]{Say something about the relationship to the graph definition of local density.}
+% This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has local density at most $D$.
 
 A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.  When $S\subseteq S'$ and $\phi$ is the identity function we say that $\mathcal{M'}$ is a contraction of $\mathcal{M}$.
 
@@ -194,7 +221,7 @@ The following lemma generalizes \citet[Theorem~10]{feige:approximating} from gra
   \end{align*}
 \end{proof}
 
-The following theorem is proved implicitly by \citet{feige:approximating} for graph metrics, although the dependence on the parameters $n$, $D$, $k$, and $\eta$ are not stated explicitly in \cite{feige:approximating}. Here we give a generalization for metric spaces and make the bound on the bandwidth explicit in terms of the parameters $n$, $D$, and $\eta$.  First we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a metric space and let $x_1,\ldots,x_n$ be a permutation $S$.  Then $\bw_{(S,d)}(x_1,\ldots,x_n):=\max\{j-i:d(x_i,x_j)=1\}$ and $\bw(S,d)$ is the minimum of $\bw_{(S,d)}(x_1,\ldots,x_n)$ taken over all $n!$ permutations $x_1,\ldots,x_n$ of $S$.  Note that this coincides with the definition of the bandwidth of a graph: For any connected graph $G$, $\bw(V(G),d_G)=\bw(G)$.
+The following theorem is proved implicitly by \citet{feige:approximating} for graph metrics, although the dependence on the parameters $n$, $D$, $k$, and $\eta$ are not stated explicitly in \cite{feige:approximating}. Here we give a generalization for metric spaces and make the bound on the bandwidth explicit in terms of the parameters $n$, $D$, and $\eta$.  First we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a metric space and let $x_1,\ldots,x_n$ be a permutation $S$.  Then $\bw_{(S,d)}(x_1,\ldots,x_n):=\max\{j-i:d(x_i,x_j)\le 1\}$ and $\bw(S,d)$ is the minimum of $\bw_{(S,d)}(x_1,\ldots,x_n)$ taken over all $n!$ permutations $x_1,\ldots,x_n$ of $S$.  Note that this coincides with the definition of the bandwidth of a graph: For any connected graph $G$, $\bw(V(G),d_G)=\bw(G)$.
 
 
 
@@ -213,7 +240,7 @@ The following theorem is proved implicitly by \citet{feige:approximating} for gr
 \begin{proof}
   Let $r$ be a random unit vector in $\R^L$ and for each $v\in S$, let $\mathdefin{h(v)}:=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the elements of $S$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(S,d)$, it suffices to show an upper bound that holds with positive probability on the maximum, over all $vw$ with $d(v,w)=1$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
 
-  Consider some pair $v,w\in S$ with $d(v,w)=1$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a\ge 1/4\ln n$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each pair $v,w\in S$ with $d(v,w)=1$.
+  Consider some pair $v,w\in S$ with $d(v,w)\le 1$. Since $\phi$ is a contraction, $d_2(\phi(v),\phi(w))\le 1$.  By \cite[Proposition~7]{feige:approximating}, $\Pr(|h(v)-h(w)|\ge \sqrt{4a\ln n/L}) \le n^{-a}$, for any $a\ge 1/4\ln n$. Therefore, with probability at least $1-n^{-a+2}$, $|h(v)-h(w)|\le \sqrt{4a\ln n/L}$ for each pair $v,w\in S$ with $d(v,w)\le 1$.
 
   Let  $K:=\{v_1,\ldots,v_k\}$ be a $k$-element subset of $S$. First observe that $\evol(\phi(K)\le n^k$, since $\evol(\phi(K))\le\prod_{i=2}^k d_2(\phi(v_{i-1}),\phi(v_i))\le \prod_{i=2}^k d(v_{i-1},v_i)\le \Delta^{k-2}$.  In particular, $\log\evol(\phi(K))\le k\log \Delta$.
 
@@ -253,7 +280,7 @@ The following theorem is proved implicitly by \citet{feige:approximating} for gr
 In this section we will prove a generalization of the following result:
 
 \begin{lem}\label{planar_sparsifier}
-  For each $D\le n$, every $n$-planar graph $G$ contains contains a subset $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $n/D$.
+  For each $D\le n$, every $n$-planar graph $G$ contains contains a subset $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $D$.
 \end{lem}
 
 Before continuing, we show that this, combined with the following result of \citet{rao:small}, establishes our results for planar graphs.
@@ -321,6 +348,12 @@ Since a number of other minor-closed and non-minor-closed graph classes have a p
 \begin{thm}\label{product_contraction}
   For any $K_{t+1}$-minor-free graph $H$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(t\sqrt{\log n}))$-volume-preserving Euclidean contraction.
 \end{thm}
+
+\david{This suggests we are claiming a version of \cref{fan_partition_planar} for any $n$-vertex subgraph of $H\boxtimes P$ where $H$ has no $K_t$ minor. But the sparsification step requires that $H$ has treewidth less than $t$. We should state the following theorem, including the correct dependence on $t$:
+\begin{thm}\label{fan_partition_HP}
+For every graph $H$ of treewidth $t$ and for every path $P$, every $n$-vertex  subgraph $G$ of $H\boxtimes P$ contains a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$. 
+\end{thm}
+}
 
 % The proof of \cref{product_contraction} closely follows Rao's proof of \cref{rao}.
 
@@ -511,7 +544,9 @@ Using our methods, \cref{planar_density_bandwidth}, which states that planar gra
 
 \todo[inline]{Note that the situation described above never occurs when the mapping of $G$ into $H\boxtimes P$ comes from the existence proof in, e.g., \cite{dujmovic.joret.ea:planar}.  If $G$ has local density $D$ then it has diameter $\Omega(n/D)$, so any BFS layering of $G$ uses $\Omega(n/D)$ layers, so the mapping of $G$ into $H\boxtimes P$ uses a path $P$ with $\Omega(n/D)$ vertices.  This doesn't immediately mean that the metric space $(V(G),d_{H\boxtimes P})$ has local density $O(D)$, but maybe this actually happens for free? Probably not, but maybe it's worth looking into local-density preserving embeddings of graphs into $H\boxtimes P$.}
 
+\section*{Acknowledgement}
 
+This research was initiated and much of it was done at the \emph{Eleventh Annual Workshop on Geometry and Graphs (WoGaG~2024)} held at the Bellairs Research Institute of McGill University, March 8--15, 2024. The authors are gratefuly to the workshop organizers and other participants for providing a working environment that somehow manages to be simultaneously stimulating and comfortable.
 
 % ?Let $\phi'(x):=\phi(x)/\sqrt{L}$ for each $x\in V(H\boxtimes P)$.
 
