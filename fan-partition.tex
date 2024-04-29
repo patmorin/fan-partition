@@ -105,17 +105,38 @@ The \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each ve
   For every $n$-vertex planar $G$ there is a $O(\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
 \end{thm}
 
-\cref{main_thm_planar} is follows from a more general theorem about subgraphs of certain strong graph products.  The \defin{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph with vertex set $V(A\boxtimes B):=V(A)\times V(B)$ and that contains an edge with endpoints $(v_1,v_2)$f and $(w_1,w_2)$ if and only if
+The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$, any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is is also the best-possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  The fan $F_n$ is not contained in $k$-blowup of a tree for any $k\in o(n)$.
+
+
+\cref{main_thm_planar} follows from a more general theorem about subgraphs of certain strong graph products, as we now explain.  The \defin{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph with vertex set $V(A\boxtimes B):=V(A)\times V(B)$ and that contains an edge with endpoints $(v_1,v_2)$f and $(w_1,w_2)$ if and only if
 \begin{compactenum}
     \item $v_1w_1\in E(A)$ and $v_2=w_2$;
     \item $v_1=w_1$ and $v_2w_2\in E(B)$; or
     \item $v_1w_1\in E(A)$ and $v_2w_2\in E(B)$.
 \end{compactenum}
+(Note that $k$-blowup of $H$ can be written as the strong product $H\boxtimes K_k$.)
 
-\begin{thm}
-  For every graph $H$ with treewidth $t$, for every path $P$, and for every $n$-vertex subgraph $G$ of $H\boxtimes P$ there is a $O(\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
+\begin{thm}\label{main_thm_products}
+  For every graph $H$ with treewidth $t$, for every path $P$, and for every $n$-vertex subgraph $G$ of $H\boxtimes P$ there is a $O(t\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
 \end{thm}
 
+\Cref{main_thm_products} implies \cref{main_thm_planar} by the following \defin{Planar Product Structure Theorem}:
+
+\begin{thm}[\cite{dujmovic.joret.ea:planar,ueckerdt.wood.ea:improved}]\label{planar_product_structure}
+  For every planar graph $G$, there exists a graph $H$ of treewidth $6$ and a path $P$ such $G$ is isomorphic to a subgraph of $H\boxtimes P$.
+\end{thm}
+
+\Cref{planar_product_structure} has been generalized to a number of other minor-closed and non-minor closed graph classes, including bounded genus graphs and (more generally) apex-minor-free graphs \cite{dujmovic.joret.ea:planar,distel.hickingbotham.ea:improved} and $k$-planar graphs \cite{dujmovic.morin.ea:graph,distel.hickingbotham.ea:powers}.
+
+\begin{cor}\thmlabel{main-all}
+  For every fixed integer $t\geq 1$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth $t$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
+  This includes the following graph classes:
+  \begin{compactenum}
+    \item graphs of bounded genus and, more generally, apex-minor free graphs;
+    \item bounded degree graphs that exclude a fixed graph as a minor; and
+    \item $k$-planar graphs and, more generally, $(g,k)$-planar graphs.
+  \end{compactenum}
+\end{thm}
 
 
 \todo[inline]{Motivation.  Explain relationship with bandwidth. For a bit more than the cost of one separator we get a much simpler graph.  Explain that removing the apex of the fan must give a graph of bounded local density. Explain that the relationship between local-density and bandwidth is still a big open problem.  Even for trees, the best bound is $O(D\log^{2.5} n)$. }
@@ -128,7 +149,7 @@ For every graph $H$ with treewidth $t$ and for every path $P$, for every $n$-ver
 \end{thm}
 Then give several examples: graphs $G$ of Euler genus $g$ with $t=2g+6$, apex-minor-free graphs, $(g,k)$-planar graphs. \\
 Say that working with the metric of products is essential to the proof. This is a really important point. \\
-Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=3$ and $c=c_k$). 
+Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=3$ and $c=c_k$).
 }
 
 \subsection{Distance Functions and Metric Spaces}
@@ -141,7 +162,7 @@ For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}
 
 Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$, $d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\}$.
 
-We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le 1+Dr$, for each $r\ge 0$ and each $x\in S$.  
+We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le 1+Dr$, for each $r\ge 0$ and each $x\in S$.
 \todo[inline]{Say something about the relationship to the graph definition of local density.}
 % This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has local density at most $D$.
 
@@ -351,7 +372,7 @@ Since a number of other minor-closed and non-minor-closed graph classes have a p
 
 \david{This suggests we are claiming a version of \cref{fan_partition_planar} for any $n$-vertex subgraph of $H\boxtimes P$ where $H$ has no $K_t$ minor. But the sparsification step requires that $H$ has treewidth less than $t$. We should state the following theorem, including the correct dependence on $t$:
 \begin{thm}\label{fan_partition_HP}
-For every graph $H$ of treewidth $t$ and for every path $P$, every $n$-vertex  subgraph $G$ of $H\boxtimes P$ contains a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$. 
+For every graph $H$ of treewidth $t$ and for every path $P$, every $n$-vertex  subgraph $G$ of $H\boxtimes P$ contains a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
 \end{thm}
 }
 
