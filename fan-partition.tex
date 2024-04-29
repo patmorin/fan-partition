@@ -128,29 +128,11 @@ The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blow
 
 \Cref{planar_product_structure} has been generalized to a number of other minor-closed and non-minor closed graph classes, including bounded genus graphs and (more generally) apex-minor-free graphs \cite{dujmovic.joret.ea:planar,distel.hickingbotham.ea:improved} and $k$-planar graphs \cite{dujmovic.morin.ea:graph,distel.hickingbotham.ea:powers}.
 
-\begin{cor}\thmlabel{main-all}
-  For every fixed integer $t\geq 1$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth $t$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
-  This includes the following graph classes:
-  \begin{compactenum}
-    \item graphs of bounded genus and, more generally, apex-minor free graphs;
-    \item bounded degree graphs that exclude a fixed graph as a minor; and
-    \item $k$-planar graphs and, more generally, $(g,k)$-planar graphs.
-  \end{compactenum}
-\end{thm}
-
-
-\todo[inline]{Motivation.  Explain relationship with bandwidth. For a bit more than the cost of one separator we get a much simpler graph.  Explain that removing the apex of the fan must give a graph of bounded local density. Explain that the relationship between local-density and bandwidth is still a big open problem.  Even for trees, the best bound is $O(D\log^{2.5} n)$. }
-
-\todo[inline]{Somewhere explain that $\sqrt{n}$ is the magic number here because planar graphs have treewidth up to, but not exceeding $\Theta(\sqrt{n})$.  Explain why we can have tree-partitions of width $O(\sqrt{n})$ (the graph $F_n$ is a good reason).}
-
-\david{I suggest we get products in the intro, and state the following theorem including the dependence on $t$:
-\begin{thm}
-For every graph $H$ with treewidth $t$ and for every path $P$, for every $n$-vertex subgraph $G$ of $H\boxtimes P$ there is a $O(\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
-\end{thm}
-Then give several examples: graphs $G$ of Euler genus $g$ with $t=2g+6$, apex-minor-free graphs, $(g,k)$-planar graphs. \\
+\david{Then give several examples: graphs $G$ of Euler genus $g$ with $t=2g+6$, apex-minor-free graphs, $(g,k)$-planar graphs. \\
 Say that working with the metric of products is essential to the proof. This is a really important point. \\
 Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=3$ and $c=c_k$).
 }
+
 
 \subsection{Distance Functions and Metric Spaces}
 
@@ -451,7 +433,10 @@ The following observation follows immediately from \cref{component_diameter}:
 \end{obs}
 
 
-Let $a$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V(G)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\lfloor \log_2 n\rfloor\}$ and each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $Z_{i,j}\sim Z_{\Delta,t}(H,P)$ be the random subset of $V(H\boxtimes P)$ obtained by using the procedure described above with parameters $\Delta$ and $t$ with all random choices made independently.  For each $x\in V(H\boxtimes P)$, let $\phi_{i,j}(x)\sim \varphi_{Z_{i,j}}(x)$ again with all choices made independently.  Finally,
+\pat{Annoying issue here that is completely overlooked in Rao's short paper:  The smallest possible value of $\Delta$ is $1$, in which case $Z_{1,t}(H,P)=V(H\boxtimes P)$. This means $\phi_{1,j}(x)=0$ for all $x$ and all $j$.  In  particular, when $x,y\in K$ and $xy\in E(H\boxtimes P)$, the proof below will have $h=1$ and there will be no good values of $j$ and you'll get $\evol(K)=0$. I think the solution is to use $\varphi_Z(x):=\alpha_x(\max\{1,d_{H\boxtimes P}(x,Z_{i,j})\})$, but I need to think this through.}
+
+
+Let $a$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V(G)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\lfloor \log_2 n\rfloor\}$ and each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $Z_{i,j}\sim Z_{\Delta,t}(H,P)$ be the random subset of $V(H\boxtimes P)$ obtained by using the procedure described above with parameters $\Delta=2^i$ and $t$ with all random choices made independently.  For each $x\in V(H\boxtimes P)$, let $\phi_{i,j}(x)\sim \varphi_{Z_{i,j}}(x)$ again with all choices made independently.  Finally,
 \[
    \phi(x) := (\phi_{i,j}(x))_{(i,j)\in \{0,\ldots,\lfloor \log_2 n\rfloor\}\times\{1,\ldots,\lceil a k\ln n\rceil\}} \enspace .
 \]
@@ -473,7 +458,7 @@ Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in \R^k:\sum_{j=1}^k\lambda_j=1\}$
 \end{lem}
 
 \begin{proof}
-  Let $i$ be an integer such that $h/2?\le 2^i < h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ dominates a random variable $Y$ if $Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
+  Let $i$ be an integer such that $h/2?< 2^i \le h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ dominates a random variable $Y$ if $Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
 
   Since $d_{H\boxtimes P}(v_p,\{v_1,\ldots,v_{p-1}\})= h$, \cref{component_diameter} implies that the component of $H\boxtimes P-Z_{i,j}$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$. Since $\lambda$ is defined entirely by $\phi(v_1),\ldots,\phi(v_{p-1})$,   \cref{uniform,independent} imply that, for $j\in J$, $\phi_{i,j}(v_p)$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$ and the location of $\phi_{i,j}(v_p)$ in this interval is independent of the corresponding coordinate, $x_{i,j}$, of $x$.
   Therefore, for $j\in J$, $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge 1/2$.\footnote{The coordinate $\phi_{i,j}(v_p)$ is uniform over some interval $[a,b]$ of length $b-a\ge \Delta/10(t+1)$ whereas $[x_{i,j}-\Delta/40(t+1),x_{i,j}+\Delta/40(t+1)]$ has length $\Delta/20(t+1)$, so $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge (b-a-\Delta/20(t+1))/(b-a)\ge 1/2$.}
