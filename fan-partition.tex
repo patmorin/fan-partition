@@ -133,13 +133,28 @@ Say that working with the metric of products is essential to the proof. This is 
 Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=10^{10}$ and $c=c_k$).
 }
 
-\pat{Thinking about this last question made me realize that Rao's proof has a gap.  There are lemmas that are not true for $\Delta=1$. I've made a note about this after Observation 23.  I think the fix is easy, but I need to think it through and I'm tired now.}
+\section{Background}
+
+\subsection{Bandwidth}
+
+Let $G$ be a graph and let $v_1,\ldots,v_n$ be a permutation of $V(G)$.  Then $v_1,\ldots,v_n$ has \defin{bandwidth} $\mathdefin{\bw_G(v_1,\ldots,v_n)}:=\{\max\{j-i: v_iv_j\in E(G)\}$.  The \defin{bandwidth} of $G$ is $\mathdefin{\bw(G)}:=\min\{\bw_G(v_1,\ldots,v_n):\text{$v_1,\ldots,v_n$ is a permutation of $V(G)$}\}$.
+
+\begin{lem}
+  A graph $G$ has bandwidth $k$ if and only if $G$ is contained in an $O(k)$-blowup of some path.
+\end{lem}
+
+
+\begin{cor}\label{fan_partition_bandwidth}
+  A graph $G$ has is contained in a $O(k)$-blowup of some fan if and only if there exists $X\subseteq V(G)$, $|X|=O(k)$ such that $G-X$ has bandwidth $O(k)$.
+\end{cor}
+
+
 
 \subsection{Distance Functions and Metric Spaces}
 
 A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over some superset of $S$.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.
 
-For a graph $G$ and any two vertices $v,w\in V(G)$, we use $\mathdefin{d_G(v,w)}$ to denote the minimum number of edges in any path from $v$ to $w$ in $G$, or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different connected components of $G$.  If $G$ is connected, then $d_G$ is a distance function over $V(G)$ so $\mathdefin{\mathcal{M}_G}:=(V(G),d_G)$ is a metric space. Any metric space that can be defined this way is referred to as a \defin{graph metric}.
+For a graph $G$ and any two vertices $v,w\in V(G)$, the \defin{distance in $G$} between $v$ and $w$, denoted $\mathdefin{d_G(v,w)}$, is the minimum number of edges in any path from $v$ to $w$ in $G$, or $d_G(v,w):=\infty$ if $v$ and $w$ are in different connected components of $G$.  If $G$ is connected, then $d_G$ is a distance function over $V(G)$ so $\mathdefin{\mathcal{M}_G}:=(V(G),d_G)$ is a metric space. Any metric space that can be defined this way is referred to as a \defin{graph metric}.  For $v\in V(G)$ and $W\subseteq V(G)$, $\mathdefin{d_G(v,W)}:=\min\{w\in W:d_G(v,w)\}$. The \defin{positive distance in $G$} between $v$ and $W$ is $\mathdefin{d^+_G(v,W)}:=\max\{1,d_G(v,W)\}$.
 
 % In this case we will use the shorthand $B_{G}(x,r):=B_{V(G),d_G}(x,r)$.
 
@@ -287,7 +302,7 @@ In this section we will prove a generalization of the following result:
   For each $D\le n$, every $n$-planar graph $G$ contains contains a subset $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $D$.
 \end{lem}
 
-Before continuing, we show that this, combined with the following result of \citet{rao:small}, establishes our results for planar graphs.
+Before continuing, we show that this, combined with the following result of \citet{rao:small}, establishes \cref{main_thm_planar}.
 
 \begin{thm}[{\citet{rao:small}}]\label{rao}
   For every $k\le n$, every $n$-vertex planar graph $G$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
@@ -299,12 +314,12 @@ Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yiel
   Every $n$-vertex planar graph $G$ with local density at most $D$ has bandwidth $O(D\log^{3} n)$.
 \end{cor}
 
-\begin{thm}\label{fan_partition_planar}
-  Every $n$-vertex planar graph $G$ contains a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
-\end{thm}
+% \begin{thm}\label{fan_partition_planar}
+%   Every $n$-vertex planar graph $G$ contains a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
+% \end{thm}
 
-\begin{proof}
-  Let $G$ be an $n$-vertex planar graph.  By \cref{planar_sparsifier}, $G$ contains a vertex set $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has local density at most $D:=\sqrt{n}/\log n$.  By \cref{planar_density_bandwidth}, $G-X$ has bandwidth at most $O(D\log^{3} n)=O(\sqrt{n}\log^2 n)$.
+\begin{proof}[Proof of \cref{main_thm_planar}]
+  Let $G$ be an $n$-vertex planar graph.  By \cref{planar_sparsifier}, $G$ contains a vertex set $X$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has local density at most $D:=\sqrt{n}/\log n$.  By \cref{planar_density_bandwidth}, $G-X$ has bandwidth at most $O(D\log^{3} n)=O(\sqrt{n}\log^2 n)$.  The theorem now follows from \cref{fan_partition_bandwidth}.
 \end{proof}
 
 We now turn to the proof of \cref{planar_sparsifier}.  We work in the more general setting of product structured graphs.
@@ -330,7 +345,7 @@ We now turn to the proof of \cref{planar_sparsifier}.  We work in the more gener
 \end{proof}
 
 
-To prove \cref{sparsifier} we make use of the following frequently-used separator result (see, for example \cite[Lemma~11]{bose.dujmovic.ea:asymptotically}):
+To prove \cref{sparsifier} we make use of the following frequently-used separator result (see, for example, \cite[Lemma~11]{bose.dujmovic.ea:asymptotically}):
 
 
 \begin{lem}\label{pq_separator}
@@ -339,7 +354,7 @@ To prove \cref{sparsifier} we make use of the following frequently-used separato
 \end{lem}
 
 \begin{proof}[Proof of \cref{sparsifier}]
-  For each $i\in\{0,\ldots,\lfloor\log_2 n\rfloor$ and each $j\in\N$, let $Q_{i,j}:=(H\boxtimes P)[V(H)\times\{y_{(i-1)2^i+1},\ldots,y_{(i+1)2^i}]$ be a subgraph that contains $3\cdot 2^i$ consecutive layers of $H\boxtimes P$.  Observe that the treewidth of $Q_{i,j}$ is at most $3(t+1)2^i-1\in O(t2^i)$.  By \cref{pq_separator}, there exists $X_{i,j}\subseteq Q_{i,j}$ of size $ct|V(G)\cap V(Q_{i,j})|/D$ such that each component of $Q_{i,j}-X_{i,j}$ contains at most $D\Delta/2$ vertices of $G$.  Observe that $\sum_{j\in\mathbb{N}}|V(G)\cap V(Q_{i,j})| \le 3|V(G)|$ since each vertex of $G$ contributes to at most $3$ consecutive terms in this sum.  Therefore $\sum_{j\in\mathbb{N}}|X_{i,j}|\le 3ctn/D=O(tn/D)$.
+  For each $i\in\{0,\ldots,\lfloor\log_2 n\rfloor\}$ and each $j\in\N$, let $Q_{i,j}:=(H\boxtimes P)[V(H)\times\{y_{(i-1)2^i+1},\ldots,y_{(i+1)2^i}]$ be a subgraph that contains $3\cdot 2^i$ consecutive layers of $H\boxtimes P$.  Observe that the treewidth of $Q_{i,j}$ is at most $3(t+1)2^i-1\in O(t2^i)$.  By \cref{pq_separator}, there exists $X_{i,j}\subseteq Q_{i,j}$ of size $ct|V(G)\cap V(Q_{i,j})|/D$ such that each component of $Q_{i,j}-X_{i,j}$ contains at most $D\Delta/2$ vertices of $G$.  Observe that $\sum_{j\in\mathbb{N}}|V(G)\cap V(Q_{i,j})| \le 3|V(G)|$ since each vertex of $G$ contributes to at most $3$ consecutive terms in this sum.  Therefore $\sum_{j\in\mathbb{N}}|X_{i,j}|\le 3ctn/D=O(tn/D)$.
 
   Now let $X:=\bigcup_{i=0}^{\lfloor\log_2 n\rfloor}\{X_{i,j}:,\, i\in\mathbb{N}\}$.  Then $|X|=\sum_{j=0}^{\lfloor\log_2 n\rfloor}O(tn/D)=O((tn/D)\log n)$. For any subpath $y_1,\ldots,y_{\ell}$ of $P$, there exists some $i$ such that $V(H)\times\{y_1,\ldots,y_\ell\}\subseteq V(Q_{\lceil\log_2\ell\rceil,i})$. Therefore each component of $(H\boxtimes P)[V(H)\times\{y_1,\ldots,y_\ell\}]-X$ is contained in a component of $Q_{\lceil\log_2\ell\rceil,i}-X$ and therefore contains at most $D 2^{\lceil\log_2\ell\rceil-1}\le D\ell$ vertices of $G$.
 \end{proof}
@@ -347,7 +362,7 @@ To prove \cref{sparsifier} we make use of the following frequently-used separato
 
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
 
-Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, we will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs. This immediately generalizes \cref{fan_partition_planar} to all of these other graph classes.
+Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, we will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs. 
 
 \begin{thm}\label{product_contraction}
   For any $K_{t+1}$-minor-free graph $H$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(t\sqrt{\log n}))$-volume-preserving Euclidean contraction.
@@ -422,26 +437,36 @@ Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$. Choose a unif
 
 \subsection{\boldmath The Mapping $\phi$}
 
-Let $Z:=Z_{\Delta,t}(H,P)$ a subset of $V(H\boxtimes P)$ generated by running the procedure described above.  Let $C_1,\ldots,C_p$ be the components of $H\boxtimes P-Z$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_Z(x):=(1+\alpha_i)\,d_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.  Note that for two vertices $x$ and $y$, $|\varphi_Z(x)-\varphi_Z(y)|\le 2d_{H\boxtimes P}(x,y)$.
+Let $Z:=Z_{\Delta,t}(H,P)$ a subset of $V(H\boxtimes P)$ generated by running the procedure described above.  Consider the graph $I:=\mathdefin{I(H,P,Z)}$ obtained from $H\boxtimes P$ by removing all edges incident to at least one vertex in $Z$. Let $C_1,\ldots,C_p$ be the components of $I$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_Z(x):=(1+\alpha_i)\,d^+_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.  (Note that this definition uses positive distance $d^+_{H\boxtimes P}$.)
+
+\begin{lem}\label{double_distance}
+  For any two vertices $x$ and $y$, $|\varphi_Z(x)-\varphi_Z(y)|\le 2d_{H\boxtimes P}(x,y)$.
+\end{lem}
+
+\begin{proof}
+  For brevity, let $d(\cdot,\cdot):=d_{H\boxtimes P}(\cdot,\cdot)$ and $d^+(\cdot,\cdot):=d^+_{H\boxtimes P}(\cdot,\cdot)$ throughout this proof.
+  Since $1+\alpha_i\le 2$ for all $i$, it suffices to show that $|d^+(x,Y)-d^+(y,Z)|\le d(x,y)$.  If neither $x$ nor $y$ are in $Z$ then $d^+(x,Z)=d(x,Z)$ and $d^+(y,Z)=d(y,Z)$.  Then, by triangle inequality, $d^+(x,Z)-d^+(y,Z)\le d(x,y)$ and $d^+(y,Z)-d^+(x,Z)\le d(x,y)$.
+
+  If exactly one of $x$ or $y$ is in $Z$, say $x$, then $d^+(x,Z)=1=d(y,Z)+1$ and $d^+(y,Z)=d(y,Z)$.  Then $d^+(x,Z)-d^+(y,Z)=1-d^+(y,Z)\le 0$ and, by triangle inequality $d^+(y,Z)-d^+(x,Z)=d(y,Z)-d(x,Z)-1 \le d(x,y)-1< d(x,y)$.
+
+  Finally, if both $x$ and $y$ are in $Z$ then $|d^+(x,Z)-d^+(y,Z)|=0\le d(x,y)$.
+\end{proof}
+
 
 \begin{obs}\label{uniform}
-  For any vertex $x$ of $H\boxtimes P$, $\varphi_Z(x)$ is uniformly distributed in the real interval $[d_{H\boxtimes P}(x,Z), 2d_{H\boxtimes P}(x,Z)]$.
+  For any vertex $x$ of $H\boxtimes P$, $\varphi_Z(x)$ is uniformly distributed in the real interval $[d^+_{H\boxtimes P}(x,Z), 2d^+_{H\boxtimes P}(x,Z)]$.
 \end{obs}
 
-The following observation follows immediately from \cref{component_diameter}:
-\begin{obs}\label{independent}
-  Let $x_1,\ldots,x_i$ be distinct vertices $V(H\boxtimes P)$ such that $d_{H\boxtimes P}(x_i,\{x_1,\ldots,x_{i-1}\})> ?t\Delta$. Then $\varphi_Z(x_i)$ is independent of $\varphi_Z(x_1),\ldots,\varphi_Z(x_{i-1})$.
-\end{obs}
+% The following observation follows immediately from \cref{component_diameter}.  (The $\Delta=1$ case is due to the fact that )
+% \begin{obs}\label{independent}
+%   Let $x_1,\ldots,x_i$ be distinct vertices $V(H\boxtimes P)$.  If $\Delta=1$ or $d_{H\boxtimes P}(x_i,\{x_1,\ldots,x_{i-1}\})> ?t\Delta$ then the location of $\varphi_Z(x_i)$ in the interval $[d^+_{H\boxtimes P}(x_i,Z), 2d^+_{H\boxtimes P}(x_i,Z)]$ is independent of $\varphi_Z(x_1),\ldots,\varphi_Z(x_{i-1})$.
+% \end{obs}
 
-
-\pat{Annoying issue here that is completely overlooked in Rao's short paper:  The smallest possible value of $\Delta$ is $1$, in which case $Z_{1,t}(H,P)=V(H\boxtimes P)$. This means $\phi_{1,j}(x)=0$ for all $x$ and all $j$.  In  particular, when $x,y\in K$ and $xy\in E(H\boxtimes P)$, the proof below will have $h=1$ and there will be no good values of $j$ and you'll get $\evol(K)=0$. I think the solution is to use $\varphi_Z(x):=\alpha_x(\max\{1,d_{H\boxtimes P}(x,Z_{i,j})\})$, but I need to think this through.}
-
-
-Let $a$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V(G)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\lfloor \log_2 n\rfloor\}$ and each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $Z_{i,j}\sim Z_{\Delta,t}(H,P)$ be the random subset of $V(H\boxtimes P)$ obtained by using the procedure described above with parameters $\Delta=2^i$ and $t$ with all random choices made independently.  For each $x\in V(H\boxtimes P)$, let $\phi_{i,j}(x)\sim \varphi_{Z_{i,j}}(x)$ again with all choices made independently.  Finally,
+Let $a$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V(G)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\lfloor \log_2 n\rfloor\}$ and each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $Z_{i,j}\sim Z_{\Delta,t}(H,P)$ be the random subset of $V(H\boxtimes P)$ obtained by using the procedure described above with parameters $\Delta=2^i$ and $t$ with all random choices made independently.  For each $x\in V(H\boxtimes P)$, let $\phi_{i,j}(x):= \varphi_{Z_{i,j}}(x)$ again with all choices made independently.  Finally,
 \[
-   \phi(x) := (\phi_{i,j}(x))_{(i,j)\in \{0,\ldots,\lfloor \log_2 n\rfloor\}\times\{1,\ldots,\lceil a k\ln n\rceil\}} \enspace .
+   \phi(x) := \left(\phi_{i,j}(x):(i,j)\in \{0,\ldots,\lfloor \log_2 n\rfloor\}\times\{1,\ldots,\lceil a k\ln n\rceil\}\right) \enspace .
 \]
-Although $\phi$ maps vertices of $H\boxtimes P$, it is not necessarily a Euclidean contraction: $\phi$ has $L$ coordinates and for two vertices $x$ and $y$, the difference between $\phi_{i,j}(x)$ and $\phi_{i,j}(y)$ can be as much as $2d_{H\boxtimes P}(x,y)$ (but not more).  Thus, $d_2(\phi(x),\phi(y))$ can exceed $d_{H\boxtimes P}(x,y)$ by a factor of up to $2\sqrt{L}$ (but not more).  In a final step, we will divide each coordinate of $\phi$ by $2\sqrt{L}$ but, until then, it is more convenient to work with $\phi$.
+Although $\phi$ maps vertices of $H\boxtimes P$ to $\R^L$, it is not necessarily a Euclidean contraction: $\phi$ has $L$ coordinates and for two vertices $x$ and $y$, the difference between $\phi_{i,j}(x)$ and $\phi_{i,j}(y)$ can be as much as $2d_{H\boxtimes P}(x,y)$ (but not more).  Thus, $d_2(\phi(x),\phi(y))$ can exceed $d_{H\boxtimes P}(x,y)$ by a factor of up to $2\sqrt{L}$ (but not more).  In a final step, we will divide each coordinate of $\phi$ by $2\sqrt{L}$ but, until then, it is more convenient to work with $\phi$.
 
 The rest of the analysis in this section closely follows \citet{rao:small}, which in turn closely follows \citet{feige:approximating} with modifications needed to work in the metric $(V(G),d_{H\boxtimes P})$.  Nevertheless, we proceed slowly and carefully since our setting is significantly different (we are working in a subgraph $G$ of $H\boxtimes P$ but using the metric space $(V(G),d_{H\boxtimes P})$) and we expect that some readers will not be familiar with some methods introduced by \citet{feige:approximating} that are only sketched by \citet{rao:small}.
 
@@ -459,9 +484,11 @@ Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in \R^k:\sum_{j=1}^k\lambda_j=1\}$
 \end{lem}
 
 \begin{proof}
-  Let $i$ be an integer such that $h/2?< 2^i \le h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ dominates a random variable $Y$ if $Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
+  If $h <?$ then let $i:=0$.  Otherwise, let $i$ be the unique (positive) integer such that $h/2?< 2^i \le h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ dominates a random variable $Y$ if $Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
 
-  Since $d_{H\boxtimes P}(v_p,\{v_1,\ldots,v_{p-1}\})= h$, \cref{component_diameter} implies that the component of $H\boxtimes P-Z_{i,j}$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$. Since $\lambda$ is defined entirely by $\phi(v_1),\ldots,\phi(v_{p-1})$,   \cref{uniform,independent} imply that, for $j\in J$, $\phi_{i,j}(v_p)$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$ and the location of $\phi_{i,j}(v_p)$ in this interval is independent of the corresponding coordinate, $x_{i,j}$, of $x$.
+  By \cref{uniform} $\phi_{i,j}(v_p)$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$, for each $j\in J$.  We claim that the location of $\phi_{i,j}(v_p)$ in this interval is independent of the corresponding coordinate, $x_{i,j}$, of $x$.
+  Since $d_{H\boxtimes P}(v_p,\{v_1,\ldots,v_{p-1}\})= h$, either $\Delta=1$ or \cref{component_diameter} implies that the component of $(H\boxtimes P)-Z$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$. In either case, the component of $I(H,P,Z_{i,j})$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$.  Therefore, the location of $\phi_{i,j}(v_p)$ is determined by a random real number $\alpha\in[0,1]$ that does not contribute to $\phi(v_1),\ldots,\phi(v_{p-1})$.  Since $(\lambda_1,\ldots,\lambda_{p-1})=\lambda(\phi(v_1),\ldots,\phi(v_{p-1}))$ is completely determined by $\phi(v_1),\ldots,\phi(v_{p-1})$, $\alpha$ is independent of $x=\sum_{k=1}^{p-1}\lambda_k\phi(v_k)$.  In particular, $\alpha$ is independent of $x_{i,j}$.
+
   Therefore, for $j\in J$, $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge 1/2$.\footnote{The coordinate $\phi_{i,j}(v_p)$ is uniform over some interval $[a,b]$ of length $b-a\ge \Delta/10(t+1)$ whereas $[x_{i,j}-\Delta/40(t+1),x_{i,j}+\Delta/40(t+1)]$ has length $\Delta/20(t+1)$, so $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge (b-a-\Delta/20(t+1))/(b-a)\ge 1/2$.}
   Let $J':=\{j\in J:  |\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1)\}$.  Then $|J'|$ dominates a $\operatorname{binomial}(|J|,1/2)$ random variable.  By the Chernoff Bound (and the union bound), $\Pr(|J'|\ge \tfrac{3}{40}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/160)-\exp(-3ak\ln n/80)\ge 1-n^{-3k}$ for all $a\ge 500$, $n\ge 2$, and $k\ge 2$. Therefore,
   \begin{align*}
@@ -522,11 +549,7 @@ We now have all the pieces needed to complete the proof of \cref{product_contrac
   \]
 \end{proof}
 
-Exactly the same proofs used for planar graphs give the following results:
-
-\begin{thm}\label{product_bandwidth}
-  Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P$ is a path.  Then there exist a subset $X$ of $V(G)$ of size $O(t\log^{2} n)$ such that $G-X$ has bandwidth at most $O(t\log^2 n)$.
-\end{thm}
+The proof of \cref{main_thm_products} is exactly the same as the proof of \cref{main_thm_planar} except that we use the $(k,O(\sqrt{\log n}))$-volume-preserving contraction guaranteed by \cref{product_contraction} instead of the one guaranteed by \cref{rao}.
 
 \section{Discussion}
 
