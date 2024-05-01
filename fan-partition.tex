@@ -75,6 +75,7 @@
 % Document-specific commands and math operators
 \DeclareMathOperator{\tw}{tw}
 \DeclareMathOperator{\bw}{bw}
+\DeclareMathOperator{\ld}{ld}
 \DeclareMathOperator{\evol}{Evol}
 \DeclareMathOperator{\ivol}{Ivol}
 \DeclareMathOperator{\tvol}{Tvol}
@@ -100,13 +101,14 @@
 
 The \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of size $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$.  The current work is motivated by the following question: What is the simplest family of graphs $\mathcal{H}$ such that for each $n$-vertex planar graph $G$ there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G'$ contains a subgraph isomorphic to $G$.}
 
-\citet{illingworth.scott.ea:product} show that one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs. \citet{distel.dujmovic.ea:product} show that even the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of pathwidth-$2$ graphs.  Even more specifically, every $n$-vertex planar graph is isomorphic to a $\tilde{O}(\sqrt{n})$-blowup of a fan.\footnote{A \defin{fan} $F_k$ is a graph with vertex set $V(F_k):=\{v_0,\ldots,v_k\}$ whose edge set consists of a path on $v_1,\ldots,v_k$ and an edge from $v_0$ to each of $v_1,\ldots,v_k$.}
+\citet{illingworth.scott.ea:product} show that one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs. \citet{distel.dujmovic.ea:product} show that even the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of pathwidth-$2$ graphs.  Even more specifically, every $n$-vertex planar graph is isomorphic to a $\tilde{O}(\sqrt{n})$-blowup of a fan.\footnote{A \defin{fan} $F_k$ is a graph with vertex set $V(F_k):=\{x_0,\ldots,x_k\}$ whose edge set consists of a path on $v_1,\ldots,v_k$ and an edge from $v_0$ to each of $v_1,\ldots,v_k$.}
 \begin{thm}\label{main_thm_planar}
   For every $n$-vertex planar $G$ there is a $O(\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
 \end{thm}
 
 The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$, any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is is also the best-possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  The fan $F_n$ is not contained in $k$-blowup of a tree for any $k\in o(n)$.
 
+\subsection{Product Structured Graphs}
 
 \cref{main_thm_planar} follows from a more general theorem about subgraphs of certain strong graph products, as we now explain.  The \defin{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph with vertex set $V(A\boxtimes B):=V(A)\times V(B)$ and that contains an edge with endpoints $(v_1,v_2)$f and $(w_1,w_2)$ if and only if
 \begin{compactenum}
@@ -114,7 +116,7 @@ The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blow
     \item $v_1=w_1$ and $v_2w_2\in E(B)$; or
     \item $v_1w_1\in E(A)$ and $v_2w_2\in E(B)$.
 \end{compactenum}
-(Note that $k$-blowup of $H$ can be written as the strong product $H\boxtimes K_k$.)
+Note that $k$-blowup of $H$ can be written as the strong product $H\boxtimes K_k$.  Therefore, \cref{main_thm_planar} states that, for every $n$-vertex planar graph $G$ there is a fan $F$ such that $G$ is isomorphic to a subgraph of $F\boxtimes K_{O(\sqrt{n}\log^2 n)}$.
 
 \begin{thm}\label{main_thm_products}
   For every graph $H$ with treewidth $t$, for every path $P$, and for every $n$-vertex subgraph $G$ of $H\boxtimes P$ there is a $O(t\sqrt{n}\log^2 n)$-blowup of a fan that contains a subgraph isomorphic to $G$.
@@ -128,20 +130,48 @@ The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blow
 
 \Cref{planar_product_structure} has been generalized to a number of other minor-closed and non-minor closed graph classes, including bounded genus graphs and (more generally) apex-minor-free graphs \cite{dujmovic.joret.ea:planar,distel.hickingbotham.ea:improved} and $k$-planar graphs \cite{dujmovic.morin.ea:graph,distel.hickingbotham.ea:powers}.
 
-\david{Then give several examples: graphs $G$ of Euler genus $g$ with $t=2g+6$, apex-minor-free graphs, $(g,k)$-planar graphs. \\
-Say that working with the metric of products is essential to the proof. This is a really important point. \\
+\pat{TODO: Write a corollary of \cref{main_thm_products} that lists some of the graph classes with product structure.}
+
+\david{
 Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=10^{10}$ and $c=c_k$).
 }
 
+\pat{Now I can answer the question: No, the bound will be $O(tc\sqrt{n}\log^2 n)$.  The bottleneck is the sparsification lemma.  The size of the set $X$ there becomes $O((t+1)c(n/D)\log n)$.  Interestingly (maybe) when $G$ is a subgraph of $H\boxtimes P\boxtimes K_c$, the metric space $(V(G),d_{H\boxtimes P\boxtimes K_c})$ has $(k,O(t\sqrt{\log n}))$-volume-respecting embeddings, for any $c$. If you take $t=0$ and $c=n$ then you get a metric space where $d(v,w)=1$ for all  $v,w\in V(G)$ and this has as $(k,O(\sqrt{\log n}))$-volume respecting embedding.  The proof of this is much simpler: Every vertex maps to a uniformly random point in a $O(k\log n)$-dimensional ball of diameter $1$ (so the radius of the ball is $O(1/\sqrt{k\log n}))$.  Then the proof ``just'' boils down to showing that, with probability at least $1-n^{-ck}$, $k$ random points in this ball define a $(k-1)$-simplex whose $(k-1)$-dimensional volume is $\Omega((1/((k-1)!\sqrt{\log n})^{k-1}))$. \\[2ex]
+We should somehow get this point across in the introduction:  The metric space $(V(G),d_G)$ is awkward to work with directly for the same reason that planar graphs are awkward to work with directly; it's hard to see any structure.  The metric space $(V(G),d_{K_n})$ is a contraction of $(V(G),d_G)$ which makes it suitable to work with, and it's highly regular, but it's too ``dense'' to have any useful properties.  The metric space $(V(G),D_{H\boxtimes P})$ is a perfect middle-ground; it's highly regular (like $(V(G),K_n))$ but ``sparse'' enough to have admit a local sparsification lemma.\\[2ex]
+It might be a useful exercise to find what properties of a metric space are sufficient to prove a local sparsification lemma.  Here's a first try:\\[2ex]
+Let $(S,d)$ be a finite metric space, let $L_0\subseteq S$, and for each $0\le a\le b$, let $L_{[a,b]}:=\{x\in S: a\le d(x,L_0)\le b\}$.  Now I'm stuck.  There is no obvious notion of a set $X\subseteq S$ that separates two subsets $A,B$ of $S$.
+}
+
+\subsection{Relation to Bandwidth}
+
+An \defin{$H$-partition} of a graph $G$ is a partition $\mathcal{P}:=\{B_x: x\in V(H)\}$ of $V(G)$ whose parts are indexed by the vertices of $H$ such that, for each edge $vw$ of $G$, $v$ and $w$ are in the same part or there exists an edge $xy$ of $H$ such that $v\in B_x$ and $w\in B_y$.  The \defin{width} of $\mathcal{P}$ is the maximum size of any part.  It follows immediately from this definition that $G$ has an $H$-partition of width $w$ if and only if $G$ is isomorphic to a subgraph of $H\boxtimes K_w$. When $H$ is a member of some class $\mathcal{H}$ of graphs, we call an $H$-partition of $G$ an \defin{$\mathcal{H}$-partition} of $G$.  For example, if $H$ is path, tree, or fan, then we call an $H$-partition a path-partition, a tree-partition, or a fan-partition, respectively.  The \defin{$\mathcal{H}$ partition width} of a graph $G$ is the minimum integer $w$ such that $G$ has an $\mathcal{H}$-partition of width $w$. Thus, \cref{main_thm_planar} states that every $n$-vertex planar graph has fan partition width $O(\sqrt{n}\log^2 n)$.
+
+
+Let $G$ be a graph and let $v_1,\ldots,v_n$ be a permutation of $V(G)$.  Then $v_1,\ldots,v_n$ has \defin{bandwidth} $\mathdefin{\bw_G(v_1,\ldots,v_n)}:=\{\max\{j-i: v_iv_j\in E(G)\}$.  The \defin{bandwidth} of $G$ is $\mathdefin{\bw(G)}:=\min\{\bw_G(v_1,\ldots,v_n):\text{$v_1,\ldots,v_n$ is a permutation of $V(G)$}\}$. The bandwidth of a graph $G$ is closely related to the path partition width of $G$.  Indeed, if $\bw_G(v_1,\ldots,v_n)=w$, and $P:=x_1,\ldots,x_{\lceil n/w\rceil}$ is a path, then setting $B_{x_i}:=\{v_j: (i-1)w+1 \le j \le iw\}$ for each $i\in\{1,\ldots,\lceil n/w\rceil\}$ gives a path partition $\{B_{x}:x\in V(P)\}$ of width $w$.  In the other direction, if $P:=x_1,\ldots,x_k$ is a path and  $\{B_x:x\in V(P)\}$ is a path partition of width $w$ then any permutation $v_1,\ldots,v_n$ of $V(G)$ that places all vertices of $B_{x_i}$ before those in $B_{x_{i+1}}$ for each $i\in\{1,\ldots,k-1\}$ has $\bw_G(v_1,\ldots,v_n)\le 2w-1$.  Thus, \cref{main_thm_planar} states that every $n$-vertex planar graph $G$ contains a vertex-subset $X$ (the part $B_{x_0}$ in a fan partition of $G$) of size $O(\sqrt{n}\log^2 n)$ such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
+
+
+
+
+\subsection{Techniques}
+
+For a graph $G$ and any two vertices $v,w\in V(G)$, let $\mathdefin{d_G(v,w)}$ denote the minimum number of edges in any path in $G$ with endpoints $v$ and $w$ or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different components of $G$.  For any $r\ge 0$ and any $v\in V(G)$, let $B_G(v,r):=\{w\in V(G):d_G(v,w)\le r\}$ denote the radius-$r$ ball in $G$ with center $v$.
+The \defin{local density} of a graph $G$ is $\mathdefin{\ld(G)}:=\max\{(|B(v,r)|-1)/r:r\ge 0,\, v\in V(G)\}$.\footnote{The ${}-1$ in this definition of local density does not appear in the definitions of local density used in some other works \cite{feige:approximating,rao:small}, but this makes no difference to our asymptotics results and will be convenient for us, since it allows us to consider balls of radius $r\ge 0$ rather than just balls of radius $r\ge 1$.} The local density of $G$ provides a lower bound on the bandwidth of $G$.  If $|B_G(v,r)|=Dr+1$ then in any permutation $v_1,\ldots,v_n$ of $V(G)$, one of the vertices $w$ in $B_G(v,r)\setminus \{v\}$ is at distance at least $Dr/2$ from $v$. That is, $v=v_i$ and $w=v_j$, and $|j-i|\ge Dr/2$.  Since $G$ contains a path with at most $r$ edges from $v$ to $w$, one of the edges $v_{i'}v_{j'}$ of this path must have $|i'-j'|\ge Dr/2r=D/2$.  Therefore $\bw(G)\ge\ld(G)/2$.  In his seminal work, \citet{feige:approximating} proves that bandwidth is also upper bounded by the local density and a polylogarithmic function of the number of vertices.
+
+\begin{thm}[\citet{feige:approximating}]\label{feige_bandwidth_vs_density}
+  For every $n$-vertex graph $G$, $\bw(G)\in O\left(\ld(G)\cdot \log^3 n\sqrt{\log n\log\log n}\right)$.
+\end{thm}
+
+Rao improves \cref{feige_bandwidth_vs_density} in the special case of planar graphs:\footnote{\cref{rao_bandwidth_vs_density} is not stated explicitly in \cite{rao:small}, but follows from the existence of $(k,O(\sqrt{\log n})$-volume-preserving Euclidean contractions and a result of \citet{feige:approximating} that bounds bandwidth for graphs with local density $D$ that have $(k,\eta)$-volume-preserving Euclidean contractions as a function of $n$, $D$, $k$, and $\eta$.  A generalization of Feige's result is stated in \cref{volume_density_bandwidth}.}
+
+\begin{thm}[\citet{rao:small}]\label{rao_bandwidth_vs_density}
+  For every $n$-vertex planar graph $G$, $\bw(G)\in O\left(\ld(G)\cdot \log^3 n\right)$.
+\end{thm}
+
+By \cref{rao_bandwidth_vs_density}, to prove \cref{main_thm_planar} it is sufficient to show that every $n$-vertex planar graph $G$ has a vertex subset $X$ of size $O(\sqrt{n}\log^2 n)$ such that $\ld(G-X)=O(\sqrt{n}/\log n)$.  A generalization of this is given in \cref{planar_sparsifier}.  However, to prove \cref{main_thm_products}\ldots \pat{Continue here.}
+
+
 \section{Background}
 
-\subsection{Bandwidth}
-
-Let $G$ be a graph and let $v_1,\ldots,v_n$ be a permutation of $V(G)$.  Then $v_1,\ldots,v_n$ has \defin{bandwidth} $\mathdefin{\bw_G(v_1,\ldots,v_n)}:=\{\max\{j-i: v_iv_j\in E(G)\}$.  The \defin{bandwidth} of $G$ is $\mathdefin{\bw(G)}:=\min\{\bw_G(v_1,\ldots,v_n):\text{$v_1,\ldots,v_n$ is a permutation of $V(G)$}\}$.
-
-\begin{lem}
-  A graph $G$ has bandwidth $k$ if and only if $G$ is contained in an $O(k)$-blowup of some path.
-\end{lem}
 
 
 \begin{cor}\label{fan_partition_bandwidth}
@@ -362,7 +392,7 @@ To prove \cref{sparsifier} we make use of the following frequently-used separato
 
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
 
-Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, we will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs. 
+Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, we will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs.
 
 \begin{thm}\label{product_contraction}
   For any $K_{t+1}$-minor-free graph $H$, any path $P$, and any $n$-vertex subgraph $G$ of $H\boxtimes P$, the metric space $(V(G),d_{H\boxtimes P})$ has a $(k,O(t\sqrt{\log n}))$-volume-preserving Euclidean contraction.
