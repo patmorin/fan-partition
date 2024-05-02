@@ -509,7 +509,7 @@ Let $v:=(x_2,y_b)$.  Let $i$ be the maximum integer such that $v$ and $w$ are in
 Symmetrically, let $i$ be the maximum integer such that $v$ and $w$ are in $G_{i,j}$ but $v$ and $w$ are in different components of $G_{i,j}-X_{i,j-1}$.  If no such $i$ exists, then define $\delta_2(v,w)=0$.  Otherwise,  $\delta_2(v,w)=(j+1)2^i-a + (j+1)2^i-b$.
 
 Finally, define
-\[   d^*(v,w) := \max\{\delta_1(u,w), \delta_2(u,w),
+\[   d^*(v,w) := \max\{\delta_1(u,w), \delta_2(u,w), \]
 
 \begin{lem}
   The function $d^*:V(H\boxtimes P)\setminus X\to\N$ is a distance function for $V(H\boxtimes P)\setminus X$.
@@ -518,7 +518,7 @@ Finally, define
 \begin{proof}
   It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V(H\boxtimes P)\setminus X$ and that $d^(u,v)=d^*(v,u)\ge 0$ for all $u,v\in V(H\boxtimes P)\setminus X$.
 
-  Let $u:=(x_1,y_a)$, $v:=(x_2,y_b)$ and $w:=(x_3,y_c)$ be three vertices in V(H\boxtimes P)\setminus X$.
+  Let $u:=(x_1,y_a)$, $v:=(x_2,y_b)$ and $w:=(x_3,y_c)$ be three vertices of $(H\boxtimes P)- X$.
   % Since $u\not\in X$, $u$ is a vertex of $G_{0,a}$. Therefore $i^*(u,u)=-\infty$, so $d^*(u,u)=2^{-\infty}=0$.
   %
   % Let $v:=(x_2,y_b)\in V(H\boxtimes P)\setminus (X\cup\{u\})$.  Then, since $i^*(v,w)\in \Z\cup \{-\infty\}$, $d^*(u,v)=2^{i^*(u,v)}\ge 0$.  Furthermore, by the definition of $i^*$, $i^*(u,v)=i^*(v,u)$, so $d^*(u,v)=2^{i^*(u,v)}=d^*(v,u)$.
@@ -553,6 +553,12 @@ The following lemma shows that the metric space $(V(G),d^*)$ has local density a
     |B_{(V(G),d^*)}| \le |\{w\in V(G): \delta_1(v,w)\le r\}| \le \sum_{i=0}^{k-1} 3D2^{i} = 3D(2^{k}-1) < 3Dr \enspace . \qedhere
   \]
 \end{proof}
+
+\begin{lem}
+    The metric space $(V((H\boxtimes P)-X),d^*)$ is a contraction of $(V((H\boxtimes P)-X),d_{(H\boxtimes P)-X})$
+    
+\end{lem}
+
 
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
 
