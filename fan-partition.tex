@@ -609,7 +609,18 @@ Finally, define
   d^*(u,w) := \max\{\delta_1(u,w),\, \delta_2(u,w),\, \delta_3(u,w),\, d_{H\boxtimes P}(u,w) \}
 \]
 
-\begin{lem}
+\begin{lem}\label{d_star_contraction}
+  For any pair of vertices $u,v,\in V((H\boxtimes P)-X)$, $d^*(u,v)\le d_{(H\boxtimes P)-X}(u,v)$.
+\end{lem}
+
+\begin{proof}
+  Show that each of $\delta_1$, $\delta_2$, and $\delta_3$ is dominated by $d_{(H\boxtimes P)-X}$.
+\end{proof}
+
+
+
+
+\begin{lem}\label{d_star_metric}
   The function $d^*:V(H\boxtimes P)\setminus X\to\N$ is a distance function for $V(H\boxtimes P)\setminus X$.
 \end{lem}
 
@@ -635,6 +646,13 @@ Finally, define
     \item $w\not\in V(Q^+_{i,j})$.  In this case $d(u,w)\ge 2^i$.
   \end{compactenum}
 \end{proof}
+
+
+The preceding lemmas are summarized in the following corollary:
+
+\begin{cor}
+  The metric space $(V((H\boxtimes P)-X), d^*)$ is a is a contraction of $(V((H\boxtimes P)-X), d_{(H\boxtimes P)-X})$ and the metric space $(V(G-X),d^*)$ has local density $O(D)$.
+\end{cor}
 
 % The following lemma shows that the metric space $(V(G),d^*)$ has local density at most $3D$:
 %
@@ -672,7 +690,7 @@ Finally, define
 In this section we prove the following result:
 
 \begin{lem}
-  For every integer $k\in\{1,\ldots,n\}$, the metric space $\mathcal{M}^*:=(V(G),d^*)$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding. \pat{Check quantifier on $k$}
+  For every integer $k\in\{1,\ldots,n\}$, the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding. \pat{Check quantifier on $k$}
 \end{lem}
 
 \subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
@@ -690,38 +708,67 @@ The following lemma, with a greater dependence on $t$, is due to \citet{klein.pl
 
 % Say that a vertex $x$ of $H$ is \defin{$\delta$-good} with respect to a set $X\substeq V(H)$ if $d_{H}(x,X)\ge \delta$ and $x$ is \defin{$\delta$-bad} with respect to $X$ otherwise.
 
+In the following lemma, and for the rest of this section, we use the convention that for any vertex $x$ of $H$, $d_H(x,\emptyset):=\infty$.  \pat{Come back to this later!}
+
+
+
 \begin{lem}\label{delta_bad_h}
   For any vertex $x$ of $H$ and any integer $\delta\ge 1$, $\Pr(d_H(x, \textsc{Chop}_{\Delta,t}(H)< \delta)\le t\,(2\delta-1)/\Delta$.
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $t$.
-  If $d_H(x,\textsc{Chop}_{\Delta,t}(H) < \delta)$ then $d(x,R)< \delta$ or, if $t>1$,  $d_H(x,\textsc{Chop}_{\Delta,t-1}(C) < \delta)$ where $C$ is the component of $H-R$ that contains $x$.  Since there are at most $2\delta-1$ choices of $r$ for which $d_H(x,R)<\delta$, $\Pr(d_H(x,R)<\delta) \le (2\delta-1)/\Delta$. For $t=1$, this completes the proof.  For $t>1$, the proof follows from the inductive hypothesis on $\textsc{Chop}_{\Delta,t-1}(C)$ and the union bound.
+  The proof is by induction on $t$. If $d_H(x,\textsc{Chop}_{\Delta,t}(H) < \delta)$ then $d(x,R)< \delta$ or, if $t>1$,  $d_H(x,\textsc{Chop}_{\Delta,t-1}(C) < \delta)$ where $C$ is the component of $H-R$ that contains $x$.  Since there are at most $2\delta-1$ choices of $r$ for which $d_H(x,R)<\delta$, $\Pr(d_H(x,R)<\delta) \le (2\delta-1)/\Delta$. For $t=1$, this completes the proof.  For $t>1$, the proof follows from the inductive hypothesis on $\textsc{Chop}_{\Delta,t-1}(C)$ and the union bound.
 \end{proof}
 
-\subsection{\boldmath Decomposing $Q_{i,j}-X_{i,j}$}
+\subsection{\boldmath Decomposing $H\boxtimes P$}
 
-Let $C$ be a component of $Q_{i,j}-X_{i,j}$ for some $i\ge 1$ and some $j$.  Then $C=H'\boxtimes P_{i,j}$ where $H'$ is a subgraph of $H$ (a component of $H-X'_{i,j}$) and $P_{i,j}=y_{(i-1)2^i+1},\ldots,y_{(i+1)2^i}$ is a subpath of $P$ with $3\cdot2^i$ vertices.  Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $A_0:=\{y_{(i-1+a)2^i+1+r_0}: a\in\{0,1,2\}\}$ and let $A:=A(C):=V(H')\times A_0$.  Let $P_1,P_2,P_3$ be the components (each of which is a path) of $P-Y_0$ and let $B_1,B_2,B_3$ be the results of independent executions of $\textsc{Chop}_{2^i,t}(H')$ and let $B:=B(C):=\bigcup_{i=1}^3 V(P_i)\times B_i$.  Finally, let $Z:=Z(C):=B\cup Y$.
+% Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$.
+
+Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t}(P):=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=Y_{\Delta,t}(P):=V(H)\times Y_0$.  Let $P_1,\ldots,P_q$ be the components (each of which is a path) of $P-Y_0$ and let $X_1,\ldots,X_q$ be the results of independent executions of $\textsc{Chop}_{\Delta,t}(H)$ and let $X:=\bigcup_{i=1}^q (X_i\times V(P_i))$.  Finally, let $Z:=Z_{\Delta,t}(H,P):=X\cup Y$.
 
 % For some intuition, it is helpful to consider the case when $H$ is a path and $t=1$.  In this case, $H\boxtimes P$ is a grid with diagonal edges.  Starting from row $r\in\{0,\ldots,\Delta-1\}$, the set $Y$ contains one out of every $\Delta$ rows of this grid.  Each of the components $C_1,\ldots,C_m$ of $H\boxtimes P-Y$, except the top-most, $C_1$ and bottom-most, $C_m$ is a grid with $\Delta-1$ rows.  For each component $C_i$, the set $X$ contains one out of every $\Delta$ columns of $C_i$, starting from column $r_i\in\{0,\ldots,\Delta-1\}$. \todo{Add figure}
 
 \begin{lem}\label{component_diameter}
-  Each component of $C-Z$ has diameter at most $?t2^i$.
+  If $H$ is $K_{t+1}$-minor-free, then each component of $H\boxtimes P-Z$ has diameter at most $?t\Delta$.
 \end{lem}
 
 \begin{proof}
-  Let $C'$ be a component of $C-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C'$, $d_{C}(x,y) = \max\{d_{H'-B_j}(x_1,y_1),d_{P'}(x_2,y_2)$ where $B_j$ is the result of running $\textsc{Chop}_{\Delta,t}(H')$. By \cref{component_diameter_h},  $d_{H-X_j}(x_1,y_1)\le ?t\Delta$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
+  Let $C$ be a component of $H\boxtimes P-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C$, $d_{C}(x,y) = \max\{d_{H-X_j}(x_1,y_1),d_{P}(x_2,y_2)$ where $X_j$ is the result of running $\textsc{Chop}_{\Delta,t}(H)$. By \cref{component_diameter_h},  $d_{H-X_j}(x_1,y_1)\le ?t\Delta$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
 \end{proof}
 
 
 
 \begin{lem}\label{delta_bad_product}
-  For any vertex $x$ of $C$ and any integer $\delta\ge 1$, $\Pr(d_{C}(x,Z)< \delta)\le (t+1)(2\delta-1)/\Delta$.
+  For any vertex $x$ of $H\boxtimes P$ and any integer $\delta\ge 1$, $\Pr(d_{H\boxtimes P}(x,Z)< \delta)\le (t+1)(2\delta-1)/\Delta$.
 \end{lem}
 
 \begin{proof}
-  If $d_{C}(x,Z)<\delta$ then $d_{C}(x,A)<\delta$ or $d_{C}(x,B)<\delta$ where $C$ is the component of $H\boxtimes P-Y$ that contains $x$.  Again, there are at most $2\delta-1$ choices of $r_0$ for which $d_{C}(x,A)<\delta$, so $\Pr(d_{C}(x,A)<\delta)\le (2\delta-1)/\Delta$.  The proof now follows from the union bound and \cref{delta_bad_h}.
+  If $d_{H\boxtimes P}(x,Z)<\delta$ then $d_{H\boxtimes P}(x,Y)<\delta$ or $d_{C}(x,Z)<\delta$ where $C$ is the component of $H\boxtimes P-Y$ that contains $x$.  Again, there are at most $2\delta-1$ choices of $r_0$ for which $d_{H\boxtimes P}(x,Y)<\delta$, so $\Pr(d_{H\boxtimes P}(x,Y)<\delta)\le (2\delta-1)/\Delta$.  The proof now follows from the union bound and \cref{delta_bad_h}.
 \end{proof}
+
+
+% \subsection{\boldmath Decomposing $Q_{i,j}-X_{i,j}$}
+%
+% Let $C$ be a component of $Q_{i,j}-X_{i,j}$ for some $i\ge 1$ and some $j$.  Then $C=H'\boxtimes P_{i,j}$ where $H'$ is a subgraph of $H$ (a component of $H-X'_{i,j}$) and $P_{i,j}=y_{(i-1)2^i+1},\ldots,y_{(i+1)2^i}$ is a subpath of $P$ with $3\cdot2^i$ vertices.  Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $A_0:=\{y_{(i-1+a)2^i+1+r_0}: a\in\{0,1,2\}\}$ and let $A:=A(C):=V(H')\times A_0$.  Let $P_1,P_2,P_3$ be the components (each of which is a path) of $P-Y_0$ and let $B_1,B_2,B_3$ be the results of independent executions of $\textsc{Chop}_{2^i,t}(H')$ and let $B:=B(C):=\bigcup_{i=1}^3 V(P_i)\times B_i$.  Finally, let $Z:=Z(C):=B\cup Y$.
+%
+% % For some intuition, it is helpful to consider the case when $H$ is a path and $t=1$.  In this case, $H\boxtimes P$ is a grid with diagonal edges.  Starting from row $r\in\{0,\ldots,\Delta-1\}$, the set $Y$ contains one out of every $\Delta$ rows of this grid.  Each of the components $C_1,\ldots,C_m$ of $H\boxtimes P-Y$, except the top-most, $C_1$ and bottom-most, $C_m$ is a grid with $\Delta-1$ rows.  For each component $C_i$, the set $X$ contains one out of every $\Delta$ columns of $C_i$, starting from column $r_i\in\{0,\ldots,\Delta-1\}$. \todo{Add figure}
+%
+% \begin{lem}\label{component_diameter}
+%   Each component of $C-Z$ has diameter at most $?t2^i$.
+% \end{lem}
+%
+% \begin{proof}
+%   Let $C'$ be a component of $C-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C'$, $d_{C}(x,y) = \max\{d_{H'-B_j}(x_1,y_1),d_{P'}(x_2,y_2)$ where $B_j$ is the result of running $\textsc{Chop}_{\Delta,t}(H')$. By \cref{component_diameter_h},  $d_{H-X_j}(x_1,y_1)\le ?t\Delta$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
+% \end{proof}
+%
+%
+% \begin{lem}\label{delta_bad_product}
+%   For any vertex $x$ of $C$ and any integer $\delta\ge 1$, $\Pr(d_{C}(x,Z)< \delta)\le (t+1)(2\delta-1)/\Delta$.
+% \end{lem}
+%
+% \begin{proof}
+%   If $d_{C}(x,Z)<\delta$ then $d_{C}(x,A)<\delta$ or $d_{C}(x,B)<\delta$ where $C$ is the component of $H\boxtimes P-Y$ that contains $x$.  Again, there are at most $2\delta-1$ choices of $r_0$ for which $d_{C}(x,A)<\delta$, so $\Pr(d_{C}(x,A)<\delta)\le (2\delta-1)/\Delta$.  The proof now follows from the union bound and \cref{delta_bad_h}.
+% \end{proof}
 
 % \Cref{delta_bad_product} with $\delta=1$ yields the following results:
 %
@@ -733,7 +780,7 @@ Let $C$ be a component of $Q_{i,j}-X_{i,j}$ for some $i\ge 1$ and some $j$.  The
 
 \subsection{\boldmath The Mapping $\phi$}
 
-Let $Z:=Z_{\Delta,t}(H,P)$ a subset of $V(H\boxtimes P)$ generated by running the procedure described above.  Consider the graph $I:=\mathdefin{I(H,P,Z)}$ obtained from $H\boxtimes P$ by removing all edges incident to at least one vertex in $Z$. Let $C_1,\ldots,C_p$ be the components of $I$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_Z(x):=(1+\alpha_i)\,d^+_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.  (Note that this definition uses positive distance $d^+_{H\boxtimes P}$.)
+Let $Z:=Z_{\Delta,t}(H,P)$ be a subset of $V(H\boxtimes P)$ generated by running the procedure described above, for some integer $\Delta\le |V(P)|$.  Consider the graph $I:=\mathdefin{I(H,P,Z)}$ obtained from $H\boxtimes P$ by removing all edges incident to at least one vertex in $Z$. Let $C_1,\ldots,C_p$ be the components of $I$ and let $\alpha_1,\ldots,\alpha_p$ be mutually independent uniform real numbers in $[0,1]$ and let $\varphi_Z(x):=(1+\alpha_i)\,d^+_{H\boxtimes P}(x,Z)$, for each $x\in C_i$ and each $i\in\{1,\ldots,p\}$.  (Note that this definition uses positive distance $d^+_{H\boxtimes P}$.)
 
 \begin{lem}\label{double_distance}
   For any two vertices $x$ and $y$, $|\varphi_Z(x)-\varphi_Z(y)|\le 2d_{H\boxtimes P}(x,y)$.
@@ -758,7 +805,7 @@ Let $Z:=Z_{\Delta,t}(H,P)$ a subset of $V(H\boxtimes P)$ generated by running th
 %   Let $x_1,\ldots,x_i$ be distinct vertices $V(H\boxtimes P)$.  If $\Delta=1$ or $d_{H\boxtimes P}(x_i,\{x_1,\ldots,x_{i-1}\})> ?t\Delta$ then the location of $\varphi_Z(x_i)$ in the interval $[d^+_{H\boxtimes P}(x_i,Z), 2d^+_{H\boxtimes P}(x_i,Z)]$ is independent of $\varphi_Z(x_1),\ldots,\varphi_Z(x_{i-1})$.
 % \end{obs}
 
-Let $a$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V(G)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\lfloor \log_2 n\rfloor\}$ and each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $Z_{i,j}\sim Z_{\Delta,t}(H,P)$ be the random subset of $V(H\boxtimes P)$ obtained by using the procedure described above with parameters $\Delta=2^i$ and $t$ with all random choices made independently.  For each $x\in V(H\boxtimes P)$, let $\phi_{i,j}(x):= \varphi_{Z_{i,j}}(x)$ again with all choices made independently.  Finally,
+Let $a$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V(G)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\log N-1\}$ and each $k\in\{0,\ldots,N/2^i$ we consider each component $C$ of $G_{i,k}-X$.  For each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $Z_{i,k}(C)\sim Z_{\Delta,t}(H,P)$ be the random subset of $V(H\boxtimes P)$ obtained by using the procedure described above with parameters $\Delta=2^i$ and $t$ and with all random choices made independently.  For each $x\in V(G_{i,k})$, let $\phi_{i,j}(x):= \varphi_{Z_{i,j}}(x)$ again with all choices made independently.  Finally,
 \[
    \phi(x) := \left(\phi_{i,j}(x):(i,j)\in \{0,\ldots,\lfloor \log_2 n\rfloor\}\times\{1,\ldots,\lceil a k\ln n\rceil\}\right) \enspace .
 \]
