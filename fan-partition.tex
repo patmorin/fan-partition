@@ -80,6 +80,7 @@
 
 % Document-specific commands and math operators
 \DeclareMathOperator{\tw}{tw}
+\DeclareMathOperator{\pw}{pw}
 \DeclareMathOperator{\bw}{bw}
 \DeclareMathOperator{\ld}{ld}
 \DeclareMathOperator{\polylog}{polylog}
@@ -137,9 +138,16 @@ The \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each ve
 
 \david{At this point we should acknowledge (at least in a footnote) that the previous results had no $\polylog(n)$ term in the blowup, otherwise the referee will rightly acuse us of being misleading. }
 
-The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth \david{at most} $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ \david{(such as the $\sqrt{n}\times\sqrt{n}$ grid)}, any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is is also the best-possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  The fan $F_n$ is not contained in $k$-blowup of a tree for any $k\in o(n)$ \david{This is false. $F_n$ is contained in the $\sqrt{n}$ blowup of the $\sqrt{n}$-leaf star. Instead write ``\citet{LMST08} describe a family of $n$-vertex planar graphs $G$ such that every (improper) 2-colouring has a monochromatic component on $\Omega(n^{2/3})$ vertices. Say $G$ is contained in a $k$-blowup $(K_v:v\in V(T))$ of a tree $T$. Properly 2-colour $T$, and colour each vertex in each $K_v$ by the colour of $v$. Each monochromatic compononent is contained in some $K_v$, implying that $k\in\Omega(n^{2/3})$. }.
+The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth \david{at most} $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ \david{(such as the $\sqrt{n}\times\sqrt{n}$ grid)}, any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is is also the best-possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  The fan $F_n$ is not contained in $k$-blowup of a tree for any $k\in o(n)$ \david{This is false. $F_n$ is contained in the $\sqrt{n}$ blowup of the $\sqrt{n}$-leaf star. Instead write ``\citet{LMST08} describe an infinite family of $n$-vertex planar graphs $G$ such that every (improper) 2-colouring has a monochromatic component on $\Omega(n^{2/3})$ vertices. Say $G$ is contained in a $k$-blowup $(K_v:v\in V(T))$ of a tree $T$. Colour each vertex in each $K_v$ by the colour of $v$ in a proper 2-colouring of $T$. So each monochromatic compononent is contained in some $K_v$, implying that $k\in\Omega(n^{2/3})$. }.
 
-\david{At some point in this intro we should say that $\sqrt{n}$ blowups imply and strengthen the Lipton--Tarjan separator theorem, otherwise the naive reader will ask ``what is the point?''}
+\david{Stuff to add to the intro:
+\begin{itemize}
+    \item $O(\sqrt{n})$ blowups imply and strengthen the Lipton--Tarjan separator theorem. Without this, the naive reader will ask ``what is the point?''
+\item \citet{distel.dujmovic.ea:product} asked whether every $n$-vertex planar graph is contained in a $O(\sqrt{n})$-blowup of a graph with bounded pathwidth. \cref{main_thm_planar} shows the answer is ``yes'' with $O(\sqrt{n})$ replaced by $\tilde{O}(\sqrt{n})$.
+\item Results of \citet[Theorem~5]{DvoWoo} imply that for all $\epsilon>0$ there exists $c$ such that every $n$-vertex planar graph is contained in a $O(n^{1/2+\epsilon})$-blowup of a graph $H$ with treedepth $c$, which implies $\pw(H)\leq c-1$. \citet[Theorem~19]{DvoWoo} also establish a corresponding lower bound: for any $c\geq 1$ there exists $\epsilon>0$ such that if the $\sqrt{n}\times\sqrt{n}$ grid is contains in a $k$-blowup of a graph $H$ with treedepth at most $c$, then $k\geq\Omega(n^{1/2+\epsilon})$. (In fact, these lower and upper bounds match.)\ Thus the $\sqrt{n}\times \sqrt{n}$-grid is not contained in a $\tilde{O}(n^{1/2})$-blowup of a graph with bounded treedepth. In this sense, the `bounded pathwidth' condition in \cref{main_thm_planar} is best posible. 
+\end{itemize}}
+
+
 
 \subsection{Product Structured Graphs}
 
@@ -506,9 +514,9 @@ If $a=c$ and $v$ and $w$ are in the same component of $H\boxtimes\{y_a\}-X$ then
 
 \begin{figure}
     \centering
-    \begin{tabular}{cc}
+    \begin{tabular}{ccc}
     \includegraphics[page=1]{figs/new_metric} &
-    \includegraphics[page=2]{figs/new_metric} \\
+    \includegraphics[page=2]{figs/new_metric} &
     \includegraphics[page=3]{figs/new_metric}
     \end{tabular}
     \caption{The definitions of $\delta_1$, $\delta_2$, and $\delta_3$.}
@@ -565,8 +573,7 @@ The following lemma shows that the metric space $(V(G),d^*)$ has local density a
 \end{proof}
 
 \begin{lem}
-    The metric space $(V((H\boxtimes P)-X),d^*)$ is a contraction of $(V((H\boxtimes P)-X),d_{(H\boxtimes P)-X})$
-    
+    The metric space $(V((H\boxtimes P)-X),d^*)$ is a contraction of $(V((H\boxtimes P)-X),d_{(H\boxtimes P)-X})$.
 \end{lem}
 
 
@@ -702,7 +709,7 @@ Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in \R^k:\sum_{j=1}^k\lambda_j=1\}$
 \end{lem}
 
 \begin{proof}
-  If $h <?$ then let $i:=0$.  Otherwise, let $i$ be the unique (positive) integer such that $h/2?< 2^i \le h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
+  If $h <?$ then let $i:=0$.  Otherwise, let $i$ be the unique (positive) integer such that $h/2?< 2^i \le h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $J:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|J|$ dominates\footnote{We say that a random variable $X$ \defin{dominates} a random variable $Y$ if $\Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|J|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
 
   By \cref{uniform} $\phi_{i,j}(v_p)$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$, for each $j\in J$.  We claim that the location of $\phi_{i,j}(v_p)$ in this interval is independent of the corresponding coordinate, $x_{i,j}$, of $x$.
   Since $d_{H\boxtimes P}(v_p,\{v_1,\ldots,v_{p-1}\})= h$, either $\Delta=1$ or \cref{component_diameter} implies that the component of $(H\boxtimes P)-Z$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$. In either case, the component of $I(H,P,Z_{i,j})$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$.  Therefore, the location of $\phi_{i,j}(v_p)$ is determined by a random real number $\alpha\in[0,1]$ that does not contribute to $\phi(v_1),\ldots,\phi(v_{p-1})$.  Since $(\lambda_1,\ldots,\lambda_{p-1})=\lambda(\phi(v_1),\ldots,\phi(v_{p-1}))$ is completely determined by $\phi(v_1),\ldots,\phi(v_{p-1})$, $\alpha$ is independent of $x=\sum_{k=1}^{p-1}\lambda_k\phi(v_k)$.  In particular, $\alpha$ is independent of $x_{i,j}$.
@@ -791,6 +798,14 @@ For fixed $t\ge 3$, the $O(\sqrt{\log n})$ bound in \cref{product_contraction} i
 Using our methods, \cref{planar_density_bandwidth}, which states that planar graphs of local density $D$ have bandwidth $O(D\log^3 n)$, does not extend to $n$-vertex subgraphs $G$ of  $H\boxtimes P$. This is because the graph metric space $(V(G),d_G)$ can be wildly different than the metric space $(V(G),d_{H\boxtimes P})$. Indeed, any $n$-vertex path $G$ in $H\boxtimes P$ has local density $2$, even if a ball of radius $1$ in $H\boxtimes P$ contains $V(G)$.  Of course, Feige's bound of $O(D\log^3\sqrt{\log n\log\log n})$ still holds for arbitrary graphs.
 
 \todo[inline]{Note that the situation described above never occurs when the mapping of $G$ into $H\boxtimes P$ comes from the existence proof in, e.g., \cite{dujmovic.joret.ea:planar}.  If $G$ has local density $D$ then it has diameter $\Omega(n/D)$, so any BFS layering of $G$ uses $\Omega(n/D)$ layers, so the mapping of $G$ into $H\boxtimes P$ uses a path $P$ with $\Omega(n/D)$ vertices.  This doesn't immediately mean that the metric space $(V(G),d_{H\boxtimes P})$ has local density $O(D)$, but maybe this actually happens for free? Probably not, but maybe it's worth looking into local-density preserving embeddings of graphs into $H\boxtimes P$.}
+
+Open problems:
+
+\begin{itemize}
+\item Can the $O(\polylog n)$ factor be removed from \cref{main_thm_planar}? That is, is every $n$-vertex planar graph contained in the $O(\sqrt{n})$-blowup of a fan?
+
+\item Can our results be generalised for arbitrary minor-closed classes? In particular, is every $n$-vertex  graph excluding a fixed minor contained in the $\tilde{O}(\sqrt{n})$-blowup of a fan? It is even open  whether every $n$-vertex graph excluding a fixed minor is contained in the $\tilde{O}(\sqrt{n})$-blowup of a graph with bounded pathwidth (and even if the pathwidth bound is allowed to depend on the excluded minor).  Positive results are known for blowups of bounded treewidth graphs. \citet{distel.dujmovic.ea:product} showed that every $n$-vertex graph excluding a fixed minor is contained in the $O(\sqrt{n})$-blowup of a graph with treewidth 4. 
+\end{itemize}
 
 \section*{Acknowledgement}
 
