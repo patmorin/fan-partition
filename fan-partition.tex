@@ -6,7 +6,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{paralist}
 \usepackage{bbm}  % needed for \mathbbm{1}
-
+% \usepackage{logix}
+\usepackage{halloweenmath}
+\usepackage{stmaryrd}
 
 \usepackage{todonotes}
 \usepackage{tcolorbox}
@@ -292,7 +294,7 @@ We say that $\mathcal{M}$ is \defin{finite} if $S$ is finite.  A finite metric s
 \todo[inline]{Say something about the relationship to the graph definition of local density.}
 % This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $(V(G),d_G)$ has local density at most $D$.
 
-A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.  When $S\subseteq S'$ and $\phi$ is the identity function we say that $\mathcal{M'}$ is a contraction of $\mathcal{M}$.
+A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^\ell$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^\ell, d_2)$ for some $\ell\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.  When $S\subseteq S'$ and $\phi$ is the identity function we say that $\mathcal{M'}$ is a contraction of $\mathcal{M}$. In particular, the statement $(S,d')$ is a contraction of $(S,d)$ is equivalent to the statement $d'(x,y)\le d(x,y)$ for all $x,y\in S$.
 
 We use two easy observations that follow quickly from these definitions:
 
@@ -311,6 +313,10 @@ We use two easy observations that follow quickly from these definitions:
 \begin{proof}
   From the definitions, it follows that $d_I$, restricted to $V(G)$ is a distance function over $V(G)$, so $(V(G),d_I)$ is a metric space.  Since $G$ is a subgraph of $I$, every path in $G$ is also a path in $I$ so, $d_I(x,y)\le d_G(x,y)$ for each $x,y\in V(G)$.  Therefore $(V(G),d_I)$ is a contraction of $(V(G),d_G)$.
 \end{proof}
+
+% \begin{obs}
+%   If $\phi$ is a $(k,\eta)$-volume-preserving contraction of some metric space $\mathcal{M}$ and $\mathcal{M}$ is contraction of $\mathcal{M}'$
+% \end{obs}
 
 
 \subsection{Volume-Preserving Contractions}
@@ -369,7 +375,17 @@ The following lemma generalizes \citet[Theorem~10]{feige:approximating} from gra
   \end{align*}
 \end{proof}
 
-The following theorem is proved implicitly by \citet{feige:approximating} for graph metrics, although the dependence on the parameters $n$, $D$, $k$, and $\eta$ are not stated explicitly in \cite{feige:approximating}. Here we give a generalization for metric spaces and make the bound on the bandwidth explicit in terms of the parameters $n$, $D$, and $\eta$.  First we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a metric space and let $x_1,\ldots,x_n$ be a permutation $S$.  Then $\bw_{(S,d)}(x_1,\ldots,x_n):=\max\{j-i:d(x_i,x_j)\le 1\}$ and $\bw(S,d)$ is the minimum of $\bw_{(S,d)}(x_1,\ldots,x_n)$ taken over all $n!$ permutations $x_1,\ldots,x_n$ of $S$.  Note that this coincides with the definition of the bandwidth of a graph: For any connected graph $G$, $\bw(V(G),d_G)=\bw(G)$.
+\Cref{volume_density_bandwidth}, below, is proved implicitly by \citet{feige:approximating} for graph metrics, although the dependence on the parameters $n$, $D$, $k$, and $\eta$ are not stated explicitly in \cite{feige:approximating}. Here we give a generalization for metric spaces and make the bound on the bandwidth explicit in terms of the parameters $n$, $D$, and $\eta$.
+
+First, we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a metric space and let $x_1,\ldots,x_n$ be a permutation $S$.  Then $\mathdefin{\bw_{(S,d)}(x_1,\ldots,x_n)}:=\max\{j-i:d(x_i,x_j)\le 1\}$ and $\mathdefin{\bw(S,d)}$ is the minimum of $\bw_{(S,d)}(x_1,\ldots,x_n)$ taken over all $n!$ permutations $x_1,\ldots,x_n$ of $S$.  Note that this coincides with the definition of the bandwidth of a graph: For any connected graph $G$, $\bw(V(G),d_G)=\bw(G)$.  First we observe that injective contractions can only increase bandwidth:
+
+\begin{obs}\label{contraction_increases_bandwidth}
+  For any finite metric space $\mathcal{M}:=(S,d)$ and any contraction $\mathcal{M}':=(S,d')$ of $\mathcal{M}$, $\bw(\mathcal{M}) \le \bw(\mathcal{M}')$.
+\end{obs}
+
+\begin{proof}
+  Let $v_1,\ldots,v_n$ be an ordering of $S$ such that $b:=\bw(\mathcal{M}')=\bw_{\mathcal{M}}(v_1,\ldots,v_n)$. Consider any pair of vertices $v_iv_j$ with $d(v_i,v_j) \le 1$. Since $\mathcal{M}'$ is a contraction of $\mathcal{M}$, $d'(v_i,v_j)\le 1$.  Since $\bw_{\mathcal{M}'}(v_1,\ldots,v_n)\le b$, $|j-i|\le b$.  Thus $\bw(\mathcal{M})\le \bw_{\mathcal{M}}(v_1,\ldots,v_n)\le b$.
+\end{proof}
 
 
 
@@ -486,35 +502,67 @@ Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yiel
 
 In this section, we prove \cref{main_thm_products}.  The structure of our proof is based on the proof of \cref{rao} by \citet{rao:small}, which applies to planar graphs and even to $K_{h}$-minor-free graphs for any fixed $h$.  However, the proof cannot be applied directly since graph products of the form $H\boxtimes P$ are not $K_h$-minor-free for any fixed $h$, even when $H$ is a tree and $P$ is a path. \pat{Say something about the ``tennis court'' example?}
 
+For the remainder of the paper, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P$ is a path.  The proof of \cref{main_thm_products} has the following structure. We use the notation $\mathcal{M}\rightbroom\mathcal{M'}$ to denote that $\mathcal{M}'$ is a contraction of $\mathcal{M}$.
 
-\pat{I'm working here now, remotely.}
+\begin{enumerate}
+  \item Find a set $X\subseteq H\boxtimes P$ of size $O(\sqrt{n}\log^2 n)$ such that the metric space $\mathcal{M}:=(V(G-X),d_{(H\boxtimes P)-X})$ has local density $D\in O(\sqrt{n}/\log n)$.  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, $\mathcal{M}$ is a contraction of the metric space $\mathcal{M}_{G-X}:=(V(G-X),d_{G-x})$ (by \cref{supergraph_contraction}), so $\mathcal{M}_{G-X}\rightbroom\mathcal{M}$.
 
+  \item Design a distance function $d^*:V((H\boxtimes P)-X)^2\to\R_{\ge 0}$ so that the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ is a contraction of $\mathcal{M}$ that also has local density $O(D)$.
 
-In the proof of \cref{sparsifier} we introduce the notations $Q_{i,j}$ and $X_{i,j}$, which we will use again outside the proof.
+  Graphically, $\mathcal{M}_{G-X}\rightbroom\mathcal{M}\rightbroom\mathcal{M}^*$.
 
-\begin{proof}[Proof of \cref{sparsifier}]
-  Let $y_1,\ldots,y_N:= P$ and assume, without loss of generality, that  $N:=2^{\lceil\log_2 n\rceil}$.
-  Let $P^+:=y_{-N+1},\ldots,y_{2N}$ be a path with exactly $3N$ vertices that contains $P$ in its middle third.
-  For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{0,\ldots,N/2^{i}-1\}$, let $P_{i,j}:=y_{j2^i+1},\ldots,y_{(j+1)2^i}$ be a subpath of $P$ with $3\cdot2^i$ vertices,
-  let $P^+_{i,j}:=P[V(P_{i,j-1})\cup V(P_{i,j})\cup V(P_{i,j+1})]$ be the concatenation of $P_{i,j-1}$, $P_{i,j}$, and $P_{i,j+1}$.
-  Define $Q_{i,j}=H\boxtimes P_{i,j}$ and $Q^+_{i,j}=H\boxtimes P^+_{i,j}$.
-  Observe that, for each $i\in\{1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^i-1\}$, each of the graphs $Q^+_{i-1,2j}$ and $Q^+_{i-1,2j+1}$ is a subgraph of $Q^+_{i,j}$.
-  Equivalently, $Q^+_{i,j}$ is a subgraph of $Q_{i+1,\lfloor j/2\rfloor}$ for each $i\in\{0,\ldots,\log N-1\}$ an each $j\in\{0,\ldots,N/2^i-1\}$.
+  \item Prove that $\mathcal{M}^*$ has an $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding $\phi:V(G-X)\to\R^L$, for $k\in\Theta(\log n)$.
 
-  We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define a weight function $w_{i,j}:V(H)\to\N$ where $w_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $W_{i,j}:=\sum_{x\in V(H)} w(x)=|V(Q^+_{i,j})\cap V(G)|$. By \cref{pq_separator}, there exists $Y_{i,j}\subseteq V(H)$ of size at most $c(t+1)W_{i,j}/(2^{i-1}D)$ such that, each component $C$ of $H-Y_{i,j}$ has total weight at most $\sum_{x\in V(C)} w(x) \le 2^{i-1}D$.
+  % \item  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, $\mathcal{M}$ is a contraction of $\mathcal{M}_{G-X}$.  Since $\mathcal{M}^*$ is a contraction of $\mathcal{M}$, $\mathcal{M}^*$ is a contraction of $\mathcal{M}_{G-X}$.
 
-  Observe that $\sum_{j=0}^{N/2^i-1} W_{i,j}=\sum_{j=0}^{N/2^i-1} |V(G_{i,j})| \le 3n$, since, each vertex $v$ of $G$ can only appear in $Q^+_{i,j-1}, Q^+_{i,j}$, and $Q^+_{i,j+1}$ where $j$ is the unique index such that $v\in V(Q_{i,j})$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $X_{i,j}:=Y_{i,j}\times V(P^+_{i,j})$.  Then the number of vertices of $G$ in a component $C$ of $Q^+_{i,j}-X_{i,j}$ is equal to the total weight of the corresponding component $C_H$ of $H-Y_{i,j}$.  Therefore, each component of $Q^+_{i,j}-X_{i,j}$ contains at most $2^{i-1}D$ vertices of $G$.  By definition, $|X_{i,j}|=3\cdot 2^i \cdot |Y_{i,j}| \le 6c(t+1)W_{i,j}/D$.  Therefore, $\sum_{j=0}^{N/2^i-1} |X_{i,j}|\le 18c(t+1)n/D$.
+  \item
+   % Since $\mathcal{M}^*$ is a contraction of $\mathcal{M}_{G-X}$, $\phi$ is also a $(k,O(\sqrt{\log n}))$-volume-preserving contraction of $(V(G-X),d_{G-X})$.  Since $\mathcal{M}^*$ has local density $O(D)$ and is a contraction of $\mathcal{M}_{G-X}$, $\mathcal{M}_{G-X}$ has local density $O(D)$ (\cref{contraction_increases_density}).
+   By Feige's result (\cref{feige_bandwidth_vs_density}),  $\bw(\mathcal{M}^*)\in O(D\log^3 n)=O(\sqrt{n}\log^2 n)$.  Since $\mathcal{M}^*$ is a contraction of $\mathcal{M}_{G-X}$ this implies that $\bw(\mathcal{M}_{G-X}) \le \bw(\mathcal{M}^*)\in O(\sqrt{n}\log^2 n)$ (by \cref{contraction_increases_bandwidth}).
+\end{enumerate}
 
-  Now let $\mathdefin{X}:=\bigcup_{i=0}^{\lfloor\log_2 n\rfloor}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.  Then $|X|\le\sum_{i=0}^{\log N}\sum_{j=0}^{N/2^i-1} |X_{i,j}|\le 18c(t+1)n(1+\log N)/D\le 18c(t+1)n(2+\log n)/D$. Any subpath $P':=y_{q+1},\ldots,y_{q+\ell}$ of $P$ is contained in $P^+_{i,j}$ for $i:=\lceil\log \ell\rceil$ and $j=\lfloor(q+1)/2^i\rfloor$.  Therefore $H\boxtimes P'$ is contained in $Q^+_{i,j}$.  Therefore, each component of $(H\boxtimes P')-X$ is contained in a component of $Q_{i,j}-X_{i,j}$.  Therefore, each component of $(H\boxtimes P')-X$ contains at most $D2^{i-1}\le D\ell$ vertices of $G$.
+The delicate part of the proof is the design of the distance function $d^*$ that contracts $d_{(H\boxtimes P)-X}$ but still ensures that the local density of $\mathcal{M}^*$ is $O(D)$. If $d^*$ contracts too much, then $\mathcal{M}^*$ will not have local density $O(D)$. If $d^*$ contracts too little, then it will be difficult to get a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding. To make this work, we choose a highly-structured sparsifying set $X$.
+
+\subsection{A Structured Sparsifier}
+
+In this section we construct a sparsifying set $X$ like that used in \cref{planar_sparsifier}, but with a structure that lends itself to the design of the distance function $d^*$.
+
+Let $N:=2^{\ceil{\log n}}$ and let $P:=\mathdefin{y_{-N+1},y_{-N+2},\ldots,y_{2N}}$ be path.  Without loss of generality we assume all vertices of $G$ are contained in $V(H)\times\{y_1,\ldots,y_N\}$.  For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{-1,0,\ldots,N/2^{i}\}$, let $P_{i,j}:=y_{j2^i+1},\ldots,y_{(j+1)2^i}$ be a subpath of $P$ with $2^i$ vertices. For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{0,\ldots,N/2^{i}-1\}$, let $P^+_{i,j}:=P[V(P_{i,j-1})\cup V(P_{i,j})\cup V(P_{i,j+1})]$ be the concatenation of $P_{i,j-1}$, $P_{i,j}$, and $P_{i,j+1}$. Define $Q_{i,j}=H\boxtimes P_{i,j}$ and $Q^+_{i,j}=H\boxtimes P^+_{i,j}$.
+
+In words, $Q_{i,0},\ldots,Q_{i,N/2^i-1}$ partition the part of $H\boxtimes P$ that contains $G$ into vertex-disjoint strips of height $2^i$. The subgraph $G^+_{i,j}$ is a strip of height $3\cdot 2^i$ that contains $G_{i,j}$ in its middle third.  Observe that, for each $i\in\{1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^i-1\}$, each of the graphs $Q^+_{i-1,2j}$ and $Q^+_{i-1,2j+1}$ is a subgraph of $Q^+_{i,j}$. Equivalently, $Q^+_{i,j}$ is a subgraph of $Q_{i+1,\lfloor j/2\rfloor}$ for each $i\in\{0,\ldots,\log N-1\}$ an each $j\in\{0,\ldots,N/2^i-1\}$.
+
+We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define a weight function $w_{i,j}:V(H)\to\N$ where $w_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $W_{i,j}:=\sum_{x\in V(H)} w(x)=|V(Q^+_{i,j})\cap V(G)|$. By \cref{pq_separator}, there exists $Y_{i,j}\subseteq V(H)$ of size at most $c(t+1)W_{i,j}/(2^{i-1}D)$ such that, each component $C$ of $H-Y_{i,j}$ has total weight at most $\sum_{x\in V(C)} w(x) \le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.
+
+\begin{lem}
+  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, each component of $Q^+_{i,j}-X_{i,j}$ has at most $2^{i-1}D$ vertices.\
+\end{lem}
+
+\begin{proof}
+  The number of vertices of $G$ in a component $C$ of $Q^+_{i,j}-X_{i,j}$ is equal to the total weight of the corresponding component $C_H$ of $H-Y_{i,j}$.  Therefore, each component of $Q^+_{i,j}-X_{i,j}$ contains at most $2^{i-1}D$ vertices of $G$.
 \end{proof}
 
-Let $u:=(x_1,y_a)$ and $w:=(x_3,y_c)$ be two vertices of $H\boxtimes P$. Define the function $\overrightarrow\imath^*:V(H\boxtimes P)\setminus X\to\Z$ as follows:
-If $a=c$ and $v$ and $w$ are in the same component of $H\boxtimes\{y_a\}-X$ then $\overrightarrow\imath^*(u,w)=-\infty$.  Otherwise, let $\overrightarrow\imath^*(u,w)$ be the maximum integer $i$ such that no component of $Q^+_{i,\lfloor a/2^i\rfloor}-\bigcup_{p=i}^{\log N} X_{i,\lfloor a/2^p\rfloor}$ contains both $u$ and $w$. Let $i^*(v,w):=\max\{\overrightarrow\imath^*(u,w),\overrightarrow\imath^*(w,u)\}$. Define:
+Let $\mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.
+
+\begin{lem}
+  $|X|\le 18c(t+1)n/D$.
+\end{lem}
+
+\begin{proof}
+  Observe that $\sum_{j=0}^{N/2^i-1} W_{i,j}=\sum_{j=0}^{N/2^i-1} |V(G_{i,j})| \le 3n$, since, each vertex $v$ of $G$ can only appear in $Q^+_{i,j-1}, Q^+_{i,j}$, and $Q^+_{i,j+1}$ where $j$ is the unique index such that $v\in V(Q_{i,j})$.    By definition, $|X_{i,j}|=3\cdot 2^i \cdot |Y_{i,j}| \le 6c(t+1)W_{i,j}/D$.  Therefore, $\sum_{j=0}^{N/2^i-1} |X_{i,j}|\le 18c(t+1)n/D$.
+
+  Now let $\mathdefin{X}:=\bigcup_{i=0}^{\lfloor\log_2 n\rfloor}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.  Then $|X|\le\sum_{i=0}^{\log N}\sum_{j=0}^{N/2^i-1} |X_{i,j}|\le 18c(t+1)n(1+\log N)/D\le 18c(t+1)n(2+\log n)/D$.
+  % Any subpath $P':=y_{q+1},\ldots,y_{q+\ell}$ of $P$ is contained in $P^+_{i,j}$ for $i:=\lceil\log \ell\rceil$ and $j=\lfloor(q+1)/2^i\rfloor$.  Therefore $H\boxtimes P'$ is contained in $Q^+_{i,j}$.  Therefore, each component of $(H\boxtimes P')-X$ is contained in a component of $Q_{i,j}-X_{i,j}$.  Therefore, each component of $(H\boxtimes P')-X$ contains at most $D2^{i-1}\le D\ell$ vertices of $G$.
+\end{proof}
+
+\subsection{\boldmath The Distance Function $d^*$}
+
+We now define the distance function $d^*$ that makes use of the structure of $(H\boxtimes P)-X$.  Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
+
+Let $u:=(x_1,y_a)$ and $w:=(x_3,y_c)$ be two vertices of $H\boxtimes P$. Define the function $i^{\shortrightarrow}:V(H\boxtimes P)\setminus X\to\Z$ as follows:
+If $a=c$ and $v$ and $w$ are in the same component of $H\boxtimes\{y_a\}-X$ then $i^{\shortrightarrow}(u,w):=-\infty$.  Otherwise, let $i^{\shortrightarrow}(u,w)$ be the maximum integer $i$ such that no component of $Q^+_{i,\lfloor a/2^i\rfloor}-\bigcup_{p=i}^{\log N} X_{i,\lfloor a/2^p\rfloor}$ contains both $u$ and $w$. Let $i^*(v,w):=\max\{i^{\shortrightarrow}(u,w),i^{\shortrightarrow}(w,u)\}$. Define:
 \[
   % d^*(v,w):=\max\{d_{H\boxtimes P}(v,w), 2^{i^*(v,w)}\}
   \delta_1(u,w):=2^{i^*(u,w)}
 \]
-
 \begin{figure}
     \centering
     \begin{tabular}{ccc}
@@ -523,21 +571,50 @@ If $a=c$ and $v$ and $w$ are in the same component of $H\boxtimes\{y_a\}-X$ then
     \includegraphics[page=3]{figs/new_metric}
     \end{tabular}
     \caption{The definitions of $\delta_1$, $\delta_2$, and $\delta_3$.}
+    \label{d_star}
 \end{figure}
 
-Let $v:=(x_2,y_b)$.  Let $i$ be the maximum integer such that $v$ and $w$ are in $G_{i,j}$ but $v$ and $w$ are in different components of $G_{i,j}-X_{i,j+1}$.  If no such $i$ exists, then define $\delta_2(v,w)=0$.  Otherwise,  $\delta_2(v,w)=a-j2^i + b-j2^i$.
+Ultimately, $d^*$ will be the maximum of several functions, one of which is $\delta_1$.  Of these functions, $\delta_1$ is the most important.  It ensures that the local density of the metric space $\mathcal{M}^*$ has local density $O(D)$.
 
-Symmetrically, let $i$ be the maximum integer such that $v$ and $w$ are in $G_{i,j}$ but $v$ and $w$ are in different components of $G_{i,j}-X_{i,j-1}$.  If no such $i$ exists, then define $\delta_2(v,w)=0$.  Otherwise,  $\delta_2(v,w)=(j+1)2^i-a + (j+1)2^i-b$.
+\begin{lem}\label{delta_density}
+  For each $v\in V(H\boxtimes P)$ and $r\ge 0$,
+  \[
+    |B_{(V(G),\delta_1)}(v,r):=\{w\in V(G):\delta_1(v,w)\le r\}| \le 3Dr \enspace .
+  \]
+\end{lem}
+
+\begin{proof}
+  Since $\delta_1(v,w)$ is always an integer power of $2$, we may assume that $r=2^k$ for some integer $k$.  If $\delta_1(v,w)\le r$ for some $w\in V(G)$, then $v$ and $w$ are in the same component of $Q^+_{i,j}-X_{i,j}$ for some $i \le k$.  For each $i\in\{0,\ldots,k\}$, there are three values of $j$ such that $v\in V(Q^+_{i,j})$.  For each of these, the component of $Q^+_{i,j}-X_{i,j}$ that contains $v$ has at most $D2^{i-1}$ vertices of $G$. Therefore,
+  \[
+    |B_{(V(G),d^*)}| \le |\{w\in V(G): \delta_1(v,w)\le r\}| \le \sum_{i=0}^{k-1} 3D2^{i} = 3D(2^{k}-1) < 3Dr \enspace . \qedhere
+  \]
+\end{proof}
+
+By \cref{delta_density}, $\delta_1$ defines a space $(V(G),\delta_1)$ with local density $O(D)$.  Unfortunately, this is not a metric space because $\delta_1$ does not satisfy the triangle inequality.  The remaining functions used to define $d^*$ are ensure that $d^*$ is a metric space.
+
+Let $v:=(x_2,y_b)$.  We now define a second quantity $\delta_2(v,w)$.  There are two cases:
+\begin{compactenum}[(i)]
+    \item If there exists some $i\in\{0,\ldots\log N\}$ such that $v,w\in V(G_{i,j})$ but $v$ and $w$ are in different components of $G_{i,j}-X_{i,j+1}$ then consider the maximum such $i$ and set $\delta_2(v,w)=a-j2^i + b-j2^i$.
+    \item If not such $i$ exists, then $\delta_2(v,w):=0$.
+\end{compactenum}
+
+A third quantity $\delta_3(v,w)$ is defined symmetrically:
+\begin{compactenum}[(i)]
+    \item If there exists some $i\in\{0,\ldots\log N\}$ such that $v,w\in V(G_{i,j})$ but $v$ and $w$ are in different components of $G_{i,j}-X_{i,j-1}$ then consider the maximum such $i$ and set $\delta_3(v,w)=(j+1)2^i-a + (j+1)2^i-b$.
+    \item If not such $i$ exists, then $\delta_3(v,w):=0$.
+\end{compactenum}
 
 Finally, define
-\[   d^*(v,w) := \max\{\delta_1(u,w), \delta_2(u,w), \]
+\[
+  d^*(u,w) := \max\{\delta_1(u,w),\, \delta_2(u,w),\, \delta_3(u,w),\, d_{H\boxtimes P}(u,w) \}
+\]
 
 \begin{lem}
   The function $d^*:V(H\boxtimes P)\setminus X\to\N$ is a distance function for $V(H\boxtimes P)\setminus X$.
 \end{lem}
 
 \begin{proof}
-  It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V(H\boxtimes P)\setminus X$ and that $d^(u,v)=d^*(v,u)\ge 0$ for all $u,v\in V(H\boxtimes P)\setminus X$.
+  It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V(H\boxtimes P)\setminus X$ and that $d^*(u,v)=d^*(v,u)\ge 0$ for all $u,v\in V(H\boxtimes P)\setminus X$.
 
   Let $u:=(x_1,y_a)$, $v:=(x_2,y_b)$ and $w:=(x_3,y_c)$ be three vertices of $(H\boxtimes P)- X$.
   % Since $u\not\in X$, $u$ is a vertex of $G_{0,a}$. Therefore $i^*(u,u)=-\infty$, so $d^*(u,u)=2^{-\infty}=0$.
@@ -548,7 +625,7 @@ Finally, define
   We must show that $d^*(u,w)\le d^*(u,v)+d^*(v,w)$.  If $d^*(u,w)=0$ then this is immediate, so suppose $d^*(u,w)>0$.   If $d^*(u,w)=d_{H\boxtimes P}(u,w)$ then this follows immediately from the fact that $d_{H\boxtimes P}$ satisfies the triangle inequality and $d^*(u,v) + d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w)$.
 
   Next we consider the case where $d^*(u,w)=\delta_1(u,w)$.
-  In this case $i^*(u,w)\ge 0$ and assume, without loss of generality that $i:=i^*(u,w)=\overrightarrow\imath^*(u,w)$.  Let $j:=\floor{a/2^i}$.  Since $w\not\in X$, one of the two cases must occur:
+  In this case $i^*(u,w)\ge 0$ and assume, without loss of generality that $i:=i^*(u,w)=i^{\shortrightarrow}(u,w)$.  Let $j:=\floor{a/2^i}$.  Since $w\not\in X$, one of the two cases must occur:
   \begin{compactenum}
     \item $u$ and $w$ are in different components, $C_u$ and $C_w$ of $Q^+_{i,\floor{a/2^i}}-\bigcup_{p=i}^{\log N} X_{i,\lfloor a/2^p\rfloor}$.  We distinguish between two cases depending on the location of $v$.
     \begin{compactenum}
@@ -559,25 +636,12 @@ Finally, define
   \end{compactenum}
 \end{proof}
 
-The following lemma shows that the metric space $(V(G),d^*)$ has local density at most $3D$:
-
-\begin{lem}
-  The metric space $(V(G),d^*)$ has local density at most $3D$.
-  % For each $v\in V(H\boxtimes P)$ and $r\ge 0$,
-  % $|B_{(V(G),d^*)}(v,r)| \le 3Dr$ \enspace .
-\end{lem}
-
-\begin{proof}
-  We will only make use of the lower bound $d^*(v,w)\ge \delta_1(v,w)$.
-  Since $\delta_1(v,w)$ is always an integer power of $2$, we may assume that $r=2^k$ for some integer $k$.  If $\delta_1(v,w)\le r$ for some $w\in V(G)$, then $v$ and $w$ are in the same component of $Q^+_{i,j}-X_{i,j}$ for some $i \le k$.  For each $i\in\{0,\ldots,k\}$, there are three values of $j$ such that $v\in V(Q^+_{i,j})$.  For each of these, the component of $Q^+_{i,j}-X_{i,j}$ that contains $v$ has at most $D2^{i-1}$ vertices of $G$. Therefore,
-  \[
-    |B_{(V(G),d^*)}| \le |\{w\in V(G): \delta_1(v,w)\le r\}| \le \sum_{i=0}^{k-1} 3D2^{i} = 3D(2^{k}-1) < 3Dr \enspace . \qedhere
-  \]
-\end{proof}
-
-\begin{lem}
-    The metric space $(V((H\boxtimes P)-X),d^*)$ is a contraction of $(V((H\boxtimes P)-X),d_{(H\boxtimes P)-X})$.
-\end{lem}
+% The following lemma shows that the metric space $(V(G),d^*)$ has local density at most $3D$:
+%
+%
+% \begin{lem}
+%     The metric space $(V((H\boxtimes P)-X),d^*)$ is a contraction of $(V((H\boxtimes P)-X),d_{(H\boxtimes P)-X})$.
+% \end{lem}
 
 
 
@@ -586,13 +650,13 @@ The following lemma shows that the metric space $(V(G),d^*)$ has local density a
 
 % Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, we will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs.
 
-Note that, although the definition of volume-preserving contractions applies to a metric space $(S,d)$, it is still meaningful when applied to any pair $(S,d^*)$ where $d^*:S^2\to\R_{\ge 0}$ satisfies the requirements of a distance function except, possibly, the triangle inequality.  In this section we will prove the following result:
+% Note that, although the definition of volume-preserving contractions applies to a metric space $(S,d)$, it is still meaningful when applied to any pair $(S,d^*)$ where $d^*:S^2\to\R_{\ge 0}$ satisfies the requirements of a distance function except, possibly, the triangle inequality.  In this section we will prove the following result:
 
 % \begin{thm}\label{product_contraction}
 %   Let $H$ be a graph of treewidth $t\ge 1$, let $P$ be a path, and let $G$ be an $n$-vertex subgraph of $H\boxtimes P$.  Let $G_{i,j}, $Q_{i,j}$, $X_{i,j}$ and $d^*$ be defined as in the previous section (in terms of $H$, $P$, and $G$).  Then $(V(H\boxtimes P), d^*)$ has a $(k,O(t\sqrt{\log n}))$-volume-preserving Euclidean contraction.
 % \end{thm}
 
-The proof of \cref{product_contraction} uses many of the ideas from the proof of \cref{rao} given by \citet{rao:small}.
+% The proof of \cref{product_contraction} uses many of the ideas from the proof of \cref{rao} given by \citet{rao:small}.
 
 % \david{This suggests we are claiming a version of \cref{fan_partition_planar} for any $n$-vertex subgraph of $H\boxtimes P$ where $H$ has no $K_t$ minor. But the sparsification step requires that $H$ has treewidth less than $t$. We should state the following theorem, including the correct dependence on $t$:
 
@@ -603,8 +667,13 @@ The proof of \cref{product_contraction} uses many of the ideas from the proof of
 
 % The proof of \cref{product_contraction} closely follows Rao's proof of \cref{rao}.
 
+\subsection{Volume-Preserving Contraction of $\mathcal{M}^*$}
 
+In this section we prove the following result:
 
+\begin{lem}
+  For every integer $k\in\{1,\ldots,n\}$, the metric space $\mathcal{M}^*:=(V(G),d^*)$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding. \pat{Check quantifier on $k$}
+\end{lem}
 
 \subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
 
