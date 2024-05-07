@@ -82,10 +82,11 @@
 
 % Document-specific commands and math operators
 \DeclareMathOperator{\tw}{tw}
-\DeclareMathOperator{\rtw}{rtw}
-\DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\pw}{pw}
 \DeclareMathOperator{\bw}{bw}
+\DeclareMathOperator{\rtw}{rtw}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\mindist}{min-dist}
 \DeclareMathOperator{\ld}{ld}
 \DeclareMathOperator{\polylog}{polylog}
 \DeclareMathOperator{\evol}{Evol}
@@ -137,15 +138,15 @@ The \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each ve
 The \defin{treewidth $\tw(G)$} of a graph $G$ is the minimum width of a tree-decomposition of $G$.
 The \defin{pathwidth $\pw(G)$} of a graph $G$ is the minimum width of a path-decomposition of $G$.
 Treewidth is the standard measure of how similar a graph is to a tree.
-Pathwidth is the standard measure of how similar a graph is to a path.}. \citet{distel.dujmovic.ea:product} show that the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of pathwidth-$2$ graphs.  Even more specifically, every $n$-vertex planar graph is isomorphic to a $\tilde{O}(\sqrt{n})$-blowup of a fan.\footnote{A \defin{fan} $F_k$ is a graph with $V(F_k):=\{v_0,\ldots,v_k\}$ and $E(F_k):=\{v_0v_i:1\leq i\leq k\}\cup\{v_iv_{i+1}:1\leq i\leq k-1\}$. \david{Add the following? Note that $\{v_0,v_1,v_2\},\{v_0,v_2,v_3\},\dots,\{v_0,v_{k-1},v_k\}$ is a path-decomposition of $F_k$ with width 2.}}
-\david{For brevity ``In the current work, we show that one can even take $\mathcal{H}$ to be the class of fan graphs, which have pathwidth $2$.''}
+Pathwidth is the standard measure of how similar a graph is to a path.}. \citet{distel.dujmovic.ea:product} show that the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of fan graphs, which have pathwidth $2$.\footnote{A \defin{fan} $F_k$ is a graph with $V(F_k):=\{v_0,\ldots,v_k\}$ and $E(F_k):=\{v_0v_i:1\leq i\leq k\}\cup\{v_iv_{i+1}:1\leq i\leq k-1\}$. \david{Add the following? Note that $\{v_0,v_1,v_2\},\{v_0,v_2,v_3\},\dots,\{v_0,v_{k-1},v_k\}$ is a path-decomposition of $F_k$ with width 2.}}
+
 \begin{thm}\label{main_thm_planar}
   Every $n$-vertex planar graph is contained in a $O(\sqrt{n}\log^2 n)$-blowup of a fan.
 \end{thm}
 
 (We remark that the previous results \cite{ISW,distel.dujmovic.ea:product} have no polylogarithmic factors.  Every planar graphs is contained in a $O(\sqrt{n})$-blowup of a treewidth-$2$ graph \cite{distel.dujmovic.ea:product}.)
 
-The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth at most $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is is also the best-possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  \citet{LMST08} describe an infinite family of $n$-vertex planar graphs $G$ such that every (improper) 2-colouring has a monochromatic component on $\Omega(n^{2/3})$ vertices. Say $G$ is contained in a $k$-blowup $(K_v:v\in V(T))$ of a tree $T$. Colour each vertex in each $K_v$ by the colour of $v$ in a proper 2-colouring of $T$. So each monochromatic component is contained in some $K_v$, implying that $k\in\Omega(n^{2/3})$.
+The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth at most $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is also the best possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  \citet{LMST08} describe an infinite family of $n$-vertex planar graphs $G$ such that every (improper) 2-colouring has a monochromatic component on $\Omega(n^{2/3})$ vertices. Say $G$ is contained in a $k$-blowup $(K_v:v\in V(T))$ of a tree $T$. Colour each vertex in each $K_v$ by the colour of $v$ in a proper 2-colouring of $T$. So each monochromatic component is contained in some $K_v$, implying that $k\in\Omega(n^{2/3})$.
 
 \david{I suspect the lower bound can be pushed further to show  that fan graphs really are best possible. Conjecture: there exist $n$-vertex planar graphs such that for any graph $H$, if $G$ is contained in  a $\tilde{O}(\sqrt{n})$-blowup of $H$, then $H$ contains a fan on $\Omega(n^c)$ vertices, for some $c>0$, possibly $c=\frac12$. \\ I will try to prove this where $G$ is from \citep{LMST08}. I think my conjecture is true even if $G$ is the $n^{2/3}\times n^{1/3}$ grid, plus one vertex adjacent to the outerface.}
 
@@ -276,9 +277,9 @@ We follow a similar strategy by proving that, for a carefully chosen sparsifying
 
 \subsection{Distance Functions and Metric Spaces}
 
-A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  For any $x\in S$ and $S'\subseteq S$, $d(x,S'):=\min\{d(x,y):y\in S'\}$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over some superset of $S$. $\mathcal{M}$ is \defin{finite} if $S$ is finite.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.
+A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  For any $x\in S$ $d(x,\emptyset):=\infty$ and, for any non-empty $Z\subseteq S$, $d(x,Z):=\min\{d(x,y):y\in Z\}$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over some superset of $S$. $\mathcal{M}$ is \defin{finite} if $S$ is finite and $\mathcal{M}$ is \defin{non-empty} is $S$ is non-empty.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.  The \defin{diameter} of a non-empty finite metric space $(S,d)$ is $\mathdefin{\diam_d(S)}:=\max\{d(x,y):x\in S\}$. The \defin{minimum-distance} of $(S,d)$ is $\mathdefin{\mindist_d(S)}:=\min\{d(x,y): \{x,y\}\in\binom{S}{2}\}$.
 
-For any graph $G$, $d_G$ is a distance function over $G$ and $\mathcal{G}_G:=(V(G),d_G)$ is a metric space. Any metric space that can be defined this way is referred to as a \defin{graph metric}.
+For any graph $G$, $d_G$ is a distance function over $G$ and $\mathdefin{\mathcal{M}_G}:=(V(G),d_G)$ is a metric space. Any metric space that can be defined this way is referred to as a \defin{graph metric}. For any $S\subseteq V(G)$, the \defin{diameter} and \defin{minimum-distance} of $S$ in $G$ are defined as $\mathdefin{\diam_G(S)}:=\diam_{d_G}(S)$ and $\mathdefin{\mindist_G(S)}:=\mindist_{d_G}(S)$, respectively.
 % For $v\in V(G)$ and $W\subseteq V(G)$, $\mathdefin{d_G(v,W)}:=\min\{w\in W:d_G(v,w)\}$.
 The \defin{positive distance in $G$} between $v\in V(G)$ and $W\subseteq V(G)$ is $\mathdefin{d^+_G(v,W)}:=\max\{1,d_G(v,W)\}$.
 Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$,
@@ -286,17 +287,19 @@ Since we will be working frequently with strong products. It is worth noting tha
   d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\} \enspace .
 \]
 
-A finite metric space $\mathcal{M}:=(S,d)$ has \defin{local density} at most $D$ if $|B_\mathcal{M}(x,r)|\le 1+Dr$, for each $r\ge 0$ and each $x\in S$.
-This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $\mathcal{M}_G$ has local density at most $D$.
+The \defin{local density} of a non-empty finite metric space $\mathcal{M}:=(S,d)$ is $\mathdefin{\ld(\mathcal{M})}:=\max\{|(B_{\mathcal{M}}(x,r)-1)/r:x\in S,\, r>0\}$.  Thus, if $\mathcal{M}$ has local density at most $D$ then $|B_{\mathcal{M}}(x,r)|\le Dr+1$ for each $x\in S$ and $r\ge 0$.
+This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $\mathcal{M}_G$ has local density at most $D$.  Note that, if $(S,d)$ has local density at most $D$ then $(S,d)$ $\diam_d(S)\ge (|S|-1)/D$ and $\mindist(S)\ge 1/D$.
 
-A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$.  For two points $x,y\in\R^L$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^L, d_2)$ for some $L\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.  When $S\subseteq S'$ and $\phi$ is the identity function we say that $\mathcal{M'}$ is a contraction of $\mathcal{M}$. In particular, the statement $(S,d')$ is a contraction of $(S,d)$ is equivalent to the statement $d'(x,y)\le d(x,y)$ for all $x,y\in S$. We use two easy observations that follow quickly from these definitions:
+A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$. The \defin{distortion} of $\phi$ is $\max\{d(x,y)/d'(x,y):\{x,y\}\in \binom{S}{2}\}$.  When $S\subseteq S'$ and $\phi$ is the identity function we say that $\mathcal{M'}$ is a contraction of $\mathcal{M}$. In particular, saying that $(S,d')$ is a contraction of $(S,d)$ is equivalent saying that $d'(x,y)\le d(x,y)$ for all $x,y\in S$.
+
+For two points $x,y\in\R^L$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^L, d_2)$ for some $L\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.   We make use of two easy observations that follow quickly from these definitions:
 
 \begin{obs}\label{contraction_increases_density}
   If a metric space $\mathcal{M}:=(S,d)$ has a contraction $\phi$ into a metric space $\mathcal{M}':=(S',d')$ of local density at most $D$ then $\mathcal{M}$ has local density at most $D$.
 \end{obs}
 
 \begin{proof}
-  For any $x\in S$, any $r\ge 1$, and any $y\in B_\mathcal{M}(x,r)$, $d'(\phi(x),\phi(y))\le d(x,y)\le r$, since $\phi$ is a contraction.  Therefore, $B_{\mathcal{M'}}(\phi(x),r)\supseteq\{\phi(y):y\in B_{\mathcal{M}}(x,r)\}$.  Since $\mathcal{M'}$ has local density at most $D$,  $Dr \ge |B_\mathcal{M'}(\phi(x),r)|\ge |B_{\mathcal{M}}(x,r)|$.
+  For any $x\in S$, any $r\ge 1$, and any $y\in B_\mathcal{M}(x,r)$, $d'(\phi(x),\phi(y))\le d(x,y)\le r$, since $\phi$ is a contraction.  Therefore, $B_{\mathcal{M'}}(\phi(x),r)\supseteq \phi(B_{\mathcal{M}}(x,r))$.  Since $\mathcal{M'}$ has local density at most $D$,  $Dr+1 \ge |B_\mathcal{M'}(\phi(x),r)|\ge |B_{\mathcal{M}}(x,r)|$.
 \end{proof}
 
 \begin{obs}\label{supergraph_contraction}
@@ -317,7 +320,7 @@ A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space
 
 For a set $K$ of $k\le L$ points in $\R^L$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
 
-The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(K)):\text{$\phi$ is a Euclidean contraction of $(K,d)$}\}$.  A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,\eta)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/\eta^{k-1}$ for each $k$-element subset $K$ of $S$.
+The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(K)):\text{$\phi$ is a Euclidean contraction of $(K,d)$}\}$.  A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,\eta)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/\eta^{k-1}$ for each $k$-element subset $K$ of $S$.  This definition is a generalization of distortion: If $\phi$ is a $(2,\eta)$-volume-preserving then $\phi$ has dilation at most $\eta$.
 
 \citet{feige:approximating} introduces the following definition and theorem as a bridge between ideal volume and Euclidean volume. The \defin{tree volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\tvol_d(K)}:=\prod_{xy\in E(T)} d(x,y)$ where $T$ is a minimum spanning tree of the weighted complete graph with vertex set $K$ where the weight of any edge $xy$ is equal to $d(x,y)$.  The following lemma make tree volume a useful intermediate measure when trying to establish that a contraction is volume-preserving.
 
@@ -494,14 +497,14 @@ Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yiel
 
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
 
-In this section, we prove \cref{main_thm_products}.  The structure of our proof is based on the proof of \cref{rao} by \citet{rao:small}, which applies to planar graphs and even to $K_{h}$-minor-free graphs for any fixed $h$.  However, the proof cannot be applied directly since graph products of the form $H\boxtimes P$ are not $K_h$-minor-free for any fixed $h$, even when $H$ is a tree and $P$ is a path. \pat{Say something about the ``tennis court'' example?} \david{If $T$ is the tree obtained from the path $P_{2n+1}$ by adding one leaf adjacent to the middle vertex, then $K_n$ is a minor of the `tennis court' graph $T\square P_{n^2}$ (see  \citep{Wood-NYJM11}). }
+In this section, we prove \cref{main_thm_products}.  The structure of our proof is based on the proof of \cref{rao} by \citet{rao:small}, which applies to planar graphs and even to $K_{h}$-minor-free graphs for any fixed $h$.  However, the proof cannot be applied directly since graph products of the form $H\boxtimes P$ are not $K_h$-minor-free for any fixed $h$, even when $H$ is a tree and $P$ is a path. If $T$ is the tree obtained from the path $P_{2n+1}$ by adding one leaf adjacent to the middle vertex, then $K_n$ is a minor of the `tennis court' graph $T\square P_{n^2}$ (see  \citep{Wood-NYJM11}). \pat{What's the conclusion?  Reference \cite{Wood-NYJM11} doesn't contain the word tennis.}
 
 For the remainder of the paper, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P$ is a path.  The proof of \cref{main_thm_products} has the following structure. We use the notation $\mathcal{M}\rightbroom\mathcal{M'}$ to denote that $\mathcal{M}'$ is a contraction of $\mathcal{M}$.
 
 \begin{enumerate}
   \item Find a set $X\subseteq H\boxtimes P$ of size $O(\sqrt{n}\log^2 n)$ such that the metric space $\mathcal{M}:=(V(G-X),d_{(H\boxtimes P)-X})$ has local density $D\in O(\sqrt{n}/\log n)$.  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, $\mathcal{M}$ is a contraction of the metric space $\mathcal{M}_{G-X}:=(V(G-X),d_{G-x})$ (by \cref{supergraph_contraction}), so $\mathcal{M}_{G-X}\rightbroom\mathcal{M}$.
 
-  \item Design a distance function $d^*:V((H\boxtimes P)-X)^2\to\R_{\ge 0}$ so that the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ is a contraction of $\mathcal{M}$ that also has local density $O(D)$.
+  \item Design a distance function $d^*:V((H\boxtimes P)-X)^2\to\R$ so that the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ is a contraction of $\mathcal{M}$ that also has local density $O(D)$.
 
   Graphically, $\mathcal{M}_{G-X}\rightbroom\mathcal{M}\rightbroom\mathcal{M}^*$.
 
@@ -518,13 +521,15 @@ The delicate part of the proof is the design of the distance function $d^*$ that
 
 \subsection{A Structured Sparsifier}
 
+\todo[inline]{Reread the next few subsections and check for ${}\pm 1$ issues. Use $u$, $v$, and $w$ consistently.}
+
 In this section we construct a sparsifying set $X$ like that used in \cref{planar_sparsifier}, but with a structure that lends itself to the design of the distance function $d^*$.
 
 Let $N:=2^{\ceil{\log n}}$ and let $P:=\mathdefin{y_{-N+1},y_{-N+2},\ldots,y_{2N}}$ be path.  Without loss of generality we assume all vertices of $G$ are contained in $V(H)\times\{y_1,\ldots,y_N\}$.  For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{-1,0,\ldots,N/2^{i}\}$, let $P_{i,j}:=y_{j2^i+1},\ldots,y_{(j+1)2^i}$ be a subpath of $P$ with $2^i$ vertices. For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{0,\ldots,N/2^{i}-1\}$, let $P^+_{i,j}:=P[V(P_{i,j-1})\cup V(P_{i,j})\cup V(P_{i,j+1})]$ be the concatenation of $P_{i,j-1}$, $P_{i,j}$, and $P_{i,j+1}$. Define $Q_{i,j}=H\boxtimes P_{i,j}$ and $Q^+_{i,j}=H\boxtimes P^+_{i,j}$.
 
 In words, $Q_{i,0},\ldots,Q_{i,N/2^i-1}$ partition the part of $H\boxtimes P$ that contains $G$ into vertex-disjoint strips of height $2^i$. The subgraph $G^+_{i,j}$ is a strip of height $3\cdot 2^i$ that contains $G_{i,j}$ in its middle third.  Observe that, for each $i\in\{1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^i-1\}$, each of the graphs $Q^+_{i-1,2j}$ and $Q^+_{i-1,2j+1}$ is a subgraph of $Q^+_{i,j}$. Equivalently, $Q^+_{i,j}$ is a subgraph of $Q_{i+1,\lfloor j/2\rfloor}$ for each $i\in\{0,\ldots,\log N-1\}$ an each $j\in\{0,\ldots,N/2^i-1\}$.
 
-We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define a weight function $w_{i,j}:V(H)\to\N$ where $w_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $W_{i,j}:=\sum_{x\in V(H)} w(x)=|V(Q^+_{i,j})\cap V(G)|$. By \cref{pq_separator}, there exists $Y_{i,j}\subseteq V(H)$ of size at most $c(t+1)W_{i,j}/(2^{i-1}D)$ such that, each component $C$ of $H-Y_{i,j}$ has total weight at most $\sum_{x\in V(C)} w(x) \le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.
+We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define a weight function $w_{i,j}:V(H)\to\N$ where $w_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $W_{i,j}:=\sum_{x\in V(H)} w(x)=|V(Q^+_{i,j})\cap V(G)|$. By \cref{pq_separator}, there exists $Y_{i,j}\subseteq V(H)$ of size at most $c(t+1)W_{i,j}/(2^{i-1}D)$, such that each component $C$ of $H-Y_{i,j}$ has total weight at most $\sum_{x\in V(C)} w(x) \le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.  We think of $X_{i,j}$ as a vertical separator that splits $Q^+_{i,j}$ into parts using vertex cuts that run from the top to the bottom of $Q^+_{i,j}$.
 
 \begin{lem}
   For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, each component of $Q^+_{i,j}-X_{i,j}$ has at most $2^{i-1}D$ vertices.\
@@ -547,7 +552,6 @@ Let $\mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.
 
 \subsection{\boldmath The Distance Function $d^*$}
 
-\pat{TODO: Reread and check for $\pm 1$ issues. Use $u$, $v$, and $w$ consistently.}
 
 
 We now define the distance function $d^*$ that makes use of the structure of $(H\boxtimes P)-X$.  Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
@@ -567,14 +571,14 @@ Let $u:=(x_1,y_a)$ and $w:=(x_3,y_c)$ be two vertices of $H\boxtimes P$.  Let $i
 Ultimately, $d^*$ will be the maximum of several functions, one of which is $\delta_0$.  Of these functions, $\delta_0$ is the most important because it ensures that the metric space $\mathcal{M}^*$ has local density $O(D)$.
 
 \begin{lem}\label{delta_density}
-  For each $v\in V(H\boxtimes P)$ and $r\ge 0$,
+  For each $v\in V(H\boxtimes P)$ and $r\ge 1$,
   \[
     |B_{(V(G),\delta_0)}(v,r):=\{w\in V(G):\delta_0(v,w)\le r\}| \le 3Dr \enspace .
   \]
 \end{lem}
 
 \begin{proof}
-  Since $\delta_1(v,w)$ is always an integer power of $2$, we may assume that $r=2^k$ for some integer $k$.  If $\delta_0(v,w)\le r$ for some $w\in V(G)$, then $v$ and $w$ are in the same component of $Q^+_{i,j}-X_{i,j}$ for some $i \le k$.  For each $i\in\{0,\ldots,k\}$, there are three values of $j$ such that $v\in V(Q^+_{i,j})$.  For each of these, the component of $Q^+_{i,j}-X_{i,j}$ that contains $v$ has at most $D2^{i-1}$ vertices of $G$. Therefore,
+  Since $\delta_0(v,w)$ is always zero or an integer power of $2$, we may assume that $r=2^k$ for some integer $k$.  If $\delta_0(v,w)\le r$ for some $w\in V(G)$, then $v$ and $w$ are in the same component of $Q^+_{i,j}-X_{i,j}$ for some $i \le k$.  For each $i\in\{0,\ldots,k\}$, there are three values of $j$ such that $v\in V(Q^+_{i,j})$.  For each of these, the component of $Q^+_{i,j}-X_{i,j}$ that contains $v$ has at most $D2^{i-1}$ vertices of $G$. Therefore,
   \[
     |B_{(V(G),d^*)}| \le |\{w\in V(G): \delta_0(v,w)\le r\}| \le \sum_{i=0}^{k-1} 3D2^{i} = 3D(2^{k}-1) < 3Dr \enspace . \qedhere
   \]
@@ -589,13 +593,13 @@ The third quantity $\mathdefin{\delta_2(v,w)}$ is defined symmetrically: If ther
 From the definition of $i_1$ and $i_2$ we immediately obtain the following property, which will be useful later.
 
 \begin{obs}\label{i_bounds}
-  For each $o\in\{1,2\}$, if
-  $i_o(v,w)\ge 0$ then $\delta_o(v,w)\le 2^{i_o(v,w)+1}$.
+  For each $b\in\{1,2\}$, if
+  $i_b(v,w)\ge 0$ then $\delta_b(v,w)\le 2^{i_b(v,w)+1}$.
 \end{obs}
 
 Finally, define
 \[
-  \mathdefin{d^*(u,w)} := \max\{\delta_1(u,w),\, \delta_2(u,w),\, \delta_3(u,w),\, d_{H\boxtimes P}(u,w) \}
+  \mathdefin{d^*(u,w)} := \max\{\delta_0(u,w),\, \delta_1(u,w),\, \delta_2(u,w),\, d_{H\boxtimes P}(u,w) \}
 \]
 First we argue that $d^*$ is a contraction of $d_{(H\boxtimes P)-X}$.
 \begin{lem}\label{d_star_contraction}
@@ -603,7 +607,7 @@ First we argue that $d^*$ is a contraction of $d_{(H\boxtimes P)-X}$.
 \end{lem}
 
 \begin{proof}
-  If $\delta_0(u,v)=2^i$ because, say $i_0(u,v)=i$, then any path in $(H\boxtimes P)-X$ from $u$ to $v$ must begin in the subgraph $Q_{i,j}$ that contains $u$ and must not be contained in the graph $Q^+_{i,j}$.  Therefore $d_{(H\boxtimes P)-X}(u,v) \ge 2^i=\delta_0(u,v)$.
+  If $\delta_0(u,v)=2^i$ because, say $i_0(u,v)=i$, then any path in $(H\boxtimes P)-X$ from $u$ to $v$ must begin in the subgraph $Q_{i,j}$ that contains $u$ and must not be contained in the subgraph $Q^+_{i,j}$.  Therefore $d_{(H\boxtimes P)-X}(u,v) \ge 2^i=\delta_0(u,v)$.
 
   If $\delta_1(u,v)=p>0$ and $i_1(u,v)=i$, then any path from $u$ to $v$ must begin at $u$, leave the subgraph of $H\boxtimes P$ induced by $V(Q_{i,j})\cup V(Q_{i,j+1})$ and return to $v$.  The shortest such path contains at least $\delta_1(u,v)$ vertices in $V(Q_{i,j})\cup V(Q_{i,j+1})$ plus one additional vertex.  Therefore $d_{(H\boxtimes P)-X}(u,v) \ge \delta_1(u,v)$.  The argument for $\delta_2$ is symmetric.
 \end{proof}
@@ -615,7 +619,7 @@ Next we argue that $d^*$ is a distance function.
 \end{lem}
 
 \begin{proof}
-  It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V(H\boxtimes P)\setminus X$ and that $d^*(u,v)=d^*(v,u)\ge 0$ for all $u,v\in V(H\boxtimes P)\setminus X$.
+  It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V(H\boxtimes P)\setminus X$ and that $d^*(u,v)=d^*(v,u)\ge 0$ for all $u,v\in V(H\boxtimes P)\setminus X$.  All that remains is to verify that $d^*$ satisfies the triangle inequality.
 
   Let $u:=(x_1,y_a)$, $v:=(x_2,y_b)$ and $w:=(x_3,y_c)$ be three vertices of $(H\boxtimes P)- X$.
   % Since $u\not\in X$, $u$ is a vertex of $G_{0,a}$. Therefore $i^*(u,u)=-\infty$, so $d^*(u,u)=2^{-\infty}=0$.
@@ -627,10 +631,10 @@ Next we argue that $d^*$ is a distance function.
 
   If $d^*(u,w)=d_{H\boxtimes P}(u,w)$ then this follows immediately from the fact that $d_{H\boxtimes P}$ satisfies the triangle inequality and the fact that $d^*(u,v) + d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w)$.
 
-  Next we consider the case where $d^*(u,w)=\delta_0(u,w)$.
-  In this case $i_0(u,w)\ge 0$ and assume, without loss of generality that $i:=i_0(u,w)=i_0^{\shortrightarrow}(u,w)$.  Let $j$ be such that $Q_{i,j}$ contains $u$.  Then $u$ and $w$ are in different components, $C_u$ and $C_w$ of $Q^+_{i,j}-X_{i,j}$.  We distinguish between two cases depending on the location of $v$.  If $v$ is not a vertex of $Q^+_{i,j}$, then $d_{(H\boxtimes P)-X}(u,v) \ge d_{H\boxtimes P}(u,v) \ge 2^i=\delta_0(u,w)$ and there is nothing to prove.  Otherwise, $v$ is contained in some component $C_v$ of $Q^+_{i,j}-X_{i,j}$.  If $C_v\neq C_u$ then $i_0(u,v)\ge i$ so $d^*(u,v)\ge 2^i$ and again there is nothing to prove.  If $C_v=C_u$, then $d^*(u,v)+d^(v,w)\ge d_{H\boxtimes P}(u,v)+\delta_o(u,v)\ge 2^i=d^*(u,w)$ for some $o\in\{0,1,2\}$.
+  Otherwise, if $d^*(u,w)=\delta_0(u,w)$ then
+  $i_0(u,w)\ge 0$. Assume, without loss of generality that $i:=i_0(u,w)=i_0^{\shortrightarrow}(u,w)$.  Let $j$ be such that $Q_{i,j}$ contains $u$.  Then $u$ and $w$ are in different components, $C_u$ and $C_w$ of $Q^+_{i,j}-X_{i,j}$.  We distinguish between two cases depending on the location of $v$.  If $v$ is not a vertex of $Q^+_{i,j}$, then $d_{(H\boxtimes P)-X}(u,v) \ge d_{H\boxtimes P}(u,v) \ge 2^i=\delta_0(u,w)$ and there is nothing to prove.  Otherwise, $v$ is contained in some component $C_v$ of $Q^+_{i,j}-X_{i,j}$.  If $C_v\neq C_u$ then $i_0(u,v)\ge i$ so $d^*(u,v)\ge 2^i$ and again there is nothing to prove.  If $C_v=C_u$, then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+\delta_b(v,w)\ge 2^i=d^*(u,w)$ for some $b\in\{0,1,2\}$.
 
-  Finally, we consider the case where $d^*(u,w)=\delta_1(u,w)$. Then $i:=i_1(u,w)\ge 0$, so $u$ and $w$ are both contained in $G_{i,j}$ but in different components $C_u$ and $C_w$ of $G_{i,j}-X_{i,j+1}$, for some $j$.  If $v$ is not a vertex of $G_{i,j}$ then $d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w) \ge \delta_1(u,w)$ and we are done.  If $v$ is a vertex of $C_u$, then $d_{H\boxtimes P}(u,v)+\delta_1(u,v)\ge \delta_1(u,w)$. The case where $v$ is a vertex of $C_w$ is symmetric.  If $v$ is neither a vertex of $C_u$ nor a vertex of $C_w$, then $\delta_1(u,v) + \delta_1(v,w) \ge \delta_1(u,w)$.
+  Finally, we consider the case where $d^*(u,w)=\delta_1(u,w)$. Then $i:=i_1(u,w)\ge 0$, so $u$ and $w$ are both contained in $G_{i,j}$ but in different components $C_u$ and $C_w$ of $G_{i,j}-X_{i,j+1}$, for some $j$.  If $v$ is not a vertex of $G_{i,j}$ then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w) \ge \delta_1(u,w)$ and we are done.  If $v$ is a vertex of $C_u$, then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+\delta_1(v,w)\ge \delta_1(u,w)$. The case where $v$ is a vertex of $C_w$ is symmetric.  If $v$ is neither a vertex of $C_u$ nor a vertex of $C_w$, then $d^*(u,v)+d^*(v,w)\ge \delta_1(u,v) + \delta_1(v,w) \ge \delta_1(u,w)$.
 \end{proof}
 
 
@@ -676,25 +680,25 @@ The preceding lemmas are summarized in the following corollary:
 In this section we prove the following result:
 
 \begin{lem}
-  For every integer $k\in\{1,\ldots,n\}$, the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding. \pat{TODO: Check quantifier on $k$}
+  For every integer $k\in\{1,\ldots,n\}$, the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction. \todo{Check quantifier on $k$}
 \end{lem}
 
 \subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
 
 First, fix some integer $\Delta \ge 1$.
-Consider the following random process that, given a connected graph $H$ constructs a random subset $\textsc{Chop}_{\Delta,t}(H)$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(C_i)$.
+Consider the following random process that, given a connected graph $H$ constructs a random subset $\mathdefin{\textsc{Chop}_{\Delta,t}(H)}$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(C_i)$.
 
 
 The following lemma, with a greater dependence on $t$, is due to \citet{klein.plotkin.ea:excluded}. The version shown here was proved by \citet{fakcharoenphol.talwar:improved}. The presentation here closely follows that of \citet{lee:simpler}.
 
 \begin{lem}[{\citet{klein.plotkin.ea:excluded,fakcharoenphol.talwar:improved}}]\label{component_diameter_h}
-  If $H$ is a connected $K_{t+1}$-minor-free graph then each component $C$ of $H-\textsc{Chop}_{\Delta,t}(H)$ has $\diam_H(C)\le?t\Delta$.
+  If $H$ is a connected $K_{t+1}$-minor-free graph then each component $C$ of $H-\textsc{Chop}_{\Delta,t}(H)$ has $\diam_H(C)\le?t\Delta$.\pat{Define minor-free somewhere}
 \end{lem}
 
 
 % Say that a vertex $x$ of $H$ is \defin{$\delta$-good} with respect to a set $X\substeq V(H)$ if $d_{H}(x,X)\ge \delta$ and $x$ is \defin{$\delta$-bad} with respect to $X$ otherwise.
 
-In the following lemma, and for the rest of this section, we use the convention that for any vertex $x$ of $H$, $d_H(x,\emptyset):=\infty$.
+% In the following lemma, and for the rest of this section, we use the convention that for any vertex $x$ of $H$, $d_H(x,\emptyset):=\infty$.
 
 \begin{lem}\label{delta_bad_h}
   For any vertex $x$ of $H$ and any integer $\delta\ge 1$, $\Pr(d_H(x, \textsc{Chop}_{\Delta,t}(H)< \delta)\le t\,(2\delta-1)/\Delta$.
@@ -708,7 +712,7 @@ In the following lemma, and for the rest of this section, we use the convention 
 
 % Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$.
 
-Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t}(P):=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=Y_{\Delta,t}(P):=V(H)\times Y_0$.  Let $P_1,\ldots,P_q$ be the components (each of which is a path) of $P-Y_0$ and let $X_1,\ldots,X_q$ be the results of independent executions of $\textsc{Chop}_{\Delta,t}(H)$ and let $X:=\bigcup_{i=1}^q (X_i\times V(P_i))$.  Finally, let $Z:=Z_{\Delta,t}(H,P):=X\cup Y$.
+Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t}(P):=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=Y_{\Delta,t}(P):=V(H)\times Y_0$.  Let $W_0\subseteq V(H)$ be the set obtained by executing $\textsc{Chop}_{\Delta,t}(H)$, let $W:=W_0\times V(P)$ and let $Z:=\mathdefin{Z_{\Delta,t}(H,P)}:=W\cup Y$.
 
 % For some intuition, it is helpful to consider the case when $H$ is a path and $t=1$.  In this case, $H\boxtimes P$ is a grid with diagonal edges.  Starting from row $r\in\{0,\ldots,\Delta-1\}$, the set $Y$ contains one out of every $\Delta$ rows of this grid.  Each of the components $C_1,\ldots,C_m$ of $H\boxtimes P-Y$, except the top-most, $C_1$ and bottom-most, $C_m$ is a grid with $\Delta-1$ rows.  For each component $C_i$, the set $X$ contains one out of every $\Delta$ columns of $C_i$, starting from column $r_i\in\{0,\ldots,\Delta-1\}$. \todo{Add figure}
 
@@ -717,7 +721,7 @@ Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t
 \end{lem}
 
 \begin{proof}
-  Let $C$ be a component of $H\boxtimes P-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C$, $d_{C}(x,y) = \max\{d_{H-Z_H}(x_1,y_1),d_{P}(x_2,y_2)$ where $Z_H$ is the result of running $\textsc{Chop}_{\Delta,t}(H)$. By \cref{component_diameter_h},  $d_{H-Z_H}(x_1,y_1)\le ?t\Delta$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
+  Let $C$ be a component of $H\boxtimes P-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C$, $d_{H\boxtimes P}(x,y) = \max\{d_{H}(x_1,y_1),d_{P}(x_2,y_2)$. By \cref{component_diameter_h},  $d_{H\boxtimes P}(x_1,y_1)\le ?t\Delta$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
 \end{proof}
 
 \begin{lem}\label{delta_bad_product}
@@ -762,22 +766,22 @@ Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t
 
 \subsection{\boldmath The Mapping $\phi$}
 
-Let $Z:=Z_{\Delta,t}(H,P)$ be a subset of $V(H\boxtimes P)$ generated by running the procedure described above, for some $\Delta\in\{1,\ldots,|V(P)|\}$.\footnote{The assumption $\Delta\le |V(P)|$ ensures that $Z$ is non-empty, so that $d_{H\boxtimes P}(x,Z)$ is well-defined, for all $x\in V(H\boxtimes P)$.}  Consider the graph $I:=\mathdefin{I(Z)}$ obtained from $Q\boxtimes P$ by removing all edges incident to at least one vertex in $Z$.
+Let $Z:=Z_{\Delta,t}(H,P)$ be a subset of $V(H\boxtimes P)$ generated by running the procedure described above, for some $\Delta\in\{1,\ldots,|V(P)|\}$.\footnote{The assumption $\Delta\le |V(P)|$ ensures that $Z$ is non-empty, so that $d_{H\boxtimes P}(x,Z)<\infty$ for all $x\in V(H\boxtimes P)$.}  Consider the graph $I:=\mathdefin{I(Z)}$ obtained from $Q\boxtimes P$ by removing all edges incident to at least one vertex in $Z$.
 
-For each component $C$ of $I$, let $X_C:=\cup\{X_{i,j}:C\subseteq Q^+_{i,j}\}$ and let $J$ be the subgraph of $I$ obtained by removing, for each component $C$ of $I$, the vertices in $X_C\cap V(C)$.
+For each component $C$ of $I$, let $X_C:=\cup\{X_{i,j}:C\subseteq Q^+_{i,j},\, i\in\{0,\ldots,\log N\}, j\in\{0,\ldots,N/2^i-1\}\}$.  In words, $X_C$ contains only the vertical cuts used to construct $X$ that cut $C$ from top to bottom. Let $J$ be the subgraph of $I$ obtained by removing, for each component $C$ of $I$, the vertices in $X_C\cap V(C)$.
 
 \begin{lem}
-  If $v$ and $w$ are in the same component of $J$, then $d^*(v,w)\le ??\Delta$.
+  Each component $C'$ of $J$ has $\diam_{d^*}(C')\le ??\Delta$.
 \end{lem}
 
 \begin{proof}
-  Let $v$ and $w$ be two vertices in the same component $C'$ of $J$ that is contained in some component $C$ of $I$.   Then $v$ and $w$ are in the same component of $I$ so, by \cref{component_diameter}, $d_{H\boxtimes P}(v,w)\le ?t\Delta \le ??\Delta$.
+  Let $C'$ be component of $J$. Let $C$ be the component of $I$ that contains $C'$. Let $v$ and $w$ be two vertices of $C'$. We need to show that $d(v,w)\le ?t\Delta$ for each $d\in\{\delta_0, \delta_1,\delta_2,d_{H\boxtimes p}\}$.
 
-  If $\delta_0(v,w)=2^i>\Delta$ then, for some $j$, $v\in V(Q_{i,j})$ and $w\in V(Q^+_{i,})$ and $v$ and $w$ are in different components of $Q_{i,j}-X_{i,j}$.  Since $2^i>\Delta$, $Q^+_{i,j}$ contains $C$ so $X_C$ contains $X_{i,j}$. But this would imply that $v$ and $w$ are in different components of $C-X_C$, contradicting the assumption that $v$ and $w$ are both in $C'$.
+  Since $v$ and $w$ are both in $C$, \cref{component_diameter} implies that $d_{H\boxtimes P}(v,w)\le ?t\Delta \le ?t\Delta$.
 
-  If $\delta_1(v,w)>?\Delta$ then $v$ and $w$ are vertices of $Q_{i,j}$ that are in different components of $X_{i,j+1}$. Since $\delta_1(v,w)>?\Delta$ and $C$ contains $v$ and $w$, $Q^+_{i,j+1}$ contains $C$. Again, this would imply that $v$ and $w$ are in different components of $C-X_C$, contradicting the assumption that $v$ and $w$ are both in $C'$.
+  Suppose, for the sake of contradiction, that $\delta_0(v,w)=2^i>\Delta$. Then, for some $j$, $v\in V(Q_{i,j})$,  $w\in V(Q^+_{i,j})$, and $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j}$.  Since $2^i>\Delta$, $Q^+_{i,j}$ contains $C$ so $X_C$ contains $X_{i,j}$. Therefore, $v$ and $w$ are in different components of $C-X_C$, contradicting the assumption that $v$ and $w$ are in the same component of $J$.
 
-  The situation in which $\delta_1(v,w)>?\Delta$ is handled symmetrically.
+  Suppose, for the sake of contradiction, that $\delta_1(v,w)>2\Delta$.  Then, for some $j$, $v$ and $w$ are vertices of $Q_{i,j}$ that are in different components of $X_{i,j+1}$. Since $\delta_1(v,w)>2\Delta$ and $C$ contains both $v$ and $w$, $Q^+_{i,j+1}$ contains $C$. Again, this contradicts the assumption that $v$ and $w$ are in the same component of $J$.  The situation in which $\delta_2(v,w)>?\Delta$ is handled symmetrically.
 \end{proof}
 
 
@@ -798,7 +802,11 @@ For each component $C$ of $I$, let $X_C:=\cup\{X_{i,j}:C\subseteq Q^+_{i,j}\}$ a
 %   \end{compactenum}
 % \end{proof}
 
-For each component $C'$ of $J$, choose a uniformly random $\alpha_{C'}$ in $[0,1]$. For each $v \in V(C')$, let $\varphi_{Z}(v):=(1+\alpha_{C'})\,d^+_{H\boxtimes P}(v,Z)$.  (Note that this definition uses positive distance $d^+_{H\boxtimes P}$.)
+For each component $C'$ of $J$, choose a uniformly random $\alpha_{C'}$ in $[0,1]$, with all choices made independently. For each component $C'$ and each $v \in V(C')$, let
+\[
+  \varphi_{Z}(v):=(1+\alpha_{C'})\,d^+_{H\boxtimes P}(v,Z) \enspace .
+\]
+(Note that this definition uses positive distance $d^+_{H\boxtimes P}$.)
 
 
 % Let $i^*:=2^{\lceil\log\Delta\rceil}$ and let \
@@ -810,7 +818,7 @@ For each component $C'$ of $J$, choose a uniformly random $\alpha_{C'}$ in $[0,1
 
 
 \begin{obs}\label{uniform}
-  For any vertex $x$ of $H\boxtimes P$, $\varphi_Z(x)$ is uniformly distributed in the real interval $[d^+_{H\boxtimes P}(x,Z), 2d^+_{H\boxtimes P}(x,Z)]$.
+  For fixed $Z:=Z_{\Delta,t}(H,P)$, $\varphi_Z(v)$ is uniformly distributed in $[d^+_{H\boxtimes P}(v,Z), 2d^+_{H\boxtimes P}(v,Z)]$, for each $v\in V(H\boxtimes P)$.
 \end{obs}
 
 
