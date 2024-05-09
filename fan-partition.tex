@@ -134,11 +134,11 @@
 
 The \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of size $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$.  The current work is motivated by the following question: What is the simplest family of graphs $\mathcal{H}$ such that for each $n$-vertex planar graph $G$ there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$, where $\tilde{O}$ notation hides $\polylog(n)$ terms?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G$ is isomorphic to a subgraph of $G'$.}
 
-\citet{ISW} show that one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs\footnote{\david{Add the following?} A \defin{tree-decomposition} of a graph $G$ is a collection $(B_x)_{x \in V(T)}$ of subsets of $V(G)$ indexed by a tree $T$, such that: (a) for every edge ${vw \in E(G)}$, there exists a node ${x \in V(T)}$ with ${v,w \in B_x}$, and (b) for every vertex ${v \in V(G)}$, the set $\{ x \in V(T) \colon v \in B_x \}$ induces a non-empty (connected) subtree of $T$. The \defin{width} of such a tree-decomposition is ${\max\{ |B_x| \colon x \in V(T) \}-1}$. A \defin{path-decomposition} is a $P$-decomposition for any path $P$, denoted by the corresponding sequence of bags.
+\citet{ISW} show that one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs\footnote{A \defin{tree-decomposition} of a graph $G$ is a collection $(B_x)_{x \in V(T)}$ of subsets of $V(G)$ indexed by a tree $T$, such that: (a) for every edge ${vw \in E(G)}$, there exists a node ${x \in V(T)}$ with ${v,w \in B_x}$, and (b) for every vertex ${v \in V(G)}$, the set $\{ x \in V(T) \colon v \in B_x \}$ induces a non-empty (connected) subtree of $T$. The \defin{width} of such a tree-decomposition is ${\max\{ |B_x| \colon x \in V(T) \}-1}$. A \defin{path-decomposition} is a $P$-decomposition for any path $P$, denoted by the corresponding sequence of bags.
 The \defin{treewidth $\tw(G)$} of a graph $G$ is the minimum width of a tree-decomposition of $G$.
 The \defin{pathwidth $\pw(G)$} of a graph $G$ is the minimum width of a path-decomposition of $G$.
 Treewidth is the standard measure of how similar a graph is to a tree.
-Pathwidth is the standard measure of how similar a graph is to a path.}. \citet{distel.dujmovic.ea:product} show that the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of fan graphs, which have pathwidth $2$.\footnote{A \defin{fan} $F_k$ is a graph with $V(F_k):=\{v_0,\ldots,v_k\}$ and $E(F_k):=\{v_0v_i:1\leq i\leq k\}\cup\{v_iv_{i+1}:1\leq i\leq k-1\}$. \david{Add the following? Note that $\{v_0,v_1,v_2\},\{v_0,v_2,v_3\},\dots,\{v_0,v_{k-1},v_k\}$ is a path-decomposition of $F_k$ with width 2.}}
+Pathwidth is the standard measure of how similar a graph is to a path.}. \citet{distel.dujmovic.ea:product} show that the class of treewidth-$2$ graphs is sufficient.  In the current work, we show that one can even take $\mathcal{H}$ to be the class of fan graphs, which have pathwidth $2$.\footnote{A \defin{fan} $F_k$ is a graph with $V(F_k):=\{v_0,\ldots,v_k\}$ and $E(F_k):=\{v_0v_i:1\leq i\leq k\}\cup\{v_iv_{i+1}:1\leq i\leq k-1\}$. Note that $\{v_0,v_1,v_2\},\{v_0,v_2,v_3\},\dots,\{v_0,v_{k-1},v_k\}$ is a path-decomposition of $F_k$ with width 2.}
 
 \begin{thm}\label{main_thm_planar}
   Every $n$-vertex planar graph is contained in a $O(\sqrt{n}\log^2 n)$-blowup of a fan.
@@ -148,7 +148,7 @@ Pathwidth is the standard measure of how similar a graph is to a path.}. \citet{
 
 The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth at most $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is also the best possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  \citet{LMST08} describe an infinite family of $n$-vertex planar graphs $G$ such that every (improper) 2-colouring has a monochromatic component on $\Omega(n^{2/3})$ vertices. Say $G$ is contained in a $k$-blowup $(K_v:v\in V(T))$ of a tree $T$. Colour each vertex in each $K_v$ by the colour of $v$ in a proper 2-colouring of $T$. So each monochromatic component is contained in some $K_v$, implying that $k\in\Omega(n^{2/3})$.
 
-\david{I suspect the lower bound can be pushed further to show  that fan graphs really are best possible. Conjecture: there exist $n$-vertex planar graphs such that for any graph $H$, if $G$ is contained in  a $\tilde{O}(\sqrt{n})$-blowup of $H$, then $H$ contains a fan on $\Omega(n^c)$ vertices, for some $c>0$, possibly $c=\frac12$. \\ I will try to prove this where $G$ is from \citep{LMST08}. I think my conjecture is true even if $G$ is the $n^{2/3}\times n^{1/3}$ grid, plus one vertex adjacent to the outerface.}
+
 
 \david{Stuff to add to the intro:
 \begin{itemize}
@@ -169,71 +169,71 @@ The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blow
     \item $v_1=w_1$ and $v_2w_2\in E(B)$; or
     \item $v_1w_1\in E(A)$ and $v_2w_2\in E(B)$.
 \end{compactenum}
-Note that $k$-blowup of $H$ can be written as the strong product $H\boxtimes K_k$.  Therefore, \cref{main_thm_planar} states that, for every $n$-vertex planar graph $G$ there is a fan $F$ such that $G$ is isomorphic to a subgraph of $F\boxtimes K_{O(\sqrt{n}\log^2 n)}$. We prove the following more general result.
+Note that $k$-blowup of $H$ can be written as the strong product $H\boxtimes K_k$.  Therefore, \cref{main_thm_planar} states that, for every $n$-vertex planar graph $G$ there is a fan $F$ such that $G$ is isomorphic to a subgraph of $F\boxtimes K_{O(\sqrt{n}\log^2 n)}$. 
 
-\david{Shall we define row treewidth here? The \defin{row treewidth} of a graph $G$, denoted by $\rtw(G)$, is the minimum integer $t$ such that $G$ is contained in $H\boxtimes P$ for some graph $H$ with treewidth $t$ and for some path $P$. Then \cref{main_thm_products} becomes: \\
-Every $n$-vertex graph with row-treewidth $t$ is contained in a $O(t\sqrt{n}\log^2 n)$-blowup of a fan.\\
-Much of the following discussion would be simplied.
-}
+The \defin{row treewidth} of a graph $G$, denoted by $\rtw(G)$, is the minimum integer $t$ such that $G$ is contained in $H\boxtimes P$ for some graph $H$ with treewidth $t$ and for some path $P$. We prove the following more general result:
+
+% Then \cref{main_thm_products} becomes: \\
+% Every $n$-vertex graph with row-treewidth $t$ is contained in a $O(t\sqrt{n}\log^2 n)$-blowup of a fan.\\
+% Much of the following discussion would be simplied.
+% }
 
 \begin{thm}\label{main_thm_products}
-  For every graph $H$ with treewidth $t$, for every path $P$, every $n$-vertex subgraph of $H\boxtimes P$ is contained in a $O(t\sqrt{n}\log^2 n)$-blowup of a fan.
+  Every $n$-vertex graph with row treewidth $t$ is contained in a $O(t\sqrt{n}\log^2 n)$-blowup of a fan.
 \end{thm}
 
 \Cref{main_thm_products} implies \cref{main_thm_planar} by the following \defin{Planar Graph Product Structure Theorem}:
 
 \begin{thm}[\cite{dujmovic.joret.ea:planar,ueckerdt.wood.ea:improved}]\label{planar_product_structure}
-  For every planar graph $G$, there exists a graph $H$ of treewidth $6$ and a path $P$ such $G$ is isomorphic to a subgraph of $H\boxtimes P$.
+  Every planar graph has row treewidth at most $6$.
 \end{thm}
 
-\Cref{planar_product_structure} has been generalized to a number of other minor-closed and non-minor closed graph classes, including bounded genus graphs and (more generally) apex-minor-free graphs \cite{dujmovic.joret.ea:planar,distel.hickingbotham.ea:improved} and $k$-planar graphs \cite{dujmovic.morin.ea:graph,distel.hickingbotham.ea:powers}.
+\david{delete the following paragraph?} \Cref{planar_product_structure} has been generalized to a number of other minor-closed and non-minor closed graph classes (with $6$ replaced by some value that depends on the graph class), including bounded genus graphs and (more generally) apex-minor-free graphs \cite{dujmovic.joret.ea:planar,distel.hickingbotham.ea:improved} and $k$-planar graphs \cite{dujmovic.morin.ea:graph,distel.hickingbotham.ea:powers}.
 
-\cref{main_thm_planar} generalises for graphs embeddable on arbitrary surfaces as follows. The \defin{Euler genus} of a surface with $h$ handles and $c$ crosscaps is $2h+c$. The \defin{Euler genus} of a graph $G$ is the minimum Euler genus of a surface in which $G$ embeds without crossings.
-Building on previous work in \citep{dujmovic.joret.ea:planar,ueckerdt.wood.ea:improved}, \citet{distel.hickingbotham.ea:improved} showed that every graph $G$ of Euler genus $g$ is contained in $H\boxtimes P$ for some graph $H$ with treewidth $2g+6$ and for some path $P$. \cref{main_thm_products} thus implies:
+\cref{main_thm_planar} generalises for graphs embeddable on arbitrary surfaces\footnote{The \defin{Euler genus} of a surface obtained from a sphere by adding $h$ handles and $c$ crosscaps is $2h+c$. The \defin{Euler genus} of a graph $G$ is the minimum Euler genus of a surface in which $G$ embeds without crossings.}. 
+Building on previous work in \citep{dujmovic.joret.ea:planar,ueckerdt.wood.ea:improved}, \citet{distel.hickingbotham.ea:improved} show that every graph of Euler genus $g$ has row treewidth at most $2g+6$. \Cref{main_thm_products} thus implies:
 
 \begin{thm}\label{genus_products}
 Every $n$-vertex graph of Euler genus $g$ is contained in a $O((g+1)\sqrt{n}\log^2 n)$-blowup of a fan.
 \end{thm}
 
-We have the following further generalisation.
-A graph $X$ is \defin{apex} if $X-a$ is planar for some vertex $a\in V(X)$. \citet{dujmovic.joret.ea:planar} showed that for every apex graph $X$ there exists $c$ such that every $X$-minor-free graph is contained in $H\boxtimes P$ for some graph $H$ with treewidth $c$ and for some path $P$ (and such a theorem holds only if $X$ is apex). \cref{main_thm_products} thus implies:
+We have the following further generalisation\footnote{A graph $X$ is a \defin{minor} of a graph $G$ a graph isomorphic to $X$ can be obtained from a subgraph of $G$ by edge contractions. A graph $G$ is \defin{$X$-minor-free} if $X$ is not a minor of $G$.}.
+A graph $X$ is \defin{apex} if $X-a$ is planar for some vertex $a\in V(X)$. \citet{dujmovic.joret.ea:planar} showed that for every apex graph $X$ there exists $c$ such that every $X$-minor-free graph has row treewidth at most $c$ (and such a theorem holds only if $X$ is apex). \cref{main_thm_products} thus implies:
 
 \begin{thm}\label{apex_products}
 For every fixed apex graph $X$, every $n$-vertex $X$-minor-free graph is contained in a $O(\sqrt{n}\log^2 n)$-blowup of a fan.
 \end{thm}
 
-Product structure theorems are known for various non-minor-closed classes~\citep{dujmovic.morin.ea:graph,HW24,distel.hickingbotham.ea:powers}. For example, a graph is \defin{$(g,k)$-planar} if it has a drawing in a surface of Euler genus $g$ with at most $k$ crossings on each edge. \citet{dujmovic.morin.ea:graph} proved that every $(g,k)$-planar graph is contained in $H\boxtimes P$ for some graph $H$ with treewdth $O((g+1)k^5)$ and for some path $P$.
-
-\cref{main_thm_products} thus implies:
+Product structure theorems are known for various non-minor-closed classes~\citep{dujmovic.morin.ea:graph,HW24,distel.hickingbotham.ea:powers}. For example, a graph is \defin{$(g,k)$-planar} if it has a drawing in a surface of Euler genus $g$ with at most $k$ crossings on each edge. \citet{dujmovic.morin.ea:graph} proved that every $(g,k)$-planar graph has row treewidth  $O((g+1)k^5)$. \Cref{main_thm_products} thus implies:
 
 \begin{thm}\label{gkplanar_products}
 Every $n$-vertex $(g,k)$-planar graph is contained in a $O((g+1)k^5\sqrt{n}\log^2 n)$-blowup of a fan.
 \end{thm}
 
-\david{
-Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=10^{10}$ and $c=c_k$).
-}
+% \david{
+% Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=10^{10}$ and $c=c_k$).
+% }
 
-\pat{Now I can answer the question: No, the bound will be $O(tc\sqrt{n}\log^2 n)$.  The bottleneck is the sparsification lemma.  The size of the set $X$ there becomes $O((t+1)c(n/D)\log n)$.  Interestingly (maybe) when $G$ is a subgraph of $H\boxtimes P\boxtimes K_c$, the metric space $(V(G),d_{H\boxtimes P\boxtimes K_c})$ has $(k,O(t\sqrt{\log n}))$-volume-respecting embeddings, for any $c$. If you take $t=0$ and $c=n$ then you get a metric space where $d(v,w)=1$ for all  $v,w\in V(G)$ and this has as $(k,O(\sqrt{\log n}))$-volume respecting embedding.  The proof of this is much simpler: Every vertex maps to a uniformly random point in a $O(k\log n)$-dimensional ball of diameter $1$ (so the radius of the ball is $O(1/\sqrt{k\log n}))$.  Then the proof ``just'' boils down to showing that, with probability at least $1-n^{-ck}$, $k$ random points in this ball define a $(k-1)$-simplex whose $(k-1)$-dimensional volume is $\Omega((1/((k-1)!\sqrt{\log n})^{k-1}))$. \\[2ex]
-We should somehow get this point across in the introduction:  The metric space $(V(G),d_G)$ is awkward to work with directly for the same reason that planar graphs are awkward to work with directly; it's hard to see any structure.  The metric space $(V(G),d_{K_n})$ is a contraction of $(V(G),d_G)$ which makes it suitable to work with, and it's highly regular, but it's too ``dense'' to have any useful properties.  The metric space $(V(G),d_{H\boxtimes P})$ is a perfect middle-ground; it's highly regular (like $(V(G),d_{K_n}))$ but ``sparse'' enough to admit a local sparsification lemma \david{include this paragraph as is}.\\[2ex]
-It might be a useful exercise to find what properties of a metric space are sufficient to prove a local sparsification lemma.  Here's a first try:\\[2ex]
-Let $(S,d)$ be a finite metric space, let $L_0\subseteq S$, and for each $0\le a\le b$, let $L_{[a,b]}:=\{x\in S: a\le d(x,L_0)\le b\}$.  Now I'm stuck.  There is no obvious notion of a set $X\subseteq S$ that separates two subsets $A,B$ of $S$.
-}
+% \pat{Now I can answer the question: No, the bound will be $O(tc\sqrt{n}\log^2 n)$.  The bottleneck is the sparsification lemma.  The size of the set $X$ there becomes $O((t+1)c(n/D)\log n)$.  Interestingly (maybe) when $G$ is a subgraph of $H\boxtimes P\boxtimes K_c$, the metric space $(V(G),d_{H\boxtimes P\boxtimes K_c})$ has $(k,O(t\sqrt{\log n}))$-volume-respecting embeddings, for any $c$. If you take $t=0$ and $c=n$ then you get a metric space where $d(v,w)=1$ for all  $v,w\in V(G)$ and this has as $(k,O(\sqrt{\log n}))$-volume respecting embedding.  The proof of this is much simpler: Every vertex maps to a uniformly random point in a $O(k\log n)$-dimensional ball of diameter $1$ (so the radius of the ball is $O(1/\sqrt{k\log n}))$.  Then the proof ``just'' boils down to showing that, with probability at least $1-n^{-ck}$, $k$ random points in this ball define a $(k-1)$-simplex whose $(k-1)$-dimensional volume is $\Omega((1/((k-1)!\sqrt{\log n})^{k-1}))$. \\[2ex]
+% We should somehow get this point across in the introduction:  The metric space $(V(G),d_G)$ is awkward to work with directly for the same reason that planar graphs are awkward to work with directly; it's hard to see any structure.  The metric space $(V(G),d_{K_n})$ is a contraction of $(V(G),d_G)$ which makes it suitable to work with, and it's highly regular, but it's too ``dense'' to have any useful properties.  The metric space $(V(G),d_{H\boxtimes P})$ is a perfect middle-ground; it's highly regular (like $(V(G),d_{K_n}))$ but ``sparse'' enough to admit a local sparsification lemma \david{include this paragraph as is}.\\[2ex]
+% It might be a useful exercise to find what properties of a metric space are sufficient to prove a local sparsification lemma.  Here's a first try:\\[2ex]
+% Let $(S,d)$ be a finite metric space, let $L_0\subseteq S$, and for each $0\le a\le b$, let $L_{[a,b]}:=\{x\in S: a\le d(x,L_0)\le b\}$.  Now I'm stuck.  There is no obvious notion of a set $X\subseteq S$ that separates two subsets $A,B$ of $S$.
+% }
 
 \subsection{Relation to Bandwidth}
 
-An \defin{$H$-partition} of a graph $G$ is a partition $\mathcal{P}:=\{B_x: x\in V(H)\}$ of $V(G)$ whose parts are indexed by the vertices of $H$ such that, for each edge $vw$ of $G$, $v$ and $w$ are in the same part or there exists an edge $xy$ of $H$ such that $v\in B_x$ and $w\in B_y$.  The \defin{width} of $\mathcal{P}$ is the maximum size of any part.  It follows immediately from this definition that $G$ has an $H$-partition of width $w$ if and only if $G$ is isomorphic to a subgraph of $H\boxtimes K_w$. When $H$ is a member of some class $\mathcal{H}$ of graphs, we call an $H$-partition of $G$ an \defin{$\mathcal{H}$-partition} of $G$.  For example, if $H$ is path, tree, or fan, then we call an $H$-partition a path-partition, a tree-partition, or a fan-partition, respectively.  The \defin{$\mathcal{H}$ partition width}  of a graph $G$ is the minimum integer $w$ such that $G$ has an $\mathcal{H}$-partition of width $w$. Thus, \cref{main_thm_planar} states that every $n$-vertex planar graph has fan partition width
-\david{Hyphenate $\mathcal{H}$-partition-width, fan-partition, fan-partition-width, path-partition, path-partition-width throughout}
-$O(\sqrt{n}\log^2 n)$.
+An \defin{$H$-partition} of a graph $G$ is a partition $\mathcal{P}:=\{B_x: x\in V(H)\}$ of $V(G)$ whose parts are indexed by the vertices of $H$ such that, for each edge $vw$ of $G$, $v$ and $w$ are in the same part or there exists an edge $xy$ of $H$ such that $v\in B_x$ and $w\in B_y$.  The \defin{width} of $\mathcal{P}$ is the maximum size of any part.  It follows immediately from this definition that $G$ has an $H$-partition of width $w$ if and only if $G$ is contained in $H\boxtimes K_w$. When $H$ is a member of some class $\mathcal{H}$ of graphs, we call an $H$-partition of $G$ an \defin{$\mathcal{H}$-partition} of $G$.  For example, if $H$ is path, tree, or fan, then we call an $H$-partition a path-partition, a tree-partition, or a fan-partition, respectively.  The \defin{$\mathcal{H}$-partition-width}  of a graph $G$ is the minimum integer $w$ such that $G$ has an $\mathcal{H}$-partition of width $w$. Thus, \cref{main_thm_planar} states that every $n$-vertex planar graph has fan-partition-width $O(\sqrt{n}\log^2 n)$.
 
-Let $G$ be a graph and let $v_1,\ldots,v_n$ be an ordering of $V(G)$.  Then $v_1,\ldots,v_n$ has \defin{bandwidth} $\mathdefin{\bw_G(v_1,\ldots,v_n)}:=\{\max\{|j-i|: v_iv_j\in E(G)\}$.  The \defin{bandwidth} of $G$ is $\mathdefin{\bw(G)}:=\min\{\bw_G(v_1,\ldots,v_n):\text{$v_1,\ldots,v_n$ is a permutation \david{ordering} of $V(G)$}\}$. The bandwidth of a graph $G$ is closely related to the path partition width of $G$.  Indeed, if $\bw_G(v_1,\ldots,v_n)=w$, and $P:=x_1,\ldots,x_{\lceil n/w\rceil}$ is a path, then setting $B_{x_i}:=\{v_j: (i-1)w+1 \le j \le iw\}$ for each $i\in\{1,\ldots,\lceil n/w\rceil\}$ gives a path partition $\{B_{x}:x\in V(P)\}$ of width $w$.  In the other direction, if $P:=x_1,\ldots,x_k$ is a path and  $\{B_x:x\in V(P)\}$ is a path partition of width $w$ then any permutation \david{ordering} $v_1,\ldots,v_n$ of $V(G)$ that places all vertices of $B_{x_i}$ before those in $B_{x_{i+1}}$ for each $i\in\{1,\ldots,k-1\}$ has $\bw_G(v_1,\ldots,v_n)\le 2w-1$.  Thus, \cref{main_thm_planar} is equivalent to saying that every $n$-vertex planar graph $G$ has a set $X$ of  $O(\sqrt{n}\log^2 n)$ vertices (the part $B_{x_0}$ in a fan partition of $G$) such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
+%\david{Hyphenate $\mathcal{H}$-partition-width, fan-partition, fan-partition-width, path-partition, path-partition-width throughout}
+
+Let $G$ be a graph and let $v_1,\ldots,v_n$ be an ordering of $V(G)$.  Then $v_1,\ldots,v_n$ has \defin{bandwidth} $\mathdefin{\bw_G(v_1,\ldots,v_n)}:=\{\max\{|j-i|: v_iv_j\in E(G)\}$.  The \defin{bandwidth} of $G$ is $\mathdefin{\bw(G)}:=\min\{\bw_G(v_1,\ldots,v_n):\text{$v_1,\ldots,v_n$ is a ordering of $V(G)$}\}$. The bandwidth of a graph $G$ is closely related to the path-partition-width of $G$.  Indeed, if $\bw_G(v_1,\ldots,v_n)=w$, and $P:=x_1,\ldots,x_{\lceil n/w\rceil}$ is a path, then setting $B_{x_i}:=\{v_j: (i-1)w+1 \le j \le iw\}$ for each $i\in\{1,\ldots,\lceil n/w\rceil\}$ gives a path-partition $\{B_{x}:x\in V(P)\}$ of width $w$.  In the other direction, if $P:=x_1,\ldots,x_k$ is a path and  $\{B_x:x\in V(P)\}$ is a path-partition of width $w$ then any ordering $v_1,\ldots,v_n$ of $V(G)$ that places all vertices of $B_{x_i}$ before those in $B_{x_{i+1}}$ for each $i\in\{1,\ldots,k-1\}$ has $\bw_G(v_1,\ldots,v_n)\le 2w-1$.  Thus, \cref{main_thm_planar} is equivalent to saying that every $n$-vertex planar graph $G$ has a set $X$ of  $O(\sqrt{n}\log^2 n)$ vertices (the part $B_{x_0}$ in a fan-partition of $G$) such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
 
 
 
 
 \subsection{Techniques}
 
-For a graph $G$ and any two vertices $v,w\in V(G)$, the \defin{(graph) distance} between $v$ and $w$, denoted $\mathdefin{d_G(v,w)}$, is the minimum number of edges in any path in $G$ with endpoints $v$ and $w$ or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different components of $G$.  For any $r\ge 0$ and any $v\in V(G)$, let $B_G(v,r):=\{w\in V(G):d_G(v,w)\le r\}$ denote the radius-$r$ ball in $G$ with center $v$.
+For a graph $G$ and any two vertices $v,w\in V(G)$, define the \defin{(graph) distance} between $v$ and $w$, denoted $\mathdefin{d_G(v,w)}$, as the minimum number of edges in any path in $G$ with endpoints $v$ and $w$ or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different components of $G$.  For any $r\ge 0$ and any $v\in V(G)$, let $B_G(v,r):=\{w\in V(G):d_G(v,w)\le r\}$ denote the radius-$r$ ball in $G$ with center $v$.
 The \defin{local density} of a graph $G$ is $\mathdefin{\ld(G)}:=\max\{(|B(v,r)|-1)/r:r\ge 0,\, v\in V(G)\}$.\footnote{The ${}-1$ in this definition of local density does not appear in the definitions of local density used in some other works \cite{feige:approximating,rao:small}, but this makes no difference to our asymptotics results.  Our definition makes for cleaner formulas and seems to be more natural. For example, under our definition, the local density of a cycle of length $2k+1$ is $2$ and every $r$-ball contains exactly $2r-1$ vertices for $r\in\{1,\ldots,k\}$. Without the ${}-1$, the local density of a cycle is $3$, but only because radius-$1$ balls contain three vertices.} The local density of $G$ provides a lower bound on the bandwidth of $G$. For any ordering $v_1,\dots,v_n$ of $V(G)$ with bandwidth $b$, for each vertex $v_i$, $B_G(v_i,r) \subseteq \{v_{i-rb},\dots,v_{i+rb}\}$, so $|B_G(v_i,r)|\leq 2rb+1$ and $\ld(G)\leq 2\bw(G)$.
 % } If $|B_G(v,r)|=Dr+1$ then in any permutation $v_1,\ldots,v_n$ of $V(G)$, one of the vertices $w$ in $B_G(v,r)\setminus \{v\}$ is at distance at least $Dr/2$ from $v$. That is, $v=v_i$ and $w=v_j$, and $|j-i|\ge Dr/2$.  Since $G$ contains a path with at most $r$ edges from $v$ to $w$, one of the edges $v_{i'}v_{j'}$ of this path must have $|i'-j'|\ge Dr/2r=D/2$.  Therefore $\bw(G)\ge\ld(G)/2$.
 On the other hand, $\ld(G)$ is not upper bounded by any function of $\bw(G)$. In fact, \citet{CS89} describe a family of $n$-vertex trees $T$ with local density at most $9$, pathwidth $2$, and  $\bw(T)\in\Omega(\log n)$.
@@ -246,7 +246,7 @@ In his seminal work, \citet{feige:approximating} proves that bandwidth is also u
   \]
 \end{thm}
 
-\citet{rao:small} improves \cref{feige_bandwidth_vs_density} in the special case of planar graphs:
+\citet{rao:small} improves \cref{feige_bandwidth_vs_density} in the special case of planar graphs:%\footnote{\citet{rao:small} does not explicitly consider bandwidth, but his results on volume-preserving embeddings of planar graphs combined with the argument of \citet{feige:approximating} implies \cref{feige_bandwidth_vs_density}.}
 
 \begin{thm}[\citet{rao:small}]
 \label{rao_bandwidth_vs_density}
@@ -261,25 +261,32 @@ By \cref{rao_bandwidth_vs_density}, to prove \cref{main_thm_planar} it is suffic
 \begin{lem}\label{planar_sparsification_special}
   Every $n$-vertex planar graph $G$ has a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $\ld(G-X)\in O(\sqrt{n}/\log n)$.
 \end{lem}
+
+% For an example of \cref{planar_sparsification_special}, consider a complete binary tree $T_h$ of vertex height $h$.  Then $T_h$ has $n:=2^{h}-1$ vertices, and local density $(n-1)/(h-1)=\Theta(n/\log n)$. If we take $X$ to be the set of vertices in $T_h$ with vertex-depth $\lceil h/2\rceil$ then each component of $T_h-X$ has size $O(\sqrt{n})$ and local density $O(\sqrt{n}/\log n)$. 
+
 \Cref{planar_sparsifier}, in \cref{local_sparsification_section}, is a generalization of \cref{planar_sparsification_special} that trades off the size of $X$ against the local density of $G-X$.
 
 Proving \cref{main_thm_products} takes somewhat more effort, for reasons that we now explain.
-\Cref{rao_bandwidth_vs_density} is not stated explicitly in \cite{rao:small}. \citet{rao:small} shows that $n$-vertex planar graphs have $(k,O(\sqrt{\log n})$-volume-preserving Euclidean contractions (defined in \cref{contractions_section}). \citet{feige:approximating} proves a result that upper-bounds the bandwidth of $n$-vertex graphs with local density $D$ that have $(k,\eta)$-volume-preserving Euclidean contractions.  The upper bound on $\bw(G)$ is a function of $n$, $D$, $k$, and $\eta$.\footnote{The precise tradeoff between all these parameters is not stated explicitly in \cite{feige:approximating}, but can be uncovered from Feige's proof, which considers the case where $k=\log n$ and $\eta=\sqrt{\log n}\sqrt{\log n+ k\log k}$.}  A generalization of Feige's result is stated in \cref{volume_density_bandwidth}.
+\Cref{rao_bandwidth_vs_density} is not stated explicitly in \cite{rao:small}. \citet{rao:small} shows that $n$-vertex planar graphs have $(k,O(\sqrt{\log n})$-volume-preserving Euclidean contractions (defined in \cref{contractions_section}). \citet{feige:approximating} proves a result that upper-bounds the bandwidth of an $n$-vertex graph $G$ that has local density $D$ and has a $(k,\eta)$-volume-preserving Euclidean contraction.  The upper bound on $\bw(G)$ is a function of $n$, $D$, $k$, and $\eta$.\footnote{The precise tradeoff between all these parameters is not stated explicitly in \cite{feige:approximating}, but can be uncovered from Feige's proof, which considers the case where $k=\log n$ and $\eta=\sqrt{\log n}\sqrt{\log n+ k\log k}$.}  A generalization of Feige's result is stated in \cref{volume_density_bandwidth}.  Combining these two results yields \cref{rao_bandwidth_vs_density}.
 
-We follow a similar strategy by proving that, for a carefully chosen sparsifying set $X$, there is a metric space $(V(H\boxtimes P-X),d^*)$ that contracts the shortest paths metric on $H\boxtimes P-X$, preserves the local density of $G-X$, and has a $(k,O(\sqrt{\log n})$-volume-preserving Euclidean contraction.  (A generalization of) a result of Feige that relates bandwidth, local density, and volume-preserving Euclidean contractions then establishes \cref{main_thm_products}.  A key element in our proof is that $d^*$ mixes distances measured in $H\boxtimes P$ with distance increases caused by large obstacles in $X$. This contracts the shortest path metric on $G-X$ enough to prove the existence of a volume-preserving Euclidean contraction but not so much that it increases the local density.
+We follow a similar strategy.  We build a well-structured sparsifying set $X$ of size $O(\sqrt{n}\log^2 n)$ so that the metric space $(V(G),d_{(H\boxtimes P)-X)}$ has local density $D\in O(\sqrt{n}/\log n)$.  That is, any radius-$r$ ball in $(H\boxtimes P)-X$ contains at most $Dr-1$ vertices of $G$.  We then design a distance function $d^*$ that contracts the shortest path metric $d_{(H\boxtimes P)-X}$, in such a way that the metric space $(V(G),d^*)$ has local density $O(D)$ and also has a $(k,O(\sqrt{\log n})$-volume-preserving Euclidean contraction.  A generalization of Feige's result to metric spaces then establishes \cref{main_thm_products}.  A key element in our proof is that the distance function $d^*$ mixes distances measured in $H\boxtimes P$ with distance increases caused by large obstacles in $X$. This contracts the shortest path metric on $(H\boxtimes P)-X$ enough to prove the existence of a volume-preserving Euclidean contraction but not so much that it increases the local density.
 
 % An important element of our proof is that we work in a metric space whose elements are vertices of $G$, but distances between vertices are measured in $H\boxtimes P$.  We do this for the same reason that the Product Structure Theorem (\cref{planar_product_structure}) has been so successful in resolving a number of longstanding problems on planar graphs \cite{dujmovic.joret.ea:planar,EJM23,DEJWW20,DEGJMM21}:  $H\boxtimes P$ is a supergraph of $G$ that still has many of the important properties of $G$ but its simple structure makes it easier to work with.  In our case, the graph $H\boxtimes P$ provides enough structure to prove a local sparsification lemma like \cref{planar_sparsification_special} even when local density is measured by counting the number of vertices of $G$ contained in balls of $(H\boxtimes P)-X$.  On the other hand, $H\boxtimes P$ is so well structured that, for a carefully chosen sparsifying set $X$, we can define a distance function $d^*$ over $V(G-X)$ for which we can modify Rao's techniques to bound the bandwidth of the metric space $(V(G-X),d^*)$. Despite being simple enough for this, $d^*$ captures enough detail about distances in $G-X$ that the bandwidth of the metric space $(V(G-X),d^*)$ effectively upper bounds the bandwidth of $G-X$.
 
 
 \david{To illustrate \cref{planar_sparsification_special}, would it help to give the complete binary tree has an example? Here the bandwidth is at least $\frac{n}{\log n}$ (by local density). Deleting the middle layer of the tree, which has roughly $\sqrt{n}$ vertices, leaves a graph with bandwidth roughly $\frac{\sqrt{n}}{\log n}$. I expect this is necessary: I guess for any $m$ one needs to delete $m$ vertices to reduce the bandwidth to $n/( m\log(n/m))$. }
 
+\pat{I started to do this, but then realized that, in this case, you get a components of size $O(\sqrt{n})$.  Unless we talk the optimal trade-off between separator size and component size, it might give the impression that we could ask for more:  A set $X$ of size $\tilde{O}(\sqrt{n})$ such that each component of $G-X$ has size $\tilde{O}(\sqrt{n})$.  }
+
 \section{Background}
 
 \subsection{Distance Functions and Metric Spaces}
 
-A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  For any $x\in S$ $d(x,\emptyset):=\infty$ and, for any non-empty $Z\subseteq S$, $d(x,Z):=\min\{d(x,y):y\in Z\}$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over some superset of $S$. $\mathcal{M}$ is \defin{finite} if $S$ is finite and $\mathcal{M}$ is \defin{non-empty} is $S$ is non-empty.  For $x\in S$, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.  The \defin{diameter} of a non-empty finite metric space $(S,d)$ is $\mathdefin{\diam_d(S)}:=\max\{d(x,y):x\in S\}$. The \defin{minimum-distance} of $(S,d)$ is $\mathdefin{\mindist_d(S)}:=\min\{d(x,y): \{x,y\}\in\binom{S}{2}\}$.
+A \defin{distance function} over a set $S$ is any function $d:S^2\to\R$ that satisfies $d(x,x)=0$ for all $x\in S$, $d(x,y)\ge 0$ and $d(x,y)=d(y,x)$ for all distinct $x,y\in S$, and $d(x,z) \le d(x,y)+d(y,z)$ for all distinct $x,y,z\in S$.  For any $x\in S$, $d(x,\emptyset):=\infty$ and, for any non-empty $Z\subseteq S$, $d(x,Z):=\min\{d(x,y):y\in Z\}$.  A \defin{metric space} $\mathcal{M}:=(S,d)$ consists of a set $S$ and a distance function $d$ over some superset of $S$. $\mathcal{M}$ is \defin{finite} if $S$ is finite and $\mathcal{M}$ is \defin{non-empty} is $S$ is non-empty.  For $x\in S$ \david{and $r\geq 0$}, the \defin{$r$-ball} centered at $x$ is $\mathdefin{B_{\mathcal{M}}(x,r)}:=\{y\in S:d(x,y)\le r\}$.  The \defin{diameter} of a non-empty finite metric space $(S,d)$ is $\mathdefin{\diam_d(S)}:=\max\{d(x,y):x\david{,y}\in S\}$. The
+\david{replace ``. The'' by ``, and the'' since we need $S$ to be finite for this minimum to exist}
+\defin{minimum-distance} of $(S,d)$ is $\mathdefin{\mindist_d(S)}:=\min\{d(x,y): \{x,y\}\in\binom{S}{2}\}$.
 
-For any graph $G$, $d_G$ is a distance function over $G$ and $\mathdefin{\mathcal{M}_G}:=(V(G),d_G)$ is a metric space. Any metric space that can be defined this way is referred to as a \defin{graph metric}. For any $S\subseteq V(G)$, the \defin{diameter} and \defin{minimum-distance} of $S$ in $G$ are defined as $\mathdefin{\diam_G(S)}:=\diam_{d_G}(S)$ and $\mathdefin{\mindist_G(S)}:=\mindist_{d_G}(S)$, respectively.
+For any graph $G$, $d_G$ is a distance function over $G$ and $\mathdefin{\mathcal{M}_G}:=(V(G),d_G)$ is a metric space. Any metric space that can be defined this way is referred to as a \defin{graph metric}. For any $S\subseteq V(G)$, the \defin{diameter} and \defin{minimum-distance} of $S$ in $G$ are defined as $\mathdefin{\diam_G(S)}:=\diam_{d_G}(S)$ and $\mathdefin{\mindist_G(S)}:=\mindist_{d_G}(S)$, respectively \david{In recent work on coarse graph theory~(e.g.~\citep{DN23,BBEGLPS}), $\diam_G(S)$ is called the `weak diameter' of $S$, to distinguish it from the diameter of $G[S]$.}.
 % For $v\in V(G)$ and $W\subseteq V(G)$, $\mathdefin{d_G(v,W)}:=\min\{w\in W:d_G(v,w)\}$.
 The \defin{positive distance in $G$} between $v\in V(G)$ and $W\subseteq V(G)$ is $\mathdefin{d^+_G(v,W)}:=\max\{1,d_G(v,W)\}$.
 Since we will be working frequently with strong products. It is worth noting that, for any two graphs $A$ and $B$,
@@ -287,15 +294,17 @@ Since we will be working frequently with strong products. It is worth noting tha
   d_{A\boxtimes B}((x_1,x_2),(y_1,y_2))=\max\{d_A(x_1,y_1),d_B(x_2,y_2)\} \enspace .
 \]
 
-The \defin{local density} of a non-empty finite metric space $\mathcal{M}:=(S,d)$ is $\mathdefin{\ld(\mathcal{M})}:=\max\{|(B_{\mathcal{M}}(x,r)-1)/r:x\in S,\, r>0\}$.  Thus, if $\mathcal{M}$ has local density at most $D$ then $|B_{\mathcal{M}}(x,r)|\le Dr+1$ for each $x\in S$ and $r\ge 0$.
-This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $\mathcal{M}_G$ has local density at most $D$.  Note that, if $(S,d)$ has local density at most $D$ then $(S,d)$ $\diam_d(S)\ge (|S|-1)/D$ and $\mindist(S)\ge 1/D$.
+The \defin{local density} of a non-empty finite metric space $\mathcal{M}:=(S,d)$ is $$\mathdefin{\ld(\mathcal{M})}:=\max\{|(B_{\mathcal{M}}(x,r)-1)/r:x\in S,\, r>0\}.$$
+\david{So that is is clear that this maximum exists, should we explain that since $S$ is finite there are only finitely many values of $r$ that need to be considered?}
+Thus, if $\mathcal{M}$ has local density at most $D$ then $|B_{\mathcal{M}}(x,r)|\le Dr+1$ for each $x\in S$ and $r\ge 0$.
+This definition is consistent with the definition of local density of graphs:  A connected graph $G$ has local density at most $D$ if and only if the metric space $\mathcal{M}_G$ has local density at most $D$.  Note that, if $(S,d)$ has local density at most $D$ then $(S,d)$ \david{has} $\diam_d(S)\ge (|S|-1)/D$ and $\mindist(S)\ge 1/D$.
 
 A \defin{contraction} of a metric space $\mathcal{M}:=(S,d)$ into a metric space $\mathcal{M'}:=(S',d')$ is a function $\phi:S\to S'$ that satisfies $d'(\phi(x),\phi(y))\le d(x,y)$, for each $x,y\in S$. The \defin{distortion} of $\phi$ is $\max\{d(x,y)/d'(x,y):\{x,y\}\in \binom{S}{2}\}$.  When $S\subseteq S'$ and $\phi$ is the identity function we say that $\mathcal{M'}$ is a contraction of $\mathcal{M}$. In particular, saying that $(S,d')$ is a contraction of $(S,d)$ is equivalent saying that $d'(x,y)\le d(x,y)$ for all $x,y\in S$.
 
-For two points $x,y\in\R^L$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^L, d_2)$ for some $L\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.   We make use of two easy observations that follow quickly from these definitions:
+For two points $x,y\in\R^L$, let $\mathdefin{d_2(x,y)}$ denote the Euclidean distance between $x$ and $y$.  A contraction of $(S,d)$ into $(\R^L, d_2)$ for some $L\ge 1$ is called a \defin{Euclidean contraction}.  For $K\subseteq S$ we abuse notation slightly with the shorthand $\mathdefin{\phi(K)}:=\{\phi(x):x\in K\}$.   We make use of two easy observations that follow quickly from these definitions:
 
 \begin{obs}\label{contraction_increases_density}
-  If a metric space $\mathcal{M}:=(S,d)$ has a contraction $\phi$ into a metric space $\mathcal{M}':=(S',d')$ of local density at most $D$ then $\mathcal{M}$ has local density at most $D$.
+  If a metric space $\mathcal{M}:=(S,d)$ has a contraction $\phi$ into a metric space $\mathcal{M}':=(S',d')$ of local density at most $D$, then $\mathcal{M}$ has local density at most $D$.
 \end{obs}
 
 \begin{proof}
@@ -318,9 +327,9 @@ For two points $x,y\in\R^L$ we let $\mathdefin{d_2(x,y)}$ denotes the Euclidean 
 \subsection{Volume-Preserving Contractions}
 \label{contractions_section}
 
-For a set $K$ of $k\le L$ points in $\R^L$, the \defin{Euclidean volume}, $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
+For a set $K$ of $k\le L$ points in $\R^L$, the \defin{Euclidean volume} of $K$, denoted by $\mathdefin{\evol(K)}$, is the $(k-1)$-dimensional volume of the simplex whose vertices are the points in $K$.  For example, if $k=3$, then $\evol(K)$ is the area of the triangle whose vertices are $K$ and that is contained in a plane that contains $K$.
 
-The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(K)):\text{$\phi$ is a Euclidean contraction of $(K,d)$}\}$.  A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,\eta)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/\eta^{k-1}$ for each $k$-element subset $K$ of $S$.  This definition is a generalization of distortion: If $\phi$ is a $(2,\eta)$-volume-preserving then $\phi$ has dilation at most $\eta$.
+The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $$\mathdefin{\ivol_d(K)}:=\max\{\evol(\phi(K)):\text{$\phi$ is a Euclidean contraction of $(K,d)$}\}.$$  A Euclidean contraction $\phi:S\to\R^{\ell}$ of a finite metric space $(S,d)$ is \defin{$(k,\eta)$-volume-preserving} if $\evol(\phi(K))\ge \ivol_d(K)/\eta^{k-1}$ for each $k$-element subset $K$ of $S$.  This definition is a generalization of distortion: If $\phi$ is $(2,\eta)$-volume-preserving, then $\phi$ has dilation at most $\eta$.
 
 \citet{feige:approximating} introduces the following definition and theorem as a bridge between ideal volume and Euclidean volume. The \defin{tree volume} of a finite metric space $(K,d)$ is defined as $\mathdefin{\tvol_d(K)}:=\prod_{xy\in E(T)} d(x,y)$ where $T$ is a minimum spanning tree of the weighted complete graph with vertex set $K$ where the weight of any edge $xy$ is equal to $d(x,y)$.  The following lemma make tree volume a useful intermediate measure when trying to establish that a contraction is volume-preserving.
 
@@ -373,7 +382,7 @@ The following lemma generalizes \citet[Theorem~10]{feige:approximating} from gra
 
 \Cref{volume_density_bandwidth}, below, is proved implicitly by \citet{feige:approximating} for graph metrics, although the dependence on the parameters $n$, $D$, $k$, and $\eta$ are not stated explicitly in \cite{feige:approximating}. Here we give a generalization for metric spaces and make the bound on the bandwidth explicit in terms of the parameters $n$, $D$, and $\eta$.
 
-First, we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a metric space and let $x_1,\ldots,x_n$ be a permutation $S$.  Then $\mathdefin{\bw_{(S,d)}(x_1,\ldots,x_n)}:=\max\{j-i:d(x_i,x_j)\le 1\}$ and $\mathdefin{\bw(S,d)}$ is the minimum of $\bw_{(S,d)}(x_1,\ldots,x_n)$ taken over all $n!$ permutations $x_1,\ldots,x_n$ of $S$.  Note that this coincides with the definition of the bandwidth of a graph: For any connected graph $G$, $\bw(V(G),d_G)=\bw(G)$.  First we observe that injective contractions can only increase bandwidth:
+First, we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a \david{finite?} metric space and let $x_1,\ldots,x_n$ be a permutation of $S$.  Then $\mathdefin{\bw_{(S,d)}(x_1,\ldots,x_n)}:=\max\{j-i:d(x_i,x_j)\le 1\}$ \david{should this be $|j-i|$?} and $\mathdefin{\bw(S,d)}$ is the minimum of $\bw_{(S,d)}(x_1,\ldots,x_n)$ taken over all $n!$ permutations $x_1,\ldots,x_n$ of $S$.  Note that this coincides with the definition of the bandwidth of a graph: For any connected graph $G$, $\bw(V(G),d_G)=\bw(G)$.  First we observe that injective \david{given that `injective' does not appear in the observation, why do we have `injective' here?} contractions can only increase bandwidth:
 
 \begin{obs}\label{contraction_increases_bandwidth}
   For any finite metric space $\mathcal{M}:=(S,d)$ and any contraction $\mathcal{M}':=(S,d')$ of $\mathcal{M}$, $\bw(\mathcal{M}) \le \bw(\mathcal{M}')$.
@@ -441,7 +450,8 @@ First, we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a me
 In this section we will prove a generalization of the following result:
 
 \begin{lem}\label{planar_sparsifier}
-  For each $D\le n$, every $n$-vertex planar graph $G$ has a set $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $D$.
+  For each $1\le D\le n$ \david{many readers will think this means that $D$ is in $\{1,2,\dots,n\}$, 
+  so I suggest we start ``For any $D\in\mathbb{R}$ with $1\leq D\leq N$''}, every $n$-vertex planar graph $G$ has a set $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $D$.
 \end{lem}
 
 Before continuing, we show that this, combined with the following result of \citet{rao:small}, establishes \cref{main_thm_planar}.
@@ -465,13 +475,63 @@ Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yiel
   % The theorem now follows from \cref{fan_partition_bandwidth}.
 \end{proof}
 
-\pat{TODO: Insert the proof of \cref{planar_sparsifier} from David's WoGaG notes, which does the proof in Baker's setting: $G$ has a layering where any $\ell$ consecutive layers induces a subgraph of treewidth less than $(t+1)\ell$.  Later, we'll need to reuse the following lemma, which should be stated in terms of a weight function $w:V(H)\to\R_{\ge 0}$}.
+% \pat{TODO: Insert the proof of \cref{planar_sparsifier} from David's WoGaG notes, which does the proof in Baker's setting: $G$ has a layering where any $\ell$ consecutive layers induces a subgraph of treewidth less than $(t+1)\ell$.  Later, we'll need to reuse the following lemma, which should be stated in terms of a weight function $w:V(H)\to\R_{\ge 0}$}.
 
-\begin{lem}\label{pq_separator}
-\david{I think $P$ and $D$ are poor notations, since they consistently mean something else earlier, and $D$ needs to be quantified. I would much rather state this result with an actual value for $c$ (e.g. $c=2$). From WoGaG Notes:  Fix $k\in\mathbb{N}$ and $p,q\in\mathbb{R}$ with $p\geq k$ and $q\geq 1$. Let $G$ be a graph with treewidth at most $k-1$. Fix $A\subseteq V(G)$  with $pq\geq k(|A|+1)$, which is implied if $pq\geq 2k|A|$. Then there exists a set $S$ of at most $p$ vertices in $G$ such that each component of $G-S$ has at most $q$ vertices in $A$. }
-  There exists a constant $c$ such that the following is true.
-  Let $G$ be an $n$-vertex graph of treewidth at most $t$ and let $P$ be a subset of $V(G)$.  Then \david{for any $D\in\mathbb{R}^+$?} there exists $X\subseteq V(G)$ of size at most $ct|P|/D$ such that each component of $G-X$ contains at most $D$ vertices in $P$.
+% \begin{lem}\label{pq_separator}
+% \david{I think $P$ and $D$ are poor notations, since they consistently mean something else earlier, and $D$ needs to be quantified. I would much rather state this result with an actual value for $c$ (e.g. $c=2$). From WoGaG Notes:  Fix $k\in\mathbb{N}$ and $p,q\in\mathbb{R}$ with $p\geq k$ and $q\geq 1$. Let $G$ be a graph with treewidth at most $k-1$. Fix $A\subseteq V(G)$  with $pq\geq k(|A|+1)$, which is implied if $pq\geq 2k|A|$. Then there exists a set $S$ of at most $p$ vertices in $G$ such that each component of $G-S$ has at most $q$ vertices in $A$. }
+%   There exists a constant $c$ such that the following is true.
+%   Let $G$ be an $n$-vertex graph of treewidth at most $t$ and let $P$ be a subset of $V(G)$.  Then \david{for any $D\in\mathbb{R}^+$?} there exists $X\subseteq V(G)$ of size at most $ct|P|/D$ such that each component of $G-X$ contains at most $D$ vertices in $P$.
+% \end{lem}
+
+The proof of \cref{planar_sparsifier} will make use of the following fairly standard vertex-weighted separator lemma.  Similar lemmas with similar proofs appear in  \citet{robertson.seymour:graph}, but we provide a proof for the sake of completeness.
+
+
+\begin{lem}\label{weighted_separator}
+    Let $H$ be a graph; let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree decomposition of $H$; and let $\xi:V(H)\to\R$ be a function that is positive on $V(H)$. \david{I suggest we define
+      $\xi(X):=\sum_{v\in V(X)} \xi(v)$ for any subgraph $X$ of $H$, and use throughout, including replacing $\Xi$ by $\xi(H)$.} Then, for any $c\in\N\setminus\{0\}$, there exists $S_T\subseteq V(T)$ of size $|S_T|\le c-1$ such that, for each component $X$ of $H-(\bigcup_{x\in S_T} B_x)$, $\sum_{v\in V(X)} \xi(v) \le \tfrac{1}{c}\cdot\sum_{v\in V(H)} \xi(v)$. \david{replace $S_T$ by $S$?}
 \end{lem}
+
+\begin{proof}
+  Let $\Xi:=\sum_{v\in V(H)} \xi(v)$.
+  The proof is by induction $c$.  The base case $c=1$ is trivial, since $S_T:=\emptyset$ satisfies the requirements of the lemma.  Now assume $c\ge 2$.  Root $T$ at some arbitrary vertex $r$ and for each $x\in V(T)$, let $T_x$ denote the subtree of $T$ induced by $x$ and all its $T$-descendants.  Let $H_x:=H[\bigcup_{y\in V(T_x)} B_y]$.  Say that a node $x$ of $T$ is \defin{heavy} if $\sum_{v\in V(H_x)} \xi(v) \ge \tfrac{1}{c}\cdot \Xi$. Since $c\ge 1$, $r$ is heavy, so $T$ contains at least one heavy vertex. Let $x$ be a heavy vertex of $T$ with the property that no child of $x$ is also heavy.  Then $H':=H-V(H_x)$ has weight $\sum_{v\in V(H')} \xi(v) \le (1-1/c)\cdot\Xi$.  On the other hand, every component $C$ of $H-V(H')-B_x$ has weight $\sum_{v\in V(C)} \xi(v) \le \tfrac{1}{c}\cdot\Xi$.  Apply induction on the graph $H'$ with tree decomposition $\mathcal{T}':=(B_x\cap V(H'):x\in V(T))$ and $c':=c-1$ to obtain a set $S_T'$ of size at most $c-2$ such that each component $X$ of $H'-(\bigcup_{x\in S_T} B_x)$, has weight at most $\sum_{v\in V(X)} \xi(v) \le \tfrac{1}{c-1}\cdot(1-\tfrac{1}{c})\cdot\Xi = \tfrac{1}{c}\cdot \Xi$.  The set $S_T:=S_T'\cup\{x\}$ satisfies the requirements of the lemma.
+\end{proof}
+
+\david{At the start of this section we promised a generalization of \cref{planar_sparsifier}. So at this point, should we prove the following: Let $G$ be an $n$-vertex graph that has a layering such that the subgraph induced by the union of any $r$ consecutive layers has treewidth at most $cr-1$. Then for any $D\in\mathbb{R}$ with $1\leq D\leq N$, $G$ has a set $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $D$. We will need this later.}
+
+
+\begin{proof}[Proof of \cref{planar_sparsifier}]
+  If $G$ is not connected, add edges to create a connected planar supergraph $G^+$ of $G$. If there exists $X$ of size $O(n/D)$ such that $G^+-X$ has local density at most $D$ then, by \cref{contraction_increases_density,supergraph_contraction}, $G-X$ has local density at most $D$. 
+ Thus, it suffices to consider the case where $G$ is connected.
+
+ Let $v_0$ be any vertex of $G$ and, for each integer $s$, let $L_s:=\{v\in V(G): d_G(v_0,v)=s\}$, and let $h:=\max\{s:|L_s|>0\}$.  ($L_0,\ldots,L_h$ is known as a BFS layering of $G$.) It is a well known property of planar graphs that, for any integers $s$ and $t$, $G[L_s\cup\cdots\cup L_{s+t-1}]$ has treewidth at most $3t-1$ \cite{baker:approximation}.
+
+ For each positive integer $i$ and each integer $j$, let $G_{i,j}:=G[\bigcup_{s=j2^i}^{(j+1)2^i-1} L_s]$,  and let $G^+_{i,j}=G[V(G_{i,j-1})\cup V(G_{i,j})\cup V(G_{i,j+1})]$.  Observe that, for any $i$, the graphs in $\{ G_{i,j}\}_{j\in\N}$ are pairwise vertex disjoint.  By the definition $G^+_{i,j}$, this implies that the graphs in $\{ G_{i,j}\}_{j\in\N}$ have a total of at most $3n$ vertices.
+ 
+ For each $i\in\{0,\ldots,\lfloor \log h\rfloor\}$ and each $j$, $G_{i,j}$ has treewidth at most $?9\cdot 2^i-1$ \david{should $?9$ be $3$}.  By \cref{weighted_separator}, with weight function $\zeta(v):=1$ and $c=\lceil |V(G^+_{i,j})|/(D2^{i-1})\rceil$, there exists a set $X_{i,j}$ of size  
+ \[
+    |X_{i,j}|\le 9\cdot 2^i\cdot(c-1) =
+    9\cdot 2^i\cdot\left(\left\lceil\frac{ |V(G^+_{i,j})|}{D2^{i-1}}\right\rceil-1\right) \le 
+    \frac{9\cdot 2^i\cdot|V(G^+_{i,j})|}{ D2^{i-1}} 
+    = \frac{18|V(G^+_{i,j})|}{D} 
+ \]
+ such that each component of $G^+_{i,j}-X_{i,j}$ has at most $|V(G^+_{i,j})|/c \le D2^{i-1}$ vertices.  Let $X:=\bigcup_{i=0}^{\lfloor\log h\rfloor-1}\bigcup_{j}X_{i,j}$.  Then 
+ \[
+    |X| \le 
+    \sum_{i=0}^{\lfloor\log h\rfloor-1}\sum_{j} |X_{i,j}|
+    \le
+    \sum_{i=0}^{\lfloor\log h\rfloor-1}\sum_{j} \frac{18|V(G^+_{i,j})|}{D}
+    \le
+    \sum_{i=0}^{\lfloor\log h\rfloor-1}\frac{54n}{D}
+    % \le
+    % \frac{3(?3+1)n(1+\log h)}{D}
+    % = O((n/D)\log n) 
+    \le \frac{54\log h}{D}\le\frac{54\log n}{D}
+    \enspace .
+    % \frac{3(?3+1)n(1+\log n)}{D}
+ \]
+ Now, consider some ball $B_{G-X}(v,r)$, let $i=\lceil\log r\rceil$, and let $j$ be the unique integer such that $v\in V(G_{i,j})$.  Then $B_{G-X}(v,r)$ is contained in a single component of $G^+_{i,j}-X_{i,j}$, and this component has at most $D2^{i-1}=D2^{\lceil\log r\rceil-1}\le Dr$ vertices.    
+\end{proof}
+
 
 
 
@@ -497,18 +557,18 @@ Taking $k=\Theta(\log n)$ and combining \cref{rao,volume_density_bandwidth} yiel
 
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
 
-In this section, we prove \cref{main_thm_products}.  The structure of our proof is based on the proof of \cref{rao} by \citet{rao:small}, which applies to planar graphs and even to $K_{h}$-minor-free graphs for any fixed $h$.  However, the proof cannot be applied directly since graph products of the form $H\boxtimes P$ are not $K_h$-minor-free for any fixed $h$, even when $H$ is a tree and $P$ is a path. If $T$ is the tree obtained from the path $P_{2n+1}$ by adding one leaf adjacent to the middle vertex, then $K_n$ is a minor of the `tennis court' graph $T\square P_{n^2}$ (see  \citep{Wood-NYJM11}). \pat{What's the conclusion?  Reference \cite{Wood-NYJM11} doesn't contain the word tennis.}
+In this section, we prove \cref{main_thm_products}.  The structure of our proof is based on the proof of \cref{rao} by \citet{rao:small}, which applies to planar graphs and even to $K_{h}$-minor-free graphs for any fixed $h$.  However, the proof cannot be applied directly since graph products of the form $H\boxtimes P$ are not $K_h$-minor-free for any fixed $h$, even when $H$ is a tree and $P$ is a path. Indeed, if $T$ is the tree obtained from the path $P_{2n+1}$ by adding one leaf adjacent to the middle vertex, then $K_n$ is a minor of the `tennis court' graph $T\mathbin{\square} P_{n^2}$ (see  \citep{Wood-NYJM11}). 
 
 For the remainder of the paper, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P$ is a path.  The proof of \cref{main_thm_products} has the following structure. We use the notation $\mathcal{M}\rightbroom\mathcal{M'}$ to denote that $\mathcal{M}'$ is a contraction of $\mathcal{M}$.
 
 \begin{enumerate}
   \item Find a set $X\subseteq H\boxtimes P$ of size $O(\sqrt{n}\log^2 n)$ such that the metric space $\mathcal{M}:=(V(G-X),d_{(H\boxtimes P)-X})$ has local density $D\in O(\sqrt{n}/\log n)$.  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, $\mathcal{M}$ is a contraction of the metric space $\mathcal{M}_{G-X}:=(V(G-X),d_{G-x})$ (by \cref{supergraph_contraction}), so $\mathcal{M}_{G-X}\rightbroom\mathcal{M}$.
 
-  \item Design a distance function $d^*:V((H\boxtimes P)-X)^2\to\R$ so that the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ is a contraction of $\mathcal{M}$ that also has local density $O(D)$.
+  \item Design a distance function $d^*:V((H\boxtimes P)-X)^2\to\R$ so that the metric space $\mathcal{M}^*:=(V(H\boxtimes P)\setminus X,d^*)$ is a contraction of $\mathcal{M}$ with the property that the induced metric space $(V(G-X),d^*)$ has local density $O(D)$.
 
   Graphically, $\mathcal{M}_{G-X}\rightbroom\mathcal{M}\rightbroom\mathcal{M}^*$.
 
-  \item Prove that $\mathcal{M}^*$ has an $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction $\phi:V(G-X)\to\R^L$, for $k\in\Theta(\log n)$.
+  \item Prove that $\mathcal{M}^*$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction $\phi:V(H\boxtimes P)\setminus X\to\R^L$, for $k\in\Theta(\log n)$.
 
   % \item  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, $\mathcal{M}$ is a contraction of $\mathcal{M}_{G-X}$.  Since $\mathcal{M}^*$ is a contraction of $\mathcal{M}$, $\mathcal{M}^*$ is a contraction of $\mathcal{M}_{G-X}$.
 
@@ -517,19 +577,27 @@ For the remainder of the paper, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ 
    By Feige's result (\cref{feige_bandwidth_vs_density}),  $\bw(\mathcal{M}^*)\in O(D\log^3 n)=O(\sqrt{n}\log^2 n)$.  Since $\mathcal{M}^*$ is a contraction of $\mathcal{M}_{G-X}$ this implies that $\bw(\mathcal{M}_{G-X}) \le \bw(\mathcal{M}^*)\in O(\sqrt{n}\log^2 n)$ (by \cref{contraction_increases_bandwidth}).
 \end{enumerate}
 
-The delicate part of the proof is the design of the distance function $d^*$ that contracts $d_{(H\boxtimes P)-X}$ but still ensures that the local density of $\mathcal{M}^*$ is $O(D)$. If $d^*$ contracts too much, then $\mathcal{M}^*$ will not have local density $O(D)$. If $d^*$ contracts too little, then it will be difficult to get a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding. To make this work, we choose a highly-structured sparsifying set $X$.
+The delicate part of the proof is the design of the distance function $d^*$ that contracts $d_{(H\boxtimes P)-X}$ but still ensures that the local density of $(V(G-X),d^*)$ is $O(D)$. If $d^*$ contracts too much, then $(V(G-X),d^*)$ will not have local density $O(D)$. If $d^*$ contracts too little, then it will be difficult to get a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding. To make this work, we choose a highly-structured sparsifying set $X$.
 
 \subsection{A Structured Sparsifier}
 
-\todo[inline]{Reread the next few subsections and check for ${}\pm 1$ issues. Use $u$, $v$, and $w$ consistently.}
+In this section we construct a sparsifying set $X$ like that used in \cref{planar_sparsifier}, but with a structure that lends itself to the design of the distance function $d^*$.  The construction is very similar to the construction in the proof of \cref{planar_sparsifier}. The main difference is that we do not apply the separator lemma (\cref{weighted_separator}) directly to a subgraph $G^+_{i,j}$.  Instead, we consider a subgraph $Q^+_{i,j}=H\boxtimes P^+_{i,j}$ of $H\boxtimes P$ that contains $G^+_{i,j}$.  We use this to assign weights to the vertices of $H$ and then apply the separator lemma to $H$ to get a separator $Y_{i,j}$.  In this way, we obtain a `vertical' separators $X_{i,j}:=Y_{i,j}\times V(P^+_{i,j})$.
+For a vertex $v$ in the middle third of $Q^+_{i,j}$, a radius-$2^i$ ball in $(H\boxtimes P)-X$.
 
-In this section we construct a sparsifying set $X$ like that used in \cref{planar_sparsifier}, but with a structure that lends itself to the design of the distance function $d^*$.
+
+\pat{Now that I write this, I don't think it's important that the separators in $X_{i,j}$ are vertical.  The important thing is that that distance between a vertex $v$ in the middle-third of $Q^+_{i,j}$ and a vertex $w$ in a different component of $Q^+_{i,j}-X_{i,j}$ is at least $2^i$.  \\[2ex]
+I think our results hold in the following setting: 
+ There are fixed $c$ and $t$ such that  
+ $G$ has a layering such that, for any $\ell$ and any subgraph $G'$ induced by $\ell$ consecutive layers:  (i)~$\tw(G')\le c\ell$;
+ (ii)~$\textsc{Chop}_{t,\ell}(G')$ always produces a set $W$ such that each component of $G'-W$ has diameter at most $c\ell$.
+ }
+
 
 Let $N:=2^{\ceil{\log n}}$ and let $P:=\mathdefin{y_{-N+1},y_{-N+2},\ldots,y_{2N}}$ be path.  Without loss of generality we assume all vertices of $G$ are contained in $V(H)\times\{y_1,\ldots,y_N\}$.  For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{-1,0,\ldots,N/2^{i}\}$, let $P_{i,j}:=y_{j2^i+1},\ldots,y_{(j+1)2^i}$ be a subpath of $P$ with $2^i$ vertices. For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{0,\ldots,N/2^{i}-1\}$, let $P^+_{i,j}:=P[V(P_{i,j-1})\cup V(P_{i,j})\cup V(P_{i,j+1})]$ be the concatenation of $P_{i,j-1}$, $P_{i,j}$, and $P_{i,j+1}$. Define $Q_{i,j}=H\boxtimes P_{i,j}$ and $Q^+_{i,j}=H\boxtimes P^+_{i,j}$.
 
-In words, $Q_{i,0},\ldots,Q_{i,N/2^i-1}$ partition the part of $H\boxtimes P$ that contains $G$ into vertex-disjoint strips of height $2^i$. The subgraph $G^+_{i,j}$ is a strip of height $3\cdot 2^i$ that contains $G_{i,j}$ in its middle third.  Observe that, for each $i\in\{1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^i-1\}$, each of the graphs $Q^+_{i-1,2j}$ and $Q^+_{i-1,2j+1}$ is a subgraph of $Q^+_{i,j}$. Equivalently, $Q^+_{i,j}$ is a subgraph of $Q_{i+1,\lfloor j/2\rfloor}$ for each $i\in\{0,\ldots,\log N-1\}$ an each $j\in\{0,\ldots,N/2^i-1\}$.
+In words, $Q_{i,0},\ldots,Q_{i,N/2^i-1}$ partitions the part of $H\boxtimes P$ that contains $G$ into vertex-disjoint strips of height $2^i$. The subgraph $Q^+_{i,j}$ is a strip of height $3\cdot 2^i$ that contains $Q_{i,j}$ in its middle third.  Observe that, for each $i\in\{1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^i-1\}$, each of the graphs $Q^+_{i-1,2j}$ and $Q^+_{i-1,2j+1}$ is a subgraph of $Q^+_{i,j}$. Equivalently, $Q^+_{i,j}$ is a subgraph of $Q_{i+1,\lfloor j/2\rfloor}$ for each $i\in\{0,\ldots,\log N-1\}$ and each $j\in\{0,\ldots,N/2^i-1\}$.
 
-We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define a weight function $w_{i,j}:V(H)\to\N$ where $w_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $W_{i,j}:=\sum_{x\in V(H)} w(x)=|V(Q^+_{i,j})\cap V(G)|$. By \cref{pq_separator}, there exists $Y_{i,j}\subseteq V(H)$ of size at most $c(t+1)W_{i,j}/(2^{i-1}D)$, such that each component $C$ of $H-Y_{i,j}$ has total weight at most $\sum_{x\in V(C)} w(x) \le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.  We think of $X_{i,j}$ as a vertical separator that splits $Q^+_{i,j}$ into parts using vertex cuts that run from the top to the bottom of $Q^+_{i,j}$.
+We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define a weight function $w_{i,j}:V(H)\to\N$ where $w_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $W_{i,j}:=\sum_{x\in V(H)} w(x)=|V(Q^+_{i,j})\cap V(G)|$. By \cref{weighted_separator}, there exists $Y_{i,j}\subseteq V(H)$ of size at most $c(t+1)W_{i,j}/(2^{i-1}D)$, such that each component $C$ of $H-Y_{i,j}$ has total weight at most $\sum_{x\in V(C)} w(x) \le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.  We think of $X_{i,j}$ as a vertical separator that splits $Q^+_{i,j}$ into parts using vertex cuts that run from the top to the bottom of $Q^+_{i,j}$.
 
 \begin{lem}
   For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, each component of $Q^+_{i,j}-X_{i,j}$ has at most $2^{i-1}D$ vertices.\
@@ -692,7 +760,7 @@ Consider the following random process that, given a connected graph $H$ construc
 The following lemma, with a greater dependence on $t$, is due to \citet{klein.plotkin.ea:excluded}. The version shown here was proved by \citet{fakcharoenphol.talwar:improved}. The presentation here closely follows that of \citet{lee:simpler}.
 
 \begin{lem}[{\citet{klein.plotkin.ea:excluded,fakcharoenphol.talwar:improved}}]\label{component_diameter_h}
-  If $H$ is a connected $K_{t+1}$-minor-free graph then each component $C$ of $H-\textsc{Chop}_{\Delta,t}(H)$ has $\diam_H(C)\le?t\Delta$.\todo{Define minor-free somewhere}
+  If $H$ is a connected $K_{t+1}$-minor-free graph then each component $C$ of $H-\textsc{Chop}_{\Delta,t}(H)$ has $\diam_H(C)\le?t\Delta$.
 \end{lem}
 
 
@@ -701,7 +769,7 @@ The following lemma, with a greater dependence on $t$, is due to \citet{klein.pl
 % In the following lemma, and for the rest of this section, we use the convention that for any vertex $x$ of $H$, $d_H(x,\emptyset):=\infty$.
 
 \begin{lem}\label{delta_bad_h}
-  For any vertex $x$ of $H$ and any integer $\delta\ge 1$, $\Pr(d_H(x, \textsc{Chop}_{\Delta,t}(H)< \delta)\le t\,(2\delta-1)/\Delta$.
+  For any vertex $x$ of $H$ and any integer $\delta\ge 1$, $$\Pr(d_H(x, \textsc{Chop}_{\Delta,t}(H)< \delta)\le t\,(2\delta-1)/\Delta.$$
 \end{lem}
 
 \begin{proof}
@@ -725,7 +793,7 @@ Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t
 \end{proof}
 
 \begin{lem}\label{delta_bad_product}
-  For any vertex $x$ of $H\boxtimes P$ and any integer $\delta\ge 1$, $\Pr(d_{H\boxtimes P}(x,Z)< \delta)\le (t+1)(2\delta-1)/\Delta$.
+  For any vertex $x$ of $H\boxtimes P$ and any integer $\delta\ge 1$, $$\Pr(d_{H\boxtimes P}(x,Z)< \delta)\le (t+1)(2\delta-1)/\Delta.$$
 \end{lem}
 
 \begin{proof}
@@ -856,7 +924,7 @@ For each component $C'$ of $J$, choose a uniformly random $\alpha_{C'}$ in $[0,1
   All that remains is to consider the case where $v$ and $w$ are in the same component $C$ of $I$ but in different components $C_v$ and $C_w$ of $J$.  Then there exists some $i$ and $j$ such that $C$ is contained in $Q^+_{i,j}$ but $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j}$.  Since $C$ is contained in $Q^+_{i,j}$, $3\cdot 2^{i} \ge \Delta-1\ge \Delta/2$.
   \begin{compactitem}
     \item If one of $v$ or $w$, say $v$, is in $Q_{i,j}$ then $i_0(v,w)\ge i$, so $d^*(v,w)\ge \delta_0(v,w)\ge 2^i\ge \Delta/6$.
-    \item If $v$ and $w$ are both in $G_{i,j-1}$ or both in $G_{i,j+1}$ then $\delta_1(v,w)\ge d_{H\boxtimes P}(v,Z)+d_{H\boxtimes P}(w,Z)$.
+    \item If $v$ and $w$ are both in $G_{i,j-1}$ or both in $G_{i,j+1}$ then $\delta_1(v,w)\ge d_{H\boxtimes P}(v,Z)+d_{H\boxtimes P}(w,Z)$, since $d_{H\boxtimes P}(v,\overline{C})\le d_{H\boxtimes P}(v,\overline{V(Q^+_{i,j+1})})$.
     \item If one of $v$ or $w$ is in $G_{i,j-1}$ and the other is in $G_{i,j+1}$, then $d_{H\boxtimes P}(v,w)\ge 2^i\ge\Delta/6$.
   \end{compactitem}
   Since $d_{H\boxtimes P}(v,Z)\le \Delta/2$ and $d_{H\boxtimes P}(w,Z)\le \Delta/2$, each of the three cases implies that
@@ -884,7 +952,7 @@ Finally, define
 The following lemma says that $\phi$ is almost a Euclidean contraction of $(V(H\boxtimes P)\setminus X,d^*)$.  In a final step, we will divide each coordinate of $\phi$ by $12\sqrt{L}$ to obtain a Euclidean contraction but, until then, it is more convenient to work directly with $\phi$.
 
 \begin{lem}\label{euclidean_contraction}
-  For each $v,w\in V((H\boxtimes P)-X)$, $d_2(\phi(v),\phi(w)) \le 12\sqrt{L}\cdot d^*(v,w)$.
+  For each $v,w\in V((H\boxtimes P)-X)$, $$d_2(\phi(v),\phi(w)) \le 12\sqrt{L}\cdot d^*(v,w).$$
 \end{lem}
 
 \begin{proof}
@@ -920,12 +988,15 @@ Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in \R^k:\sum_{j=1}^k\lambda_j=1\}$
 \end{lem}
 
 \begin{proof}
-  If $h <?$ then let $i:=0$.  Otherwise, let $i$ be the unique (positive) integer such that $h/2?< 2^i \le h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $S:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|S|$ dominates\footnote{We say that a random variable $X$ \defin{dominates} a random variable $Y$ if $\Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, $\Pr(|S|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80)$.
+  If $h <?$ then let $i:=0$.  Otherwise, let $i$ be the unique (positive) integer such that $h/2?< 2^i \le h/?$, where $?$ is the constant in \cref{component_diameter_h} and let $\Delta=2^i$.  We will focus on the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,Z_{i,j})\ge \Delta/10(t+1)$.  By \cref{delta_bad_product},  $\Pr(\text{$j$ is good})\ge 1-(t+1)(2\Delta/10(t+1)-1)/\Delta > 3/5$. Let $S:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $Z_{i,1},\ldots,Z_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|S|$ dominates\footnote{We say that a random variable $X$ \defin{dominates} a random variable $Y$ if $\Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,3/5)$ random variable. By the Chernoff Bound, 
+  $$\Pr(|S|\ge \tfrac{3}{10}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/80).$$
 
   By \cref{uniform} $\phi_{i,j}(v_p)$ is uniformly distributed over an interval of length at least $\Delta/10(t+1)$, for each $j\in S$.  We claim that the location of $\phi_{i,j}(v_p)$ in this interval is independent of the corresponding coordinate, $x_{i,j}$, of $x$.  Indeed, either $\Delta=1$ or \cref{dstar_component_diameter} implies that the component of $J$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$. In either case, the component of $J$ that contains $v_p$ does not contain any of $v_1,\ldots,v_{p-1}$.  Therefore, the location of $\phi_{i,j}(v_p)$ is determined by a random real number $\alpha\in[0,1]$ that does not contribute to $\phi(v_1),\ldots,\phi(v_{p-1})$.  Since $(\lambda_1,\ldots,\lambda_{p-1})=\lambda(\phi(v_1),\ldots,\phi(v_{p-1}))$ is completely determined by $\phi(v_1),\ldots,\phi(v_{p-1})$, $\alpha$ is independent of $x=\sum_{k=1}^{p-1}\lambda_k\phi(v_k)$.  In particular, $\alpha$ is independent of $x_{i,j}$.
 
   Therefore, for $j\in S$, $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge 1/2$.\footnote{The coordinate $\phi_{i,j}(v_p)$ is uniform over some interval $[a,b]$ of length $b-a\ge \Delta/10(t+1)$ whereas $[x_{i,j}-\Delta/40(t+1),x_{i,j}+\Delta/40(t+1)]$ has length $\Delta/20(t+1)$, so $\Pr(|\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1))\ge (b-a-\Delta/20(t+1))/(b-a)\ge 1/2$.}
-  Let $S':=\{j\in S:  |\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1)\}$.  Then $|S'|$ dominates a $\operatorname{binomial}(|J|,1/2)$ random variable.  By the Chernoff Bound (and the union bound), $\Pr(|S'|\ge \tfrac{3}{40}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/160)-\exp(-3ak\ln n/80)\ge 1-n^{-3k}$ for all $a\ge 500$, $n\ge 2$, and $k\ge 2$. Therefore,
+  Let $S':=\{j\in S:  |\phi_{i,j}(v_p)-x_{i,j}|\ge \Delta/40(t+1)\}$.  Then $|S'|$ dominates a $\operatorname{binomial}(|J|,1/2)$ random variable.  By the Chernoff Bound (and the union bound), for all $a\ge 500$, $n\ge 2$, and $k\ge 2$, 
+  $$\Pr(|S'|\ge \tfrac{3}{40}\lceil a k\ln n\rceil)\ge 1-\exp(-3ak\ln n/160)-\exp(-3ak\ln n/80)\ge 1-n^{-3k}.$$ 
+  Therefore,
   \begin{align*}
     d_2(\phi(v_p),x)
     & = \left(\sum_{i'=0}^{\lfloor\log_2 n\rfloor}\sum_{j=1}^{\lceil ak\ln  n\rceil}(\phi_{i',j}(v_p)-x_{i',j})^2\right)^{1/2} \\
@@ -987,7 +1058,7 @@ We now have all the pieces needed to complete the proof of \cref{dstar_contracti
 % The proof of \cref{main_thm_products} is exactly the same as the proof of \cref{main_thm_planar} except that we use the $(k,O(\sqrt{\log n}))$-volume-preserving contraction guaranteed by \cref{product_contraction} instead of the one guaranteed by \cref{rao}.
 
 \section{Fans are Unavoidable}
-
+\david{I suspect the lower bound can be pushed further to show  that fan graphs really are best possible. Conjecture: there exist $n$-vertex planar graphs such that for any graph $H$, if $G$ is contained in  a $\tilde{O}(\sqrt{n})$-blowup of $H$, then $H$ contains a fan on $\Omega(n^c)$ vertices, for some $c>0$, possibly $c=\frac12$. Here I try to prove this where $G$ is from \citep{LMST08}. }
 
 \begin{lem}[\citep{LMST08}]
 \label{FindPath}
