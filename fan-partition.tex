@@ -583,7 +583,7 @@ In this section, we prove \cref{main_thm_products}.  The structure of our proof 
 For the remainder of the paper, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P$ is a path.  The proof of \cref{main_thm_products} has the following structure. We use the notation $\mathcal{M}\rightbroom\mathcal{M'}$ to denote that $\mathcal{M}'$ is a contraction of $\mathcal{M}$.
 
 \begin{enumerate}
-  \item Find a set $X\subseteq H\boxtimes P$ of size $O(\sqrt{n}\log^2 n)$ such that the metric space $\mathcal{M}:=(V(G-X),d_{(H\boxtimes P)-X})$ has local density $D\in O(\sqrt{n}/\log n)$.  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, $\mathcal{M}$ is a contraction of the metric space $\mathcal{M}_{G-X}:=(V(G-X),d_{G-x})$ (by \cref{supergraph_contraction}), so $\mathcal{M}_{G-X}\rightbroom\mathcal{M}$.
+  \item Use \cref{sparsifier_baker} to find a set $X\subseteq H\boxtimes P$ of size $O(\sqrt{n}\log^2 n)$ such that the metric space $\mathcal{M}:=(V(G-X),d_{(H\boxtimes P)-X})$ has local density $D\in O(\sqrt{n}/\log n)$.  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, $\mathcal{M}$ is a contraction of the metric space $\mathcal{M}_{G-X}:=(V(G-X),d_{G-x})$ (by \cref{supergraph_contraction}), so $\mathcal{M}_{G-X}\rightbroom\mathcal{M}$.
 
   \item Design a distance function $d^*:V((H\boxtimes P)-X)^2\to\R$ so that the metric space $\mathcal{M}^*:=(V(H\boxtimes P)\setminus X,d^*)$ is a contraction of $\mathcal{M}$ with the property that the induced metric space $(V(G-X),d^*)$ has local density $O(D)$.
 
@@ -602,24 +602,25 @@ The delicate part of the proof is the design of the distance function $d^*$ that
 
 \subsection{A Structured Sparsifier}
 
-In this section we construct a sparsifying set $X$ like that used in \cref{planar_sparsifier}, but with a structure that lends itself to the design of the distance function $d^*$.  The construction is very similar to the construction in the proof of \cref{planar_sparsifier}. The main difference is that we do not apply the separator lemma (\cref{weighted_separator}) directly to a subgraph $G^+_{i,j}$.  Instead, we consider a subgraph $Q^+_{i,j}=H\boxtimes P^+_{i,j}$ of $H\boxtimes P$ that contains $G^+_{i,j}$.  We use this to assign weights to the vertices of $H$ and then apply the separator lemma to $H$ to get a separator $Y_{i,j}$.  In this way, we obtain a `vertical' separators $X_{i,j}:=Y_{i,j}\times V(P^+_{i,j})$.
-For a vertex $v$ in the middle third of $Q^+_{i,j}$, a radius-$2^i$ ball in $(H\boxtimes P)-X$.
+In this section we construct a sparsifying set $X$ like that used in \cref{planar_sparsifier}.  The main difference is that we use the layering of $G$ that comes from $H\boxtimes P$ when applying \cref{sparsifier_baker}.  We repeat most of the steps in the proof of \cref{sparsifier_baker} in order to establish notations and highlight the structure of $X$ that will be useful in the design of the distance function $d^*$.  \pat{This is a bit repetitive, (it repeats parts in the proof of \cref{sparsifier_baker}), but I think it's better to repeat than to write two parts differently for no reason.  Maybe later we can fold the two proofs together.}
 
-
-\pat{Now that I write this, I don't think it's important that the separators in $X_{i,j}$ are vertical.  The important thing is that that distance between a vertex $v$ in the middle-third of $Q^+_{i,j}$ and a vertex $w$ in a different component of $Q^+_{i,j}-X_{i,j}$ is at least $2^i$.  \\[2ex]
-I think our results hold in the following setting:
- There are fixed $c$ and $t$ such that
- $G$ has a layering such that, for any $\ell$ and any subgraph $G'$ induced by $\ell$ consecutive layers:  (i)~$\tw(G')\le c\ell$;
- (ii)~$\textsc{Chop}_{t,\ell}(G')$ always produces a set $W$ such that each component of $G'-W$ has diameter at most $c\ell$.  \\[2ex]
- I think (ii) might be more easily summarized by arguing that Klein-Plotkin-Rao can be generalized to the setting where $G$ has layered treewidth $t$ using a layering with at most $\Delta$ layers.
- }
-
+% is a subgraph of $H\boxtimes P$, but with a structure that lends itself to the design of the distance function $d^*$.  The construction is very similar to the construction in the proof of \cref{planar_sparsifier}. The main difference is that we do not apply the separator lemma (\cref{weighted_separator}) directly to a subgraph $G^+_{i,j}$.  Instead, we consider a subgraph $Q^+_{i,j}=H\boxtimes P^+_{i,j}$ of $H\boxtimes P$ that contains $G^+_{i,j}$.  We use this to assign weights to the vertices of $H$ and then apply the separator lemma to $H$ to get a separator $Y_{i,j}$.  In this way, we obtain a `vertical' separators $X_{i,j}:=Y_{i,j}\times V(P^+_{i,j})$.
+% For a vertex $v$ in the middle third of $Q^+_{i,j}$, a radius-$2^i$ ball in $(H\boxtimes P)-X$.
+%
+%
+% \pat{Now that I write this, I don't think it's important that the separators in $X_{i,j}$ are vertical.  The important thing is that that distance between a vertex $v$ in the middle-third of $Q^+_{i,j}$ and a vertex $w$ in a different component of $Q^+_{i,j}-X_{i,j}$ is at least $2^i$.  \\[2ex]
+% I think our results hold in the following setting:
+%  There are fixed $c$ and $t$ such that
+%  $G$ has a layering such that, for any $\ell$ and any subgraph $G'$ induced by $\ell$ consecutive layers:  (i)~$\tw(G')\le c\ell$;
+%  (ii)~$\textsc{Chop}_{t,\ell}(G')$ always produces a set $W$ such that each component of $G'-W$ has diameter at most $c\ell$.  \\[2ex]
+%  I think (ii) might be more easily summarized by arguing that Klein-Plotkin-Rao can be generalized to the setting where $G$ has layered treewidth $t$ using a layering with at most $\Delta$ layers.
+%  }
 
 Let $N:=2^{\ceil{\log n}}$ and let $P:=\mathdefin{y_{-N+1},y_{-N+2},\ldots,y_{2N}}$ be path.  Without loss of generality we assume all vertices of $G$ are contained in $V(H)\times\{y_1,\ldots,y_N\}$.  For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{-1,0,\ldots,N/2^{i}\}$, let $P_{i,j}:=y_{j2^i+1},\ldots,y_{(j+1)2^i}$ be a subpath of $P$ with $2^i$ vertices. For each $i\in\{0,\ldots,\log N\}$ and each $j\in\{0,\ldots,N/2^{i}-1\}$, let $P^+_{i,j}:=P[V(P_{i,j-1})\cup V(P_{i,j})\cup V(P_{i,j+1})]$ be the concatenation of $P_{i,j-1}$, $P_{i,j}$, and $P_{i,j+1}$. Define $Q_{i,j}=H\boxtimes P_{i,j}$ and $Q^+_{i,j}=H\boxtimes P^+_{i,j}$.
 
 In words, $Q_{i,0},\ldots,Q_{i,N/2^i-1}$ partitions the part of $H\boxtimes P$ that contains $G$ into vertex-disjoint strips of height $2^i$. The subgraph $Q^+_{i,j}$ is a strip of height $3\cdot 2^i$ that contains $Q_{i,j}$ in its middle third.  Observe that, for each $i\in\{1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^i-1\}$, each of the graphs $Q^+_{i-1,2j}$ and $Q^+_{i-1,2j+1}$ is a subgraph of $Q^+_{i,j}$. Equivalently, $Q^+_{i,j}$ is a subgraph of $Q_{i+1,\lfloor j/2\rfloor}$ for each $i\in\{0,\ldots,\log N-1\}$ and each $j\in\{0,\ldots,N/2^i-1\}$.
 
-We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define a weight function $w_{i,j}:V(H)\to\N$ where $w_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $W_{i,j}:=\sum_{x\in V(H)} w(x)=|V(Q^+_{i,j})\cap V(G)|$. By \cref{weighted_separator}, there exists $Y_{i,j}\subseteq V(H)$ of size at most $c(t+1)W_{i,j}/(2^{i-1}D)$, such that each component $C$ of $H-Y_{i,j}$ has total weight at most $\sum_{x\in V(C)} w(x) \le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.  We think of $X_{i,j}$ as a vertical separator that splits $Q^+_{i,j}$ into parts using vertex cuts that run from the top to the bottom of $Q^+_{i,j}$.
+We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define a weight function $\xi_{i,j}:V(H)\to\N$ where $\xi_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $\xi_{i,j}(H):=\sum_{x\in V(H)} w(x)=|V(Q^+_{i,j})\cap V(G)|$. By \cref{weighted_separator}, there exists $Y_{i,j}\subseteq V(H)$ of size at most $18t\xi_{i,j}(H)/(2^{i-1}D)$, such that each component $C$ of $H-Y_{i,j}$ has total weight at most $\sum_{x\in V(C)} w(x) \le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.  We think of $X_{i,j}$ as a vertical separator that splits $Q^+_{i,j}$ into parts using vertex cuts that run from the top to the bottom of $Q^+_{i,j}$.
 
 \begin{lem}
   For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, each component of $Q^+_{i,j}-X_{i,j}$ has at most $2^{i-1}D$ vertices.\
@@ -632,16 +633,15 @@ We construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}
 Let $\mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.
 
 \begin{lem}
-  $|X|\le 18c(t+1)n/D$.
+  $|X|\le (18tn/D)(1+\log N)$.
 \end{lem}
 
 \begin{proof}
-  Observe that $\sum_{j=0}^{N/2^i-1} W_{i,j}=\sum_{j=0}^{N/2^i-1} |V(G_{i,j})| \le 3n$, since, each vertex $v$ of $G$ can only appear in $Q^+_{i,j-1}, Q^+_{i,j}$, and $Q^+_{i,j+1}$ where $j$ is the unique index such that $v\in V(Q_{i,j})$.    By definition, $|X_{i,j}|=3\cdot 2^i \cdot |Y_{i,j}| \le 6c(t+1)W_{i,j}/D$.  Therefore, $\sum_{j=0}^{N/2^i-1} |X_{i,j}|\le 18c(t+1)n/D$.
+  Observe that $\sum_{j=0}^{N/2^i-1} \xi_{i,j}(H)\le\sum_{j=0}^{N/2^i-1} 3|V(G_{i,j})| \le 3n$, since, each vertex $v$ of $G$ can only appear in $Q^+_{i,j-1}, Q^+_{i,j}$, and $Q^+_{i,j+1}$ where $j$ is the unique index such that $v\in V(Q_{i,j})$.    By definition, $|X_{i,j}|=3\cdot 2^i \cdot |Y_{i,j}| \le 6ct\xi_{i,j}(H)/D$.  Therefore, $\sum_{j=0}^{N/2^i-1} |X_{i,j}|\le 18ctn/D$. Summing over $i\in\{0,\ldots,\log N\}$ completes the proof.
   % Any subpath $P':=y_{q+1},\ldots,y_{q+\ell}$ of $P$ is contained in $P^+_{i,j}$ for $i:=\lceil\log \ell\rceil$ and $j=\lfloor(q+1)/2^i\rfloor$.  Therefore $H\boxtimes P'$ is contained in $Q^+_{i,j}$.  Therefore, each component of $(H\boxtimes P')-X$ is contained in a component of $Q_{i,j}-X_{i,j}$.  Therefore, each component of $(H\boxtimes P')-X$ contains at most $D2^{i-1}\le D\ell$ vertices of $G$.
 \end{proof}
 
 \subsection{\boldmath The Distance Function $d^*$}
-
 
 
 We now define the distance function $d^*$ that makes use of the structure of $(H\boxtimes P)-X$.  Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
@@ -711,13 +711,7 @@ Next we argue that $d^*$ is a distance function.
 \begin{proof}
   It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V(H\boxtimes P)\setminus X$ and that $d^*(u,v)=d^*(v,u)\ge 0$ for all $u,v\in V(H\boxtimes P)\setminus X$.  All that remains is to verify that $d^*$ satisfies the triangle inequality.
 
-  Let $u:=(x_1,y_a)$, $v:=(x_2,y_b)$ and $w:=(x_3,y_c)$ be three vertices of $(H\boxtimes P)- X$.
-  % Since $u\not\in X$, $u$ is a vertex of $G_{0,a}$. Therefore $i^*(u,u)=-\infty$, so $d^*(u,u)=2^{-\infty}=0$.
-  %
-  % Let $v:=(x_2,y_b)\in V(H\boxtimes P)\setminus (X\cup\{u\})$.  Then, since $i^*(v,w)\in \Z\cup \{-\infty\}$, $d^*(u,v)=2^{i^*(u,v)}\ge 0$.  Furthermore, by the definition of $i^*$, $i^*(u,v)=i^*(v,u)$, so $d^*(u,v)=2^{i^*(u,v)}=d^*(v,u)$.
-  %
-  % Let $w:=(x_2,y_c)\in V(H\boxtimes P)\setminus X$.
-  We must show that $d^*(u,w)\le d^*(u,v)+d^*(v,w)$.  If $d^*(u,w)=0$ then this is immediate, so suppose $d^*(u,w)>0$.
+  Let $u:=(x_1,y_a)$, $v:=(x_2,y_b)$ and $w:=(x_3,y_c)$ be three vertices of $(H\boxtimes P)- X$.  We must show that $d^*(u,w)\le d^*(u,v)+d^*(v,w)$.  If $d^*(u,w)=0$ then this is immediate, so suppose $d^*(u,w)>0$.
 
   If $d^*(u,w)=d_{H\boxtimes P}(u,w)$ then this follows immediately from the fact that $d_{H\boxtimes P}$ satisfies the triangle inequality and the fact that $d^*(u,v) + d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w)$.
 
@@ -734,36 +728,7 @@ The preceding lemmas are summarized in the following corollary:
   The metric space $(V((H\boxtimes P)-X), d^*)$ is a is a contraction of $(V((H\boxtimes P)-X), d_{(H\boxtimes P)-X})$ and the metric space $(V(G-X),d^*)$ has local density $O(D)$.
 \end{cor}
 
-% The following lemma shows that the metric space $(V(G),d^*)$ has local density at most $3D$:
-%
-%
-% \begin{lem}
-%     The metric space $(V((H\boxtimes P)-X),d^*)$ is a contraction of $(V((H\boxtimes P)-X),d_{(H\boxtimes P)-X})$.
-% \end{lem}
 
-
-
-% \pat{There's a huge hole here that I noticed while writing introductory material.   We need a volume-preserving embedding of $H\boxtimes P-Z$, since that's the metric space with small local density.\\[2ex] I think I know what to do, but this just got a lot more interesting.}
-
-
-% Since a number of other minor-closed and non-minor-closed graph classes have a product stucture similar to that of planar graphs, we will prove the following result, which generalizes \cref{rao} from planar graphs to product structured graphs.
-
-% Note that, although the definition of volume-preserving contractions applies to a metric space $(S,d)$, it is still meaningful when applied to any pair $(S,d^*)$ where $d^*:S^2\to\R_{\ge 0}$ satisfies the requirements of a distance function except, possibly, the triangle inequality.  In this section we will prove the following result:
-
-% \begin{thm}\label{product_contraction}
-%   Let $H$ be a graph of treewidth $t\ge 1$, let $P$ be a path, and let $G$ be an $n$-vertex subgraph of $H\boxtimes P$.  Let $G_{i,j}, $Q_{i,j}$, $X_{i,j}$ and $d^*$ be defined as in the previous section (in terms of $H$, $P$, and $G$).  Then $(V(H\boxtimes P), d^*)$ has a $(k,O(t\sqrt{\log n}))$-volume-preserving Euclidean contraction.
-% \end{thm}
-
-% The proof of \cref{product_contraction} uses many of the ideas from the proof of \cref{rao} given by \citet{rao:small}.
-
-% \david{This suggests we are claiming a version of \cref{fan_partition_planar} for any $n$-vertex subgraph of $H\boxtimes P$ where $H$ has no $K_t$ minor. But the sparsification step requires that $H$ has treewidth less than $t$. We should state the following theorem, including the correct dependence on $t$:
-
-% \begin{thm}\label{fan_partition_HP}
-% For every graph $H$ of treewidth $t$ and for every path $P$, every $n$-vertex  subgraph $G$ of $H\boxtimes P$ contains a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
-% \end{thm}
-% }
-
-% The proof of \cref{product_contraction} closely follows Rao's proof of \cref{rao}.
 
 \subsection{Volume-Preserving Contraction of $\mathcal{M}^*$}
 
@@ -775,14 +740,17 @@ In this section we prove the following result:
 
 \subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
 
+\pat{The next two sections can be simplified.  We can assume $H$ is a $t$-tree.  Then doing BFS in $H$ and chopping one out of every $\Delta$ layers breaks $H$ into components of weak diameter at most $2\Delta$ (by shadow completeness).  Then you chop $P$ as before, which breaks $H\boxtimes P$ into components of weak diameter at most $2\Delta$.}
+
+
 First, fix some integer $\Delta \ge 1$.
 Consider the following random process that, given a connected graph $H$ constructs a random subset $\mathdefin{\textsc{Chop}_{\Delta,t}(H)}$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(C_i)$.
 
 
 The following lemma, with a greater dependence on $t$, is due to \citet{klein.plotkin.ea:excluded}. The version shown here was proved by \citet{fakcharoenphol.talwar:improved}. The presentation here closely follows that of \citet{lee:simpler}.
 
-\begin{lem}[{\citet{klein.plotkin.ea:excluded,fakcharoenphol.talwar:improved}}]\label{component_diameter_h}
-  If $H$ is a connected $K_{t+1}$-minor-free graph then each component $C$ of $H-\textsc{Chop}_{\Delta,t}(H)$ has $\diam_H(C)\le?t\Delta$.
+\begin{lem}[{\citet{klein.plotkin.ea:excluded,fakcharoenphol.talwar:improved,lee:simpler}}]\label{component_diameter_h}
+  If $H$ is a connected $K_{t+1}$-minor-free graph then each component $C$ of $H-\textsc{Chop}_{\Delta,t}(H)$ has $\diam_H(C)\le 16t\Delta$.
 \end{lem}
 
 
