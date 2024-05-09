@@ -447,8 +447,7 @@ First, we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a fi
 In this section we will prove a generalization of the following result:
 
 \begin{lem}\label{planar_sparsifier}
-  For each $1\le D\le n$ \david{many readers will think this means that $D$ is in $\{1,2,\dots,n\}$,
-  so I suggest we start ``For any $D\in\mathbb{R}$ with $1\leq D\leq N$''}, every $n$-vertex planar graph $G$ has a set $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $D$.
+  For any $D\in\mathbb{R}$ with $1\leq D\leq n$, every $n$-vertex planar graph $G$ has a set $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $D$.
 \end{lem}
 
 Before continuing, we show that this, combined with the following result of \citet{rao:small}, establishes \cref{main_thm_planar}.
@@ -484,45 +483,43 @@ The proof of \cref{planar_sparsifier} will make use of the following fairly stan
 
 
 \begin{lem}\label{weighted_separator}
-    Let $H$ be a graph; let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree decomposition of $H$; and let $\xi:V(H)\to\R$ be a function that is positive on $V(H)$. \david{I suggest we define
-      $\xi(X):=\sum_{v\in V(X)} \xi(v)$ for any subgraph $X$ of $H$, and use throughout, including replacing $\Xi$ by $\xi(H)$.} Then, for any $c\in\N\setminus\{0\}$, there exists $S_T\subseteq V(T)$ of size $|S_T|\le c-1$ such that, for each component $X$ of $H-(\bigcup_{x\in S_T} B_x)$, $\sum_{v\in V(X)} \xi(v) \le \tfrac{1}{c}\cdot\sum_{v\in V(H)} \xi(v)$. \david{replace $S_T$ by $S$?}
+    Let $H$ be a graph; let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree decomposition of $H$; and let $\xi:V(H)\to\R$ be a function that is positive on $V(H)$.  For any subgraph $X$ of $T$, let       $\xi(X):=\sum_{v\in V(X)} \xi(v)$. Then, for any $c\in\N\setminus\{0\}$, there exists $S_T\subseteq V(T)$ of size $|S|\le c-1$ such that, for each component $X$ of $H-(\bigcup_{x\in S_T} B_x)$, $\xi(X)\le \xi(H)/c$.
 \end{lem}
 
 \begin{proof}
-  Let $\Xi:=\sum_{v\in V(H)} \xi(v)$.
-  The proof is by induction $c$.  The base case $c=1$ is trivial, since $S_T:=\emptyset$ satisfies the requirements of the lemma.  Now assume $c\ge 2$.  Root $T$ at some arbitrary vertex $r$ and for each $x\in V(T)$, let $T_x$ denote the subtree of $T$ induced by $x$ and all its $T$-descendants.  Let $H_x:=H[\bigcup_{y\in V(T_x)} B_y]$.  Say that a node $x$ of $T$ is \defin{heavy} if $\sum_{v\in V(H_x)} \xi(v) \ge \tfrac{1}{c}\cdot \Xi$. Since $c\ge 1$, $r$ is heavy, so $T$ contains at least one heavy vertex. Let $x$ be a heavy vertex of $T$ with the property that no child of $x$ is also heavy.  Then $H':=H-V(H_x)$ has weight $\sum_{v\in V(H')} \xi(v) \le (1-1/c)\cdot\Xi$.  On the other hand, every component $C$ of $H-V(H')-B_x$ has weight $\sum_{v\in V(C)} \xi(v) \le \tfrac{1}{c}\cdot\Xi$.  Apply induction on the graph $H'$ with tree decomposition $\mathcal{T}':=(B_x\cap V(H'):x\in V(T))$ and $c':=c-1$ to obtain a set $S_T'$ of size at most $c-2$ such that each component $X$ of $H'-(\bigcup_{x\in S_T} B_x)$, has weight at most $\sum_{v\in V(X)} \xi(v) \le \tfrac{1}{c-1}\cdot(1-\tfrac{1}{c})\cdot\Xi = \tfrac{1}{c}\cdot \Xi$.  The set $S_T:=S_T'\cup\{x\}$ satisfies the requirements of the lemma.
+  The proof is by induction $c$.  The base case $c=1$ is trivial, since $S_T:=\emptyset$ satisfies the requirements of the lemma.  Now assume $c\ge 2$.  Root $T$ at some arbitrary vertex $r$ and for each $x\in V(T)$, let $T_x$ denote the subtree of $T$ induced by $x$ and all its descendants.  Let $H_x:=H[\bigcup_{y\in V(T_x)} B_y]$.  Say that a node $x$ of $T$ is \defin{heavy} if $\sum_{v\in V(H_x)} \xi(v) \ge \xi(H)/c$. Since $c\ge 1$, $r$ is heavy, so $T$ contains at least one heavy vertex. Let $x$ be a heavy vertex of $T$ with the property that no child of $x$ is also heavy.  Then $H':=H-V(H_x)$ has weight $\xi(H') = \xi(H)-\xi(H_x) \le (1-1/c)\cdot\xi(H)$.  On the other hand, every component $C$ of $H-V(H')-B_x$ has weight $\xi(C) \le \xi(H)/c$.  Apply induction on the graph $H'$ with tree decomposition $\mathcal{T}':=(B_x\cap V(H'):x\in V(T))$ and $c':=c-1$ to obtain a set $S'$ of size at most $c-2$ such that each component $X$ of $H'-(\bigcup_{x\in S} B_x)$, has weight $\xi(X) \le \tfrac{1}{c-1}\cdot(1-\tfrac{1}{c})\cdot\xi(H) = \tfrac{1}{c}\cdot \xi(H)$.  The set $S:=S'\cup\{x\}$ satisfies the requirements of the lemma.
 \end{proof}
 
-\david{At the start of this section we promised a generalization of \cref{planar_sparsifier}. So at this point, should we prove the following: Let $G$ be an $n$-vertex graph that has a layering such that the subgraph induced by the union of any $r$ consecutive layers has treewidth at most $cr-1$. Then for any $D\in\mathbb{R}$ with $1\leq D\leq N$, $G$ has a set $X$ of $O((n/D)\log n)$ vertices such that $G-X$ has local density at most $D$. We will need this later.}
+A \defin{layering} of a graph $G$ is a collection disjoint sets $\{L_s:s\in\Z\}$ indexed by integers whose union is $V(G)$ and such that, for each edge $vw$ of $G$, $v\in L_i$ and $w\in L_j$ implies that $|i-j|\le 1$.
+For a connected graph $G$ and a vertex $v$ of $G$, the \defin{$v_0$-rooted BFS layering} of $G$ is the layering $\{L_s:s\in\Z\}$ where $L_s:=\{v\in V(G): d_G(v_0,v)=s\}$ for each $s\in\Z$. It is a well known property of planar graphs that, for any connected planar graph $G$, any BFS layering $\{L_s:s\in\Z\}$ of $G$, any integer $s$, and any positive integer $r$, $G[L_s\cup\cdots\cup L_{s+r-1}]$ has treewidth at most $3t-1$ \cite{baker:approximation}.  Thus, \cref{planar_sparsifier} is an immediate consequence of the following result:\footnote{If $G$ is not connected, add edges to create a connected planar supergraph $G^+$ of $G$ and use a BFS layering of $G^+$ with \cref{sparsifer_baker} to find a set $X$ of size $O(n/D)$ such that $G^+-X$ has local density at most $D$. Then, by \cref{contraction_increases_density,supergraph_contraction}, $G-X$ has local density at most $D$.}
 
 
-\begin{proof}[Proof of \cref{planar_sparsifier}]
-  If $G$ is not connected, add edges to create a connected planar supergraph $G^+$ of $G$. If there exists $X$ of size $O(n/D)$ such that $G^+-X$ has local density at most $D$ then, by \cref{contraction_increases_density,supergraph_contraction}, $G-X$ has local density at most $D$.
- Thus, it suffices to consider the case where $G$ is connected.
+\begin{lem}\label{sparsifier_baker}
+  Let $G$ be an $n$-vertex graph with a layering $\{L_s:s\in Z\}$ such that for any integer $s$ and any positive integer $r$, $\tw(G[L_s\cup\cdots\cup L_{s+r-1}])\le t$.  Then, for any $D\in\R$ with $1\le D\le n$, $G$ contains a set $X$ of at most $(18tn/D)\log n$ vertices such that $G-X$ has local density at most $D$.
+\end{lem}
 
- Let $v_0$ be any vertex of $G$ and, for each integer $s$, let $L_s:=\{v\in V(G): d_G(v_0,v)=s\}$, and let $h:=\max\{s:|L_s|>0\}$.  ($L_0,\ldots,L_h$ is known as a BFS layering of $G$.) It is a well known property of planar graphs that, for any integers $s$ and $t$, $G[L_s\cup\cdots\cup L_{s+t-1}]$ has treewidth at most $3t-1$ \cite{baker:approximation}.
-
+\begin{proof}
  For each positive integer $i$ and each integer $j$, let $G_{i,j}:=G[\bigcup_{s=j2^i}^{(j+1)2^i-1} L_s]$,  and let $G^+_{i,j}=G[V(G_{i,j-1})\cup V(G_{i,j})\cup V(G_{i,j+1})]$.  Observe that, for any $i$, the graphs in $\{ G_{i,j}\}_{j\in\N}$ are pairwise vertex disjoint.  By the definition $G^+_{i,j}$, this implies that the graphs in $\{ G_{i,j}\}_{j\in\N}$ have a total of at most $3n$ vertices.
 
- For each $i\in\{0,\ldots,\lfloor \log h\rfloor\}$ and each $j$, $G^+_{i,j}$ has treewidth at most $9\cdot 2^i-1$.  By \cref{weighted_separator}, with weight function $\zeta(v):=1$ and $c=\lceil |V(G^+_{i,j})|/(D2^{i-1})\rceil$, there exists a set $X_{i,j}$ of size
+ For each $i\in\{0,\ldots,\lfloor \log h\rfloor\}$ and each $j$, $G^+_{i,j}$ has treewidth at most $3t\cdot 2^i-1$.  By \cref{weighted_separator}, with weight function $\zeta(v):=1$ and $c=\lceil |V(G^+_{i,j})|/(D2^{i-1})\rceil$, there exists a set $X_{i,j}$ of size
  \[
-    |X_{i,j}|\le 9\cdot 2^i\cdot(c-1) =
-    9\cdot 2^i\cdot\left(\left\lceil\frac{ |V(G^+_{i,j})|}{D2^{i-1}}\right\rceil-1\right) \le
-    \frac{9\cdot 2^i\cdot|V(G^+_{i,j})|}{ D2^{i-1}}
-    = \frac{18|V(G^+_{i,j})|}{D}
+    |X_{i,j}|\le 3t\cdot 2^i\cdot(c-1) =
+    3t\cdot 2^i\cdot\left(\left\lceil\frac{ |V(G^+_{i,j})|}{D2^{i-1}}\right\rceil-1\right) \le
+    \frac{3t\cdot 2^i\cdot|V(G^+_{i,j})|}{ D2^{i-1}}
+    = \frac{6t|V(G^+_{i,j})|}{D}
  \]
  such that each component of $G^+_{i,j}-X_{i,j}$ has at most $|V(G^+_{i,j})|/c \le D2^{i-1}$ vertices.  Let $X:=\bigcup_{i=0}^{\lfloor\log h\rfloor-1}\bigcup_{j}X_{i,j}$.  Then
  \[
     |X| \le
     \sum_{i=0}^{\lfloor\log h\rfloor-1}\sum_{j} |X_{i,j}|
     \le
-    \sum_{i=0}^{\lfloor\log h\rfloor-1}\sum_{j} \frac{18|V(G^+_{i,j})|}{D}
+    \sum_{i=0}^{\lfloor\log h\rfloor-1}\sum_{j} \frac{6t|V(G^+_{i,j})|}{D}
     \le
-    \sum_{i=0}^{\lfloor\log h\rfloor-1}\frac{54n}{D}
+    \sum_{i=0}^{\lfloor\log h\rfloor-1}\frac{18tn}{D}
     % \le
     % \frac{3(?3+1)n(1+\log h)}{D}
     % = O((n/D)\log n)
-    \le \frac{54\log h}{D}\le\frac{54\log n}{D}
+    \le \frac{18tn\log h}{D}\le\frac{18tn\log n}{D}
     \enspace .
     % \frac{3(?3+1)n(1+\log n)}{D}
  \]
