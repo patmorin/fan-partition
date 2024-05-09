@@ -491,25 +491,26 @@ The proof of \cref{planar_sparsifier} will make use of the following fairly stan
 \end{proof}
 
 A \defin{layering} of a graph $G$ is a collection disjoint sets $\{L_s:s\in\Z\}$ indexed by integers whose union is $V(G)$ and such that, for each edge $vw$ of $G$, $v\in L_i$ and $w\in L_j$ implies that $|i-j|\le 1$.
-For a connected graph $G$ and a vertex $v$ of $G$, the \defin{$v_0$-rooted BFS layering} of $G$ is the layering $\{L_s:s\in\Z\}$ where $L_s:=\{v\in V(G): d_G(v_0,v)=s\}$ for each $s\in\Z$. It is a well known property of planar graphs that, for any connected planar graph $G$, any BFS layering $\{L_s:s\in\Z\}$ of $G$, any integer $s$, and any positive integer $r$, $G[L_s\cup\cdots\cup L_{s+r-1}]$ has treewidth at most $3t-1$ \cite{baker:approximation}.  Thus, \cref{planar_sparsifier} is an immediate consequence of the following result:\footnote{If $G$ is not connected, add edges to create a connected planar supergraph $G^+$ of $G$ and use a BFS layering of $G^+$ with \cref{sparsifer_baker} to find a set $X$ of size $O(n/D)$ such that $G^+-X$ has local density at most $D$. Then, by \cref{contraction_increases_density,supergraph_contraction}, $G-X$ has local density at most $D$.}
+A layering $\{L_s:s\in\Z\}$ has the \defin{$t$-Baker property} if, for every $s\in\Z$ and $r\in\N$, $G[L_s\cup\cdots\cup L_{s+r-1}]$ has treewidth at most $s(t+1)-1$. A graph $G$ has the \defin{$t$-Baker property} if $G$ has some layering with the $t$-Baker property.  Clearly if every connected compoonent of $G$ has the $t$-Baker property then $G$ has the $t$-Baker property.
 
+It is a well known that planar graphs have the $2$-Baker property \cite{baker:approximation} and, for a connected planar graph $G$, any BFS layering of $G$ has the $2$-Baker property. Thus, \cref{planar_sparsifier} is an immediate consequence of the following result:
 
 \begin{lem}\label{sparsifier_baker}
-  Let $G$ be an $n$-vertex graph with a layering $\{L_s:s\in Z\}$ such that for any integer $s$ and any positive integer $r$, $\tw(G[L_s\cup\cdots\cup L_{s+r-1}])\le t$.  Then, for any $D\in\R$ with $1\le D\le n$, $G$ contains a set $X$ of at most $(18tn/D)\log n$ vertices such that $G-X$ has local density at most $D$.
+  Let $G$ be an $n$-vertex graph with the $t$-Baker property.  Then, for any $D\in\R$ with $1\le D\le n$, $G$ contains a set $X$ of at most $(18tn/D)\log n$ vertices such that $G-X$ has local density at most $D$.
 \end{lem}
 
 \begin{proof}
- For each positive integer $i$ and each integer $j$, let $G_{i,j}:=G[\bigcup_{s=j2^i}^{(j+1)2^i-1} L_s]$,  and let $G^+_{i,j}=G[V(G_{i,j-1})\cup V(G_{i,j})\cup V(G_{i,j+1})]$.  Observe that, for any $i$, the graphs in $\{ G_{i,j}\}_{j\in\N}$ are pairwise vertex disjoint.  By the definition $G^+_{i,j}$, this implies that the graphs in $\{ G_{i,j}\}_{j\in\N}$ have a total of at most $3n$ vertices.
+  Let $\{L_s:s\in Z\}$ be a layering of $G$ with the $t$-Baker property. For each positive integer $i$ and each integer $j$, let $G_{i,j}:=G[\bigcup_{s=j2^i}^{(j+1)2^i-1} L_s]$,  and let $G^+_{i,j}=G[V(G_{i,j-1})\cup V(G_{i,j})\cup V(G_{i,j+1})]$.  Observe that, for any $i$, the graphs in $\{ G_{i,j}\}_{j\in\N}$ are pairwise vertex disjoint.  By the definition $G^+_{i,j}$, this implies that the graphs in $\{ G_{i,j}\}_{j\in\N}$ have a total of at most $3n$ vertices.
 
- For each $i\in\{0,\ldots,\lfloor \log h\rfloor\}$ and each $j$, $G^+_{i,j}$ has treewidth at most $3t\cdot 2^i-1$.  By \cref{weighted_separator}, with weight function $\zeta(v):=1$ and $c=\lceil |V(G^+_{i,j})|/(D2^{i-1})\rceil$, there exists a set $X_{i,j}$ of size
- \[
+  For each $i\in\{0,\ldots,\lfloor \log h\rfloor\}$ and each $j$, $G^+_{i,j}$ has treewidth at most $3t\cdot 2^i-1$.  By \cref{weighted_separator}, with weight function $\zeta(v):=1$ and $c=\lceil |V(G^+_{i,j})|/(D2^{i-1})\rceil$, there exists a set $X_{i,j}$ of size
+  \[
     |X_{i,j}|\le 3t\cdot 2^i\cdot(c-1) =
     3t\cdot 2^i\cdot\left(\left\lceil\frac{ |V(G^+_{i,j})|}{D2^{i-1}}\right\rceil-1\right) \le
     \frac{3t\cdot 2^i\cdot|V(G^+_{i,j})|}{ D2^{i-1}}
     = \frac{6t|V(G^+_{i,j})|}{D}
- \]
- such that each component of $G^+_{i,j}-X_{i,j}$ has at most $|V(G^+_{i,j})|/c \le D2^{i-1}$ vertices.  Let $X:=\bigcup_{i=0}^{\lfloor\log h\rfloor-1}\bigcup_{j}X_{i,j}$.  Then
- \[
+  \]
+  such that each component of $G^+_{i,j}-X_{i,j}$ has at most $|V(G^+_{i,j})|/c \le D2^{i-1}$ vertices.  Let $X:=\bigcup_{i=0}^{\lfloor\log h\rfloor-1}\bigcup_{j}X_{i,j}$.  Then
+  \[
     |X| \le
     \sum_{i=0}^{\lfloor\log h\rfloor-1}\sum_{j} |X_{i,j}|
     \le
@@ -522,8 +523,8 @@ For a connected graph $G$ and a vertex $v$ of $G$, the \defin{$v_0$-rooted BFS l
     \le \frac{18tn\log h}{D}\le\frac{18tn\log n}{D}
     \enspace .
     % \frac{3(?3+1)n(1+\log n)}{D}
- \]
- Now, consider some ball $B_{G-X}(v,r)$, let $i=\lceil\log r\rceil$, and let $j$ be the unique integer such that $v\in V(G_{i,j})$.  Then $B_{G-X}(v,r)$ is contained in a single component of $G^+_{i,j}-X_{i,j}$, and this component has at most $D2^{i-1}=D2^{\lceil\log r\rceil-1}\le Dr$ vertices.
+  \]
+  Now, consider some ball $B_{G-X}(v,r)$, let $i=\lceil\log r\rceil$, and let $j$ be the unique integer such that $v\in V(G_{i,j})$.  Then $B_{G-X}(v,r)$ is contained in a single component of $G^+_{i,j}-X_{i,j}$, and this component has at most $D2^{i-1}=D2^{\lceil\log r\rceil-1}\le Dr$ vertices.
 \end{proof}
 
 
@@ -550,6 +551,23 @@ For a connected graph $G$ and a vertex $v$ of $G$, the \defin{$v_0$-rooted BFS l
 
 
 \section{\boldmath Volume Preserving Embeddings of Subgraphs of $H\boxtimes P$}
+
+% Let $G$ be a finite graph and let $\mathcal{D}:2^{V(G)}\to[0,1]$ be a probability distribution over subsets of $V(G)$.  Then $\mathcal{D}$ has the \defin{KPR$(\epsilon,\delta,\Delta)$-property} if
+% \begin{compactenum}[(i)]
+%   \item For each $Z$ in the support of $\mathcal{D}$, each component $C$ of $G-Z$ has $\diam_G(C)< \Delta$.
+%   \item For each vertex $v$ of $G$ if we draw $Z$ according to the distribution $\mathcal{D}$, then
+%   \[  \Pr(\text{$Z=\emptyset$ or $d_G(v,Z) \ge \floor{\epsilon\Delta})$})\ge \delta \enspace .
+%   \]
+% \end{compactenum}
+% A graph $G$ has the \defin{KPR($\epsilon,\delta)$ property} if, for every positive integer $\Delta$, there exists a distribution $\mathcal{D}_\Delta$ over subsets of $V(G)$ that has the KPR$(\epsilon,\delta,\Delta)$-property.  A family $\mathcal{G}$ of graphs has the \defin{KPR property} if there exists some $\epsilon,\delta>0$ such that every graph in $\mathcal{G}$ has the KPR$(\epsilon,\delta)$ property.
+%
+% Building on the decomposition of \citet{klein.plotkin.ea:excluded}, \citet{rao:small} shows that planar graphs have the KPR property.  More generally,
+%
+% \begin{thm}
+%   Every $K_{h}$-minor-free graph has the   KPH(\Omega,)
+% \end{thm}
+%
+
 
 In this section, we prove \cref{main_thm_products}.  The structure of our proof is based on the proof of \cref{rao} by \citet{rao:small}, which applies to planar graphs and even to $K_{h}$-minor-free graphs for any fixed $h$.  However, the proof cannot be applied directly since graph products of the form $H\boxtimes P$ are not $K_h$-minor-free for any fixed $h$, even when $H$ is a tree and $P$ is a path. Indeed, if $T$ is the tree obtained from the path $P_{2n+1}$ by adding one leaf adjacent to the middle vertex, then $K_n$ is a minor of the `tennis court' graph $T\mathbin{\square} P_{n^2}$ (see  \citep{Wood-NYJM11}).
 
