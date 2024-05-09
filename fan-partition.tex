@@ -196,6 +196,8 @@ Building on previous work in \citep{dujmovic.joret.ea:planar,ueckerdt.wood.ea:im
 Every $n$-vertex graph of Euler genus $g$ is contained in a $O((g+1)\sqrt{n}\log^2 n)$-blowup of a fan.
 \end{thm}
 
+\pat{\Cref{genus_products} can be improved without using graph products. Every $n$-vertex genus-$g$ graph $G$ has a set of $X_0$ of $O(\sqrt{gn})$ vertices such that $G-X_0$ is planar \cite{eppstein:dynamic}. Apply \cref{main_thm_planar} to $G-X_0$ to get $X'$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X_0-X'$ has bandwidth $O(\sqrt{n}\log^2 n)$.  Now take $X:=X_0\cup X'$ to get a set $X$ of size $O(\sqrt{gn} + \sqrt{n}\log^2 n)$ such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.}
+
 We have the following further generalisation\footnote{A graph $X$ is a \defin{minor} of a graph $G$ a graph isomorphic to $X$ can be obtained from a subgraph of $G$ by edge contractions. A graph $G$ is \defin{$X$-minor-free} if $X$ is not a minor of $G$.}.
 A graph $X$ is \defin{apex} if $X-a$ is planar for some vertex $a\in V(X)$. \citet{dujmovic.joret.ea:planar} showed that for every apex graph $X$ there exists $c$ such that every $X$-minor-free graph has row treewidth at most $c$ (and such a theorem holds only if $X$ is apex). \cref{main_thm_products} thus implies:
 
@@ -208,6 +210,8 @@ Product structure theorems are known for various non-minor-closed classes~\citep
 \begin{thm}\label{gkplanar_products}
 Every $n$-vertex $(g,k)$-planar graph is contained in a $O((g+1)k^5\sqrt{n}\log^2 n)$-blowup of a fan.
 \end{thm}
+
+\pat{Here's a better result, again without using product structure:  Add dummy vertices at each crossing in $G$ to get a genus-$g$ graph $G'$ with $O(k(n+g))$ vertices.  Take $X_0$ to be a planarizing set $X_0'$ of $G'$ of size $O(\sqrt{k(n+g)g})=O(\sqrt{kn}+g\sqrt{k})$. Replace every dummy $x$ in $X_0'$ with (at most four) real vertices corresponding to the two edges that cross at $x$.  Now $G-X_0'$ is $k$-planar.  Add dummy vertices at each crossing in $G-X_0'$ to get a planar graph $G''$ with $O(kn)$ vertices. Apply \cref{planar_sparsifier} to $G''$ to get $X''$ of size $O((kn/D)\log n)$ such that $G''$ has local density $D$.  By \cref{rao}, $G''$ has bandwidth $O(D\log^3 n)$.  Replace each dummy vertex in $X''$ by the (at most $4$) corresponding real vertices and let $X:=X_0'\cup X''$.  Then $|X|=O(\sqrt{kn}+g\sqrt{k}+(kn/D)\log n)$.  Take the $O(D\log^3 n)$-bandwidth ordering of $G''-X''$ and use it for the vertices of $G-X$.  Each edge of $G-X$ corresponds to a path of length at most $k+1$ in $G''-X''$, so this ordering has bandwidth $O(kD\log^3 n)$.  Set $D:=\sqrt{n}/\log n$ to conclude that $G$ has fan-partition-width $O(g\sqrt{k} + k\sqrt{n}\log^2 n)$.}
 
 % \david{
 % Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=10^{10}$ and $c=c_k$).
