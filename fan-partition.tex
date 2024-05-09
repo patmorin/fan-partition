@@ -387,6 +387,8 @@ First, we need a definition of bandwidth for metric spaces.  Let $(S,d)$ be a fi
 %\david{given that `injective' does not appear in the observation, why do we have `injective' here?} \pat{Laziness. In general, a contraction $\phi:A\to B$ of $(A,d_A)$ into $(B,d_B)$ need not be injective, in which case the observation isn't true.  If $B:=\{y\}$ and $\phi(x):=y$ for all $x\in A$ then $\bw(B,d_B)=0$, but this doesn't tell us anything about $\bw(A,d_A)$. The word injective is missing from the statement because saying that $(S,d')$ is a contraction of $(S,d)$ implicitly assumes that we are considering a contraction where $\phi$ is the identity function. I've added (injective) to the statement to remind the reader of this.}
 contractions can only increase bandwidth:
 
+%\david{given that `injective' does not appear in the observation, why do we have `injective' here?} \pat{Laziness. In general, a contraction $\phi:A\to B$ of $(A,d_A)$ into $(B,d_B)$ need not be injective, in which case the observation isn't true.  If $B:=\{y\}$ and $\phi(x):=y$ for all $x\in A$ then $\bw(B,d_B)=0$, but this doesn't tell us anything about $\bw(A,d_A)$. The word injective is missing from the statement because saying that $(S,d')$ is a contraction of $(S,d)$ implicitly assumes that we are considering a contraction where $\phi$ is the identity function. I've added (injective) to the statement to remind the reader of this.}
+
 \begin{obs}\label{contraction_increases_bandwidth}
   For any finite metric space $\mathcal{M}:=(S,d)$ and any (injective) contraction $\mathcal{M}':=(S,d')$ of $\mathcal{M}$, $\bw(\mathcal{M}) \le \bw(\mathcal{M}')$.
 \end{obs}
@@ -489,7 +491,7 @@ The proof of \cref{planar_sparsifier} will make use of the following fairly stan
 
 
 \begin{lem}\label{weighted_separator}
-    Let $H$ be a graph; let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree decomposition of $H$; and let $\xi:V(H)\to\R$ be a function that is positive on $V(H)$.  For any subgraph $X$ of $T$, let       $\xi(X):=\sum_{v\in V(X)} \xi(v)$. Then, for any $c\in\N\setminus\{0\}$, there exists $S_T\subseteq V(T)$ of size $|S|\le c-1$ such that, for each component $X$ of $H-(\bigcup_{x\in S_T} B_x)$, $\xi(X)\le \xi(H)/c$.
+    Let $H$ be a graph; let $\mathcal{T}:=(B_x:x\in V(T))$ be a tree decomposition of $H$; and let $\xi:V(H)\to\R$ be a function that is non-negative on $V(H)$.  For any subgraph $X$ of $T$, let       $\xi(X):=\sum_{v\in V(X)} \xi(v)$. Then, for any $c\in\N\setminus\{0\}$, there exists $S_T\subseteq V(T)$ of size $|S|\le c-1$ such that, for each component $X$ of $H-(\bigcup_{x\in S_T} B_x)$, $\xi(X)\le \xi(H)/c$.
 \end{lem}
 
 \begin{proof}
