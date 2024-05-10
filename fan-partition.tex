@@ -580,7 +580,7 @@ It is a well known that planar graphs have the $2$-Baker property \cite{baker:ap
 
 In this section, we prove \cref{main_thm_products}.  The structure of our proof is based on the proof of \cref{rao} by \citet{rao:small}, which applies to planar graphs and even to $K_{h}$-minor-free graphs for any fixed $h$.  However, the proof cannot be applied directly since graph products of the form $H\boxtimes P$ are not $K_h$-minor-free for any fixed $h$, even when $H$ is a tree and $P$ is a path. Indeed, if $T$ is the tree obtained from the path $P_{2n+1}$ by adding one leaf adjacent to the middle vertex, then $K_n$ is a minor of the `tennis court' graph $T\mathbin{\square} P_{n^2}$ (see  \citep{Wood-NYJM11}).
 
-For the remainder of the paper, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P$ is a path.  The proof of \cref{main_thm_products} has the following structure. We use the notation $\mathcal{M}\rightbroom\mathcal{M'}$ to denote that $\mathcal{M}'$ is a contraction of $\mathcal{M}$.
+For the remainder of the paper, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P$ is a path.\pat{Emphasize the fact that $H$ is a $t$-tree. It's important later.}  The proof of \cref{main_thm_products} has the following structure. We use the notation $\mathcal{M}\rightbroom\mathcal{M'}$ to denote that $\mathcal{M}'$ is a contraction of $\mathcal{M}$.
 
 \begin{enumerate}
   \item Use \cref{sparsifier_baker} to find a set $X\subseteq H\boxtimes P$ of size $O(\sqrt{n}\log^2 n)$ such that the metric space $\mathcal{M}:=(V(G-X),d_{(H\boxtimes P)-X})$ has local density $D\in O(\sqrt{n}/\log n)$.  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, $\mathcal{M}$ is a contraction of the metric space $\mathcal{M}_{G-X}:=(V(G-X),d_{G-x})$ (by \cref{supergraph_contraction}), so $\mathcal{M}_{G-X}\rightbroom\mathcal{M}$.
@@ -746,58 +746,85 @@ In this section we prove the following result:
   For every integer $k\in\{1,\ldots,n\}$, the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction. \todo{Check quantifier on $k$}
 \end{lem}
 
-\subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
+\subsection{Decomposing $H\boxtimes P$}
 
-\pat{The next two sections can be simplified.  We can assume $H$ is a $t$-tree.  Then doing BFS in $H$ and chopping one out of every $\Delta$ layers breaks $H$ into components of weak diameter at most $2\Delta$ (by shadow completeness).  Then you chop $P$ as before, which breaks $H\boxtimes P$ into components of weak diameter at most $2\Delta$.}
+Let $r_H$ and $r_P$ be two independent uniformly random integers in $\{0,\ldots,\Delta-1\}$. For each integer $a$, let $H^\Delta_a:=H[\bigcup_{s=r_H+a\Delta}^{r_H+(a+1)\Delta-1} L_s]$ so that $\{H^\Delta_a:a\in Z\}$ is a pairwise vertex-disjoint collection of induced subgraphs that covers $V(H)$ and each $H^\Delta_a$ is a subgraph of $H$ induced by $\Delta$ consecutive BFS layers. For each integer $b$, let $P^\Delta_b:=P[\{y_{r_P+b\Delta},\ldots,y_{r_P+(b+1)\Delta-1}]$ so that $\{P^\Delta_b:b\in\Z\}$ is a collection of vertex disjoint paths, each having $\Delta$ vertices, that cover $P$. Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each $(a,b)\in\Z^2$, let $(H\boxtimes P)^\Delta_{a,b}:= H^\Delta_a \boxtimes P^\Delta_b$.
 
-
-First, fix some integer $\Delta \ge 1$.
-Consider the following random process that, given a connected graph $H$ constructs a random subset $\mathdefin{\textsc{Chop}_{\Delta,t}(H)}$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(C_i)$.
-
-
-The following lemma, with a greater dependence on $t$, is due to \citet{klein.plotkin.ea:excluded}. The version shown here was proved by \citet{fakcharoenphol.talwar:improved}. The presentation here closely follows that of \citet{lee:simpler}.
-
-\begin{lem}[{\citet{klein.plotkin.ea:excluded,fakcharoenphol.talwar:improved,lee:simpler}}]\label{component_diameter_h}
-  If $H$ is a connected $K_{t+1}$-minor-free graph then each component $C$ of $H-\textsc{Chop}_{\Delta,t}(H)$ has $\diam_H(C)\le 16t\Delta$.
-\end{lem}
-
-
-% Say that a vertex $x$ of $H$ is \defin{$\delta$-good} with respect to a set $X\substeq V(H)$ if $d_{H}(x,X)\ge \delta$ and $x$ is \defin{$\delta$-bad} with respect to $X$ otherwise.
-
-% In the following lemma, and for the rest of this section, we use the convention that for any vertex $x$ of $H$, $d_H(x,\emptyset):=\infty$.
-
-\begin{lem}\label{delta_bad_h}
-  For any vertex $x$ of $H$ and any integer $\delta\ge 1$, $$\Pr(d_H(x, \textsc{Chop}_{\Delta,t}(H)< \delta)\le t\,(2\delta-1)/\Delta.$$
+\begin{lem}
+  For each $(a,b)\in\Z^2$, each component $C$ of $(H\boxtimes P)^\Delta_{a,b}$ has $d_{H\boxtimes P}(C)\le 2\Delta+1$.
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $t$. If $d_H(x,\textsc{Chop}_{\Delta,t}(H) < \delta)$ then $d(x,R)< \delta$ or, if $t>1$,  $d_H(x,\textsc{Chop}_{\Delta,t-1}(C) < \delta)$ where $C$ is the component of $H-R$ that contains $x$.  Since there are at most $2\delta-1$ choices of $r$ for which $d_H(x,R)<\delta$, $\Pr(d_H(x,R)<\delta) \le (2\delta-1)/\Delta$. For $t=1$, this completes the proof.  For $t>1$, the proof follows from the inductive hypothesis on $\textsc{Chop}_{\Delta,t-1}(C)$ and the union bound.
+  Let $v:=(v_1,v_2)$ and $w:=(w_1,w_2)$ be two vertices of $(H\boxtimes P)^\Delta_{a,b}$.  Our task is to show that $d_{H\boxtimes P}}(v,w)\le 2\Delta+1$.  Recall that
+  $d_{H\boxtimes P}(v,w)=\max\{d_{H}(v_1,w_1),d_{P}(v_2,w_2)\}$.  Since $P^\Delta_b$ is a subpath of $P$ with $\Delta$ vertices, $d_P(v_2,w_2)=d_{P^\Delta_b}(v_2,w_2)\le\Delta-1$, so we need only upper bound $d_{H}(v_1,w_1)$.
+
+  To do this, we make use of the following property of $t$-trees \cite{kundgen.pelsmajer:?}: For any integer $s$, the set $N_C$ of vertices in $L_{s}$ that are adjacent to a single component $C$ of $H[L_{s+1}]$ form a clique in $H$.
+  Since $v_1$ and $w_1$ are in the same component of $H^\Delta_a$, (i) implies that $H^\Delta_a[L_{r_H+a\Delta}]$ is a connected component $C$ of $H[L_{r_H+a\Delta}]$.  Then $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $v_1$ to a vertex $v_1'$ in $C$.   Likewise, $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $w$ to a vertex $w'$ in $C$. Each of $v'$ and $w'$ has a neighbour $v''$ and $w''$, respectively in $N_C$.  Since $N_C$ is clique $v''=w''$ or $v''$ and $w''$ are adjacent.  In the former case, there is a path in $H$ from $v$ to $w$ of length at most $2\Delta$. In the latter case there is a path from $v$ to $w$ of length at most $2\Delta+1$.
 \end{proof}
 
-\subsection{\boldmath Decomposing $H\boxtimes P$}
-
-% Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$.
-
-Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t}(P):=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=Y_{\Delta,t}(P):=V(H)\times Y_0$.  Let $W_0\subseteq V(H)$ be the set obtained by executing $\textsc{Chop}_{\Delta,t}(H)$, let $W:=W_0\times V(P)$ and let $Z:=\mathdefin{Z_{\Delta,t}(H,P)}:=W\cup Y$.
-
-% For some intuition, it is helpful to consider the case when $H$ is a path and $t=1$.  In this case, $H\boxtimes P$ is a grid with diagonal edges.  Starting from row $r\in\{0,\ldots,\Delta-1\}$, the set $Y$ contains one out of every $\Delta$ rows of this grid.  Each of the components $C_1,\ldots,C_m$ of $H\boxtimes P-Y$, except the top-most, $C_1$ and bottom-most, $C_m$ is a grid with $\Delta-1$ rows.  For each component $C_i$, the set $X$ contains one out of every $\Delta$ columns of $C_i$, starting from column $r_i\in\{0,\ldots,\Delta-1\}$. \todo{Add figure}
-
-\begin{lem}\label{component_diameter}
-  If $H$ is $K_{t+1}$-minor-free, then each component $C$ of $H\boxtimes P-Z$ has $\diam_{H\boxtimes P}(C)\le ?t\Delta$.
+\begin{lem}
+  Fix some vertex $v$ be a vertex of $H\boxtimes P$ independently of $r_H$ and $r_P$ and let $(a,b)$ be such that $v$ is contained in some component of $(H\boxtimes P)^\Delta_{a,b}$.  Then, with probability at least $1/4$,  $d_{H\boxtimes P}(v, V(H\boxtimes P)\setminus V((H\boxtimes P)^\Delta_{a,b})\ge \Delta/4$.
 \end{lem}
 
 \begin{proof}
-  Let $C$ be a component of $H\boxtimes P-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C$, $d_{H\boxtimes P}(x,y) = \max\{d_{H}(x_1,y_1),d_{P}(x_2,y_2)$. By \cref{component_diameter_h},  $d_{H\boxtimes P}(x_1,y_1)\le ?t\Delta$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
+  Let $v:=(v_1,v_2)$.
+  With probability at least $1/2$, $v_2$ is in the middle half of $P_b$.  With probability at least $1/2$, $v_1$ is in the middle half of the layers that define $H^\Delta_a$.
 \end{proof}
 
-\begin{lem}\label{delta_bad_product}
-  For any vertex $x$ of $H\boxtimes P$ and any integer $\delta\ge 1$, $$\Pr(d_{H\boxtimes P}(x,Z)< \delta)\le (t+1)(2\delta-1)/\Delta.$$
-\end{lem}
 
-\begin{proof}
-  If $d_{H\boxtimes P}(x,Z)<\delta$ then $d_{H\boxtimes P}(x,Y)<\delta$ or $d_{C}(x,Z)<\delta$ where $C$ is the component of $H\boxtimes P-Y$ that contains $x$.  Again, there are at most $2\delta-1$ choices of $r_0$ for which $d_{H\boxtimes P}(x,Y)<\delta$, so $\Pr(d_{H\boxtimes P}(x,Y)<\delta)\le (2\delta-1)/\Delta$.  The proof now follows from the union bound and \cref{delta_bad_h}.
-\end{proof}
 
+% \subsection{Decomposing $H$: The Klein-Plotkin-Rao Partition}
+%
+% \pat{The next two sections can be simplified.  We can assume $H$ is a $t$-tree.  Then doing BFS in $H$ and chopping one out of every $\Delta$ layers breaks $H$ into components of weak diameter at most $2\Delta$ (by shadow completeness).  Then you chop $P$ as before, which breaks $H\boxtimes P$ into components of weak diameter at most $2\Delta$.}
+%
+%
+% First, fix some integer $\Delta \ge 1$.
+% Consider the following random process that, given a connected graph $H$ constructs a random subset $\mathdefin{\textsc{Chop}_{\Delta,t}(H)}$ of vertices in $H$. If $t=0$ then $\textsc{Chop}_{\Delta,0}(H):=\emptyset$.  Otherwise, select any vertex $x$ in $H$ and choose a uniformly random $r\in\{0,\ldots,\Delta-1\}$.  Let $R:=\{y\in V(H):d_{H}(x,y)\equiv r\pmod{\Delta}\}$ and let $C_1,\ldots,C_m$ be the connected components of $H-R$.  Then $\textsc{Chop}_{\Delta,t}(H):=R\cup\bigcup_{i=1}^m \textsc{Chop}_{\Delta,t-1}(C_i)$.
+%
+%
+% The following lemma, with a greater dependence on $t$, is due to \citet{klein.plotkin.ea:excluded}. The version shown here was proved by \citet{fakcharoenphol.talwar:improved}. The presentation here closely follows that of \citet{lee:simpler}.
+%
+% \begin{lem}[{\citet{klein.plotkin.ea:excluded,fakcharoenphol.talwar:improved,lee:simpler}}]\label{component_diameter_h}
+%   If $H$ is a connected $K_{t+1}$-minor-free graph then each component $C$ of $H-\textsc{Chop}_{\Delta,t}(H)$ has $\diam_H(C)\le 16t\Delta$.
+% \end{lem}
+%
+%
+% % Say that a vertex $x$ of $H$ is \defin{$\delta$-good} with respect to a set $X\substeq V(H)$ if $d_{H}(x,X)\ge \delta$ and $x$ is \defin{$\delta$-bad} with respect to $X$ otherwise.
+%
+% % In the following lemma, and for the rest of this section, we use the convention that for any vertex $x$ of $H$, $d_H(x,\emptyset):=\infty$.
+%
+% \begin{lem}\label{delta_bad_h}
+%   For any vertex $x$ of $H$ and any integer $\delta\ge 1$, $$\Pr(d_H(x, \textsc{Chop}_{\Delta,t}(H)< \delta)\le t\,(2\delta-1)/\Delta.$$
+% \end{lem}
+%
+% \begin{proof}
+%   The proof is by induction on $t$. If $d_H(x,\textsc{Chop}_{\Delta,t}(H) < \delta)$ then $d(x,R)< \delta$ or, if $t>1$,  $d_H(x,\textsc{Chop}_{\Delta,t-1}(C) < \delta)$ where $C$ is the component of $H-R$ that contains $x$.  Since there are at most $2\delta-1$ choices of $r$ for which $d_H(x,R)<\delta$, $\Pr(d_H(x,R)<\delta) \le (2\delta-1)/\Delta$. For $t=1$, this completes the proof.  For $t>1$, the proof follows from the inductive hypothesis on $\textsc{Chop}_{\Delta,t-1}(C)$ and the union bound.
+% \end{proof}
+%
+% \subsection{\boldmath Decomposing $H\boxtimes P$}
+%
+% % Let $G$ be a subgraph of $H\boxtimes P$ where $P:=y_1,\ldots,y_h$.
+%
+% Choose a uniformly random $r_0\in\{0,\ldots,\Delta-1\}$, let $Y_0:=Y_{0,\Delta,t}(P):=\{y_i\in V(P):i\equiv r_0\pmod\Delta\}$ and let $Y:=Y_{\Delta,t}(P):=V(H)\times Y_0$.  Let $W_0\subseteq V(H)$ be the set obtained by executing $\textsc{Chop}_{\Delta,t}(H)$, let $W:=W_0\times V(P)$ and let $Z:=\mathdefin{Z_{\Delta,t}(H,P)}:=W\cup Y$.
+%
+% % For some intuition, it is helpful to consider the case when $H$ is a path and $t=1$.  In this case, $H\boxtimes P$ is a grid with diagonal edges.  Starting from row $r\in\{0,\ldots,\Delta-1\}$, the set $Y$ contains one out of every $\Delta$ rows of this grid.  Each of the components $C_1,\ldots,C_m$ of $H\boxtimes P-Y$, except the top-most, $C_1$ and bottom-most, $C_m$ is a grid with $\Delta-1$ rows.  For each component $C_i$, the set $X$ contains one out of every $\Delta$ columns of $C_i$, starting from column $r_i\in\{0,\ldots,\Delta-1\}$. \todo{Add figure}
+%
+% \begin{lem}\label{component_diameter}
+%   If $H$ is $K_{t+1}$-minor-free, then each component $C$ of $H\boxtimes P-Z$ has $\diam_{H\boxtimes P}(C)\le ?t\Delta$.
+% \end{lem}
+%
+% \begin{proof}
+%   Let $C$ be a component of $H\boxtimes P-Z$.  For any two vertices $x:=(x_1,x_2)$ and $y:=(y_1,y_2)$ of $C$, $d_{H\boxtimes P}(x,y) = \max\{d_{H}(x_1,y_1),d_{P}(x_2,y_2)$. By \cref{component_diameter_h},  $d_{H\boxtimes P}(x_1,y_1)\le ?t\Delta$.  By the choice of $Y_0$, $d_{P}(x,y)<\Delta$.
+% \end{proof}
+%
+% \begin{lem}\label{delta_bad_product}
+%   For any vertex $x$ of $H\boxtimes P$ and any integer $\delta\ge 1$, $$\Pr(d_{H\boxtimes P}(x,Z)< \delta)\le (t+1)(2\delta-1)/\Delta.$$
+% \end{lem}
+%
+% \begin{proof}
+%   If $d_{H\boxtimes P}(x,Z)<\delta$ then $d_{H\boxtimes P}(x,Y)<\delta$ or $d_{C}(x,Z)<\delta$ where $C$ is the component of $H\boxtimes P-Y$ that contains $x$.  Again, there are at most $2\delta-1$ choices of $r_0$ for which $d_{H\boxtimes P}(x,Y)<\delta$, so $\Pr(d_{H\boxtimes P}(x,Y)<\delta)\le (2\delta-1)/\Delta$.  The proof now follows from the union bound and \cref{delta_bad_h}.
+% \end{proof}
+%
 
 % \subsection{\boldmath Decomposing $Q_{i,j}-X_{i,j}$}
 %
