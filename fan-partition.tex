@@ -131,6 +131,12 @@
 
 \section{Introduction}
 
+\pat{I propose a restructuring of the paper:
+\begin{compactenum}
+    \item Planar graphs. The sparsification theorem and the fan-partition theorem using only the statement of Rao's and Feige's results for graphs.
+    \item $(g,k)$-planar graphs:  This only needs the stuff from the previous section and Eppstein's result on planarizing subgraphs
+    \item Product structured graphs. Metric spaces,  the generalization of Feige's result to metric spaces, the metric space and embedding for product structured graphs.
+\end{compactenum}}
 
 The \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of size $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$.  The current work is motivated by the following question: What is the simplest family of graphs $\mathcal{H}$ such that for each $n$-vertex planar graph $G$ there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$, where $\tilde{O}$ notation hides $\polylog(n)$ terms?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G$ is isomorphic to a subgraph of $G'$.}
 
@@ -755,10 +761,10 @@ Let $r_H$ and $r_P$ be two independent uniformly random integers in $\{0,\ldots,
 \end{lem}
 
 \begin{proof}
-  Let $v:=(v_1,v_2)$ and $w:=(w_1,w_2)$ be two vertices of $(H\boxtimes P)^\Delta_{a,b}$.  Our task is to show that $d_{H\boxtimes P}}(v,w)\le 2\Delta+1$.  Recall that
+  Let $v:=(v_1,v_2)$ and $w:=(w_1,w_2)$ be two vertices of $(H\boxtimes P)^\Delta_{a,b}$.  Our task is to show that $d_{H\boxtimes P}(v,w)\le 2\Delta+1$.  Recall that
   $d_{H\boxtimes P}(v,w)=\max\{d_{H}(v_1,w_1),d_{P}(v_2,w_2)\}$.  Since $P^\Delta_b$ is a subpath of $P$ with $\Delta$ vertices, $d_P(v_2,w_2)=d_{P^\Delta_b}(v_2,w_2)\le\Delta-1$, so we need only upper bound $d_{H}(v_1,w_1)$.
 
-  To do this, we make use of the following property of $t$-trees \cite{kundgen.pelsmajer:?}: For any integer $s$, the set $N_C$ of vertices in $L_{s}$ that are adjacent to a single component $C$ of $H[L_{s+1}]$ form a clique in $H$.
+  To do this, we make use of the following property of $t$-trees \cite{kundgen.pelsmajer:?}:\pat{Provide a proof or reference.} For any integer $s$, the set $N_C$ of vertices in $L_{s}$ that are adjacent to a single component $C$ of $H[L_{s+1}]$ form a clique in $H$.
   Since $v_1$ and $w_1$ are in the same component of $H^\Delta_a$, (i) implies that $H^\Delta_a[L_{r_H+a\Delta}]$ is a connected component $C$ of $H[L_{r_H+a\Delta}]$.  Then $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $v_1$ to a vertex $v_1'$ in $C$.   Likewise, $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $w$ to a vertex $w'$ in $C$. Each of $v'$ and $w'$ has a neighbour $v''$ and $w''$, respectively in $N_C$.  Since $N_C$ is clique $v''=w''$ or $v''$ and $w''$ are adjacent.  In the former case, there is a path in $H$ from $v$ to $w$ of length at most $2\Delta$. In the latter case there is a path from $v$ to $w$ of length at most $2\Delta+1$.
 \end{proof}
 
