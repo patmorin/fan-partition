@@ -602,7 +602,8 @@ The delicate part of the proof is the design of the distance function $d^*$ that
 
 \subsection{A Structured Sparsifier}
 
-In this section we construct a sparsifying set $X$ like that used in \cref{planar_sparsifier}.  The main difference is that we use the layering of $G$ that comes from $H\boxtimes P$ when applying \cref{sparsifier_baker}.  We repeat most of the steps in the proof of \cref{sparsifier_baker} in order to establish notations and highlight the structure of $X$ that will be useful in the design of the distance function $d^*$.  \pat{This is a bit repetitive, (it repeats parts in the proof of \cref{sparsifier_baker}), but I think it's better to repeat than to write two parts differently for no reason.  Maybe later we can fold the two proofs together.}
+In this section we construct a sparsifying set $X$ like that used in \cref{planar_sparsifier}.  The main difference is that we use the layering of $G$ that comes from $H\boxtimes P$ when applying \cref{sparsifier_baker}.  We repeat most of the steps in the proof of \cref{sparsifier_baker} in order to establish notations and highlight the structure of $X$ that will be useful in the design of the distance function $d^*$.
+% \pat{This is a bit repetitive, (it repeats parts in the proof of \cref{sparsifier_baker}), but I think it's better to repeat than to write two parts differently for no reason.  Maybe later we can fold the two proofs together.}
 
 % is a subgraph of $H\boxtimes P$, but with a structure that lends itself to the design of the distance function $d^*$.  The construction is very similar to the construction in the proof of \cref{planar_sparsifier}. The main difference is that we do not apply the separator lemma (\cref{weighted_separator}) directly to a subgraph $G^+_{i,j}$.  Instead, we consider a subgraph $Q^+_{i,j}=H\boxtimes P^+_{i,j}$ of $H\boxtimes P$ that contains $G^+_{i,j}$.  We use this to assign weights to the vertices of $H$ and then apply the separator lemma to $H$ to get a separator $Y_{i,j}$.  In this way, we obtain a `vertical' separators $X_{i,j}:=Y_{i,j}\times V(P^+_{i,j})$.
 % For a vertex $v$ in the middle third of $Q^+_{i,j}$, a radius-$2^i$ ball in $(H\boxtimes P)-X$.
@@ -643,8 +644,15 @@ Let $\mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.
 
 \subsection{\boldmath The Distance Function $d^*$}
 
+In order to construct a volume-preserving Euclidean contraction for a distance function $d$ we must ensure that $d_2(\phi(v),\phi(w))$ is large whenever $d(v,w)$ is large.  This is relatively easy to do for the distance function $d_{H\boxtimes P}$ using (simplifications of) the techniques used by \citet{rao:small} for planar graphs. This is more difficult for $d_{(H\boxtimes P)-X}$ because distances are larger, which only makes the problem harder.  Some of these distances are necessarily large; the obstacles in $X$ are needed to ensure that the local density of $(V(G),d_{(H\boxtimes P)-X})$ is small.  The purpose of a single set $X_{i,j}$ is to increase distances between some pairs of vertices in $Q_{i,j}$ so that they are at least $2^i$.  However, the obstacles in $X$ sometimes combine, by chance, to make distances excessively large. \cref{big_distance} shows that, even when $H=P$, obstacles in $X_{i,j+1}$ and in $X_{i,j-1}$ can interact in such a way that $d_{(H\boxtimes P)-X}(v,w)$ becomes $r2^i$ for arbitrarily large $r$.  This large distance is not needed to ensure the local density bound and it makes it difficult to construct a volume-preserving Euclidean contraction of $(V(G),d_{(H\boxtimes P)-X})$.  The purpose of the intermediate distance function $d^*$ that we now define is to reduce these unnecessarily large distances in such a way that the local density of $\mathcal{M}^*:=(V(G),d^*)$ is small but it is easier to find a volume-preserving Euclidean contraction. Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
 
-We now define the distance function $d^*$ that makes use of the structure of $(H\boxtimes P)-X$.  Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
+\begin{figure}
+  \centering
+  \includegraphics{figs/bad_combination}
+  \caption{Obstacles not in $X_{i,j}$ can combine to create excessively large distances between vertices in $Q_{i,j}$.}
+  \label{big_distance}
+\end{figure}
+
 
 Let $u:=(x_1,y_a)$ and $w:=(x_3,y_c)$ be two vertices of $H\boxtimes P$.  Let $i_0^{\shortrightarrow}(u,w)$ be the maximum integer $i$ such that $Q^+_{i,\lfloor a/2^i\rfloor}$ contains both $u$ and $w$, but $u$ and $w$ are in different components of $Q^+_{i,\lfloor a/2^i\rfloor}-X_{i,\lfloor a/2^i\rfloor}$.  If no such $i$ exists, define $i_0^{\shortrightarrow}(u,w):=-\infty$.  Let $i_0(v,w):=\max\{i_0^{\shortrightarrow}(u,w),i_0^{\shortrightarrow}(w,u)\}$. Define: $\mathdefin{\delta_0(u,w)}:=2^{i_0(u,w)}$.
 \begin{figure}
