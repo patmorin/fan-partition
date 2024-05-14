@@ -138,6 +138,8 @@
     \item Product structured graphs. Metric spaces,  the generalization of Feige's result to metric spaces, the metric space and embedding for product structured graphs.
 \end{compactenum}}
 
+\david{fine with me, I suggest my three points below be included in the `planar graphs' section. }
+
 The \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of size $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$.  The current work is motivated by the following question: What is the simplest family of graphs $\mathcal{H}$ such that for each $n$-vertex planar graph $G$ there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$, where $\tilde{O}$ notation hides $\polylog(n)$ terms?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G$ is isomorphic to a subgraph of $G'$.}
 
 \citet{ISW} show that one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs\footnote{A \defin{tree-decomposition} of a graph $G$ is a collection $(B_x)_{x \in V(T)}$ of subsets of $V(G)$ indexed by a tree $T$, such that: (a) for every edge ${vw \in E(G)}$, there exists a node ${x \in V(T)}$ with ${v,w \in B_x}$, and (b) for every vertex ${v \in V(G)}$, the set $\{ x \in V(T) \colon v \in B_x \}$ induces a non-empty (connected) subtree of $T$. The \defin{width} of such a tree-decomposition is ${\max\{ |B_x| \colon x \in V(T) \}-1}$. A \defin{path-decomposition} is a $P$-decomposition for any path $P$, denoted by the corresponding sequence of bags.
@@ -152,8 +154,8 @@ Pathwidth is the standard measure of how similar a graph is to a path.}. \citet{
 
 (We remark that the previous results \cite{ISW,distel.dujmovic.ea:product} have no polylogarithmic factors.  Every planar graphs is contained in a $O(\sqrt{n})$-blowup of a treewidth-$2$ graph \cite{distel.dujmovic.ea:product}.)
 
-The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth at most $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is also the best possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  \citet{LMST08} describe an infinite family of $n$-vertex planar graphs $G$ such that every (improper) 2-colouring has a monochromatic component on $\Omega(n^{2/3})$ vertices. Say $G$ is contained in a $k$-blowup $(K_v:v\in V(T))$ of a tree $T$. Colour each vertex in each $K_v$ by the colour of $v$ in a proper 2-colouring of $T$. So each monochromatic component is contained in some $K_v$, implying that $k\in\Omega(n^{2/3})$.  \pat{The bound $O(n^{2/3})$ is achievable: Every $n$-vertex planar graph $G$ has a set $X$ of $O(n^{2/3})$ vertices such that every component of $G-X$ has size $O(n^{2/3})$ \cite{lipton.tarjan:applications}.  This implies that $G$ is an $O(n^{2/3})$-blowup of a star, where the set $X$ maps to the root of the star and each component of $G-X$ maps to a different leaf of the star.}
-\pat{Mention that if $G$ is planar and has maximum degree $\Delta$ then $G$ is contained in the $O(\Delta\sqrt{n})$-blowup of a tree \cite{ding.oporowski:some}?}
+The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth at most $k(t+1)-1$.  Since there $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.  Pathwidth $2$ is also the best possible bound in theorems like  \cref{main_thm_planar}.  Indeed, even \emph{treewidth} $1$ is not achievable:  \citet{LMST08} describe an infinite family of $n$-vertex planar graphs $G$ such that every (improper) 2-colouring has a monochromatic component on $\Omega(n^{2/3})$ vertices. Say $G$ is contained in a $k$-blowup $(K_v:v\in V(T))$ of a tree $T$. Colour each vertex in each $K_v$ by the colour of $v$ in a proper 2-colouring of $T$. So each monochromatic component is contained in some $K_v$, implying that $k\in\Omega(n^{2/3})$.  \pat{The bound $O(n^{2/3})$ is achievable: Every $n$-vertex planar graph $G$ has a set $X$ of $O(n^{2/3})$ vertices such that every component of $G-X$ has size $O(n^{2/3})$ \cite{lipton.tarjan:applications}.  This implies that $G$ is an $O(n^{2/3})$-blowup of a star, where the set $X$ maps to the root of the star and each component of $G-X$ maps to a different leaf of the star.} \david{I didn't know Lipton--Tarjan proved this result. Let's add it.}
+\pat{Mention that if $G$ is planar and has maximum degree $\Delta$ then $G$ is contained in the $O(\Delta\sqrt{n})$-blowup of a tree \cite{ding.oporowski:some}?} \david{yes, let's add this}
 
 
 
@@ -161,8 +163,7 @@ The choice of parameter $\sqrt{n}$ in these results is not arbitrary. A $k$-blow
 \begin{itemize}
 \item $O(\sqrt{n})$ blowups of bounded treewidth graphs imply and strengthen the Lipton--Tarjan separator theorem. Without this, the naive reader will ask ``what is the point?''
 \item \citet{distel.dujmovic.ea:product} asked whether every $n$-vertex planar graph is contained in a $O(\sqrt{n})$-blowup of a graph with bounded pathwidth. \cref{main_thm_planar} shows the answer is ``yes'' with $O(\sqrt{n})$ replaced by $\tilde{O}(\sqrt{n})$.
-\item Results of \citet[Theorem~5]{DvoWoo} imply that for all $\epsilon>0$ there exists $c$ such that every $n$-vertex planar graph is contained in a $O(n^{1/2+\epsilon})$-blowup of a graph $H$ with treedepth $c$, which implies $\pw(H)\leq c-1$. \citet[Theorem~19]{DvoWoo} also establish a corresponding lower bound: for any $c\geq 1$ there exists $\epsilon>0$ such that if the $\sqrt{n}\times\sqrt{n}$ grid is contained in a $k$-blowup of a graph $H$ with treedepth at most $c$, then $k\geq\Omega(n^{1/2+\epsilon})$. (In fact, these lower and upper bounds match.)\ Thus the $\sqrt{n}\times \sqrt{n}$-grid is not contained in a $\tilde{O}(n^{1/2})$-blowup of a graph with bounded treedepth. In this sense, the `bounded pathwidth' condition in \cref{main_thm_planar} is best posible.
-\item The fan in \cref{main_thm_planar} is of length $O(\sqrt{n}/\log^2 n)$. In general, if $\bw(G)\leq k$ then $G$ is contained in $P\boxtimes K_k$ where $|V(P)|=\ceil{|V(G)|/k}$. \pat{Discuss in \cref{bandwidth_relation}?}
+\item Results of \citet[Theorem~5]{DvoWoo} imply that for all $\epsilon>0$ there exists $c$ such that every $n$-vertex planar graph is contained in a $O(n^{1/2+\epsilon})$-blowup of a graph $H$ with treedepth $c$, which is a  stronger property than bounded pathwidth, and indeed implies $\pw(H)\leq c-1$. \citet[Theorem~19]{DvoWoo} also establish a corresponding lower bound: for any $c\geq 1$ there exists $\epsilon>0$ such that if the $\sqrt{n}\times\sqrt{n}$ grid is contained in a $k$-blowup of a graph $H$ with treedepth at most $c$, then $k\geq\Omega(n^{1/2+\epsilon})$. (In fact, these lower and upper bounds match.)\ Thus the $\sqrt{n}\times \sqrt{n}$-grid is not contained in a $\tilde{O}(n^{1/2})$-blowup of a graph with bounded treedepth. In this sense, the `bounded pathwidth' condition in \cref{main_thm_planar} is best posible.
 \end{itemize}}
 
 
@@ -204,6 +205,8 @@ Every $n$-vertex graph of Euler genus $g$ is contained in a $O((g+1)\sqrt{n}\log
 
 \pat{\Cref{genus_products} can be improved without using graph products. Every $n$-vertex genus-$g$ graph $G$ has a set of $X_0$ of $O(\sqrt{gn})$ vertices such that $G-X_0$ is planar \cite{eppstein:dynamic}. Apply \cref{main_thm_planar} to $G-X_0$ to get $X'$ of size $O(\sqrt{n}\log^2 n)$ such that $G-X_0-X'$ has bandwidth $O(\sqrt{n}\log^2 n)$.  Now take $X:=X_0\cup X'$ to get a set $X$ of size $O(\sqrt{gn} + \sqrt{n}\log^2 n)$ such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.}
 
+\david{Good point, pulling out $O(\sqrt{n})$ vertices is very powerful. }
+
 We have the following further generalisation\footnote{A graph $X$ is a \defin{minor} of a graph $G$ a graph isomorphic to $X$ can be obtained from a subgraph of $G$ by edge contractions. A graph $G$ is \defin{$X$-minor-free} if $X$ is not a minor of $G$.}.
 A graph $X$ is \defin{apex} if $X-a$ is planar for some vertex $a\in V(X)$. \citet{dujmovic.joret.ea:planar} showed that for every apex graph $X$ there exists $c$ such that every $X$-minor-free graph has row treewidth at most $c$ (and such a theorem holds only if $X$ is apex). \cref{main_thm_products} thus implies:
 
@@ -218,7 +221,11 @@ Every $n$-vertex $(g,k)$-planar graph is contained in a $O((g+1)k^5\sqrt{n}\log^
 \end{thm}
 
 \pat{Here's a better result, again without using product structure:  By the crossing lemma, $G$ has $O(\sqrt{k} n)$ edges (for $g\in O(n)$).  Add a dummy vertex at each crossing in $G$ to get a genus-$g$ graph $G'$ with $O(k^{3/2}(n+g))$ vertices.  Let $X_0'$ be a planarizing set of $G'$ of size $O(\sqrt{k^{3/2}(n+g)g})=O(k^{3/4}(\sqrt{n}+g))$ (again, using \citet{eppstein:dynamic}). Replace every dummy $x$ in $X_0'$ with (at most four) real vertices corresponding to the two edges that cross at $x$.  Now $G-X_0'$ is $k$-planar.  Add a dummy vertex at each crossing in $G-X_0'$ to get a planar graph $G''$ with $O(k^{3/2}n)$ vertices. Apply \cref{planar_sparsifier} to $G''$ to get $X''$ of size $O((k^{3/2}n/D)\log n)$ such that $G''$ has local density $D$.  By \cref{rao}, $G''$ has bandwidth $O(D\log^3 n)$.  Replace each dummy vertex in $X''$ by the (at most $4$) corresponding real vertices and let $X:=X_0'\cup X''$.  Then $|X|=O(k^{3/2}(\sqrt{n}+g)+(k^{3/2}n/D)\log n)$.  Take the $O(D\log^3 n)$-bandwidth ordering of $G''-X''$ and use it for the vertices of $G-X$.  Each edge of $G-X$ corresponds to a path of length at most $k+1$ in $G''-X''$, so this ordering has bandwidth $O(kD\log^3 n)$.  Set $D:=k^{1/4}\sqrt{n}/\log n$ to conclude that $G$ has fan-partition-width $O(g\sqrt{k} + k^{5/4}\sqrt{n}\log^2 n)$.\\[2ex]
-It would be nice to shave off the ugly $k^{1/4}$ factor in this result.}
+It would be nice to shave off the ugly $k^{1/4}$ factor in this result.} 
+
+\david{nice}
+
+%\david{I think this generalises to $k$-gap-planar graphs. Here we have a drawing where each crossing is charged to one of the two edges, and each edge is charged with at most $k$ of its crossings. Basically, this says that every subgraph has an average number of crossings per edge of at most $k$, whereas $k$-planar requires a maximum number of crossings per edge of at most $k$. The same proof (using the crossing lemma) gives $|E(G)|\in O(\sqrt{k}n)$. For the extension to  surfaces, use Lemmas 4.5 and 4.6 in \citep{OOW19}.  UPDATE: the last part of Pat's argument fails, since there can be very long edges.}
 
 % \david{
 % Do we get improved depedennce working with subgraph of $H\boxtimes P \boxtimes K_c$? (e.g. for $k$-planar graphs we can use $\tw(H)=10^{10}$ and $c=c_k$).
@@ -237,8 +244,14 @@ An \defin{$H$-partition} of a graph $G$ is a partition $\mathcal{P}:=\{B_x: x\in
 
 %\david{Hyphenate $\mathcal{H}$-partition-width, fan-partition, fan-partition-width, path-partition, path-partition-width throughout}
 
-Let $G$ be a graph and let $v_1,\ldots,v_n$ be an ordering of $V(G)$.  Then $v_1,\ldots,v_n$ has \defin{bandwidth} $\mathdefin{\bw_G(v_1,\ldots,v_n)}:=\{\max\{|j-i|: v_iv_j\in E(G)\}$.  The \defin{bandwidth} of $G$ is $\mathdefin{\bw(G)}:=\min\{\bw_G(v_1,\ldots,v_n):\text{$v_1,\ldots,v_n$ is a ordering of $V(G)$}\}$. The bandwidth of a graph $G$ is closely related to the path-partition-width of $G$.  Indeed, if $\bw_G(v_1,\ldots,v_n)=w$, and $P:=x_1,\ldots,x_{\lceil n/w\rceil}$ is a path, then setting $B_{x_i}:=\{v_j: (i-1)w+1 \le j \le iw\}$ for each $i\in\{1,\ldots,\lceil n/w\rceil\}$ gives a path-partition $\{B_{x}:x\in V(P)\}$ of width $w$.  In the other direction, if $P:=x_1,\ldots,x_k$ is a path and  $\{B_x:x\in V(P)\}$ is a path-partition of width $w$ then any ordering $v_1,\ldots,v_n$ of $V(G)$ that places all vertices of $B_{x_i}$ before those in $B_{x_{i+1}}$ for each $i\in\{1,\ldots,k-1\}$ has $\bw_G(v_1,\ldots,v_n)\le 2w-1$.  Thus, \cref{main_thm_planar} is equivalent to saying that every $n$-vertex planar graph $G$ has a set $X$ of  $O(\sqrt{n}\log^2 n)$ vertices (the part $B_{x_0}$ in a fan-partition of $G$) such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.
+Let $G$ be a graph and let $v_1,\ldots,v_n$ be an ordering of $V(G)$.  Then $v_1,\ldots,v_n$ has \defin{bandwidth} $\mathdefin{\bw_G(v_1,\ldots,v_n)}:=\{\max\{|j-i|: v_iv_j\in E(G)\}$.  The \defin{bandwidth} of $G$ is $\mathdefin{\bw(G)}:=\min\{\bw_G(v_1,\ldots,v_n):\text{$v_1,\ldots,v_n$ is a ordering of $V(G)$}\}$. The bandwidth of a graph $G$ is closely related to the path-partition-width of $G$.  Indeed, if $\bw_G(v_1,\ldots,v_n)=w$, and $P:=x_1,\ldots,x_{\lceil n/w\rceil}$ is a path, then setting $B_{x_i}:=\{v_j: (i-1)w+1 \le j \le iw\}$ for each $i\in\{1,\ldots,\lceil n/w\rceil\}$ gives a path-partition $\{B_{x}:x\in V(P)\}$ of width $w$.  In the other direction, if $P:=x_1,\ldots,x_k$ is a path and  $\{B_x:x\in V(P)\}$ is a path-partition of width $w$ then any ordering $v_1,\ldots,v_n$ of $V(G)$ that places all vertices of $B_{x_i}$ before those in $B_{x_{i+1}}$ for each $i\in\{1,\ldots,k-1\}$ has $\bw_G(v_1,\ldots,v_n)\le 2w-1$.  
 
+Thus, \cref{main_thm_planar} is equivalent to saying that every $n$-vertex planar graph $G$ has a set $X$ of  $O(\sqrt{n}\log^2 n)$ vertices (the part $B_{x_0}$ in a fan-partition of $G$) such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$. We actually obtain the following slight strengthening of \cref{main_thm_planar} (since if $\bw(G)\leq k$ then $G$ is contained in a $k$-blowup of a path on at most $\ceil{|V(G)|/k}$ vertics. 
+
+\begin{thm}\label{main_thm_planar_order}
+  Every $n$-vertex planar graph is contained in a $O(\sqrt{n}\log^2 n)$-blowup of a fan with 
+  $O(\sqrt{n}/\log^2 n)$ vertices. 
+\end{thm}
 
 \subsection{Techniques}
 
@@ -286,6 +299,8 @@ We follow a similar strategy.  We build a well-structured sparsifying set $X$ of
 \david{To illustrate \cref{planar_sparsification_special}, would it help to give the complete binary tree has an example? Here the bandwidth is at least $\frac{n}{\log n}$ (by local density). Deleting the middle layer of the tree, which has roughly $\sqrt{n}$ vertices, leaves a graph with bandwidth roughly $\frac{\sqrt{n}}{\log n}$. I expect this is necessary: I guess for any $m$ one needs to delete $m$ vertices to reduce the bandwidth to $n/( m\log(n/m))$. }
 
 \pat{I started to do this, but then realized that, in this case, you get a components of size $O(\sqrt{n})$.  Unless we talk the optimal trade-off between separator size and component size, it might give the impression that we could ask for more:  A set $X$ of size $\tilde{O}(\sqrt{n})$ such that each component of $G-X$ has size $\tilde{O}(\sqrt{n})$.  }
+
+\david{I knew the bounds would be out by $O(\log n)$ factors here. My point was that even for a graph as simple as a complete binary tree, one needs to delete close to $\sqrt{n}$ vertices to get the bandwidth down to close to $\sqrt{n}$. If you don't want to include this, then I will not insist. }
 
 \section{Background}
 
@@ -506,16 +521,18 @@ The proof of \cref{planar_sparsifier} will make use of the following fairly stan
 \end{proof}
 
 A \defin{layering} of a graph $G$ is a collection disjoint sets $\{L_s:s\in\Z\}$ indexed by integers whose union is $V(G)$ and such that, for each edge $vw$ of $G$, $v\in L_i$ and $w\in L_j$ implies that $|i-j|\le 1$.
-A layering $\{L_s:s\in\Z\}$ has the \defin{$t$-Baker property} if, for every $s\in\Z$ and $r\in\N$, $G[L_s\cup\cdots\cup L_{s+r-1}]$ has treewidth at most $s(t+1)-1$. A graph $G$ has the \defin{$t$-Baker property} if $G$ has some layering with the $t$-Baker property.  Clearly if every connected compoonent of $G$ has the $t$-Baker property then $G$ has the $t$-Baker property.
+A layering $\{L_s:s\in\Z\}$ has the \defin{$t$-Baker property} if, for every $s\in\Z$ and $r\in\N$, $G[L_s\cup\cdots\cup L_{s+r-1}]$ has treewidth at most $s(t+1)-1$ \david{should be $r(t+1)-1$, why do we write $t+1$ here instead of $t$?}. A graph $G$ has the \defin{$t$-Baker property} if $G$ has some layering with the $t$-Baker property.  Clearly, if every connected component of $G$ has the $t$-Baker property then $G$ has the $t$-Baker property. 
 
-It is a well known that planar graphs have the $2$-Baker property \cite{baker:approximation} and, for a connected planar graph $G$, any BFS layering of $G$ has the $2$-Baker property. Thus, \cref{planar_sparsifier} is an immediate consequence of the following result:
+\david{To justify the word `Baker', add something like ``This property is the key tool in Baker's seminal work on approximation algorithm for planar graphs''.}
+
+It is a well known that planar graphs have the $2$-Baker property \cite{baker:approximation} \david{Instead of writing ``It is a well known that'' I would rather cite the original reference: \citet{RS-III} proved (10 years before Baker) that every planar graph with radius $r$ has treewidth at most $3r$, which implies the 2-Baker property (by starting with a BFS layering $(L_0,L_1,\dots)$, deleting $L_{s+r}\cup L_{s+r+1}\cup\dots$, and contracting $L_0\cup\dots\cup L_{s-1}$ into one vertex)} and, for a connected planar graph $G$, any BFS layering of $G$ has the $2$-Baker property. Thus, \cref{planar_sparsifier} is an immediate consequence of the following result:
 
 \begin{lem}\label{sparsifier_baker}
   Let $G$ be an $n$-vertex graph with the $t$-Baker property.  Then, for any $D\in\R$ with $1\le D\le n$, $G$ contains a set $X$ of at most $(18tn/D)\log n$ vertices such that $G-X$ has local density at most $D$.
 \end{lem}
 
 \begin{proof}
-  Let $\{L_s:s\in Z\}$ be a layering of $G$ with the $t$-Baker property. For each positive integer $i$ and each integer $j$, let $G_{i,j}:=G[\bigcup_{s=j2^i}^{(j+1)2^i-1} L_s]$,  and let $G^+_{i,j}=G[V(G_{i,j-1})\cup V(G_{i,j})\cup V(G_{i,j+1})]$.  Observe that, for any $i$, the graphs in $\{ G_{i,j}\}_{j\in\N}$ are pairwise vertex disjoint.  By the definition $G^+_{i,j}$, this implies that the graphs in $\{ G_{i,j}\}_{j\in\N}$ have a total of at most $3n$ vertices.
+  Let $\{L_s:s\in Z\}$ be a layering of $G$ with the $t$-Baker property. For each positive integer $i$ and each integer $j$, let $G_{i,j}:=G[\bigcup_{s=j2^i}^{(j+1)2^i-1} L_s]$,  and let $G^+_{i,j}=G[V(G_{i,j-1})\cup V(G_{i,j})\cup V(G_{i,j+1})]$.  Observe that, for any $i$, the graphs in $\{ G_{i,j}\}_{j\in\N}$ are pairwise vertex disjoint.  By the definition of $G^+_{i,j}$, this implies that the graphs in $\{ G_{i,j}\}_{j\in\N}$ have a total of at most $3n$ vertices.
 
   For each $i\in\{0,\ldots,\lfloor \log h\rfloor\}$ and each $j$, $G^+_{i,j}$ has treewidth at most $3t\cdot 2^i-1$.  By \cref{weighted_separator}, with weight function $\zeta(v):=1$ and $c=\lceil |V(G^+_{i,j})|/(D2^{i-1})\rceil$, there exists a set $X_{i,j}$ of size
   \[
@@ -664,9 +681,9 @@ Let $u:=(x_1,y_a)$ and $w:=(x_3,y_c)$ be two vertices of $H\boxtimes P$.  Let $i
 \begin{figure}
     \centering
     \begin{tabular}{ccc}
-    \includegraphics[page=1,scale=0.9]{figs/new_metric} &
-    \includegraphics[page=2,scale=0.9]{figs/new_metric} &
-    \includegraphics[page=3,scale=0.9]{figs/new_metric}
+    \includegraphics[page=1,scale=0.85]{figs/new_metric} &
+    \includegraphics[page=2,scale=0.85]{figs/new_metric} &
+    \includegraphics[page=3,scale=0.85]{figs/new_metric}
     \end{tabular}
     \caption{The definitions of $\delta_1$, $\delta_2$, and $\delta_3$.}
     \label{d_star}
@@ -768,7 +785,12 @@ Let $r_H$ and $r_P$ be two independent uniformly random integers in $\{0,\ldots,
   Let $v:=(v_1,v_2)$ and $w:=(w_1,w_2)$ be two vertices of $(H\boxtimes P)^\Delta_{a,b}$.  Our task is to show that $d_{H\boxtimes P}(v,w)\le 2\Delta+1$.  Recall that
   $d_{H\boxtimes P}(v,w)=\max\{d_{H}(v_1,w_1),d_{P}(v_2,w_2)\}$.  Since $P^\Delta_b$ is a subpath of $P$ with $\Delta$ vertices, $d_P(v_2,w_2)=d_{P^\Delta_b}(v_2,w_2)\le\Delta-1$, so we need only upper bound $d_{H}(v_1,w_1)$.
 
-  To do this, we make use of the following property of $t$-trees \cite{kundgen.pelsmajer:?}:\pat{Provide a proof or reference.} For any integer $s$, the set $N_C$ of vertices in $L_{s}$ that are adjacent to a single component $C$ of $H[L_{s+1}]$ form a clique in $H$.
+  To do this, we make use of the following property of $t$-trees \cite{KP08,DMW05}:
+  %\pat{Provide a proof or reference.} 
+  %\david{added two references}
+  For any integer $s$, 
+  for each component $C$ of $H[L_{s+1}]$, 
+    the set $N_C$ of vertices in $L_{s}$ that are adjacent to $C$ form a clique in $H$.
   Since $v_1$ and $w_1$ are in the same component of $H^\Delta_a$, (i) implies that $H^\Delta_a[L_{r_H+a\Delta}]$ is a connected component $C$ of $H[L_{r_H+a\Delta}]$.  Then $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $v_1$ to a vertex $v_1'$ in $C$.   Likewise, $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $w$ to a vertex $w'$ in $C$. Each of $v'$ and $w'$ has a neighbour $v''$ and $w''$, respectively in $N_C$.  Since $N_C$ is clique $v''=w''$ or $v''$ and $w''$ are adjacent.  In the former case, there is a path in $H$ from $v$ to $w$ of length at most $2\Delta$. In the latter case there is a path from $v$ to $w$ of length at most $2\Delta+1$.
 \end{proof}
 
