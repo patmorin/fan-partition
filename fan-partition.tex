@@ -13,6 +13,9 @@
 \usepackage{todonotes}
 \usepackage{tcolorbox}
 
+\usepackage{thm-restate}
+
+
 % etoolbox allows for robust commands that don't need \protect, e.g.
 % \newrobustcmd{\onesub}{\mathord{\includegraphics{figs/one-sub}}}
 % \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
@@ -99,7 +102,11 @@
 
 \title{\MakeUppercase{Fan-Partitions of Planar Graphs (and Beyond)
   \newline by Local Sparsification and Volume-Preserving Embeddings}}
-\author{TBD}
+\author{Vida Dujmović,\, 
+        Gwenaël Joret,\,
+        Piotr Micek,\,
+        Pat Morin,\,
+        and David R. Wood}
 
 % \author{
 % Vida Dujmovi{\'c}\,\footnotemark[6]\qquad
@@ -188,8 +195,6 @@ Previous results on $k$-blowups that contain $n$-vertex graphs from various grap
     \hline
   \end{tabular}}
   \caption{Previous and new results on $k$-blowups of a graph $H$ that contain every $n$-vertex graph $G$ from graph class $\mathcal{G}$.}\label{results_table}
-
-\david{note I have added three new lines to this table.}
 
 %\pat{The LMST graph is planar, has treewidth $\tw(G)\le O(k)$, maximum degree $\Delta\in O(k^3)$, and requires bags of size $\Omega(k^2)=\Omega(\Delta^{1/3}\tw(G))$.  We can improve this to $\Delta^{2/5}$, but the proof is a bit too long to put here.}
 
@@ -689,13 +694,13 @@ The \defin{ideal volume} of a finite metric space $(K,d)$ is defined as $$\mathd
 
 The following lemma, whose proof appears in \cref{reciprocal_sum_section}, generalizes \citet[Theorem~10]{feige:approximating} from graph metrics to general metric spaces and establishes a critical connection between local density and tree volume.
 
-\begin{lem}[{Generalization of \cite[Theorem~10]{feige:approximating}}]\label{reciprocal_sum}
+\begin{restatable}[{Generalization of \cite[Theorem~10]{feige:approximating}}]{lem}{reciprocalsum}\label{reciprocal_sum}
   For every $n$-element metric space $\mathcal{M}:=(S,d)$ with local density at most $D$ and every positive integer $k$,
   \[
     \sum_{K\in \binom{S}{k}}\frac{1}{\tvol_{d}(K)} < n(DH_n/2)^{k-1} \enspace ,
   \]
   where $\mathdefin{H_n}:=\sum_{i=1}^n 1/i\le 1+\ln n$ is the \defin{$n$-th harmonic number}.
-\end{lem}
+\end{restatable}
 
 
 
@@ -723,14 +728,14 @@ contractions can only increase bandwidth:
 
 
 
-\begin{thm}[Generalization of result in \cite{feige:approximating}]\label{volume_density_bandwidth}
+\begin{restatable}[{Generalization of result in \cite{feige:approximating}}]{thm}{volumedensitybandwidth}\label{volume_density_bandwidth}
   Let $(S,d)$ be a $n$-element metric space with local density at most $D$ and diameter at most $\Delta$.  If $(S,d)$ has a $(k,\eta)$-volume-respecting Euclidean contraction $\phi:S\to\R^L$
   % with $L\ge 4a\ln n$ --- not needed, I think
   then
   \[
     \bw(S,d) \in O((nk\log\Delta)^{1/k}\,Dk\eta\log^{3/2} n) \enspace .
   \]
-\end{thm}
+\end{restatable}
 
 
 
@@ -827,6 +832,7 @@ Let $\mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.
 
 In order to construct a volume-preserving Euclidean contraction for a distance function $d$ we must ensure that $d_2(\phi(v),\phi(w))$ is large whenever $d(v,w)$ is large.  This is relatively easy to do for the distance function $d_{H\boxtimes P}$ using (simplifications of) the techniques used by \citet{rao:small} for planar graphs. This is more difficult for $d_{(H\boxtimes P)-X}$ because distances are larger, which only makes the problem harder.  Some of these distances are necessarily large; the obstacles in $X$ are needed to ensure that the local density of $(V(G),d_{(H\boxtimes P)-X})$ is small.  The purpose of a single set $X_{i,j}$ is to increase distances between some pairs of vertices in $Q_{i,j}$ so that they are at least $2^i$.  However, the obstacles in $X$ sometimes combine, by chance, to make distances excessively large. \cref{big_distance} shows that, even when $H=P$, obstacles in $X_{i,j+1}$ and in $X_{i,j-1}$ can interact in such a way that $d_{(H\boxtimes P)-X}(v,w)$ becomes $r2^i$ for arbitrarily large $r$.  This large distance is not needed to ensure the local density bound and it makes it difficult to construct a volume-preserving Euclidean contraction of $(V(G),d_{(H\boxtimes P)-X})$.  The purpose of the intermediate distance function $d^*$ that we now define is to reduce these unnecessarily large distances in such a way that the local density of $\mathcal{M}^*:=(V(G),d^*)$ is small but it is easier to find a volume-preserving Euclidean contraction. Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
 
+
 \begin{figure}
   \centering
   \includegraphics{figs/bad_combination}
@@ -837,7 +843,7 @@ In order to construct a volume-preserving Euclidean contraction for a distance f
 
 
 
-\pat{Better definition: } Let $u:=(x_1,y_a)$ and $v:=(x_2,y_b)$ be two distinct vertices of $H\boxtimes P-X$.  Recall that, for each $i\in\{0,\ldots,\log N\}$, there is a unique integer $j=\floor{a/2^i}$ such that $Q_{i,j}$ contains $u$.  Let $i_0^{\shortrightarrow}(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$.  Note that this is well-defined, because $Q^+_{\log N,0}$ contains $u$ and $v$ and is connected and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.
+For a graph $G$, a vertex $v$ of $G$ and a subgraph $C$ of $G$, we use the shorthand $\mathdefin{d_G(v,\overline{C})}:=d_G(v,V(G)\setminus V(C))$. Let $u:=(x_1,y_a)$ and $v:=(x_2,y_b)$ be two distinct vertices of $H\boxtimes P-X$.  Recall that, for each $i\in\{0,\ldots,\log N\}$, there is a unique integer $j=\floor{a/2^i}$ such that $Q_{i,j}$ contains $u$.  Let $i_0^{\shortrightarrow}(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$.  Note that this is well-defined, because $Q^+_{\log N,0}$ contains $u$ and $v$ and is connected and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.  Let $i_0(v,w):=\max\{i_0^{\shortrightarrow}(u,w),i_0^{\shortrightarrow}(w,u)\}$. Define $\mathdefin{\delta_0(u,w)}:=2^{i_0(u,w)}$.
 
 \noindent\framebox{\begin{minipage}{\textwidth}
 \pat{This should be cut. I'm just leaving it for now because it contains a discussion with Gwen.}
@@ -848,7 +854,7 @@ Let $u:=(x_1,y_a)$ and $w:=(x_3,y_c)$ be two vertices of $H\boxtimes P$.  Let $i
 \]
 \gwen{I am missing something here I am afraid: (1) Why the notation $x_1$ and $x_3$ in the first component of $u$ and $w$? (Why not $x_2$ instead of $x_3$ I mean). (2) Why is $i_0^{\shortrightarrow}(u,w)$ not the same as $i_0^{\shortrightarrow}(w,u)$?} \pat{(1)~bad decision early on to try and set things up for showing triangle inequality. I intend to redefine in terms of $u:=(x_1,y_a)$ and $v:=(x_2,y_b)$.} \pat{(2) there's an asymmetry here because $i_0^{\shortrightarrow}(u,w)$ is determined by graphs ``centered'' at $u$. When determining $i_0^{\shortrightarrow}(u,w)$, we consider graphs $Q^+_{i,j}-X_{i,j}$ where $u$ is in the middle third of $Q^+_{i,j}$, but $w$ might be in the upper or lower third.
  In particular, the graph $Q^+_{i,\floor{a/2^i}}$ has $u$ in its middle third.  The graphs we consider when determining $i_0^{\shortrightarrow}(w,u)$ have $w$ in their middle block.}
-If no such $i$ exists, define $i_0^{\shortrightarrow}(u,w):=-\infty$ \pat{TODO: This isn't quite right, fix later.}.  Let $i_0(v,w):=\max\{i_0^{\shortrightarrow}(u,w),i_0^{\shortrightarrow}(w,u)\}$. Define $\mathdefin{\delta_0(u,w)}:=2^{i_0(u,w)}$.
+If no such $i$ exists, define $i_0^{\shortrightarrow}(u,w):=-\infty$ \pat{TODO: This isn't quite right, fix later.}.
 \end{minipage}}
 
 \begin{figure}
@@ -881,16 +887,18 @@ Ultimately, $d^*$ will be the maximum of several functions, one of which is $\de
 By \cref{delta_density}, $\delta_0$ defines a space $(V(G),\delta_0)$ with local density $O(D)$.  Unfortunately, this is not a metric space because $\delta_0$ does not necessarily satisfy the triangle inequality.  The remaining functions used to define $d^*$ are used to ensure that $d^*$ is a metric space.
 
 % Let $v:=(x_2,y_b)$.
-We now define a second quantity $\mathdefin{\delta_1(u,v)}$.  If there exists some $i\in\{0,\ldots\log N\}$ such that $u,v\in V(Q_{i,j})$ but $u$ and $v$ are in different components of $Q_{i,j}-X_{i,j+1}$ then let $i_1(u,v)$ be the maximum such $i$ and set $\delta_1(u,v)=b-j2^i + c-j2^i$. If no such $i$ exists, then let $i_1(u,v):=-\infty$ and $\delta_1(u,v):=0$.
+We now define a second quantity $\mathdefin{\delta_1(u,v)}$.  If there exists some $i\in\{0,\ldots\log N\}$ such that $u,v\in V(Q_{i,j})$ but $u$ and $v$ are in different components of $Q_{i,j}-X_{i,j+1}$ then let $\mathdefin{i_1(u,v)}$ be the maximum such $i$ and set $\mathdefin{\delta_1(u,v)}=a+b+2-j2^{i+1}$. If no such $i$ exists, then let $i_1(u,v):=-\infty$ and $\delta_1(u,v):=0$.
+Equivalently, we can define $\delta_1(u,v):=d_{P}(x_1,\overline{P^+_{i,j+1}})+d_{P}(x_2,\overline{P^+_{i,j+1}})$.
 
-The third quantity $\mathdefin{\delta_2(u,v)}$ is defined symmetrically: If there exists some $i\in\{0,\ldots\log N\}$ such that $u,v\in V(Q_{i,j})$ but $u$ and $v$ are in different components of $Q_{i,j}-X_{i,j-1}$ then let $i_2(u,v)$ be the maximum such $i$ and set $\delta_2(u,v)=(j+1)2^i-b + (j+1)2^i-c$. If no such $i$ exists, then let $i_2(u,v):=-\infty$ and $\delta_2(u,v):=0$.
+The third quantity $\mathdefin{\delta_2(u,v)}$ is defined symmetrically: If there exists some $i\in\{0,\ldots\log N\}$ such that $u,v\in V(Q_{i,j})$ but $u$ and $v$ are in different components of $Q_{i,j}-X_{i,j-1}$ then let $i_2(u,v)$ be the maximum such $i$ and set $\delta_2(u,v)=(j+1)2^{i+1}-a-b+2$. If no such $i$ exists, then let $i_2(u,v):=-\infty$ and $\delta_2(u,v):=0$.  Equivalently, we can define $\delta_2(u,v):=d_{P}(x_1,\overline{P^+_{i,j-1}})+d_{P}(x_2,\overline{P^+_{i,j-1}})$.
 
-From the definition of $i_1$ and $i_2$ we immediately obtain the following property, which will be useful later.
 
-\begin{obs}\label{i_bounds}
-  For each $b\in\{1,2\}$, if
-  $i_b(u,v)\ge 0$ then $\delta_b(u,v)\le 2^{i_b(u,v)+1}$.
-\end{obs}
+% From the definition of $i_1$ and $i_2$ we immediately obtain the following property, which will be useful later.
+
+% \begin{obs}\label{i_bounds}
+%   For each $b\in\{1,2\}$, if
+%   $i_b(u,v)\ge 0$ then $\delta_b(u,v)\le 2^{i_b(u,v)+1}$.
+% \end{obs}
 
 Finally, define
 \[
@@ -904,7 +912,7 @@ First we argue that $d^*$ is a contraction of $d_{(H\boxtimes P)-X}$.
 \begin{proof}
   If $\delta_0(u,v)=2^i$ because, say $i_0(u,v)=i$, then any path in $(H\boxtimes P)-X$ from $u$ to $v$ must begin in the subgraph $Q_{i,j}$ that contains $u$ and must not be contained in the subgraph $Q^+_{i,j}$.  Therefore $d_{(H\boxtimes P)-X}(u,v) \ge 2^i=\delta_0(u,v)$.
 
-  If $\delta_1(u,v)=p>0$ and $i_1(u,v)=i$, then any path in $(H\boxtimes P)-X$ from $u$ to $v$ must begin at $u$, leave the subgraph of $H\boxtimes P$ induced by $V(Q_{i,j})\cup V(Q_{i,j+1})$ and return to $v$.  The shortest such path contains at least $\delta_1(u,v)$ vertices in $V(Q_{i,j})\cup V(Q_{i,j+1})$ plus one additional vertex.  Therefore $d_{(H\boxtimes P)-X}(u,v) \ge \delta_1(u,v)$.  The argument for $\delta_2$ is symmetric.
+  If $\delta_1(u,v)=p>0$ and $i_1(u,v)=i$, then any path in $(H\boxtimes P)-X$ from $u$ to $v$ must begin at $u$, leave the subgraph $Q^+_{i,j+1}$, and return to $v$.  The shortest such path contains at least $\delta_1(u,v)$ vertices in $V(Q_{i,j})\cup V(Q_{i,j+1})$ plus one additional vertex.  Therefore $d_{(H\boxtimes P)-X}(u,v) \ge \delta_1(u,v)$.  The argument for $\delta_2$ is symmetric.
 \end{proof}
 
 Next we argue that $d^*$ is a distance function.
@@ -1088,8 +1096,11 @@ Let $I$ be the union of the vertex-disjoint graphs $(H\boxtimes P)^\Delta_{a,b}$
 
   Suppose, for the sake of contradiction, that $\delta_0(v,w)=2^i> 3\Delta$. Then, for some $j$, $v\in V(Q_{i,j})$,  $w\in V(Q^+_{i,j})$, and $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j}$.  Since $2^i>\Delta$ and $v\in V(C)$, $Q^+_{i,j}$ contains $C$ so $X_C$ contains $X_{i,j}$. Therefore, $v$ and $w$ are in different components of $C-X_C$, contradicting the assumption that $v$ and $w$ are in the same component of $J$.
 
-  Suppose, for the sake of contradiction, that $\delta_1(v,w)>3\Delta$.  Then, for some $j$, $v$ and $w$ are vertices of $Q_{i,j}$ that are in different components of $Q_{i,j}-X_{i,j+1}$ and $\delta_1(v,w)=d_P(v_2,x_2)+d_P(x_2,w_2)$ for some vertex $x:=(x_1,x_2)\in V(H\boxtimes P)\setminus V(Q^+_{i,j+1})$.  For any vertex $y:=(y_1,y_2)$ in $C$, $d_P(v,y),d_P(y,w) <\Delta$.  Therefore, $x$ is not a vertex of $C$, since
-  $3\Delta>\delta_1(v,w)=d_P(v,x_2)+d_P(x_2,w)$.  By \cref{i_bounds}, $3\Delta<\delta_1(v,w)\le 2^{i+1}$, which implies that $Q^+_{i,j+1}$ contains $C$.\todo{This explanation could be better.}  Therefore $X_C$ contains $X_{i,j+1}$.  Again, this contradicts the assumption that $v$ and $w$ are in the same component of $J$.  The situation in which $\delta_2(v,w)>3\Delta$ is handled symmetrically.
+  \todo[inline]{It might be helpful to introduce the notation $d_P(v,w)$ and $d_H(v,w)$ for vertices in $H\boxtimes P$. }
+  Suppose, for the sake of contradiction, that $\delta_1(v,w)>3\Delta$ and let $(v_1,v_2):=v$ and $(w_1,w_2):=w$.  Then, for some $j$, $v$ and $w$ are vertices of $Q_{i,j}$ that are in different components of $Q_{i,j}-X_{i,j+1}$.  By definition $\delta_1(v,w)=d_P\left(v_2,\overline{P^+_{i,j+1}}\right) + d_P\left(w_2,\overline{P^+_{i,j+1}}\right)$.  Since $\delta_1(v,w)>3\Delta$ we may assume, without loss of generality, that $d_P\left(v_2,\overline{P^+_{i,j+1}}\right)>3\Delta/2$.  For any vertex $y:=(y_1,y_2)\in V(C)$, $d_P(v_2,y_2)\le\Delta-1$.  Therefore $C$ is contained in $G^+_{i,j+1}=H\boxtimes P^+_{i,j+1}$.  Therefore $X_C$ contains $X_{i,j+1}$.  Therefore $v$ and $w$ are in different components of $C-X_C$, which contradicts the assumption that $v$ and $w$ are in the same component of $J$.
+  % and $\delta_1(v,w)=d_P(v_2,x_2)+d_P(x_2,w_2)$ for some vertex $x:=(x_1,x_2)\in V(H\boxtimes P)\setminus V(Q^+_{i,j+1})$.  For any vertex $y:=(y_1,y_2)$ in $C$, $d_P(v,y),d_P(y,w) <\Delta$.  Therefore, $x$ is not a vertex of $C$, since
+  % $3\Delta>\delta_1(v,w)=d_P(v,x_2)+d_P(x_2,w)$.  By \cref{i_bounds}, $3\Delta<\delta_1(v,w)\le 2^{i+1}$, which implies that $Q^+_{i,j+1}$ contains $C$.\todo{This explanation could be better.}  Therefore $X_C$ contains $X_{i,j+1}$.  Again, this contradicts the assumption that $v$ and $w$ are in the same component of $J$.  
+  The situation in which $\delta_2(v,w)>3\Delta$ is handled symmetrically.
 \end{proof}
 
 
@@ -1110,7 +1121,7 @@ Let $I$ be the union of the vertex-disjoint graphs $(H\boxtimes P)^\Delta_{a,b}$
 %   \end{compactenum}
 % \end{proof}
 
-For a subgraph $C$ of $H\boxtimes P$ we use the shorthand $\mathdefin{\overline{C}}:=V(H\boxtimes P)\setminus V(C)$.
+
 For each component $C'$ of $J$, choose a uniformly random $\alpha_{C'}$ in $[0,1]$, with all choices made independently.
 For each component $C$ of $I$, each component of $C'$ of $J$ that is contained in $C$, and each $v \in V(C')$, let
 \[
@@ -1331,6 +1342,9 @@ Though we have already stated the steps in the proof of \cref{main_thm_products}
 % The proof of \cref{main_thm_products} is exactly the same as the proof of \cref{main_thm_planar} except that we use the $(k,O(\sqrt{\log n}))$-volume-preserving contraction guaranteed by \cref{product_contraction} instead of the one guaranteed by \cref{rao}.
 
 \section{Fans are Unavoidable}
+
+\pat{I propose to kill this section, unless there is a short proof that a pathwidth-$2$-partition of some planar graph (probably the LMST graph) must contain a large fan-minor.}
+
 \david{I suspect the lower bound can be pushed further to show  that fan graphs really are best possible. Conjecture: there exist $n$-vertex planar graphs such that for any graph $H$, if $G$ is contained in  a $\tilde{O}(\sqrt{n})$-blowup of $H$, then $H$ contains a fan on $\Omega(n^c)$ vertices, for some $c>0$, possibly $c=\frac12$. Here I try to prove this where $G$ is from \citep{LMST08}. }
 
 \begin{lem}[\citep{LMST08}]
@@ -1419,9 +1433,9 @@ Let $R:=\{ b\in V(H): V_b\cap V(Y)\neq\emptyset\}$. So $|R|\geq |V(Q')|/w\geq k^
 % \todo[inline]{Note that the situation described above never occurs when the mapping of $G$ into $H\boxtimes P$ comes from the existence proof in, e.g., \cite{dujmovic.joret.ea:planar}.  If $G$ has local density $D$ then it has diameter $\Omega(n/D)$, so any BFS layering of $G$ uses $\Omega(n/D)$ layers, so the mapping of $G$ into $H\boxtimes P$ uses a path $P$ with $\Omega(n/D)$ vertices.  This doesn't immediately mean that the metric space $(V(G),d_{H\boxtimes P})$ has local density $O(D)$, but maybe this actually happens for free? Probably not, but maybe it's worth looking into local-density preserving embeddings of graphs into $H\boxtimes P$.}
 
 \begin{itemize}
-\item Can the $O(\polylog n)$ factor be removed from \cref{main_thm_planar}? That is, is every $n$-vertex planar graph contained in the $O(\sqrt{n})$-blowup of a fan? This would imply and strengthen the known result that $n$-vertex planar graphs have pathwidth $O(\sqrt{n})$ (see \citep{Bodlaender98}). \david{At this point it would be good to discuss for which of our lemmas is a $\polylog(n)$ factor necessary.}
+\item Can the $O(\polylog n)$ factor be removed from \cref{main_thm_planar}? That is, is every $n$-vertex planar graph contained in the $O(\sqrt{n})$-blowup of a fan? This would imply and strengthen the known result that $n$-vertex planar graphs have pathwidth $O(\sqrt{n})$ (see \citep{Bodlaender98}). \david{At this point it would be good to discuss for which of our lemmas is a $\polylog(n)$ factor necessary.} \pat{Is a polylog necessary for any of them?}
 
-\item Can our results be generalised for arbitrary minor-closed classes? In particular, is every $n$-vertex  graph excluding a fixed minor contained in the $\tilde{O}(\sqrt{n})$-blowup of a fan? It is even open  whether every $n$-vertex graph excluding a fixed minor is contained in the $\tilde{O}(\sqrt{n})$-blowup of a graph with bounded pathwidth (and even if the pathwidth bound is allowed to depend on the excluded minor).  Positive results are known for blowups of bounded treewidth graphs. \citet{distel.dujmovic.ea:product} showed that every $n$-vertex graph excluding a fixed minor is contained in the $O(\sqrt{n})$-blowup of a graph with treewidth 4.
+\item Can our results be generalised for arbitrary minor-closed classes? In particular, is every $n$-vertex  graph excluding a fixed minor contained in the $\tilde{O}(\sqrt{n})$-blowup of a fan? It is even open  whether every $n$-vertex graph excluding a fixed minor is contained in the $\tilde{O}(\sqrt{n})$-blowup of a graph with bounded pathwidth (even if the pathwidth bound is allowed to depend on the excluded minor).  Positive results are known for blowups of bounded treewidth graphs. \citet{distel.dujmovic.ea:product} show that every $n$-vertex graph excluding a fixed minor is contained in the $O(\sqrt{n})$-blowup of a treewidth-$4$ graph.
 \end{itemize}
 
 \section*{Acknowledgement}
@@ -1438,7 +1452,8 @@ This research was initiated and much of it was done at the \emph{Eleventh Annual
 \section{Proof of \cref{reciprocal_sum}}
 \label{reciprocal_sum_section}
 
-\david{restate \cref{reciprocal_sum}?}
+
+\reciprocalsum*
 
 \begin{proof}[Proof of \cref{reciprocal_sum}]
   First we claim that, for any $x\in S$,
@@ -1471,7 +1486,7 @@ This research was initiated and much of it was done at the \emph{Eleventh Annual
 \section{Proof of \cref{volume_density_bandwidth}}
 \label{volume_density_bandwidth_section}
 
-\david{restate \cref{volume_density_bandwidth}?}
+\volumedensitybandwidth*
 
 \begin{proof}[Proof of \cref{volume_density_bandwidth}]
   Let $r$ be a random unit vector in $\R^L$ and for each $v\in S$, let $\mathdefin{h(v)}:=\langle r,\phi(v)\rangle$ be the inner product of $r$ and $\phi(v)$.  We will order the elements of $S$ as $v_1,\ldots,v_n$ so that $h(v_1)\le \cdots \le h(v_n)$.  To prove an upper bound on $\bw(S,d)$, it suffices to show an upper bound that holds with positive probability on the maximum, over all $vw$ with $d(v,w)\le 1$, of the number of vertices $x$ such that $h(v)\le h(x)\le h(w)$.
