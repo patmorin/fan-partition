@@ -842,7 +842,34 @@ In order to construct a volume-preserving Euclidean contraction for a distance f
 
 
 
-For a graph $G$, a vertex $v$ of $G$ and a subgraph $C$ of $G$, we use the shorthand $\mathdefin{d_G(v,\overline{C})}:=d_G(v,V(G)\setminus V(C))$. Let $u:=(x_1,y_a)$ and $v:=(x_2,y_b)$ be two distinct vertices of $H\boxtimes P-X$.  Recall that, for each $i\in\{0,\ldots,\log N\}$, there is a unique integer $j=\floor{a/2^i}$ such that $Q_{i,j}$ contains $u$.  Let $i_0^{\shortrightarrow}(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$.  Note that this is well-defined, because $Q^+_{\log N,0}$ contains $u$ and $v$ and is connected and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.  Define $i_0(v,w):=\max\{i_0^{\shortrightarrow}(u,w),i_0^{\shortrightarrow}(w,u)\}$ and $\mathdefin{\delta_0(u,w)}:=2^{i_0(u,w)}$.
+For a graph $G$, a vertex $v$ of $G$ and a subgraph $C$ of $G$, we use the shorthand $\mathdefin{d_G(v,\overline{C})}:=d_G(v,V(G)\setminus V(C))$. Let $u:=(x_1,y_a)$ and $v:=(x_2,y_b)$ be two distinct vertices of $H\boxtimes P-X$.  Recall that, for each $i\in\{0,\ldots,\log N\}$, there is a unique integer $j=\floor{a/2^i}$ such that $Q_{i,j}$ contains $u$.
+
+Let $Z(u,v)$ be the set of all $i,j$ such that $u$ and $v$ are vertices of $Q^+_{i,j}$ that are in different components of $Q^+_{i,j}-X_{i,j}$.  Define
+\[
+  d^*(u,v):=\max\left(\{d_{H\boxtimes P}(u,v)\}\cup \left\{\min_{x\in V(P)\setminus V(P^+_{i,j})} (d_P(u,x) + d_P(x,v))\right\}\right)
+\]
+Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\boxtimes P)-X$ must navigate around each obstacle $X_{i,j}$ that separates $u$ and $v$ in the graph $Q^+_{i,j}$.  At the very least, this requires a path from $u$ to some vertex $x$ outside of $Q^+_{i,j}$ followed by a path from $x$ to $v$.
+
+
+height of the largest obstacle
+
+\begin{lem}
+  The function $d:V((H\boxtimes P)-X)\to\N\cup\{\infty\}$ is a distance function for $V((H\boxtimes P)-X)$.
+\end{lem}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+Say that $Q^+_{i,j}$ is
+
+
+Let $i_0(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$. This is well-defined, because $Q^+_{\log N,0}$ contains both $u$ and $v$ and is connected, and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.
+
+
+Let $i_0^{\shortrightarrow}(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$.  Note that this is well-defined, because $Q^+_{\log N,0}$ contains both $u$ and $v$ and is connected, and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.  Define $i_0(v,w):=\max\{i_0^{\shortrightarrow}(u,w),i_0^{\shortrightarrow}(w,u)\}$ and $\mathdefin{\delta_0(u,w)}:=2^{i_0(u,w)}$.
 
 % \noindent\framebox{\begin{minipage}{\textwidth}
 % \pat{This should be cut. I'm just leaving it for now because it contains a discussion with Gwen.}
