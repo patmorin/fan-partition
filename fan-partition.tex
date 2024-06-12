@@ -807,7 +807,7 @@ In words, $Q_{i,0},\ldots,Q_{i,N/2^i-1}$ partitions the part of $H\boxtimes P$ t
 
 To construct our sparsifying set $X$, we first construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define the weight function $\xi_{i,j}:V(H)\to\N$ where $\xi_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $\xi_{i,j}(H):=\sum_{x\in V(H)} \xi_{i,j}(x)=|V(Q^+_{i,j})\cap V(G)|$. Let $D\ge 2$ be a real number.  By \cref{weighted_separator} with $c:=\lceil\xi_{i,j}(H)/2^{i-1}D\rceil$, there exists $Y_{i,j}\subseteq V(H)$ of size at most $(t+1)\xi_{i,j}(H)/(2^{i-1}D)$, such that each component $C$ of $H-Y_{i,j}$ has total weight $\xi_{i,j}(C)\le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.  We think of $X_{i,j}$ as a vertical separator that splits the strip $Q^+_{i,j}$ into parts using vertex cuts that run from the top to the bottom of $Q^+_{i,j}$.
 
-\begin{lem}
+\begin{lem}\label{component_sizes}
   For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, each component of $Q^+_{i,j}-X_{i,j}$ has at most $2^{i-1}D$ vertices.\
 \end{lem}
 
@@ -829,7 +829,10 @@ Let $\mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.
 \subsection{\boldmath The Distance Function $d^*$}
 \label{d_star_definition}
 
-In order to construct a volume-preserving Euclidean contraction for a distance function $d$ we must ensure (at least) that $d_2(\phi(v),\phi(w))$ is large whenever $d(v,w)$ is large.  This is relatively easy to do for the distance function $d_{H\boxtimes P}$ using (simplifications of) the techniques used by \citet{rao:small} for planar graphs. This is more difficult for $d_{(H\boxtimes P)-X}$ because distances are larger, which only makes the problem harder.  Some of these distances are necessarily large; the obstacles in $X$ are needed to ensure that the local density of $(V(G),d_{(H\boxtimes P)-X})$ is small.  The purpose of a single set $X_{i,j}$ is to increase distances between some pairs of vertices in $Q^+_{i,j}$ so that they are at least $2^i$.  However, the obstacles in $X$ sometimes interact, by chance, to make distances excessively large. \cref{big_distance} shows that, even when $H=P$, obstacles in $X_{i,j+1}$ and in $X_{i,j-1}$ can interact in such a way that $d_{(H\boxtimes P)-X}(v,w)$ becomes $r2^i$ for arbitrarily large $r$.  This large distance is not needed to ensure the local density bound and it makes it difficult to construct a volume-preserving Euclidean contraction of $(V(G),d_{(H\boxtimes P)-X})$.  The purpose of the intermediate distance function $d^*$ that we now define is to reduce these unnecessarily large distances in such a way that the local density of $\mathcal{M}^*:=(V(G),d^*)$ is $O(D)$ but it is easier to find a volume-preserving Euclidean contraction of $\mathcal{M}^*$ than to find one of $(V(G),d_{(H\boxtimes P)-X})$. Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
+In order to construct a volume-preserving Euclidean contraction for a distance function $d$ we must ensure (at least) that $d_2(\phi(v),\phi(w))$ is large whenever $d(v,w)$ is large.  This is relatively easy to do for the distance function $d_{H\boxtimes P}$ using (simplifications of) the techniques used by \citet{rao:small} for planar graphs. This is more difficult for $d_{(H\boxtimes P)-X}$ because distances are larger, which only makes the problem harder.  Some of these distances are necessarily large; the obstacles in $X$ are needed to ensure that the local density of $(V(G),d_{(H\boxtimes P)-X})$ is small.  The purpose of a single set $X_{i,j}$ is to increase distances between some pairs of vertices in $Q^+_{i,j}$ so that they are at least $2^i$.  However, the obstacles in $X$ sometimes interact, by chance, to make distances excessively large. \cref{big_distance} shows that, even when $H=P$, obstacles in $X_{i,j+1}$ and in $X_{i,j-1}$ can interact in such a way that $d_{(H\boxtimes P)-X}(v,w)$ becomes $r2^i$ for arbitrarily large $r$.  This large distance is not needed to ensure the local density bound and it makes it difficult to construct a volume-preserving Euclidean contraction of $(V(G),d_{(H\boxtimes P)-X})$.  The purpose of the intermediate distance function $d^*$ is to reduce these unnecessarily large distances so that $d^*(v,w)$ is defined only by the ``worst'' obstacle in $X$ that separates $v$ and $w$.
+
+
+ % in such a way that the local density of $\mathcal{M}^*:=(V(G),d^*)$ is $O(D)$ but it is easier to find a volume-preserving Euclidean contraction of $\mathcal{M}^*$ than to find one of $(V(G),d_{(H\boxtimes P)-X})$. Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
 
 
 \begin{figure}
@@ -841,35 +844,42 @@ In order to construct a volume-preserving Euclidean contraction for a distance f
 
 
 
-
-For a graph $G$, a vertex $v$ of $G$ and a subgraph $C$ of $G$, we use the shorthand $\mathdefin{d_G(v,\overline{C})}:=d_G(v,V(G)\setminus V(C))$. Let $u:=(x_1,y_a)$ and $v:=(x_2,y_b)$ be two distinct vertices of $H\boxtimes P-X$.  Recall that, for each $i\in\{0,\ldots,\log N\}$, there is a unique integer $j=\floor{a/2^i}$ such that $Q_{i,j}$ contains $u$.
-
-Let $Z(u,v)$ be the set of all $i,j$ such that $u$ and $v$ are vertices of $Q^+_{i,j}$ that are in different components of $Q^+_{i,j}-X_{i,j}$.  Define
+For any subgraph of $A'$ of a graph $A$, we use the shorthand $\overline{A}':=V(A)\setminus V(A')$. (When we use this notation, the graph $A$ will be clear from context.)
+% For a graph $G$, a vertex $v$ of $G$ and a subgraph $C$ of $G$, we use the shorthand $\mathdefin{d_G(v,\overline{C})}:=d_G(v,V(G)\setminus V(C))$.
+For any vertex $u$ of $H\boxtimes P$, let $u_P$ denote the second coordinate of $u$ (the projection of $u$ onto $P$).  Let $u$ and $v$ be two vertices of $(H\boxtimes P)-X$.  If $u$ and $v$ are both vertices of $Q^+_{i,j}$ but are in different components of $Q^+_{i,j}-X_{i,j}$, then define
 \[
-  d^*(u,v):=\max\left(\{d_{H\boxtimes P}(u,v)\}\cup \left\{\min_{x\in V(P)\setminus V(P^+_{i,j})} (d_P(u,x) + d_P(x,v))\right\}\right)
+  d_{i,j}(u,v):=\min \{d_P(u_P,x) + d_P(x,v_P):x\in \overline{P}^+_{i,j}\} \enspace .
 \]
-Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\boxtimes P)-X$ must navigate around each obstacle $X_{i,j}$ that separates $u$ and $v$ in the graph $Q^+_{i,j}$.  At the very least, this requires a path from $u$ to some vertex $x$ outside of $Q^+_{i,j}$ followed by a path from $x$ to $v$.
-
-
-height of the largest obstacle
+Otherwise (if one of $u$ or $v$ is not in $Q^+_{i,j}$ or $u$ and $v$ are in the same component of $Q^+_{i,j}-X_{i,j}$), define $d_{i,j}(u,v)=0$.  When $d_{i,j}(u,v)>0$, it is helpful to think of $d_{i,j}(u,v)$ as the length of the shortest walk in $P$ that begins at $u_P$, leaves $P^+_{i,j}$ and returns to $v_P$.  Now our distance function
+\[
+  d^*(u,v):=\max\left(\{d_{H\boxtimes P}(u,v)\}\cup \left\{d_{i,j}(u,v):(i,j)\in\{0,\ldots,\log N\}\times\{1,\ldots,N/2^i-1\}\right\}
+\]
+Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\boxtimes P)-X$ must navigate around each obstacle $X_{i,j}$ that separates $u$ and $v$ in the graph $Q^+_{i,j}$.  At the very least, this requires a path from $u$ to some vertex $x$ outside of $Q^+_{i,j}$ followed by a path from $x$ to $v$.  The length of this path is at least the length of the shortest walk in $P$ that begins at $u_P$, contains $x_P$ and ends at $w_P$.
 
 \begin{lem}
-  The function $d:V((H\boxtimes P)-X)\to\N\cup\{\infty\}$ is a distance function for $V((H\boxtimes P)-X)$.
+  The function $d^*:V((H\boxtimes P)-X)\to\N\cup\{\infty\}$ is a distance function for $V((H\boxtimes P)-X)$.
 \end{lem}
 
 \begin{proof}
+  It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V((H\boxtimes P)\setminus X)$ and that $d^*(u,v)=d(v,u)\ge 0$ for all $u,v\in V((H\boxtimes P)-X)$.  It only remains to verify that $d^*$ satisfies the triangle inequality.  We must show that, for distinct $u,v,w\in V((H\boxtimes P)-X)$, $d^*(u,w)\le d^*(u,v)+d^*(v,w)$.
 
+  If $d^*(u,w)=0$ then $d^*(u,v)+d^*(v,w)\ge 0=d^*(u,w)$ and we are done.  If $d^*(u,w)=d_{H\boxtimes P}(u,w)$ then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w)\ge d_{H\boxtimes P}(u,w)$ and we are also done.  Otherwise, $d^*(u,w)=d_{i,j}(u,w)>0$ for some $i,j$.  Then $u$ and $w$ are vertices of $Q^+_{i,j}$ that are in different components of $Q^+_{i,j}-X_{i,j}$.  There are two cases to consider, depending on the location of $v$:
+  \begin{compactenum}
+    \item If $v\not\in V(Q^+_{i,j})$ then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w) \ge d_P(u_P,v_P)+d_P(v_P,w_P)\ge d_{i,j}(u,w)=d^*(u,w)$.
+
+    \item If $v\in V(Q^+_{i,j})$ then, since $u$ and $w$ are in different components $C_u$ and $C_w$ of $Q^+_{i,j}-X_{i,j}$, at least one of $C_u$ or $C_w$ does not contain $v$.  Without loss of generality, suppose $C_w$ does not contain $v$.  Then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{i,j}(v,w) \ge d_{P}(u_P,v_P)+d_{i,j}(v,w)$.  Now, $d_{P}(u_P,v_P)$ is the length of a path in $P$ from $u_P$ to $v_P$ and $d_{i,j}(v,w)$ is the length of a (shortest) walk in $P$ that begins at $v_P$, leaves $P^+_{i,j}$ and then returns to $w_P$. Thus,   $d_{P}(u_P,v_P)+d_{i,j}(v,w)$ is the length of a walk in $P$ that begins at $u_P$, leaves $P^+_{i,j}$ and then returns to $w_P$. On the other hand, $d_{i,j}(u,w)$ is the length of a shortest walk in $P$ that begins at $u_P$, leaves $P^+_{i,j}$ and returns to $w_P$, so $d_{i,j}(u,w)\le d_P(u_P,v_P)+d_{i,j}(v,w)$.  Therefore, $d^*(u,v)+d^*(v,w)\ge d_{P}(u_P,v_P)+d_{i,j}(v,w)\ge d_{i,j}(u,w)=d^*(u,w)$. \qedhere
+  \end{compactenum}
 \end{proof}
-
-
-
-Say that $Q^+_{i,j}$ is
-
-
-Let $i_0(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$. This is well-defined, because $Q^+_{\log N,0}$ contains both $u$ and $v$ and is connected, and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.
-
-
-Let $i_0^{\shortrightarrow}(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$.  Note that this is well-defined, because $Q^+_{\log N,0}$ contains both $u$ and $v$ and is connected, and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.  Define $i_0(v,w):=\max\{i_0^{\shortrightarrow}(u,w),i_0^{\shortrightarrow}(w,u)\}$ and $\mathdefin{\delta_0(u,w)}:=2^{i_0(u,w)}$.
+%
+%
+%
+% Say that $Q^+_{i,j}$ is
+%
+%
+% Let $i_0(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$. This is well-defined, because $Q^+_{\log N,0}$ contains both $u$ and $v$ and is connected, and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.
+%
+%
+% Let $i_0^{\shortrightarrow}(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$.  Note that this is well-defined, because $Q^+_{\log N,0}$ contains both $u$ and $v$ and is connected, and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.  Define $i_0(v,w):=\max\{i_0^{\shortrightarrow}(u,w),i_0^{\shortrightarrow}(w,u)\}$ and $\mathdefin{\delta_0(u,w)}:=2^{i_0(u,w)}$.
 
 % \noindent\framebox{\begin{minipage}{\textwidth}
 % \pat{This should be cut. I'm just leaving it for now because it contains a discussion with Gwen.}
@@ -884,41 +894,35 @@ Let $i_0^{\shortrightarrow}(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such 
 % If no such $i$ exists, define $i_0^{\shortrightarrow}(u,w):=-\infty$ \pat{TODO: This isn't quite right, fix later.}.
 % \end{minipage}}
 
-\begin{figure}
-    \centering
-    \begin{tabular}{ccc}
-    \includegraphics[page=1,trim=20 0 30 0,clip,scale=0.85]{figs/new_metric} &
-    \includegraphics[page=2,,trim=20 0 30 0,clip,scale=0.85]{figs/new_metric} &
-    \includegraphics[page=3,scale=0.85]{figs/new_metric}
-    \end{tabular}
-    \caption{The definitions of $\delta_1$, $\delta_2$, and $\delta_3$.}
-    \label{d_star}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \begin{tabular}{ccc}
+%     \includegraphics[page=1,trim=20 0 30 0,clip,scale=0.85]{figs/new_metric} &
+%     \includegraphics[page=2,,trim=20 0 30 0,clip,scale=0.85]{figs/new_metric} &
+%     \includegraphics[page=3,scale=0.85]{figs/new_metric}
+%     \end{tabular}
+%     \caption{The definitions of $\delta_1$, $\delta_2$, and $\delta_3$.}
+%     \label{d_star}
+% \end{figure}
 
-Ultimately, $d^*$ will be the maximum of several functions, one of which is $\delta_0$.  Of these functions, $\delta_0$ is the most important because it ensures that the metric space $\mathcal{M}^*$ has local density $O(D)$.
+% Ultimately, $d^*$ will be the maximum of several functions, one of which is $\delta_0$.  Of these functions, $\delta_0$ is the most important because it ensures that the metric space $\mathcal{M}^*$ has local density $O(D)$.
 
 \begin{lem}\label{delta_density}
-  For each $v\in V(H\boxtimes P)$ and $r\ge 1$,
-  \[
-    |B_{(V(G),\delta_0)}(v,r):=\{w\in V(G):\delta_0(v,w)\le r\}| \le 3Dr \enspace .
-  \]
+  The metric space $\mathcal{M}^*:=(V(G-X),d^*)$ has local density at most $D$.
 \end{lem}
 
 \begin{proof}
-  Since $\delta_0(v,w)$ is always zero or an integer power of $2$, we may assume that $r=2^k$ for some integer $k$.  If $\delta_0(v,w)\le r=2^k$ for some $w\in V(G)$, then $v$ and $w$ are in the same component of $Q^+_{k+1,j}-X_{k+1,j}$ for some $j$.
-  % \pat{The previous sentence is where the "otherwise" clause in the definition of $i^\rightarrow_0$ matters.  Specifically, }
-  % \gwen{I am not sure where this "otherwise" is in that definition, do you mean "but $u$ and $w$ are in different components of $Q^+_{i,\lfloor a/2^i\rfloor}-X_{i,\lfloor a/2^i\rfloor}$"} \pat{No, the ``otherwise'' clause I'm referring to occurs when $u$ and $w$ are in the same component of $G^+_{i,j}-X_{i,j}$ for every value of $i$.  This happens, for example, when the metric space $(V(G),d_{H\boxtimes P})$ already has local density at most $D$ so each set $X_{i,j}$ is empty. Then $\delta_0(u,w)=0$ for every $u,w\in V(G)$ so the lemma, as stated, is not true.  In this case, we have to use the fact that $d^*(u,w)\ge d_{H\boxtimes P}(u,w)$.}
-  There are at most three values of $j$ such that $v\in V(Q^+_{k+1,j})$.  For each of these, the component of $Q^+_{k+1,j}-X_{k+1,j}$ that contains $v$ contains at most $D2^{k}$ vertices of $G$. Therefore, $|B_{(V(G),d^*)}| \le 3D 2^{k}= 3Dr$
+  We must show that, for any $v\in V(G)$ and any $r>0$, $|B_{\mathcal{M}^*}(v,r)|\le Dr+1$.  If $r\ge n/D$ then this is trivial, so assume that $r\le n/D$.  Consider some vertex $w\in B_{\mathcal{M}^*}(v,r)$.  Let $i:=\lceil\log r\rceil$ and let $j$ be such that $v$ is a vertex of $Q_{i,j}$.  Since $w\in B_{\mathcal{M}^*}(v,r)$, $d_{H\boxtimes P}(v,w)\le r\le 2^i$.  Therefore $d_P(v_P,w_P)\le d_{H\boxtimes P}(v,w)\le 2^i$.  Therefore $w$ is contained in $Q^+_{i,j}$.  Since $d^*(v,w)\le r$, $d_{i,j}(v,w)\le r$.  This implies that $v$ and $w$ are in the same component of $Q^+_{i,j}-X_{i,j}$ since, otherwise, $d_{i,j}(v,w)\ge d_P(u_P,\overline{P}^+_{i,j}) + d_P(\overline{P}^+_{i,j},w_P)\ge 2^i+1$.
+  Therefore, $B_{\mathcal{M}^*}(v,r)$ is contained in the component $C$ of $Q^+_{i,j}-X_{i,j}$ that contains $v$.  By \cref{component_sizes}, $|V(C)|\le 2^{i-1}D< rD$.  Therefore, $|B_{\mathcal{M}^*}(v,r)|\le |V(C)|< rD$.
 \end{proof}
 
-By \cref{delta_density}, $\delta_0$ defines a space $(V(G),\delta_0)$ with local density $O(D)$.  Unfortunately, this is not a metric space because $\delta_0$ does not necessarily satisfy the triangle inequality.  The remaining functions used to define $d^*$ ensure that $d^*$ is a metric space.
+\begin{lem}
+  The metric space $(V((H\boxtimes P)-X),d^*)$ is a contraction of $\mathcal{M}_{(H\boxtimes P)-X}=(V((H\boxtimes P)-X),d_{(H\boxtimes P)-X})$.
+\end{lem}
 
-% Let $v:=(x_2,y_b)$.
-We now define a second quantity $\mathdefin{\delta_1(u,v)}$.  If there exists some $i\in\{0,\ldots, \log N\}$ such that $u,v\in V(Q_{i,j})$ but $u$ and $v$ are in different components of $Q_{i,j}-X_{i,j+1}$ then let $\mathdefin{i_1(u,v)}$ be the maximum such $i$ and set $\mathdefin{\delta_1(u,v)}=a+b-j2^{i+1}$. If no such $i$ exists, then let $i_1(u,v):=-\infty$ and $\delta_1(u,v):=0$.
-Equivalently, we can define $\delta_1(u,v):=d_{P}(x_1,\overline{P^+_{i,j+1}})+d_{P}(x_2,\overline{P^+_{i,j+1}})$.
-
-The third quantity $\mathdefin{\delta_2(u,v)}$ is defined symmetrically: If there exists some $i\in\{0,\ldots, \log N\}$ such that $u,v\in V(Q_{i,j})$ but $u$ and $v$ are in different components of $Q_{i,j}-X_{i,j-1}$ then let $i_2(u,v)$ be the maximum such $i$ and set $\delta_2(u,v)=(j+1)2^{i+1}-a-b+2$. If no such $i$ exists, then let $i_2(u,v):=-\infty$ and $\delta_2(u,v):=0$.  Equivalently, we can define $\delta_2(u,v):=d_{P}(x_1,\overline{P^+_{i,j-1}})+d_{P}(x_2,\overline{P^+_{i,j-1}})$.
-
+\begin{proof}
+  Let $u$ and $v$ be distinct vertices of $(H\boxtimes P)-X$.  If $d^*(u,v)=d_{H\boxtimes P}(u,v)$ then, $d^*(u,v)=d_{H\boxtimes P}(u,v)\le d_{(H\boxtimes P)-X}(u,v)$.  If $d^*(u,v)=d_{i,j}(u,v)$ for some $i$ and $j$ then any path from $u$ to $v$ in $(H\boxtimes P)-X$ must contain some vertex $x$ not in $Q^+_{i,j}$ since $u$ and $v$ are in different components of $Q^+_{i,j}-X$.  The shortest such path has length at least $d_{H\boxtimes P}(u,x)+d_{H\boxtimes P}(x,v) \ge d_P(u_P,x_P)+d_P(x_P,v_P) \ge d_{i,j}(u,v)=d^*(u,v)$.
+\end{proof}
 
 % From the definition of $i_1$ and $i_2$ we immediately obtain the following property, which will be useful later.
 
@@ -927,56 +931,16 @@ The third quantity $\mathdefin{\delta_2(u,v)}$ is defined symmetrically: If ther
 %   $i_b(u,v)\ge 0$ then $\delta_b(u,v)\le 2^{i_b(u,v)+1}$.
 % \end{obs}
 
-Finally, define
-\[
-  \mathdefin{d^*(u,v)} := \max\{\delta_0(u,v),\; \delta_1(u,v),\; \delta_2(u,v),\; d_{H\boxtimes P}(u,v) \}
-\]
-First we argue that $d^*$ is a contraction of $d_{(H\boxtimes P)-X}$.
-\begin{lem}\label{d_star_contraction}
-  For every pair of vertices $u,v\in V((H\boxtimes P)-X)$, $d^*(u,v)\le d_{(H\boxtimes P)-X}(u,v)$.
-\end{lem}
-
-\begin{proof}
-  If $\delta_0(u,v)=2^i$ because, say $i_0(u,v)=i$, then any path in $(H\boxtimes P)-X$ from $u$ to $v$ must begin in the subgraph $Q_{i,j}$ that contains $u$ and must not be contained in the subgraph $Q^+_{i,j}$.  Therefore $d_{(H\boxtimes P)-X}(u,v) \ge 2^i=\delta_0(u,v)$.
-
-  If $\delta_1(u,v)=p>0$ and $i_1(u,v)=i$, then any path in $(H\boxtimes P)-X$ from $u$ to $v$ must begin at $u$, leave the subgraph $Q^+_{i,j+1}$, and return to $v$.  The shortest such path contains at least $\delta_1(u,v)$ vertices in $V(Q_{i,j})\cup V(Q_{i,j+1})$ plus one additional vertex.  Therefore $d_{(H\boxtimes P)-X}(u,v) \ge \delta_1(u,v)$.  The argument for $\delta_2$ is symmetric.
-\end{proof}
-
-Next we argue that $d^*$ is a distance function.
-
-\begin{lem}\label{d_star_metric}
-  The function $d^*$ is a distance function for $V(H\boxtimes P)\setminus X$.
-\end{lem}
-
-\begin{proof}
-  It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V(H\boxtimes P)\setminus X$ and that $d^*(u,v)=d^*(v,u)\ge 0$ for all $u,v\in V(H\boxtimes P)\setminus X$.  All that remains is to verify that $d^*$ satisfies the triangle inequality.
-
-  Let $u:=(x_1,y_a)$, $v:=(x_2,y_b)$ and $w:=(x_3,y_c)$ be three vertices of $(H\boxtimes P)- X$.  We must show that $d^*(u,w)\le d^*(u,v)+d^*(v,w)$.  If $d^*(u,w)=0$ then this is immediate, so suppose $d^*(u,w)>0$.
-
-  If $d^*(u,w)=d_{H\boxtimes P}(u,w)$ then this follows immediately from the fact that $d_{H\boxtimes P}$ satisfies the triangle inequality and the fact that $d^*(u,v) + d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w)$.
-
-  If $d^*(u,w)=\delta_0(u,w)$ then assume, without loss of generality that $i:=i_0(u,w)=i_0^{\shortrightarrow}(u,w)$.  Let $j:=\floor{a/2^i}$, so that $Q_{i,j}$ contains $u$ and $Q^+_{i,j}$ contains $w$.  Since $i=i^{\shortrightarrow}_0(u,w)$, $u$ and $w$ are in different components, $C_u$ and $C_w$ of $Q^+_{i,j}-X_{i,j}$ \pat{or $Q^+_{i,j}$ contains $u$ but does not contain $w$.}.  We distinguish between two cases depending on the location of $v$.  If $v$ is not a vertex of $Q^+_{i,j}$, then $d^*(u,v) \ge d_{H\boxtimes P}(u,v) \ge 2^i=\delta_0(u,w)=d^*(u,w)$ and there is nothing to prove.
-  \gwen{I got confused by the first inequality: Did you mean to write $d^*(u,v) \ge d_{H\boxtimes P}(u,v)$?}\pat{Yes, fixed now.}
-  Otherwise, $v$ is contained in some component $C_v$ of $Q^+_{i,j}-X_{i,j}$.  If $C_v\neq C_u$ then $i_0(u,v)\ge i$ so $d^*(u,v)\ge 2^i$ and again there is nothing to prove.  If $C_v=C_u$, then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+\delta_b(v,w)\ge 2^i=d^*(u,w)$ for some $b\in\{0,1,2\}$. (The choice of $b$ depends on the location of $v$; if $v\in V(Q_{i,j})$ then $b=0$, if $v\in V(Q_{i,j-1})$ then $b=1$, and if $v\in V(Q_{i,j+1})$, then $b=2$.)
-
-  Since $\delta_1$ and $\delta_2$ are symmetric, all that remains is to consider the case where $d^*(u,w)=\delta_1(u,w)$. In this case, $i:=i_1(u,w)\ge 0$, so $u$ and $w$ are both contained in $Q_{i,j}$ but are in different components $C_u$ and $C_w$ of $Q_{i,j}-X_{i,j+1}$, for some $j$.
-  \begin{compactitem}
-      \item If $v$ not a vertex of $Q_{i,j}$ or of $Q_{i,j+1}$ then $d^*(u,v)+d^*(v,w) \ge d_{H\boxtimes P}(u,v)+d_{H\boxtimes P}(v,w)\ge \delta_1(u,w)$.
-      \item If $v$ is a vertex of $Q_{i,j+1}$ then, since $u$ and $w$ are in different components of $Q_{i,j}-X_{i,j+1}$, they are also in different components of $Q^+_{i,j+1}-X_{i,j+1}$.  At least one of these components, say the component that contains $w$, does not contain $v$.  Thus $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j+1}$, which implies that $i^{\shortrightarrow}_0(v,w)\ge i$, so $d^*(v,w)\ge \delta_0(v,w)\ge 2^i$.
-      \item The only remaining possibility is that $v$ is a vertex of $Q_{i,j}$. If $v$ is a vertex of $C_u$, then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+\delta_1(v,w)\ge \delta_1(u,w)$. The case where $v$ is a vertex of $C_w$ is symmetric.  If $v$ is neither a vertex of $C_u$ nor a vertex of $C_w$, then $d^*(u,v)+d^*(v,w)\ge \delta_1(u,v) + \delta_1(v,w) \ge \delta_1(u,w)$. \qedhere
-  \end{compactitem}
-\end{proof}
-
-
 The preceding lemmas are summarized in the following corollary:
 
 \begin{cor}\label{d_star_summary}
-  The metric space $(V((H\boxtimes P)-X), d^*)$ is a is a contraction of $(V((H\boxtimes P)-X), d_{(H\boxtimes P)-X})$ and the metric space $(V(G-X),d^*)$ has local density $O(D)$.
+  The metric space $(V((H\boxtimes P)-X), d^*)$ is a is a contraction of $(V((H\boxtimes P)-X), d_{(H\boxtimes P)-X})$ and the metric space $(V(G-X),d^*)$ has local density at most $D$.
 \end{cor}
 
 
 
 \subsection{Volume-Preserving Contraction of $\mathcal{M}^*$}
+
 
 In this section we prove the following result:
 
@@ -1114,21 +1078,11 @@ Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\De
 Let $I$ be the union of the vertex-disjoint graphs $(H\boxtimes P)^\Delta_{a,b}$ over all integer $a$ and $b$.  Thus, $I$ is a random subgraph of $H\boxtimes P$ whose value depends only on the random choices $r_H$ and $r_P$.  For each component $C$ of $I$, let $X_C:=\cup\{X_{i,j}:C\subseteq Q^+_{i,j},\, i\in\{0,\ldots,\log N\}, j\in\{0,\ldots,N/2^i-1\}\}$.  In words, $X_C$ contains only the vertical cuts used to construct $X$ that cut $C$ from top to bottom. Let $J$ be the subgraph of $I$ obtained by removing, for each component $C$ of $I$, the vertices in $X_C\cap V(C)$.
 
 \begin{lem}\label{dstar_component_diameter}
-  Each component $C'$ of $J$ has $\diam_{d^*}(C')\le 3\Delta$.
+  Each component $C'$ of $J$ has $\diam_{d^*}(C')\le 5\Delta$.
 \end{lem}
 
 \begin{proof}
-  Let $C'$ be a component of $J$, let $C$ be the component of $I$ that contains $C'$, and let $v:=(v_1,v_2)$ and $w:=(w_1,w_2)$ be two vertices of $C'$. We need to show that $d^*(v,w)\le 3\Delta$, which means we need to show that $d(v,w)\le 3\Delta$ for each $d\in\{\delta_0, \delta_1,\delta_2,d_{H\boxtimes p}\}$.
-
-  Since $v$ and $w$ are both in $C$, \cref{component_diameter} implies that $d_{H\boxtimes P}(v,w)\le 2\Delta+1 \le 3\Delta$.
-
-  Suppose, for the sake of contradiction, that $\delta_0(v,w)=2^i> 3\Delta$. Then, for some $j$, $v\in V(Q_{i,j})$,  $w\in V(Q^+_{i,j})$, and $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j}$.  Since $2^i>\Delta$ and $v\in V(C)$, $Q^+_{i,j}$ contains $C$ so $X_C$ contains $X_{i,j}$. Therefore, $v$ and $w$ are in different components of $C-X_C$, contradicting the assumption that $v$ and $w$ are in the same component of $J$.
-
-  \todo[inline]{It might be helpful to introduce the notation $d_P(v,w)$ and $d_H(v,w)$ for vertices in $H\boxtimes P$. }
-  Suppose, for the sake of contradiction, that $\delta_1(v,w)>3\Delta$ and let $(v_1,v_2):=v$ and $(w_1,w_2):=w$.  Then, for some $j$, $v$ and $w$ are vertices of $Q_{i,j}$ that are in different components of $Q_{i,j}-X_{i,j+1}$.  By definition $\delta_1(v,w)=d_P\left(v_2,\overline{P^+_{i,j+1}}\right) + d_P\left(w_2,\overline{P^+_{i,j+1}}\right)$.  Since $\delta_1(v,w)>3\Delta$ we may assume, without loss of generality, that $d_P\left(v_2,\overline{P^+_{i,j+1}}\right)>3\Delta/2$.  For any vertex $y:=(y_1,y_2)\in V(C)$, $d_P(v_2,y_2)\le\Delta-1$.  Therefore $C$ is contained in $G^+_{i,j+1}=H\boxtimes P^+_{i,j+1}$.  Therefore $X_C$ contains $X_{i,j+1}$.  Therefore $v$ and $w$ are in different components of $C-X_C$, which contradicts the assumption that $v$ and $w$ are in the same component of $J$.
-  % and $\delta_1(v,w)=d_P(v_2,x_2)+d_P(x_2,w_2)$ for some vertex $x:=(x_1,x_2)\in V(H\boxtimes P)\setminus V(Q^+_{i,j+1})$.  For any vertex $y:=(y_1,y_2)$ in $C$, $d_P(v,y),d_P(y,w) <\Delta$.  Therefore, $x$ is not a vertex of $C$, since
-  % $3\Delta>\delta_1(v,w)=d_P(v,x_2)+d_P(x_2,w)$.  By \cref{i_bounds}, $3\Delta<\delta_1(v,w)\le 2^{i+1}$, which implies that $Q^+_{i,j+1}$ contains $C$.\todo{This explanation could be better.}  Therefore $X_C$ contains $X_{i,j+1}$.  Again, this contradicts the assumption that $v$ and $w$ are in the same component of $J$.
-  The situation in which $\delta_2(v,w)>3\Delta$ is handled symmetrically.
+  Let $C'$ be a component of $J$, let $C$ be the component of $I$ that contains $C'$, and let $v$ and $w$ be two vertices of $C'$. By \cref{component_diameter}, $d_{H\boxtimes P}(v,w)\le 2\Delta+1< 5\Delta$, so we may assume that $d^*(v,w)\neq d_{H\boxtimes P}(v,w)$.  Therefore $d^*(v,w)=d_{i,j}(v,w)$ for some $i$ and $j$ and $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j}$.  Since $v$ and $w$ are in the same component $C$ of $I$, the component $C$ is not contained in $Q^+_{i,j}$. (Otherwise, $X_{i,j}$ would be in $X_C$ and $v$ and $w$ would be in different components of $J$.) Therefore $C$ contains a vertex $x$ that is not in $Q^+_{i,j}$.  By \cref{component_diameter}, $d_{H\boxtimes P}(x,v)\le 2\Delta+1$ and $d_{H\boxtimes P}(x,w)\le 2\Delta+1$.  Therefore $d^*(v,w)=d_{i,j}(v,w)\le d_P(v_P,x_P)+d_P(x_P,w_P)\le d_{H\boxtimes P}(v,x)+d_{H\boxtimes P}(x,w)\le 4\Delta+2\le 5\Delta$.
 \end{proof}
 
 
@@ -1180,17 +1134,15 @@ For each component $C$ of $I$, each component of $C'$ of $J$ that is contained i
 \begin{lem}\label{double_distance}
   For any two vertices $v,w\in V(H\boxtimes P)\setminus X$,
   \[
-    |\varphi_I(v)-\varphi_I(w)| \le 6\, d^*(v,w) \enspace .
+    |\varphi_I(v)-\varphi_I(w)| \le 2\, d^*(v,w) \enspace .
   \]
 \end{lem}
 
 \begin{proof}
-  If $v=w$ then $|\varphi_I(v)-\varphi_I(w)|=0 = 2 d^*(v,w)$, so we assume $v\neq w$. In particular $d^*(v,w)\ge d_{H\boxtimes P}(v,w)\ge 1$.
-  % If $\Delta=1$ then each component of $I$ contains a single vertex in which $\varphi_I(v),\varhpi_I(w)\in [1,2]$, so $|\varphi_I(v)-\varhpi_I(w)|\le 1\le d^*(v,w)$.  We now assume that $\Delta\ge 2$.  \pat{Do we need this assumption anymore?}
-  There are three cases to consider, depending on the placement of $v$ and $w$ with respect to the components of $I$ and $J$.
+  If $v=w$ then $|\varphi_I(v)-\varphi_I(w)|=0 = 6 d^*(v,w)$, so we assume $v\neq w$. In particular $d^*(v,w)\ge d_{H\boxtimes P}(v,w)\ge 1$.  There are three cases to consider, depending on the placement of $v$ and $w$ with respect to the components of $I$ and $J$.
 
   \begin{compactenum}
-    \item  If $v$ and $w$ are in different components $C_v$ and $C_w$ of $I$ then
+    \item  If $v$ and $w$ are in different components $C_v$ and $C_w$ of $I$ then, for some $\alpha_v,\alpha_w\in[0,1]$,
     \begin{align*}
        |\varphi_I(v)-\varphi_I(w)|
       & =|(1+\alpha_v)d_{H\boxtimes P}(v,\overline{C}_v)-(1+\alpha_w)d_{H\boxtimes P}(w,\overline{C}_w)| \\
@@ -1211,40 +1163,21 @@ For each component $C$ of $I$, each component of $C'$ of $J$ that is contained i
     \end{align*}
     where the penultimate inequality is obtained by rewriting the triangle inequalities $d_{H\boxtimes P}(v,\overline{C})\le d_{H\boxtimes P}(v,w)+d(w,\overline{C})$ and $d_{H\boxtimes P}(w,\overline{C})\le d_{H\boxtimes P}(w,v)+d_{H\boxtimes P}(v,\overline{C})$.
 
-    \item All that remains is to consider the case where $v$ and $w$ are in the same component $C$ of $I$ but in different components $C'_v$ and $C'_w$ of $J$.  This happens because there exists some $i$ and $j$ such that $C$ is contained in $Q^+_{i,j}$ but $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j}$.  First observe that $d_{H\boxtimes P}(v,\overline{C})+d_{H\boxtimes P}(v,\overline{C})\le \Delta$, since each term is at most $\Delta/2$.  Since $C$ is contained in $Q^+_{i,j}$, $3\cdot 2^{i} \ge \Delta$.
-    \begin{compactenum}[(a)]
-      \item If at least one of $v$ or $w$ is in $Q_{i,j}$ then $i_0(v,w)\ge i$, so
-      \[
-        d^*(v,w)\ge \delta_0(v,w)\ge 2^i\ge \Delta/3 \ge (d_{H\boxtimes P}(v,\overline{C})+d_{H\boxtimes P}(w,\overline{C}))/3 \enspace .
-      \]
-      \item If $v$ and $w$ are both in $Q_{i,j-1}$ then
-      \[
-        d^*(v,w) \ge \delta_1(v,w)=d_{H\boxtimes P}(v,\overline{Q}^+_{i,j}) + d_{H\boxtimes P}(w,\overline{Q}^+_{i,j})\ge d_{H\boxtimes P}(v,\overline{C})+d_{H\boxtimes P}(w,\overline{C}) \enspace ,
-      \]
-
-      \item If $v$ and $w$ are both in $Q_{i,j+1}$ then a symmetric argument shows that $d^*(v,w)\ge d_{H\boxtimes P}(v,\overline{C})+d_{H\boxtimes P}(w,\overline{C})$.
-
-      \item If one of $v$ or $w$ is in $G_{i,j-1}$ and the other is in $G_{i,j+1}$, then
-      \[
-        d_{H\boxtimes P}(v,w)
-            \ge 2^i\ge\Delta/3
-            \ge (d_{H\boxtimes P}(v,\overline{C})
-                + d_{H\boxtimes P}(w,\overline{C}))/3 \enspace .
-      \]
-    \end{compactenum}
-    In each case, $d^*(v,w)\ge (d_{H\boxtimes P}(v,\overline{C})+d_{H\boxtimes P}(w,\overline{C}))/3$, so
+    \item All that remains is to consider the case where $v$ and $w$ are in the same component $C$ of $I$ but in different components $C'_v$ and $C'_w$ of $J$.  This happens because there exists some $i$ and $j$ such that $C$ is contained in $Q^+_{i,j}$ but $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j}$. In this case, $d^*(v,w)\ge d_{i,j}(v,w)=d_P(v_P,x)+d_P(x,w_P)$ for some $x\in \overline{P}^+_{i,j}$.  Since $C$ is contained in $Q^+_{i,j}$, $d_{H\boxtimes P}(v_P,\overline{C})\le d_{P}(v_P,x)$ and $d_{H\boxtimes P}(\overline{C},w)\le d_{P}(x,w_P)$. Therefore $d^*(v,w)\ge d_{H\boxtimes P}(v,\overline{C})+d_{H\boxtimes P}(w,\overline{C})$. Therefore
     \begin{align*}
         |\varphi_I(v)-\varphi_I(w)|
         & =|(1+\alpha_{C'_v})d_{H\boxtimes P}(v,\overline{C})-(1+\alpha_{C'_w})d_{H\boxtimes P}(w,\overline{C})| \\
         & \le 2\max\{d_{H\boxtimes P}(v,\overline{C}), d_{H\boxtimes P}(\overline{C},w)\} \\
-        & \le 2\left(d_{H\boxtimes P}(v,\overline{C}) + d_{H\boxtimes P}\overline{C},w)\right) \\
-        & \le 6\, d^*(v,w) \enspace . \qedhere
+        & \le 2\left(d_{H\boxtimes P}(v,\overline{C}) + d_{H\boxtimes P}(\overline{C},w)\right) \\
+        & \le 2\, d^*(v,w) \enspace . \qedhere
     \end{align*}
   \end{compactenum}
 \end{proof}
 
 
 \subsection{\boldmath The Euclidean Embedding $\phi$}
+
+\pat{TODO: Constants need to be adusted here (again) $6\rightarrow 2$ and $3\rightarrow 5$.}
 
 Let $a$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V(G)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\log N-1\}$ and each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $I_{i,j}:=I(H,P,2^i,r_{H,i,j},r_{P,i,j})$ be an instance of the random subgraph $I$ defined in the previous section with parameter $\Delta=2^i$ and where random offsets $r_{H,i,j},r_{P,i,j}\in\{0,\ldots,\Delta-1\}$ are chosen independently for each instance.  Each graph $I_{i,j}$ defines an induced subgraph $J_{i,j}$ as in the previous section, which defines a uniformly random $\alpha_{C'}$ for each component $C'$ of $J_{i,j}$, with all random choices made independently.  This defines, for each $v\in V(J_{i,j})$, the value $\varphi_{I_{i,j}}(v)$ and we let $\mathdefin{\phi_{i,j}(v)}:= \varphi_{I_{i,j}}(v)$.
 
