@@ -859,9 +859,9 @@ For any vertex $u$ of $H\boxtimes P$, let $u_P$ denote the second coordinate of 
 \[
   d_{i,j}(u,v):=\min \{d_P(u_P,x) + d_P(x,v_P):x\in \overline{P}^+_{i,j}\} \enspace .
 \]
-Otherwise (if one of $u$ or $v$ is not in $Q^+_{i,j}$ or $u$ and $v$ are in the same component of $Q^+_{i,j}-X_{i,j}$), define $d_{i,j}(u,v)=0$.  When $d_{i,j}(u,v)>0$, it is helpful to think of $d_{i,j}(u,v)$ as the length of the shortest walk in $P$ that begins at $u_P$, leaves $P^+_{i,j}$ and returns to $v_P$.  Now our distance function
+Otherwise (if one of $u$ or $v$ is not in $Q^+_{i,j}$ or $u$ and $v$ are in the same component of $Q^+_{i,j}-X_{i,j}$), define $d_{i,j}(u,v)=0$.  When $d_{i,j}(u,v)>0$, it is helpful to think of $d_{i,j}(u,v)$ as the length of the shortest walk in $P$ that begins at $u_P$, leaves $P^+_{i,j}$ and returns to $v_P$.  Now define our distance function
 \[
-  d^*(u,v):=\max\left(\{d_{H\boxtimes P}(u,v)\}\cup \left\{d_{i,j}(u,v):(i,j)\in\{0,\ldots,\log N\}\times\{1,\ldots,N/2^i-1\}\right\}
+  d^*(u,v):=\max\left(\{d_{H\boxtimes P}(u,v)\}\cup \left\{d_{i,j}(u,v):(i,j)\in\{0,\ldots,\log N\}\times\{1,\ldots,N/2^i-1\}\right\}\right)
 \]
 Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\boxtimes P)-X$ must navigate around each obstacle $X_{i,j}$ that separates $u$ and $v$ in the graph $Q^+_{i,j}$.  At the very least, this requires a path from $u$ to some vertex $x$ outside of $Q^+_{i,j}$ followed by a path from $x$ to $v$.  The length of this path is at least the length of the shortest walk in $P$ that begins at $u_P$, contains $x_P$ and ends at $w_P$.
 
