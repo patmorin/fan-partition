@@ -138,6 +138,26 @@
 
 \begin{abstract}
   We show that every $n$-vertex planar graph is contained in the strong product of a fan and a clique of size $O(\sqrt{n}\log^2 n)$.  Equivalently, every $n$-vertex planar graph $G$ has a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.  This result holds in the more general setting of product structured graphs, which includes bounded genus graphs and $k$-planar graphs for fixed $k$.
+
+  \piotr{Alternative title} 
+
+Bandwidth of planar graphs after removing a small set of vertices
+by Local Sparsification and Volume-Preserving Embeddings
+
+  \piotr{Alternative abstract} 
+
+  We show that every $n$-vertex planar graph $G$ contains a set $X$ of
+$O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth
+$O(\sqrt{n}\log^2 n)$.  This result holds in the more general setting
+of product structured graphs, which includes bounded genus graphs and
+$k$-planar graphs for fixed $k$.
+The result is tight up to the polylog factor. 
+It can be seen as a big step in order to understand:  
+What is the simplest family of graphs $\mathcal{H}$ such that for each
+$n$-vertex planar graph $G$ there is a graph $H\in\mathcal{H}$ such
+that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$, where
+$\tilde{O}$ notation hides $\polylog(n)$ terms?
+We conjecture that the simplest such $\mathcal{H}$ is the family of fans.
 \end{abstract}
 
 \section{Introduction}
@@ -664,7 +684,6 @@ For two points $x,y\in\R^L$, let $\mathdefin{d_2(x,y)}$ denote the Euclidean dis
 
 \begin{obs}\label{contraction_increases_density}
   Let $\mathcal{M}:=(S,d)$ and $\mathcal{M}':=(S',d')$ be non-empty finite metric spaces.  If $\mathcal{M'}$ has local density $D$ and $\mathcal{M}$ has an injective contraction into $\mathcal{M}'$ then  $\mathcal{M}$ has local density at most $D$.
-  % \gwen{Shouldn't we assume both metric spaces to be non-empty and finite?}
 \end{obs}
 
 \begin{proof}
@@ -838,7 +857,7 @@ Let $\mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.
 \subsection{\boldmath The Distance Function $d^*$}
 \label{d_star_definition}
 
-In order to construct a volume-preserving Euclidean contraction for a distance function $d$ we must ensure (at least) that $d_2(\phi(v),\phi(w))$ is large whenever $d(v,w)$ is large.  This is relatively easy to do for the distance function $d_{H\boxtimes P}$ using (simplifications of) the techniques used by \citet{rao:small} for planar graphs. This is more difficult for $d_{(H\boxtimes P)-X}$ because distances are larger, which only makes the problem harder.  Some of these distances are necessarily large; the obstacles in $X$ are needed to ensure that the local density of $(V(G),d_{(H\boxtimes P)-X})$ is small.  The purpose of a single set $X_{i,j}$ is to increase distances between some pairs of vertices in $Q^+_{i,j}$ so that they are at least $2^i$.  However, the obstacles in $X$ sometimes interact, by chance, to make distances excessively large. \cref{big_distance} shows that, even when $H=P$, obstacles in $X_{i,j+1}$ and in $X_{i,j-1}$ can interact in such a way that $d_{(H\boxtimes P)-X}(v,w)$ becomes $r2^i$ for arbitrarily large $r$.  This large distance is not needed to ensure the local density bound and it makes it difficult to construct a volume-preserving Euclidean contraction of $(V(G),d_{(H\boxtimes P)-X})$.  The purpose of the intermediate distance function $d^*$ is to reduce these unnecessarily large distances so that $d^*(v,w)$ is defined only by the ``worst'' obstacle in $X$ that separates $v$ and $w$.
+In order to construct a volume-preserving Euclidean contraction $\phi$ for a distance function $d$ we must ensure (at least) that $d_2(\phi(v),\phi(w))$ is large whenever $d(v,w)$ is large.  This is relatively easy to do for the distance function $d_{H\boxtimes P}$ using (simplifications of) the techniques used by \citet{rao:small} for planar graphs. This is more difficult for $d_{(H\boxtimes P)-X}$ because distances are larger, which only makes the problem harder.  Some of these distances are necessarily large; the obstacles in $X$ are needed to ensure that the local density of $(V(G),d_{(H\boxtimes P)-X})$ is small.  The purpose of a single set $X_{i,j}$ is to increase distances between some pairs of vertices in $Q^+_{i,j}$ so that they are at least $2^i$.  However, the obstacles in $X$ sometimes interact, by chance, to make distances excessively large. \cref{big_distance} shows that, even when $H=P$, obstacles in $X_{i,j+1}$ and in $X_{i,j-1}$ can interact in such a way that $d_{(H\boxtimes P)-X}(v,w)$ becomes $r2^i$ for arbitrarily large $r$.  This large distance is not needed to ensure the local density bound and it makes it difficult to construct a volume-preserving Euclidean contraction of $(V(G),d_{(H\boxtimes P)-X})$.  The purpose of the intermediate distance function $d^*$ is to reduce these unnecessarily large distances so that $d^*(v,w)$ is defined only by the ``worst'' obstacle in $X$ that separates $v$ and $w$.
 
 
  % in such a way that the local density of $\mathcal{M}^*:=(V(G),d^*)$ is $O(D)$ but it is easier to find a volume-preserving Euclidean contraction of $\mathcal{M}^*$ than to find one of $(V(G),d_{(H\boxtimes P)-X})$. Some elements in the definition of $d^*$ are illustrated in \cref{d_star}.
@@ -961,7 +980,7 @@ In this section we prove the following result:
 
 Let $\Delta\ge 4$ be a power of $2$. We now show how to randomly decompose $H\boxtimes P$ into subgraphs $\{(H\boxtimes P)^\Delta_{a,b}:(a,b)\in\Z^2\}$.  The only randomness in this decomposition comes from choosing two independent uniformly random integers $r_H$ and $r_P$ in $\{0,\ldots,\Delta-1\}$.
 
-Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\Delta_a:=H[\bigcup_{s=r_H+a\Delta}^{r_H+(a+1)\Delta-1} L_s]$ so that $\{H^\Delta_a:a\in Z\}$ is a pairwise vertex-disjoint collection of induced subgraphs that covers $V(H)$ and each $H^\Delta_a$ is a subgraph of $H$ induced by $\Delta$ consecutive BFS layers. For each integer $b$, let $P^\Delta_b:=P[\{y_{r_P+b\Delta},\ldots,y_{r_P+(b+1)\Delta-1}]$ so that $\{P^\Delta_b:b\in\Z\}$ is a collection of vertex disjoint paths, each having $\Delta$ vertices, that cover $P$.   For each $(a,b)\in\Z^2$, let $(H\boxtimes P)^\Delta_{a,b}:= H^\Delta_a \boxtimes P^\Delta_b$.
+Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\Delta_a:=H[\bigcup_{s=r_H+a\Delta}^{r_H+(a+1)\Delta-1} L_s]$ so that $\{H^\Delta_a:a\in \Z\}$ is a pairwise vertex-disjoint collection of induced subgraphs that covers $V(H)$ and each $H^\Delta_a$ is a subgraph of $H$ induced by $\Delta$ consecutive BFS layers. For each integer $b$, let $P^\Delta_b:=P[\{y_{r_P+b\Delta},\ldots,y_{r_P+(b+1)\Delta-1}]$ so that $\{P^\Delta_b:b\in\Z\}$ is a collection of vertex disjoint paths, each having $\Delta$ vertices, that cover $P$.   For each $(a,b)\in\Z^2$, let $(H\boxtimes P)^\Delta_{a,b}:= H^\Delta_a \boxtimes P^\Delta_b$.
 
 \begin{lem}\label{component_diameter}
   For each $(a,b)\in\Z^2$, each component $C$ of $(H\boxtimes P)^\Delta_{a,b}$ has $\diam_{H\boxtimes P}(C)\le 2\Delta+1$.
@@ -974,14 +993,16 @@ Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\De
   To do this, we make use of the following property of BFS layerings of $t$-trees \cite{KP08,DMW05}:
   %\pat{Provide a proof or reference.}
   %\david{added two references}
-  For any integer $s$,
+  For every integer $s$,
   for each component $C$ of $H[L_{s+1}]$,
     the set $N_C$ of vertices in $L_{s}$ that are adjacent to $C$ form a clique in $H$.
-  Since $v_1$ and $w_1$ are in the same component $D$ of $H^\Delta_a$, this implies that $C:=D[L_{r_H+a\Delta}]$ is connected.  This implies that the set $N_C$ of vertices in $L_{r_H+a\Delta-1}$ adjacent to vertices in $C$ form a clique.  Then $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $v_1$ to a vertex $v_1'$ in $C$.   Likewise, $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $w$ to a vertex $w'$ in $C$. Each of $v'$ and $w'$ has a neighbour $v''$ and $w''$, respectively in $N_C$.  Since $N_C$ is clique $v''=w''$ or $v''$ and $w''$ are adjacent.  In the former case, there is a path in $H$ from $v$ to $w$ of length at most $2\Delta$. In the latter case there is a path from $v$ to $w$ of length at most $2\Delta+1$.
+  Since $v_1$ and $w_1$ are in the same component $D$ of $H^\Delta_a$, 
+  \gwen{I suggest avoiding the letter $D$ in this proof since $D$ is the bound on the local density}
+  this implies that $C:=D[L_{r_H+a\Delta}]$ is connected.  This implies that the set $N_C$ of vertices in $L_{r_H+a\Delta-1}$ adjacent to vertices in $C$ form a clique.  Then $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $v_1$ to a vertex $v_1'$ in $C$.   Likewise, $H^\Delta_a$ contains a path of length at most $\Delta-1$ from $w$ to a vertex $w'$ in $C$. Each of $v'$ and $w'$ has a neighbour $v''$ and $w''$, respectively in $N_C$.  Since $N_C$ is clique $v''=w''$ or $v''$ and $w''$ are adjacent.  In the former case, there is a path in $H$ from $v$ to $w$ of length at most $2\Delta$. In the latter case there is a path from $v$ to $w$ of length at most $2\Delta+1$.
 \end{proof}
 
 \begin{lem}\label{good_probability}
-  Fix some vertex $v$ of $H\boxtimes P$ independently of $r_H$ and $r_P$ and let $(a,b)$ be such that $v$ is contained in some component of $(H\boxtimes P)^\Delta_{a,b}$.  Then, with probability at least $1/4$,  $d_{H\boxtimes P}(v, V(H\boxtimes P)\setminus V((H\boxtimes P)^\Delta_{a,b})\ge \Delta/4$.
+  Fix some vertex $v$ of $H\boxtimes P$ independently of $r_H$ and $r_P$ and let $(a,b)$ be such that $v$ is contained in some component of $(H\boxtimes P)^\Delta_{a,b}$.  Then, with probability at least $1/4$,  $d_{H\boxtimes P}(v, V(H\boxtimes P)\setminus V((H\boxtimes P)^\Delta_{a,b})) \ge \Delta/4$.
 \end{lem}
 
 \begin{proof}
@@ -1084,7 +1105,9 @@ Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\De
 
 \subsection{\boldmath The Coordinate Function $\varphi_Z$}
 
-Let $I$ be the union of the vertex-disjoint graphs $(H\boxtimes P)^\Delta_{a,b}$ over all integer $a$ and $b$.  Thus, $I$ is a random subgraph of $H\boxtimes P$ whose value depends only on the random choices $r_H$ and $r_P$.  For each component $C$ of $I$, let $X_C:=\cup\{X_{i,j}:C\subseteq Q^+_{i,j},\, i\in\{0,\ldots,\log N\}, j\in\{0,\ldots,N/2^i-1\}\}$.  In words, $X_C$ contains only the vertical cuts used to construct $X$ that cut $C$ from top to bottom. Let $J$ be the subgraph of $I$ obtained by removing, for each component $C$ of $I$, the vertices in $X_C\cap V(C)$.
+Let $I$ be the union of the vertex-disjoint graphs $(H\boxtimes P)^\Delta_{a,b}$ over all integer $a$ and $b$.  
+\gwen{I am not sure I get the definition of $I$, is it a spanning subgraph of $H\boxtimes P$?}
+Thus, $I$ is a random subgraph of $H\boxtimes P$ whose value depends only on the random choices $r_H$ and $r_P$.  For each component $C$ of $I$, let $X_C:=\cup\{X_{i,j}:C\subseteq Q^+_{i,j},\, i\in\{0,\ldots,\log N\}, j\in\{0,\ldots,N/2^i-1\}\}$.  In words, $X_C$ contains only the vertical cuts used to construct $X$ that cut $C$ from top to bottom. Let $J$ be the subgraph of $I$ obtained by removing, for each component $C$ of $I$, the vertices in $X_C\cap V(C)$.
 
 \begin{lem}\label{dstar_component_diameter}
   Each component $C'$ of $J$ has $\diam_{d^*}(C')\le 5\Delta$.
@@ -1119,6 +1142,7 @@ For each component $C$ of $I$, each component of $C'$ of $J$ that is contained i
   \varphi_{Z}(v):=(1+\alpha_{C'})\,d_{H\boxtimes P}(v,\overline{C}) \enspace .
 \]
 
+\gwen{Shouldn't $\varphi_{Z}(v)$ be $\varphi_{I}(v)$?}
 
 % Let $i^*:=2^{\lceil\log\Delta\rceil}$ and let \
 % \[
@@ -1141,7 +1165,7 @@ For each component $C$ of $I$, each component of $C'$ of $J$ that is contained i
 
 
 \begin{lem}\label{double_distance}
-  For any two vertices $v,w\in V(H\boxtimes P)\setminus X$,
+  For every two vertices $v,w\in V(H\boxtimes P)\setminus X$,
   \[
     |\varphi_I(v)-\varphi_I(w)| \le 2\, d^*(v,w) \enspace .
   \]
