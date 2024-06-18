@@ -1056,7 +1056,7 @@ Otherwise (if one of $u$ or $v$ is not in $Q^+_{i,j}$ or $u$ and $v$ are in the 
 \]
 Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\boxtimes P)-X$ must navigate around each obstacle $X_{i,j}$ that separates $u$ and $v$ in the graph $Q^+_{i,j}$.  At the very least, this requires a path from $u$ to some vertex $x$ outside of $Q^+_{i,j}$ followed by a path from $x$ to $v$.  The length of this path is at least the length of the shortest walk in $P$ that begins at $u_P$, contains $x_P$ and ends at $w_P$.
 
-\begin{lem}
+\begin{lem}\label{d_star_distance}
   The function $d^*:V((H\boxtimes P)-X)\to\N\cup\{\infty\}$ is a distance function for $V((H\boxtimes P)-X)$.
 \end{lem}
 
@@ -1070,42 +1070,7 @@ Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\b
     \item If $v\in V(Q^+_{i,j})$ then, since $u$ and $w$ are in different components $C_u$ and $C_w$ of $Q^+_{i,j}-X_{i,j}$, at least one of $C_u$ or $C_w$ does not contain $v$.  Without loss of generality, suppose $C_w$ does not contain $v$.  Then $d^*(u,v)+d^*(v,w)\ge d_{H\boxtimes P}(u,v)+d_{i,j}(v,w) \ge d_{P}(u_P,v_P)+d_{i,j}(v,w)$.  Now, $d_{P}(u_P,v_P)$ is the length of a path in $P$ from $u_P$ to $v_P$ and $d_{i,j}(v,w)$ is the length of a (shortest) walk in $P$ that begins at $v_P$, leaves $P^+_{i,j}$ and then returns to $w_P$. Thus,   $d_{P}(u_P,v_P)+d_{i,j}(v,w)$ is the length of a walk in $P$ that begins at $u_P$, leaves $P^+_{i,j}$ and then returns to $w_P$. On the other hand, $d_{i,j}(u,w)$ is the length of a shortest walk in $P$ that begins at $u_P$, leaves $P^+_{i,j}$ and returns to $w_P$, so $d_{i,j}(u,w)\le d_P(u_P,v_P)+d_{i,j}(v,w)$.  Therefore, $d^*(u,v)+d^*(v,w)\ge d_{P}(u_P,v_P)+d_{i,j}(v,w)\ge d_{i,j}(u,w)=d^*(u,w)$. \qedhere
   \end{compactenum}
 \end{proof}
-%
-%
-%
-% Say that $Q^+_{i,j}$ is
-%
-%
-% Let $i_0(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$. This is well-defined, because $Q^+_{\log N,0}$ contains both $u$ and $v$ and is connected, and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.
-%
-%
-% Let $i_0^{\shortrightarrow}(u,v)$ be the minimum $i\in\{0,\ldots,\log N\}$ such that $u$ and $v$ are in the same component of $Q^+_{i',\floor{a/2^{i'}}}-X_{i',\floor{a/2^i}}$ for each $i'\in\{i+1,\ldots,\log N\}$.  Note that this is well-defined, because $Q^+_{\log N,0}$ contains both $u$ and $v$ and is connected, and the set $X_{\log N,0}$ is empty, since $n\le 2^{(\log N-1)} D$.  Define $i_0(v,w):=\max\{i_0^{\shortrightarrow}(u,w),i_0^{\shortrightarrow}(w,u)\}$ and $\mathdefin{\delta_0(u,w)}:=2^{i_0(u,w)}$.
 
-% \noindent\framebox{\begin{minipage}{\textwidth}
-% \pat{This should be cut. I'm just leaving it for now because it contains a discussion with Gwen.}
-% Let $u:=(x_1,y_a)$ and $w:=(x_3,y_c)$ be two vertices of $H\boxtimes P$.  Let $i_0^{\shortrightarrow}(u,w)$ be the maximum integer $i$ such that $Q^+_{i,\lfloor a/2^{i}\rfloor}$ contains both $u$ and $w$, but $u$ and $w$ are in different components of $Q^+_{i,\lfloor a/2^{i}\rfloor}-X_{i,\lfloor a/2^i\rfloor}$.  In other words:
-% \[
-%     i_0^{\shortrightarrow}(u,w) = \max\{i: u\in V(G_{i,j}),\,
-%         w\in V(G^+_{i,j}),\, d_{G^+_{i,j}-X_{i,j}}(u,w)=\infty \}
-% \]
-% \gwen{I am missing something here I am afraid: (1) Why the notation $x_1$ and $x_3$ in the first component of $u$ and $w$? (Why not $x_2$ instead of $x_3$ I mean). (2) Why is $i_0^{\shortrightarrow}(u,w)$ not the same as $i_0^{\shortrightarrow}(w,u)$?} \pat{(1)~bad decision early on to try and set things up for showing triangle inequality. I intend to redefine in terms of $u:=(x_1,y_a)$ and $v:=(x_2,y_b)$.} \pat{(2) there's an asymmetry here because $i_0^{\shortrightarrow}(u,w)$ is determined by graphs ``centered'' at $u$. When determining $i_0^{\shortrightarrow}(u,w)$, we consider graphs $Q^+_{i,j}-X_{i,j}$ where $u$ is in the middle third of $Q^+_{i,j}$, but $w$ might be in the upper or lower third.
-%  In particular, the graph $Q^+_{i,\floor{a/2^i}}$ has $u$ in its middle third.  The graphs we consider when determining $i_0^{\shortrightarrow}(w,u)$ have $w$ in their middle block.}
-%  \gwen{Got it, thanks!}
-% If no such $i$ exists, define $i_0^{\shortrightarrow}(u,w):=-\infty$ \pat{TODO: This isn't quite right, fix later.}.
-% \end{minipage}}
-
-% \begin{figure}
-%     \centering
-%     \begin{tabular}{ccc}
-%     \includegraphics[page=1,trim=20 0 30 0,clip,scale=0.85]{figs/new_metric} &
-%     \includegraphics[page=2,,trim=20 0 30 0,clip,scale=0.85]{figs/new_metric} &
-%     \includegraphics[page=3,scale=0.85]{figs/new_metric}
-%     \end{tabular}
-%     \caption{The definitions of $\delta_1$, $\delta_2$, and $\delta_3$.}
-%     \label{d_star}
-% \end{figure}
-
-% Ultimately, $d^*$ will be the maximum of several functions, one of which is $\delta_0$.  Of these functions, $\delta_0$ is the most important because it ensures that the metric space $\mathcal{M}^*$ has local density $O(D)$.
 
 \begin{lem}\label{delta_density}
   The metric space $\mathcal{M}^*:=(V(G-X),d^*)$ has local density at most $D$.
@@ -1124,18 +1089,11 @@ Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\b
   Let $u$ and $v$ be distinct vertices of $(H\boxtimes P)-X$.  If $d^*(u,v)=d_{H\boxtimes P}(u,v)$ then, $d^*(u,v)=d_{H\boxtimes P}(u,v)\le d_{(H\boxtimes P)-X}(u,v)$.  If $d^*(u,v)=d_{i,j}(u,v)$ for some $i$ and $j$ then any path from $u$ to $v$ in $(H\boxtimes P)-X$ must contain some vertex $x$ not in $Q^+_{i,j}$ since $u$ and $v$ are in different components of $Q^+_{i,j}-X$.  The shortest such path has length at least $d_{H\boxtimes P}(u,x)+d_{H\boxtimes P}(x,v) \ge d_P(u_P,x_P)+d_P(x_P,v_P) \ge d_{i,j}(u,v)=d^*(u,v)$.
 \end{proof}
 
-% From the definition of $i_1$ and $i_2$ we immediately obtain the following property, which will be useful later.
+The preceding lemmas are summarized in the following corollary:
 
-% \begin{obs}\label{i_bounds}
-%   For each $b\in\{1,2\}$, if
-%   $i_b(u,v)\ge 0$ then $\delta_b(u,v)\le 2^{i_b(u,v)+1}$.
-% \end{obs}
-
-% The preceding lemmas are summarized in the following corollary:
-
-% \begin{cor}\label{d_star_summary}
-%   The metric space $(V((H\boxtimes P)-X), d^*)$ is a  contraction of $(V((H\boxtimes P)-X), d_{(H\boxtimes P)-X})$ and the metric space $(V(G-X),d^*)$ has local density at most $D$.
-% \end{cor}
+\begin{cor}\label{d_star_summary}
+  The metric space $(V((H\boxtimes P)-X), d^*)$ is a  contraction of $(V((H\boxtimes P)-X), d_{(H\boxtimes P)-X})$ and the metric space $(V(G-X),d^*)$ has local density at most $D$.
+\end{cor}
 
 
 
@@ -1528,7 +1486,7 @@ For any integer $t\geq 1$, for any $n$-vertex graph $G$ with row treewidth at mo
 \begin{proof}
 We may assume that $G$ is connected. 
 By assumption, $G$ is contained in $H\boxtimes P$ for some graph $H$ with treewidth at most $t$ and for some path $P$. 
-We may assume without loss of generality that $H$ is a $t$-tree. For simplicity, we assume $G$ is a subgraph of $H\boxtimes P$. Let $X\subseteq V(H\boxtimes P)$ be the vertex set defined in \cref{x_definition}, so $|X|\in O((tn/D)(\log n))$. Let $d^*$ (which depends on $X$) be the distance function defined in \cref{d_star_definition}.  By \cref{d_star_summary,supergraph_contraction}, the metric space $\mathcal{M}^*:=(V(G)\setminus X,d^*)$ is a contraction of the graphical metric $\mathcal{M}_{G-X}$. 
+We may assume without loss of generality that $H$ is a $t$-tree. For simplicity, we assume $G$ is a subgraph of $H\boxtimes P$. Let $X\subseteq V(H\boxtimes P)$ be the vertex set defined in \cref{x_definition}, so $|X|\in O((tn/D)(\log n))$. Let $d^*$ (which depends on $X$) be the distance function defined in \cref{d_star_definition}.  By \cref{d_star_summary,supergraph_contraction}, the metric space $\mathcal{M}^*:=(V(G)\setminus X,d^*)$ is a contraction of the graphical metric $\mathcal{M}_{G-X}$ that has local density at most $D$. 
 Let $k:=\ceil{\log_2n}$ and $\eta:=\sqrt{\log_2 n}$. 
 By \cref{dstar_contraction}, $\mathcal{M}^*$ has a $(k,O(\eta))$-volume-preserving Euclidean contraction.  Therefore, by \cref{volume_density_bandwidth}, $\bw(\mathcal{M}^*)\in 
 O( (nk\log\Delta)^{1/k} Dk\eta \log^{3/2} n)$. 
