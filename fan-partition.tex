@@ -876,20 +876,18 @@ $\bw(G-X)\in O(D(k+1)\log^3 n')
 \label{htimesp_section}
 
 In this section we prove \cref{main_thm_products}, the generalization of \cref{main_thm_planar} to subgraphs of $H\boxtimes P$, which is needed to prove \cref{main_thm_apexmf}, the generalization of \cref{main_thm_planar} to apex-minor-free graphs.
-Before doing so, we first prove a lower bound.
-\begin{thm}
-  For all positive integers $t$ and $n$ such that $tn$ is a perfect square, there exists a graph $H$ of treewidth $t-1$ and a path $P$ such that $\tw(H\boxtimes P)\ge \sqrt{tn}/2$.
-\end{thm}
-
-\begin{proof}
-  Let $H:=P_{\sqrt{n/t}}\boxtimes K_t$ and let $G:=H\boxtimes P_{\sqrt{n/t}}$.  Then $G$ has $n$ vertices.  We claim that $G$ has treewidth $\Omega(\sqrt{nt})$.  To prove this, we describe a bramble of order $\Omega(\sqrt{tn})$. Let $\{v_0,\ldots,v_{t-1}\}:=V(K_t)$, and let $w_0,\ldots,w_{\sqrt{n/t}-1}:=P_{\sqrt{n/t}}$.  For each $i\in\{0,\ldots,\sqrt{tn}\}$, let
-\[
-   B_i:=\left(V(P_{\sqrt{n/t}})\times\{v_{i\bmod t}\}\times\{w_{\floor{i/t}}\}\right)
-   \cup \left(\{w_{\floor{i/t}}\}\times\{v_{i\bmod t}\}\times V(P_{\sqrt{n/t}})\right) \enspace .
-\]
-We claim that $\mathcal{B}:=\{B_0,\ldots,B_{\sqrt{tn}-1}\}$ is a bramble of order at least $\sqrt{tn}/2$, which implies that $\tw(G)\ge\sqrt{tn}/2$.  For any $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $B_i$ and $B_j$ are adjacent or have a vertex in common because $B_i$ contains $q_{i,j}:=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$ and $B_j$ contains $q_{i,j}':=(w_{\floor{i/t}},v_{j\bmod t},w_{\floor{j/t}})$.  If $i\equiv j\pmod t$ then $q_{i,j}=q_{i,j}'$, otherwise $q_{i,j}q_{i,j}'$ is an edge of $G$.  Therefore $\mathcal{B}$ is a bramble in $G$.  For distinct $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $B_i$ and $B_j$ have at most two vertices, namely $q_{i,j}=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$, and $q_{j,i}=(w_{\floor{j/t}},v_{j\bmod t},w_{\floor{i/t}})$ in common. So the order of $\mathcal{B}$ is at least $|\mathcal{Q}|/2=\sqrt{nt}/2$.
-\end{proof}
-
+% Before doing so, we first prove a lower bound.
+% \begin{thm}
+%   For all positive integers $t$ and $n$ such that $tn$ is a perfect square, there exists a graph $H$ of treewidth $t-1$ and a path $P$ such that $\tw(H\boxtimes P)\ge \sqrt{tn}/2$.
+% \end{thm}
+% \begin{proof}
+%   Let $H:=P_{\sqrt{n/t}}\boxtimes K_t$ and let $G:=H\boxtimes P_{\sqrt{n/t}}$.  Then $G$ has $n$ vertices.  We claim that $G$ has treewidth $\Omega(\sqrt{nt})$.  To prove this, we describe a bramble of order $\Omega(\sqrt{tn})$. Let $\{v_0,\ldots,v_{t-1}\}:=V(K_t)$, and let $w_0,\ldots,w_{\sqrt{n/t}-1}:=P_{\sqrt{n/t}}$.  For each $i\in\{0,\ldots,\sqrt{tn}\}$, let
+% \[
+%    B_i:=\left(V(P_{\sqrt{n/t}})\times\{v_{i\bmod t}\}\times\{w_{\floor{i/t}}\}\right)
+%    \cup \left(\{w_{\floor{i/t}}\}\times\{v_{i\bmod t}\}\times V(P_{\sqrt{n/t}})\right) \enspace .
+% \]
+% We claim that $\mathcal{B}:=\{B_0,\ldots,B_{\sqrt{tn}-1}\}$ is a bramble of order at least $\sqrt{tn}/2$, which implies that $\tw(G)\ge\sqrt{tn}/2$.  For any $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $B_i$ and $B_j$ are adjacent or have a vertex in common because $B_i$ contains $q_{i,j}:=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$ and $B_j$ contains $q_{i,j}':=(w_{\floor{i/t}},v_{j\bmod t},w_{\floor{j/t}})$.  If $i\equiv j\pmod t$ then $q_{i,j}=q_{i,j}'$, otherwise $q_{i,j}q_{i,j}'$ is an edge of $G$.  Therefore $\mathcal{B}$ is a bramble in $G$.  For distinct $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $B_i$ and $B_j$ have at most two vertices, namely $q_{i,j}=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$, and $q_{j,i}=(w_{\floor{j/t}},v_{j\bmod t},w_{\floor{i/t}})$ in common. So the order of $\mathcal{B}$ is at least $|\mathcal{Q}|/2=\sqrt{nt}/2$.
+% \end{proof}
 The proof of \cref{main_thm_products} requires developing the techniques used by \citet{feige:approximating,rao:small} to prove bounds relating local density to bandwidth. These proofs use so-called volume-preserving Euclidean contractions, so we begin with some necessary background.
 
 \begin{figure}
@@ -1038,9 +1036,12 @@ contractions can only increase bandwidth:
 
 \subsection{Proof of \cref{main_thm_products}}
 
-We are now ready to prove \cref{main_thm_products}. The structure of our proof is based on the proof of \cref{rao_bandwidth_vs_density} by \citet{rao:small}.
+We are now ready to prove \cref{main_thm_products}. The entirety of this subsection should be treated as a proof of \cref{main_thm_products}. Most of the results in this section are written as Claims that are not self-contained, since they refer $G$, $H$, $P$, $X$, $d^*$, and other objects defined throughout this subsection. From this point on, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a \defin{$t$-tree} (an edge-maximal graph of treewidth $t$) and $P$ is a path.
+
+We now outline the structure our proof.
+% , which is closely related to the proof of \cref{rao_bandwidth_vs_density} by \citet{rao:small}.
 % , which applies to planar graphs and even to $K_{h}$-minor-free graphs for any fixed $h$.  As already noted in the introduction, products of the form $H\boxtimes P$ are not $K_h$-minor-free for any fixed $h$, so Rao's proof cannot be applied directly.
-For the remainder of \cref{htimesp_section}, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a \defin{$t$-tree} (an edge-maximal graph of treewidth $t$) and $P$ is a path.  The proof of \cref{main_thm_products} has the following structure. (We use the notation $\mathcal{M}\rightbroom\mathcal{M'}$ to denote that $\mathcal{M}'$ is a contraction of $\mathcal{M}$.)
+(We use the notation $\mathcal{M}\rightbroom\mathcal{M'}$ to denote that $\mathcal{M}'$ is a contraction of $\mathcal{M}$.)
 
 \begin{enumerate}
   \item Use a variant of \cref{sparsifier_baker} to find a set $X\subseteq V(H\boxtimes P)$ of size $O(\sqrt{n}\log^2 n)$ such that the metric space $\mathcal{M}:=(V(G-X),d_{(H\boxtimes P)-X})$ has local density $D\in O(\sqrt{n}/\log n)$.  Since $G-X$ is a subgraph of $(H\boxtimes P)-X$, \cref{supergraph_contraction} implies that $\mathcal{M}$ is a contraction of the metric space $\mathcal{M}_{G-X}:=(V(G-X),d_{G-X})$, so $\mathcal{M}_{G-X}\rightbroom\mathcal{M}$.
@@ -1049,14 +1050,16 @@ For the remainder of \cref{htimesp_section}, $G$ is an $n$-vertex subgraph of $H
 
   Graphically, $\mathcal{M}_{G-X}\rightbroom\mathcal{M}\rightbroom\mathcal{M}^*$.
 
-  \item Prove that $\mathcal{M}^*$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction $\phi:V(G-X)\to\R^L$, for $k\in\Theta(\log n)$.
+  \item Prove that $\mathcal{M}^*$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction $\phi:V(G-X)\to\R^L$, for $k\in\Theta(\log n)$.  The preceding two steps are done in such a way that this part of the proof is able to closely follow the proof of \cref{rao_planar_graphs} by \citet{rao:small}.
 
   \item  By \cref{volume_density_bandwidth},  $\bw(\mathcal{M}^*)\in O(D\log^3 n)=O(\sqrt{n}\log^2 n)$.  Since $\mathcal{M}^*$ is a contraction of $\mathcal{M}_{G-X}$, \cref{contraction_increases_bandwidth} implies that $\bw(G-X)=\bw(\mathcal{M}_{G-X}) \le \bw(\mathcal{M}^*)\in O(\sqrt{n}\log^2 n)$.
 \end{enumerate}
 
-The delicate part of the proof is the design of the distance function $d^*$ that contracts $d_{(H\boxtimes P)-X}$ but still ensures that the local density of $(V(G-X),d^*)$ is $O(D)$. If $d^*$ contracts too much, then $(V(G-X),d^*)$ will not have local density $O(D)$. If $d^*$ contracts too little, then it will be difficult to get a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding. To make this work, we use the structure of the sparsifying set $X$.
+The delicate part of the proof is the design of the distance function $d^*$ that contracts $d_{(H\boxtimes P)-X}$ but still ensures that the local density of $(V(G-X),d^*)$ is $O(D)$. If $d^*$ contracts too much, then $(V(G-X),d^*)$ will not have local density $O(D)$. If $d^*$ contracts too little, then it will be difficult to get a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean embedding.  To make this work, the distance function $d^*$ makes use of the structure of the sparsifying set $X$.  
 
-\subsection{A Structured Sparsifier}
+
+
+\subsubsection{A Structured Sparsifier}
 \label{x_definition}
 
 %\david{This section needs a single lemma that summarises all the required properties of $X$.} \pat{I'll comb through the proof again to see what properties of $\{X_{i,j}:i\in\{0,\ldots,\log N\},j\in\{1,\ldots,N/2^i\}$, in addition to \cref{component_sizes} and \cref{x_size}, are being used.}  \pat{I reread this section, and the only thing we use is \cref{component_sizes}.} \david{OkayI am happy because of the addition at the start of 4.7.}
@@ -1082,26 +1085,29 @@ In words, $Q_{i,0},\ldots,Q_{i,N/2^i-1}$ partitions the part of $H\boxtimes P$ t
 
 To construct our sparsifying set $X$, we first construct vertex subsets $Y_{i,j}$ of $H$ for each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$.  Define the weight function $\xi_{i,j}:V(H)\to\N$ where $\xi_{i,j}(x):=|(\{x\}\times V(P^+_{i,j})) \cap V(G)|$.  Observe that $\xi_{i,j}(H):=\sum_{x\in V(H)} \xi_{i,j}(x)=|V(Q^+_{i,j})\cap V(G)|$. Let $D\ge 2$ be a real number.  By \cref{weighted_separator} with $c:=\lceil\xi_{i,j}(H)/2^{i-1}D\rceil$, there exists $Y_{i,j}\subseteq V(H)$ of size at most $(t+1)\xi_{i,j}(H)/(2^{i-1}D)$, such that each component $C$ of $H-Y_{i,j}$ has total weight $\xi_{i,j}(C)\le 2^{i-1}D$.  For each $i\in\{0,1,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, let $\mathdefin{X_{i,j}}:=Y_{i,j}\times V(P^+_{i,j})$.  We think of $X_{i,j}$ as a vertical separator that splits the strip $Q^+_{i,j}$ into parts using vertex cuts that run from the top to the bottom of $Q^+_{i,j}$.
 
-\begin{lem}\label{component_sizes}
+\begin{clm}\label{component_sizes}
   For each $i\in\{0,,\ldots,\log N\}$ and $j\in\{0,\ldots,N/2^{i}-1\}$, each component of $Q^+_{i,j}-X_{i,j}$ has at most $2^{i-1}D$ vertices.\
-\end{lem}
+\end{clm}
 
 \begin{proof}
   The number of vertices of $G$ in a component $C$ of $Q^+_{i,j}-X_{i,j}$ is equal to the total weight $\zeta_{i,j}(C_H)$ of the corresponding component $C_H$ of $H-Y_{i,j}$.  Therefore, each component of $Q^+_{i,j}-X_{i,j}$ contains at most $2^{i-1}D$ vertices of $G$.
 \end{proof}
 
-Let $\mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$.
+Let 
+\[
+     \mathdefin{X}:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j} \enspace .
+\]
 
-\begin{lem}\label{x_size}
+\begin{clm}\label{x_size}
   $|X|\le (18(t+1)n/D)(1+\log N)$.
-\end{lem}
+\end{clm}
 
 \begin{proof}
   Observe that $\sum_{j=0}^{N/2^i-1} \xi_{i,j}(H)\le\sum_{j=0}^{N/2^i-1} 3|V(G_{i,j})| \le 3n$, since, each vertex $v$ of $G$ can only appear in $Q^+_{i,j-1}, Q^+_{i,j}$, and $Q^+_{i,j+1}$ where $j$ is the unique index such that $v\in V(Q_{i,j})$.    By definition, $|X_{i,j}|=3\cdot 2^i \cdot |Y_{i,j}| \le 6(t+1)\xi_{i,j}(H)/D$.  Therefore, $\sum_{j=0}^{N/2^i-1} |X_{i,j}|\le 18(t+1)n/D$. Summing over $i\in\{0,\ldots,\log N\}$ completes the proof.
   % Any subpath $P':=y_{q+1},\ldots,y_{q+\ell}$ of $P$ is contained in $P^+_{i,j}$ for $i:=\lceil\log \ell\rceil$ and $j=\lfloor(q+1)/2^i\rfloor$.  Therefore $H\boxtimes P'$ is contained in $Q^+_{i,j}$.  Therefore, each component of $(H\boxtimes P')-X$ is contained in a component of $Q_{i,j}-X_{i,j}$.  Therefore, each component of $(H\boxtimes P')-X$ contains at most $D2^{i-1}\le D\ell$ vertices of $G$.
 \end{proof}
 
-\subsection{\boldmath The Distance Function $d^*$}
+\subsubsection{\boldmath The Distance Function $d^*$}
 \label{d_star_definition}
 
 In order to construct a volume-preserving Euclidean contraction $\phi$ for a distance function $d$ we must ensure (at least) that $d_2(\phi(v),\phi(w))$ is large whenever $d(v,w)$ is large.  This is relatively easy to do for the distance function $d_{H\boxtimes P}$ using (simplifications of) the techniques used by \citet{rao:small} for planar graphs. This is more difficult for $d_{(H\boxtimes P)-X}$ because distances are larger, which only makes the problem harder.  Some of these distances are necessarily large; the obstacles in $X$ are needed to ensure that $(V(G),d_{(H\boxtimes P)-X})$ has local density at most $D$.  The purpose of a single set $X_{i,j}$ is to increase distances between some pairs of vertices in $Q^+_{i,j}$ so that they are at least $2^i$.  However, the obstacles in $X$ sometimes interact, by chance, to make distances excessively large. \cref{big_distance} shows that, even when $H=P$, obstacles in $X_{i,j+1}$ and in $X_{i,j-1}$ can interact in such a way that $d_{(H\boxtimes P)-X}(v,w)$ can become $r2^i$ for arbitrarily large $r$.  This large distance is not needed to ensure the local density bound and it makes it difficult to construct a volume-preserving Euclidean contraction of $(V(G),d_{(H\boxtimes P)-X})$.  The purpose of the intermediate distance function $d^*$ is to reduce these unnecessarily large distances so that $d^*(v,w)$ is defined only by the ``worst'' obstacle in $X$ that separates $v$ and $w$.
@@ -1131,9 +1137,9 @@ Otherwise (if one of $u$ or $v$ is not in $Q^+_{i,j}$ or $u$ and $v$ are in the 
 \]
 Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\boxtimes P)-X$ must navigate around each obstacle $X_{i,j}$ that separates $u$ and $v$ in the graph $Q^+_{i,j}$.  At the very least, this requires a path from $u$ to some vertex $x$ outside of $Q^+_{i,j}$ followed by a path from $x$ to $v$.  The length of this path is at least the length of the shortest walk in $P$ that begins at $u_P$, contains $x_P$ and ends at $w_P$.
 
-\begin{lem}\label{d_star_distance}
+\begin{clm}\label{d_star_distance}
   The function $d^*:V((H\boxtimes P)-X)\to\N\cup\{\infty\}$ is a distance function for $V((H\boxtimes P)-X)$.
-\end{lem}
+\end{clm}
 
 \begin{proof}
   It is straightforward to verify that $d^*(u,u)=0$ for all $u\in V((H\boxtimes P)\setminus X)$ and that $d^*(u,v)=d(v,u)\ge 0$ for all $u,v\in V((H\boxtimes P)-X)$.  It only remains to verify that $d^*$ satisfies the triangle inequality.  We must show that, for distinct $u,v,w\in V((H\boxtimes P)-X)$, $d^*(u,w)\le d^*(u,v)+d^*(v,w)$.
@@ -1147,18 +1153,18 @@ Intuitively, $d^*(u,v)$ captures the fact that any path from $u$ to $v$ in $(H\b
 \end{proof}
 
 
-\begin{lem}\label{delta_density}
+\begin{clm}\label{delta_density}
   The metric space $\mathcal{M}^*:=(V(G-X),d^*)$ has local density at most $D$.
-\end{lem}
+\end{clm}
 
 \begin{proof}
   We must show that, for any $v\in V(G)$ and any $r>0$, $|B_{\mathcal{M}^*}(v,r)|\le Dr+1$.  If $r\ge n/D$ then this is trivial, so assume that $r\le n/D$.  Consider some vertex $w\in B_{\mathcal{M}^*}(v,r)$.  Let $i:=\lceil\log r\rceil$ and let $j$ be such that $v$ is a vertex of $Q_{i,j}$.  Since $w\in B_{\mathcal{M}^*}(v,r)$, $d_{H\boxtimes P}(v,w)\le r\le 2^i$.  Therefore $d_P(v_P,w_P)\le d_{H\boxtimes P}(v,w)\le 2^i$.  Therefore $w$ is contained in $Q^+_{i,j}$.  Since $d^*(v,w)\le r$, $d_{i,j}(v,w)\le r$.  This implies that $v$ and $w$ are in the same component of $Q^+_{i,j}-X_{i,j}$ since, otherwise, $d_{i,j}(v,w)\ge d_P(u_P,\overline{P}^+_{i,j}) + d_P(\overline{P}^+_{i,j},w_P)\ge 2^i+1$.
   Therefore, $B_{\mathcal{M}^*}(v,r)$ is contained in the component $C$ of $Q^+_{i,j}-X_{i,j}$ that contains $v$.  By \cref{component_sizes}, $|V(C)|\le 2^{i-1}D< rD$.  Therefore, $|B_{\mathcal{M}^*}(v,r)|\le |V(C)|< rD$.
 \end{proof}
 
-\begin{lem}
+\begin{clm}
   The metric space $(V((H\boxtimes P)-X),d^*)$ is a contraction of $\mathcal{M}_{(H\boxtimes P)-X}=(V((H\boxtimes P)-X),d_{(H\boxtimes P)-X})$.
-\end{lem}
+\end{clm}
 
 \begin{proof}
   Let $u$ and $v$ be distinct vertices of $(H\boxtimes P)-X$.  If $d^*(u,v)=d_{H\boxtimes P}(u,v)$ then, $d^*(u,v)=d_{H\boxtimes P}(u,v)\le d_{(H\boxtimes P)-X}(u,v)$.  If $d^*(u,v)=d_{i,j}(u,v)$ for some $i$ and $j$ then any path from $u$ to $v$ in $(H\boxtimes P)-X$ must contain some vertex $x$ not in $Q^+_{i,j}$ since $u$ and $v$ are in different components of $Q^+_{i,j}-X$.  The shortest such path has length at least $d_{H\boxtimes P}(u,x)+d_{H\boxtimes P}(x,v) \ge d_P(u_P,x_P)+d_P(x_P,v_P) \ge d_{i,j}(u,v)=d^*(u,v)$.
@@ -1172,19 +1178,21 @@ The preceding lemmas are summarized in the following corollary:
 
 
 
-\subsection{Volume-Preserving Contraction of $\mathcal{M}^*$}
+\subsubsection{Volume-Preserving Contraction of $\mathcal{M}^*$}
 
-Recall that, throughout this section, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree. The path $P$ and the set $X:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$ are defined as in \cref{x_definition}.  The distance function $d^*:V((H\boxtimes P)-X)\to\R$ is defined as in \cref{d_star_definition}.  In this subsection we prove the following result:
+% Recall that, throughout this section, $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree. The path $P$ and the set $X:=\bigcup_{i=0}^{\log N}\bigcup_{j=0}^{N/2^i-1} X_{i,j}$ are defined as in \cref{x_definition}.  The distance function $d^*:V((H\boxtimes P)-X)\to\R$ is defined as in \cref{d_star_definition}.  
+
+In this subsection we prove the following result:
 % \david{At this point, we should say what assumptions we are making about $G$ and $H\boxtimes P$, and say that  $X$ is from Lemma~???.}
 
 % \gwen{The proof is actually given in \cref{Euclidean_embedding_section}.}
 % \pat{I changed these to subsections}
 
-\begin{lem}\label{dstar_contraction}
+\begin{clm}\label{dstar_contraction}
 For every integer $k\in\{2,\ldots,n\}$, the metric space $\mathcal{M}^*:=(V(G-X),d^*)$ has a $(k,O(\sqrt{\log n}))$-volume-preserving Euclidean contraction.
-\end{lem}
+\end{clm}
 
-\subsubsection{Decomposing $H\boxtimes P$}
+\paragraph{\boldmath Decomposing $H\boxtimes P$.}
 
 Let $\Delta\ge 4$ be a power of $2$. We now show how to randomly decompose $H\boxtimes P$ into subgraphs $\{(H\boxtimes P)^\Delta_{a,b}:(a,b)\in\Z^2\}$. The only randomness in this decomposition comes from choosing two independent uniformly random integers $r_H$ and $r_P$ in $\{0,\ldots,\Delta-1\}$. See \cref{chop_fig}, for an example.
 
@@ -1315,7 +1323,7 @@ Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\De
 %
 % I don't think this is relevant.
 
-\subsubsection{\boldmath The Coordinate Function $\varphi_I$}
+\paragraph{\boldmath The Coordinate Function $\varphi_I$.}
 
 Let $I$ be the union of the vertex-disjoint graphs $(H\boxtimes P)^\Delta_{a,b}$ over all integer $a$ and $b$.
 Thus, $I$ is a random subgraph of $H\boxtimes P$ whose value depends only on the random choices $r_H$ and $r_P$.  For each component $C$ of $I$, let $X_C:=\cup\{X_{i,j}:C\subseteq Q^+_{i,j},\, i\in\{0,\ldots,\log N\}, j\in\{0,\ldots,N/2^i-1\}\}$.  In words, $X_C$ contains only the vertical cuts used to construct $X$ that cut $C$ from top to bottom. Let $J$ be the subgraph of $I$ obtained by removing, for each component $C$ of $I$, the vertices in $X_C\cap V(C)$.
@@ -1422,11 +1430,11 @@ For each component $C$ of $I$, each component of $C'$ of $J$ that is contained i
 \end{proof}
 
 
-\subsubsection{\boldmath The Euclidean Embedding $\phi$}
+\paragraph{\boldmath The Euclidean Embedding $\phi$.}
 
 \label{Euclidean_embedding_section}
 
-\david{The variable `$a$' looks like the word `a'. Please use a different letter.}
+\david{The variable `$a$' looks like the word `a'. Please use a different letter.} \pat{I'd prefer not to, and I don't think it's necessary. The only place in which the variable $a$ appeared naked inside a sentence was the following sentence, and I've added ${}>0$ to fix that.}
 
 Let $a>0$ be a constant whose value will be lower-bounded later.  We now define a random function $\phi:V((H\boxtimes P)-X)\to\R^{L}$ where $L:=\lfloor 1+\log_2 n\rfloor\cdot\lceil a k\ln n\rceil$. For each $i\in\{0,\ldots,\log N-1\}$ and each $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$, let $I_{i,j}:=I(H,P,2^i,r_{H,i,j},r_{P,i,j})$ be an instance of the random subgraph $I$ defined in the previous section with parameter $\Delta=2^i$ and where random offsets $r_{H,i,j},r_{P,i,j}\in\{0,\ldots,\Delta-1\}$ are chosen independently for each instance.  From each $I_{i,j}$ and the sets $\{X_{i',j'}:i'\in\{0,\ldots,\log N-1\},\, j'\in\{1,\ldots,N/2^i-1\}$, we  define the subgraph $J_{i,j}$ of $I_{i,j}$ as in the previous section.  This defines a uniformly random $\alpha_{C'}$ for each component $C'$ of $J_{i,j}$, with all random choices made independently.  This defines, for each $v\in V(J_{i,j})$, the value $\varphi_{I_{i,j}}(v)$ and we let $\mathdefin{\phi_{i,j}(v)}:= \varphi_{I_{i,j}}(v)$.
 
@@ -1559,6 +1567,8 @@ We now have all the pieces needed to complete the proof of \cref{dstar_contracti
 % % The proof of \cref{main_thm_products} is exactly the same as the proof of \cref{main_thm_planar} except that we use the $(k,O(\sqrt{\log n}))$-volume-preserving contraction guaranteed by \cref{product_contraction} instead of the one guaranteed by \cref{rao}.
 
 % \david{I suggest we replace the previous proof by the following intermediate lemma because (1) my student Marc will need it, (2) someone else might need it, (3) the optimal choice of $D$ is then obvious, (4) even for genus $g$ graphs (which have row treewidth $2g+6$), it is technicaly stronger than the previous result which has a $\sqrt{gn}$ term in the upper bound on $|X|$ (which does not decrease with increasing $D$):
+
+\subsubsection{Wrapping Up}
 
 We now state and prove the most general version of our main result.
 
