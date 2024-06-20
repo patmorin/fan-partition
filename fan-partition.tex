@@ -287,12 +287,12 @@ class $\mathcal{G}$ &$H$
 \label{results_table}
 \end{table}
 
-\pat{I remember now why, $\Omega(\sqrt{\tw(Q)n})$ is a lower bound. Let $Q:=P_{\sqrt{n/t}}\boxtimes K_t$.  Then $Q\boxtimes P_{\sqrt{n/t}}$ has $n$ vertices and treewidth $\Omega(\sqrt{nt})$.  Why? It contains the $\sqrt{n/t}\times t\times\sqrt{n/t}$ grid (maybe that's enough). If not, here's a bramble of order $\Omega(\sqrt{tn})$. Let $V(K_t)=\{v_0,\ldots,v_{t-1}\}$, and $P_{\sqrt{n/t}}=w_0,\ldots,w_{\sqrt{n/t}-1}$.  For each $i\in\{0,\ldots,\sqrt{tn}\}$, let
+\pat{I remember now why, $\Omega(\sqrt{\tw(Q)n})$ is a lower bound. Let $Q:=P_{\sqrt{n/t}}\boxtimes K_t$ and let $G:=Q\boxtimes P_{\sqrt{n/t}}$.  Then $G$ has $n$ vertices and treewidth $\Omega(\sqrt{nt})$.  Why? $G$ contains the $\sqrt{n/t}\times t\times\sqrt{n/t}$ grid (maybe that's enough). If not, here's a bramble of order $\Omega(\sqrt{tn})$. Let $\{v_0,\ldots,v_{t-1}\}:=V(K_t)$, and let $w_0,\ldots,w_{\sqrt{n/t}-1}:=P_{\sqrt{n/t}}$.  For each $i\in\{0,\ldots,\sqrt{tn}\}$, let
 \[
    Q_i:=\left(V(P_{\sqrt{n/t}})\times\{v_{i\bmod t}\}\times\{w_{\floor{i/t}}\}\right)
    \cup \left(\{w_{\floor{i/t}}\}\times\{v_{i\bmod t}\}\times V(P_{\sqrt{n/t}})\right) \enspace .
 \]
-Then $\mathcal{Q}:=\{Q_0,\ldots,Q_{\sqrt{nt}-1}\}$ is a bramble of order $\sqrt{nt}/2$.  Let's check: For any $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ are adjacent or intersect because $Q_i$ contains $(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$ and $Q_j$ contains $(w_{\floor{i/t}},v_{j\bmod t},w_{\floor{j/t}})$.  If $i\equiv j\pmod t$ then these are the same vertex, otherwise they are adjacent.  Therefore $\mathcal{Q}$ is a bramble.  For distinct $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ have at most two vertices, namely $(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$, and $(w_{\floor{j/t}},v_{j\bmod t},w_{\floor{i/t}})$ in common. So the order of $\mathcal{Q}$ is at least $|\mathcal{Q}|/2=\sqrt{nt}/2$.
+We claim that $\mathcal{Q}:=\{Q_0,\ldots,Q_{\sqrt{nt}-1}\}$ is a bramble of order $\sqrt{nt}/2$.  For any $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ are adjacent or intersect because $Q_i$ contains $q_{i,j}:=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$ and $Q_j$ contains $q_{i,j}':=(w_{\floor{i/t}},v_{j\bmod t},w_{\floor{j/t}})$.  If $i\equiv j\pmod t$ then $q_{i,j}=q_{i,j}'$, otherwise $q_{i,j}q_{i,j}'$ is an edge of $G$.  Therefore $\mathcal{Q}$ is a bramble in $G$.  For distinct $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ have at most two vertices, namely $q_{i,j}=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$, and $q_{j,i}=(w_{\floor{j/t}},v_{j\bmod t},w_{\floor{i/t}})$ in common. So the order of $\mathcal{Q}$ is at least $|\mathcal{Q}|/2=\sqrt{nt}/2$.
 }
 
 \david{delete ``Previous and new'' from the caption?}
