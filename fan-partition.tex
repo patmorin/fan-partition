@@ -189,7 +189,7 @@ where a \defin{fan} is a graph consisting of a path $P$ plus one vertex that dom
     \label{2blowup}
 \end{figure}
 
-% \david{perhaps this paragraph should go in the opening subsection, what do you think?} 
+% \david{perhaps this paragraph should go in the opening subsection, what do you think?}
 The $\sqrt{n}$ blowup in this result is not arbitrary. A $k$-blowup of a graph $H$ with treewidth\footnote{A \defin{tree-decomposition} of a graph $G$ is a collection $(B_x)_{x \in V(T)}$ of subsets of $V(G)$ indexed by a tree $T$, such that: (a) for every edge ${vw \in E(G)}$, there exists a node ${x \in V(T)}$ with ${v,w \in B_x}$, and (b) for every vertex ${v \in V(G)}$, the set $\{ x \in V(T) \colon v \in B_x \}$ induces a non-empty (connected) subtree of $T$. The \defin{width} of such a tree-decomposition is ${\max\{ |B_x| \colon x \in V(T) \}-1}$. A \defin{path-decomposition} is a tree-decomposition where the underlying tree is a path, denoted by the corresponding sequence of bags. The \defin{treewidth $\tw(G)$} of a graph $G$ is the minimum width of a tree-decomposition of $G$. The \defin{pathwidth $\pw(G)$} of a graph $G$ is the minimum width of a path-decomposition of $G$. Treewidth is the standard measure of how similar a graph is to a tree. Pathwidth is the standard measure of how similar a graph is to a path. By definition, $\tw(G)\leq\pw(G)$ for every graph $G$.} $t$ has treewidth at most $k(t+1)-1$.  Since there are $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.
 
 
@@ -284,7 +284,7 @@ class $\mathcal{G}$ &$H$
 \midrule
     $Q\boxtimes P$ subgraph & fan
     & $\Omega(\sqrt{\tw(Q)\cdot n})$
-    & 
+    &
     & $O(\sqrt{\tw(Q)\,n}\log^2 n)$ & \cref{main_thm_products}\\
     \bottomrule
 \end{tabular}
@@ -870,7 +870,7 @@ $\bw(G-X)\in O(D(k+1)\log^3 n')
 \section{\boldmath Subgraphs of $H\boxtimes P$}
 \label{htimesp_section}
 
-In this section we prove \cref{main_thm_products}, the generalization of \cref{main_thm_planar} to subgraphs of $H\boxtimes P$, which is needed to prove \cref{main_thm_apexmf}, the generalization of \cref{main_thm_planar} to apex-minor-free graphs.  
+In this section we prove \cref{main_thm_products}, the generalization of \cref{main_thm_planar} to subgraphs of $H\boxtimes P$, which is needed to prove \cref{main_thm_apexmf}, the generalization of \cref{main_thm_planar} to apex-minor-free graphs.
 Before doing so, we first prove a lower bound.
 \begin{thm}
   For all positive integers $t$ and $n$ such that $tn$ is a perfect square, there exists a graph $H$ of treewidth $t-1$ and a path $P$ such that $\tw(H\boxtimes P)\ge \sqrt{tn}/2$.
