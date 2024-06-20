@@ -131,19 +131,19 @@
 
 \maketitle
 
-\gwen{Another option for the title: Planar graphs as blowups of fans}
-
-\pat{Planar graphs in blowups of fans(?)} 
-
-\david{I think `Planar graphs as blowups of fans' reads better than `Planar graphs in blowups of fans', whereas the latter is more accurate. I would weakly lean towards `Planar graphs in blowups of fans'}
-
-\pat{Near rootish blowups of fans contain all planar graphs}
-\david{what does rootish mean, or is it another joke?} \pat{No, not a joke.  Just a way to avoid a square root symbol in a title.} \david{when I read this, I had no idea ``rootish'' refered to square root of $n$.}
+% \gwen{Another option for the title: Planar graphs as blowups of fans}
+%
+% \pat{Planar graphs in blowups of fans(?)}
+%
+% \david{I think `Planar graphs as blowups of fans' reads better than `Planar graphs in blowups of fans', whereas the latter is more accurate. I would weakly lean towards `Planar graphs in blowups of fans'}
+%
+% \pat{Near rootish blowups of fans contain all planar graphs}
+% \david{what does rootish mean, or is it another joke?} \pat{No, not a joke.  Just a way to avoid a square root symbol in a title.} \david{when I read this, I had no idea ``rootish'' refered to square root of $n$.}
 
 \david{please check your affiliations and support statements} \pat{Mine is good.}
 
 \begin{abstract}
-  We show that every $n$-vertex planar graph is contained in the graph obtained from a fan by blowing up each vertex by a complete graph of order $O(\sqrt{n}\log^2 n)$.  
+  We show that every $n$-vertex planar graph is contained in the graph obtained from a fan by blowing up each vertex by a complete graph of order $O(\sqrt{n}\log^2 n)$.
   %\david{we open here with strong products, but the paper opens with blowups. I suggest we use blowups here too.}. \pat{I agree.} \david{done}
   Equivalently, every $n$-vertex planar graph $G$ has a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$.  This result holds in the more general setting of bounded row treewidth graphs, which includes bounded genus graphs, graphs excluding a fixed apex graph as a minor, and $k$-planar graphs for fixed $k$. These results are obtained using two ingredients.  The first is a new local sparsification lemma, which shows that every $n$-vertex planar graph $G$ has a set of $O((n/D)\log n)$ vertices whose removal results in a graph with local density at most $D$.  The second is a method of Feige, with a refinement by Rao, that relates bandwidth and local density using volume-preserving Euclidean embeddings.
 %
@@ -175,8 +175,9 @@
 
 % \david{Below I suggest some changes to the intro. I am glad to implement them if you agree.}  \pat{I agree. Please go ahead.} \david{started...}
 
-This paper studies the global structure of planar graphs and more general graph classes, through the lens of graph blowups. Here, the \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of order $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$, as illustrated in \cref{2blowup}. We consider the following question: What is the simplest family of graphs $\mathcal{H}$ such that, for each $n$-vertex planar graph $G$, there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$, where $\tilde{O}$ notation hides $\polylog(n)$ terms?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G$ is isomorphic to a subgraph of $G'$.} We show that one can  take $\mathcal{H}$ to be the class of fan graphs\footnote{A \defin{fan} $F_k$ is a graph with $V(F_k):=\{x_0,\ldots,x_k\}$ and $E(F_k):=\{x_0x_i:1\leq i\leq k\}\cup\{x_ix_{i+1}:1\leq i\leq k-1\}$. Note that $\{x_0,x_1,x_2\},\{x_0,x_2,x_3\},\dots,\{x_0,x_{k-1},x_k\}$ is a width-$2$ path-decomposition of $F_k$.}.
-\david{Delete the footnote, and write ``where a \defin{fan} is a graph consisting of a path $P$ plus one vertex complete to $P$'' or ``one vertex that dominates $P$.}
+This paper studies the global structure of planar graphs and more general graph classes, through the lens of graph blowups. Here, the \defin{$k$-blowup} of a graph $H$ is the graph obtained by replacing each vertex $v$ of $H$ with a clique $K_v$ of order $k$ and replacing each edge $vw$ of $H$ with a complete bipartite graph with parts $V(K_v)$ and $V(K_w)$, as illustrated in \cref{2blowup}. We consider the following question: What is the simplest family of graphs $\mathcal{H}$ such that, for each $n$-vertex planar graph $G$, there is a graph $H\in\mathcal{H}$ such that $G$ is contained in a $\tilde{O}(\sqrt{n})$-blowup of $H$, where $\tilde{O}$ notation hides $\polylog(n)$ terms?\footnote{We say that a graph $G$ is \defin{contained} in a graph $G'$ if $G$ is isomorphic to a subgraph of $G'$.} We show that one can  take $\mathcal{H}$ to be the class of fans,
+where a \defin{fan} is a graph consisting of a path $P$ plus one vertex that dominates $P$.
+% \footnote{A \defin{fan} $F_k$ is a graph with $V(F_k):=\{x_0,\ldots,x_k\}$ and $E(F_k):=\{x_0x_i:1\leq i\leq k\}\cup\{x_ix_{i+1}:1\leq i\leq k-1\}$. Note that $\{x_0,x_1,x_2\},\{x_0,x_2,x_3\},\dots,\{x_0,x_{k-1},x_k\}$ is a width-$2$ path-decomposition of $F_k$.}.
 
 \begin{thm}\label{main_thm_planar}
   Every $n$-vertex planar graph is contained in a $O(\sqrt{n}\log^2 n)$-blowup of a fan.
@@ -216,7 +217,7 @@ of height $O(\log\log n)$. That is, $G$ is contained in the $O(\sqrt{n})$-blowup
 \caption{
 %\piotr{I worked a bit on this table. I hope you like it more :P}\pat{Very nice, thanks!}
 %\piotr{How about switching the order of columns? Lower bounds left and upper bounds right?} \pat{Sure.}
-Previous and new results on $k$-blowups of a graph $H$ that contain every $n$-vertex graph $G$ from graph class $\mathcal{G}$.}
+Results on $k$-blowups of a graph $H$ that contain every $n$-vertex graph $G$ from graph class $\mathcal{G}$.}
 \begin{tabular}{llclcl}
 \toprule
 class $\mathcal{G}$ &$H$
@@ -240,18 +241,18 @@ class $\mathcal{G}$ &$H$
 & $O(n^{1/2+\epsilon})$ & \cite{DvoWoo}\\[1ex]
 \midrule
    planar $\mathrm{deg}\le \Delta$ & tree
-   & $\Omega(\mathcolor{red}{\Delta^{1/3}}\cdot\tw(G))$ & \cite{LMST08}
+   & \textcolor{white}{$\Omega(\Delta^{1/3}\cdot\tw(G))$} & \cite{LMST08}
    & $O(\Delta\cdot\tw(G))$ & \cite{ding.oporowski:some}\\
 \midrule
      maximum degree $\Delta$  & tree
-     & $\Omega(\Delta\cdot\tw(G))$ & \color{red}{\cite{Wood09}}
+     & $\Omega(\Delta\cdot\tw(G))$ & \cite{Wood09}
      & $O(\Delta\cdot\tw(G))$ & \cite{ding.oporowski:some,Wood09}\\
 \midrule
     $K_t$-minor-free & $\tw\leq t-2$
-    & $\Omega(\sqrt{n})\mathcolor{red}{(?!)}$ &
+    & $\Omega(\sqrt{n})$ &
     & $O(\sqrt{tn})$ & \cite{ISW}\\[1.5ex]
     $K_t$-minor-free & $\tw\leq t-2$
-    & $\mathcolor{red}{(?!)}$ &
+    &  &
     & $\tw(G)+1$ & \cite{ISW}\\[1.5ex]
     $K_t$-minor-free & $\tw\leq4$
     & $\Omega(t\sqrt{n})$ &
@@ -260,13 +261,13 @@ class $\mathcal{G}$ &$H$
     &&& $O(t\sqrt{n})$ & \cite{distel.dujmovic.ea:product}\\
 \midrule
      & fan
-     & $\Omega(\sqrt{gn})$ & \cite{DEW17}
+     & $\Omega(\sqrt{gn})$ & \cite{gilbert.hutchinson.ea:separator}
      & $O(\sqrt{gn}+\sqrt{n}\log^2 n)$ & \cref{main_thm_genus}\\[1.5ex]
     genus-$g$ & $\tw\leq 2$
-    &  &
+    & $\Omega(\sqrt{gn})$ & \cite{gilbert.hutchinson.ea:separator}
     & $O((g+1)\sqrt{n})$& \cite{distel.dujmovic.ea:product}\\[1.5ex]
      & $\tw\leq3$
-     &  &
+     & $\Omega(\sqrt{gn})$ & \cite{gilbert.hutchinson.ea:separator}
      & $2(g+1)(\tw(G)+1)$ & \cite{ISW}\\
 \midrule
     $k$-planar & fan
@@ -278,13 +279,21 @@ class $\mathcal{G}$ &$H$
     & $O(\sqrt{n}\log^2 n)$ & \cref{main_thm_apexmf}\\
 \midrule
     $Q\boxtimes P$ subgraph & fan
-    & %$\Omega(\sqrt{\tw(Q)\cdot n})$
-    &
+    & $\Omega(\sqrt{\tw(Q)\cdot n})$
+    & \textcolor{red}{prove}
     & $O(\sqrt{\tw(Q)\,n}\log^2 n)$ & \cref{main_thm_products}\\
     \bottomrule
 \end{tabular}
 \label{results_table}
 \end{table}
+
+\pat{I remember now why, $\Omega(\sqrt{\tw(Q)n})$ is a lower bound. Let $Q:=P_{\sqrt{n/t}}\boxtimes K_t$.  Then $Q\boxtimes P_{\sqrt{n/t}}$ has $n$ vertices and treewidth $\Omega(\sqrt{nt})$.  Why? It contains the $\sqrt{n/t}\times t\times\sqrt{n/t}$ grid (maybe that's enough). If not, here's a bramble of order $\Omega(\sqrt{tn})$. Let $V(K_t)=\{v_0,\ldots,v_{t-1}\}$, and $P_{\sqrt{n/t}}=w_0,\ldots,w_{\sqrt{n/t}-1}$.  For each $i\in\{0,\ldots,\sqrt{tn}\}$, let
+\[
+   Q_i:=\left(V(P_{\sqrt{n/t}})\times\{v_{i\bmod t}\}\times\{w_{\floor{i/t}}\}\right)
+   \cup \left(\{w_{\floor{i/t}}\}\times\{v_{i\bmod t}\}\times V(P_{\sqrt{n/t}})\right) \enspace .
+\]
+Then $\mathcal{Q}:=\{Q_0,\ldots,Q_{\sqrt{nt}-1}\}$ is a bramble of order $\sqrt{nt}/2$.  Let's check: For any $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ are adjacent or intersect because $Q_i$ contains $(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$ and $Q_j$ contains $(w_{\floor{i/t}},v_{j\bmod t},w_{\floor{j/t}})$.  If $i\equiv j\pmod t$ then these are the same vertex, otherwise they are adjacent.  Therefore $\mathcal{Q}$ is a bramble.  For distinct $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ have at most two vertices, namely $(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$, and $(w_{\floor{j/t}},v_{j\bmod t},w_{\floor{i/t}})$ in common. So the order of $\mathcal{Q}$ is at least $|\mathcal{Q}|/2=\sqrt{nt}/2$.
+}
 
 \david{delete ``Previous and new'' from the caption?}
 
@@ -307,8 +316,8 @@ Since fans have pathwidth $2$, \cref{main_thm_planar} answers this question, wit
 
 % (We remark that the previous results \cite{ISW,distel.dujmovic.ea:product} have no polylogarithmic factors.  Every planar graphs is contained in a $O(\sqrt{n})$-blowup of a treewidth-$2$ graph \cite{distel.dujmovic.ea:product}.)
 
-We now review results in the literature that show that every planar graph $G$ is contained in the blowup of a bounded treewidth graph, where the blowup factor is a function of the treewidth of $G$. This direction was introduced by \citet{UTW}, who defined the \defin{underlying treewidth} of a graph class $\GG$ to be the minimum integer $k$ such that for some function $f$ every graph $G\in\GG$ is contained in a $f(\tw(G))$-blowup of a graph $H$ with $\tw(H)\leq k$. \citet{UTW} showed that the underlying treewidth of the class of planar graphs equals 3. In particular, every planar graph $G$ with $\tw(G)\leq t$ is contained in a $O(t^2\log t)$-blowup of a graph with treewidth 3. \citet{ISW} improved this blowup factor to $t+1$, which is $O(\sqrt{n})$ (since planar graphs have treewidth $O(\sqrt{n})$) and might be significantly less than $O(\sqrt{n})$.  However, in this setting, treewidth 3 is best possible. In particular, \citet{UTW} showed that for any function $f$, there are planar graphs $G$ such that if $G$ is contained in a $f(\tw(G))$-blowup of a graph $H$, then $H$ contains $K_4$ and thus has treewidth at least 3. Allowing blowups of size $O(\sqrt{n})$ enables substantially simpler graphs $H$. \citet{distel.dujmovic.ea:product} showed that $\tw(H)\leq 2$ suffices. Allowing for an extra $O(\log^2n)$ factor in the blowup, this paper goes further and shows that a fan $H$ suffices, which has pathwidth 2. Note that for $K_t$-minor-free graphs (which also have treewidth $O_t(\sqrt{n})$~\citep{AST90}), there is a similar distinction between $f(\tw(G))$-blowups and $O_t(\sqrt{n})$-blowups. \citet{UTW} showed that the underlying treewidth of the class of $K_t$-minor-free graphs equals $t-2$, whereas 
-\citet{distel.dujmovic.ea:product} showed that $\tw(H)\leq 4$ suffices for $O_t(\sqrt{n})$-blowups of $H$. See \citep{DHHJLMMRW} for more results on underlying treewidth. 
+We now review results in the literature that show that every planar graph $G$ is contained in the blowup of a bounded treewidth graph, where the blowup factor is a function of the treewidth of $G$. This direction was introduced by \citet{UTW}, who defined the \defin{underlying treewidth} of a graph class $\GG$ to be the minimum integer $k$ such that for some function $f$ every graph $G\in\GG$ is contained in a $f(\tw(G))$-blowup of a graph $H$ with $\tw(H)\leq k$. \citet{UTW} showed that the underlying treewidth of the class of planar graphs equals 3. In particular, every planar graph $G$ with $\tw(G)\leq t$ is contained in a $O(t^2\log t)$-blowup of a graph with treewidth 3. \citet{ISW} improved this blowup factor to $t+1$, which is $O(\sqrt{n})$ (since planar graphs have treewidth $O(\sqrt{n})$) and might be significantly less than $O(\sqrt{n})$.  However, in this setting, treewidth 3 is best possible. In particular, \citet{UTW} showed that for any function $f$, there are planar graphs $G$ such that if $G$ is contained in a $f(\tw(G))$-blowup of a graph $H$, then $H$ contains $K_4$ and thus has treewidth at least 3. Allowing blowups of size $O(\sqrt{n})$ enables substantially simpler graphs $H$. \citet{distel.dujmovic.ea:product} showed that $\tw(H)\leq 2$ suffices. Allowing for an extra $O(\log^2n)$ factor in the blowup, this paper goes further and shows that a fan $H$ suffices, which has pathwidth 2. Note that for $K_t$-minor-free graphs (which also have treewidth $O_t(\sqrt{n})$~\citep{AST90}), there is a similar distinction between $f(\tw(G))$-blowups and $O_t(\sqrt{n})$-blowups. \citet{UTW} showed that the underlying treewidth of the class of $K_t$-minor-free graphs equals $t-2$, whereas
+\citet{distel.dujmovic.ea:product} showed that $\tw(H)\leq 4$ suffices for $O_t(\sqrt{n})$-blowups of $H$. See \citep{DHHJLMMRW} for more results on underlying treewidth.
 
 %\pat{The LMST graph is planar, has treewidth $\tw(G)\le O(k)$, maximum degree $\Delta\in O(k^3)$, and requires bags of size $\Omega(k^2)=\Omega(\Delta^{1/3}\tw(G))$.  We can improve this to $\Delta^{2/5}$, but the proof is a bit too long to put here.}
 
@@ -436,7 +445,7 @@ Note that the $k$-blowup of $H$ can be written as the strong product $H\boxtimes
 %\david{We never use the $\rtw$ notation}
 
 The \defin{row treewidth} of a graph $G$
-%, denoted by $\rtw(G)$, 
+%, denoted by $\rtw(G)$,
 is the minimum integer $t$ such that $G$ is contained in $H\boxtimes P$ for some graph $H$ with treewidth $t$ and for some path $P$. We prove the following more general result:
 
 % Then \cref{main_thm_products} becomes: \\
@@ -520,7 +529,7 @@ Thus, \cref{main_thm_planar} is equivalent to saying that every $n$-vertex plana
   $O(\sqrt{n}/\log^2 n)$ vertices.
 \end{thm}
 
-The same improvement is applicable to \cref{main_thm_genus,main_thm_k_planar,main_thm_gk_planar,main_thm_apexmf}. 
+The same improvement is applicable to \cref{main_thm_genus,main_thm_k_planar,main_thm_gk_planar,main_thm_apexmf}.
 
 % \pat{Note: \cref{main_thm_planar_order} gives an easy to understand graph with $O(n)$ vertices and $O(n^{3/2}\log^2 n)$ edges that contains every $n$-vertex planar graph as a subgraph, a result first shown (without the $\log^2 n$ factor) by \citet{babai.chung.ea:on}.  Probably not worth mentioning since much better results are known now.} \david{I agree to not mention this.}
 
@@ -529,7 +538,7 @@ The same improvement is applicable to \cref{main_thm_genus,main_thm_k_planar,mai
 
 %\david{Should we say that all logs are base 2? it matters since we occasionally write $\log$ outside of a $O(...)$. Do we ever use non-base-2 logs?} \pat{We use $\ln n$ towards the end, since it's convenient for for amplifying probabilities.} \david{So I suggest we say that $\log$ means base 2 and $\ln$ means base $e$. Okay?} \pat{Okay}
 
-Throughout the paper, we use $\log$ for the base-2 logarithm, and we use $\ln$ for the base-$e$ logarithm. 
+Throughout the paper, we use $\log$ for the base-2 logarithm, and we use $\ln$ for the base-$e$ logarithm.
 
 For a graph $G$ and any two vertices $v,w\in V(G)$, define the \defin{(graph) distance} between $v$ and $w$, denoted $\mathdefin{d_G(v,w)}$, as the minimum number of edges in any path in $G$ with endpoints $v$ and $w$ or define $d_G(v,w):=\infty$ if $v$ and $w$ are in different components of $G$.  For any $r\ge 0$ and any $v\in V(G)$, let $\mathdefin{B_G(v,r)}:=\{w\in V(G):d_G(v,w)\le r\}$ denote the radius-$r$ ball in $G$ with center $v$.
 The \defin{local density} of a graph $G$ is $\mathdefin{\ld(G)}:=\max\{(|B(v,r)|-1)/r:r> 0,\, v\in V(G)\}$.\footnote{The ${}-1$ in this definition of local density does not appear in the definitions of local density used in some other works \cite{feige:approximating,rao:small}, but this makes no difference to our asymptotics results.  Our definition makes for cleaner formulas and seems to be more natural. For example, under our definition, the local density of a cycle of length $2k+1$ is $2$ and every $r$-ball contains exactly $2r+1$ vertices for $r\in\{1,\ldots,k\}$. Without the ${}-1$, the local density of a cycle is $3$, but only because radius-$1$ balls contain three vertices.}
@@ -537,10 +546,10 @@ The \defin{local density} of a graph $G$ is $\mathdefin{\ld(G)}:=\max\{(|B(v,r)|
 % } If $|B_G(v,r)|=Dr+1$ then in any permutation $v_1,\ldots,v_n$ of $V(G)$, one of the vertices $w$ in $B_G(v,r)\setminus \{v\}$ is at distance at least $Dr/2$ from $v$. That is, $v=v_i$ and $w=v_j$, and $|j-i|\ge Dr/2$.  Since $G$ contains a path with at most $r$ edges from $v$ to $w$, one of the edges $v_{i'}v_{j'}$ of this path must have $|i'-j'|\ge Dr/2r=D/2$.  Therefore $\bw(G)\ge\ld(G)/2$.
 
 
-The local density of $G$ provides a lower bound on the bandwidth of $G$. For any ordering $v_1,\dots,v_n$ of $V(G)$ with bandwidth $b$, for each vertex $v_i$, $B_G(v_i,r) \subseteq \{v_{i-rb},\dots,v_{i+rb}\}$, so $|B_G(v_i,r)|\leq 2rb+1$ and $\ld(G)\leq 2\bw(G)$. \david{Let's add more to this story .... Erd\H{o}s~[ref?] conjectured that $\bw(G)\leq O(\ld(G))$ for every graph $G$. This was disproved by \citet{chvatalova:on} who described a family of $n$-vertex trees $T$ with local density at most $3$ and $\bw(T)\in\Omega(\log n)$. Thus, $\bw(G)$ is not upper bounded by any function of $\ld(G)$, even for trees. This remains true for trees of bounded pathwidth: \citet{CS89} describe a family of $n$-vertex trees $T$ with local density at most $9$, pathwidth $2$, and  $\bw(T)\in\Omega(\log n/\log\log n)$. On the other hand, in his seminal work, Fiege ...} 
+The local density of $G$ provides a lower bound on the bandwidth of $G$. For any ordering $v_1,\dots,v_n$ of $V(G)$ with bandwidth $b$, for each vertex $v_i$, $B_G(v_i,r) \subseteq \{v_{i-rb},\dots,v_{i+rb}\}$, so $|B_G(v_i,r)|\leq 2rb+1$ and $\ld(G)\leq 2\bw(G)$. \david{Let's add more to this story .... Erd\H{o}s~[ref?] conjectured that $\bw(G)\leq O(\ld(G))$ for every graph $G$. This was disproved by \citet{chvatalova:on} who described a family of $n$-vertex trees $T$ with local density at most $3$ and $\bw(T)\in\Omega(\log n)$. Thus, $\bw(G)$ is not upper bounded by any function of $\ld(G)$, even for trees. This remains true for trees of bounded pathwidth: \citet{CS89} describe a family of $n$-vertex trees $T$ with local density at most $9$, pathwidth $2$, and  $\bw(T)\in\Omega(\log n/\log\log n)$. On the other hand, in his seminal work, Fiege ...}
 On the other hand, $\bw(G)$ is not upper bounded by any function of $\ld(G)$. In fact, \citet{chvatalova:on} describes a family of $n$-vertex trees $T$ with local density at most $3$ and $\bw(T)\in\Omega(\log n)$.  \citet{CS89} even describe a family of $n$-vertex trees $T$ with local density at most $9$, pathwidth $2$, and  $\bw(T)\in\Omega(\log n/\log\log n)$.  In his seminal work, \citet{feige:approximating} proves that bandwidth is upper bounded by the local density times a polylogarithmic function of the number of vertices.
 
-\pat{The correct reference is \citet{chvatalova:on}, who shows that a tree of local density $3$ having $c^k$ vertices has bandwidth $\Omega(k)$.  \citet{CS89} give a tree of pathwidth $2$ with $c^{k\log k}$ vertices and bandwidth $\Omega(k)$.} \david{So in the original sentence about \cite{CS89}, $\Omega(\log n)$ should be replaced by $\Omega(\log n/ \log\log n)$? \pat{Yes, done.} Anyway, 
+\pat{The correct reference is \citet{chvatalova:on}, who shows that a tree of local density $3$ having $c^k$ vertices has bandwidth $\Omega(k)$.  \citet{CS89} give a tree of pathwidth $2$ with $c^{k\log k}$ vertices and bandwidth $\Omega(k)$.} \david{So in the original sentence about \cite{CS89}, $\Omega(\log n)$ should be replaced by $\Omega(\log n/ \log\log n)$? \pat{Yes, done.} Anyway,
 \citet{chvatalova:on} predates \citep{CS89} by several years, so we should put the original reference. I would also mention \citet{CS89} since I think it is interesting there is an example with pathwidth 2. I think \citet{CCDG82} also has a construction.}. \pat{\citet{CCDG82} is fascinating.  Erd\"os conjectured that bandwidth was linear in local density, in my birth year. Chvátalová disproved it and also won a \$5 Erd\H{o}s prize for solving another question related to bandwidth.  I can't get my hands on her thesis, so we'll have to take Chung and Seymour's word for it.} \david{I have asked my library to get the  Chvátalová  thesis.}
 
 \begin{thm}[\citet{feige:approximating}]
@@ -564,7 +573,7 @@ On the other hand, $\bw(G)$ is not upper bounded by any function of $\ld(G)$. In
 By \cref{rao_bandwidth_vs_density}, to prove \cref{main_thm_planar} it suffices to show the following \defin{local sparsification lemma}:
 
 \begin{lem}\label{planar_sparsification_special}
-  Every $n$-vertex planar graph $G$ has a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that 
+  Every $n$-vertex planar graph $G$ has a set $X$ of $O(\sqrt{n}\log^2 n)$ vertices such that
   $$\ld(G-X)\in O(\sqrt{n}/\log n).$$
 \end{lem}
 
@@ -743,7 +752,7 @@ In this section, we prove \cref{main_thm_genus,main_thm_k_planar,main_thm_gk_pla
 
 \begin{thm}[\cite{eppstein:dynamic}]
 \label{eppstein_planarizer}
-  Every $n$-vertex Euler genus-$g$ graph $G$ has a set of $X$ of $O(\sqrt{gn})$ vertices such that $G-X$ is planar. 
+  Every $n$-vertex Euler genus-$g$ graph $G$ has a set of $X$ of $O(\sqrt{gn})$ vertices such that $G-X$ is planar.
   % \david{I suspect this result is not originally due to \citet{eppstein:dynamic}. I have a vague memory of reading about planarising curves: for every graph $G$ embedded on a surface of bounded genus there is a curve in the surface passing through $O_g(\sqrt{n})$ vertices and no edges, and whose deletion leaves a planar embedding.  } \pat{I've been working from Jeff's notes: \url{https://jeffe.cs.illinois.edu/teaching/comptop/2023/notes/22-planarization.html}.  He cites some prior results that give planarizing subgraphs of size $O(g\sqrt{n})$ and $O(\sqrt{gn}\log n)$ but credits Eppstein for the $O(\sqrt{gn})$ bound.} \david{Okay. Unfortunately this theorem is not explicitly stated in \cite{eppstein:dynamic}, so I added the footnote.}
 \end{thm}
 
@@ -768,12 +777,12 @@ By \cref{eppstein_planarizer}, $G$ has a set $X_0$ of $O(\sqrt{gn})$ vertices su
 \cref{main_thm_genus} follows from \cref{genus_D} by taking $D=\sqrt{n}/\log n$.
 
 % To prove \cref{main_thm_k_planar} (a version of \cref{main_thm_planar} for $k$-planar graphs) we use the following result on the edge density of $k$-planar graphs, which follows readily from the Crossing Lemma \cite{ajtai.chvatal.ea:crossing_free} (see \citet{PachToth97} for a proof):
- 
+
 To prove \cref{main_thm_k_planar} (our generalization of \cref{main_thm_planar} for $k$-planar graphs) we use the following bound on the edge density of $k$-planar graphs by \citet{PachToth97}, which is readily proved used the Crossing Lemma~\cite{ajtai.chvatal.ea:crossing_free}.
 
 
 
-\begin{lem}[\citep{PachToth97}] 
+\begin{lem}[\citep{PachToth97}]
 \label{k_planar_density}
 Every $n$-vertex $k$-planar graph has $O(k^{1/2} n)$ edges.
 \end{lem}
@@ -1532,7 +1541,7 @@ We now have all the pieces needed to complete the proof of \cref{dstar_contracti
 
 % \david{I suggest we replace the previous proof by the following intermediate lemma because (1) my student Marc will need it, (2) someone else might need it, (3) the optimal choice of $D$ is then obvious, (4) even for genus $g$ graphs (which have row treewidth $2g+6$), it is technicaly stronger than the previous result which has a $\sqrt{gn}$ term in the upper bound on $|X|$ (which does not decrease with increasing $D$):
 
-We now state and prove the most general version of our main result. 
+We now state and prove the most general version of our main result.
 \david{I think the following should be a theorem.}
 
 \begin{lem}
@@ -1543,7 +1552,7 @@ For any $t,n\in\N$ and $D\in\mathbb{R}$ with $1\leq D\leq n$, any $n$-vertex gra
 \begin{proof}
 We may assume that $G$ is connected.
 By assumption, $G$ is contained in $H\boxtimes P$ for some graph $H$ with treewidth $t$ and for some path $P$.
-We may assume without loss of generality that $H$ is a $t$-tree. For simplicity, we assume $G$ is a subgraph of $H\boxtimes P$. Let $X\subseteq V(H\boxtimes P)$ be the set defined in \cref{x_definition}, so $|X|\in O((tn/D)(\log n))$. Let $d^*$ (which depends on $X$) be the distance function defined in \cref{d_star_definition}.  By \cref{supergraph_contraction,d_star_summary}, the metric space $\mathcal{M}^*:=(V(G)\setminus X,d^*)$ is a contraction of the graphical metric $\mathcal{M}_{G-X}$, and 
+We may assume without loss of generality that $H$ is a $t$-tree. For simplicity, we assume $G$ is a subgraph of $H\boxtimes P$. Let $X\subseteq V(H\boxtimes P)$ be the set defined in \cref{x_definition}, so $|X|\in O((tn/D)(\log n))$. Let $d^*$ (which depends on $X$) be the distance function defined in \cref{d_star_definition}.  By \cref{supergraph_contraction,d_star_summary}, the metric space $\mathcal{M}^*:=(V(G)\setminus X,d^*)$ is a contraction of the graphical metric $\mathcal{M}_{G-X}$, and
 $\mathcal{M}^*$ has local density at most $D$. Let $k:=\ceil{\log_2n}$ and $\eta:=\sqrt{\log_2 n}$.
 By \cref{dstar_contraction}, $\mathcal{M}^*$ has a $(k,O(\eta))$-volume-preserving Euclidean contraction.  Therefore, by \cref{volume_density_bandwidth}, $\bw(\mathcal{M}^*)\in
 O( (nk\log\Delta)^{1/k} Dk\eta \log^{3/2} n)$.
@@ -1584,7 +1593,7 @@ O(D\log^3 n)$.
 
 \begin{itemize}
 \item Can the $O(\polylog n)$ factor be removed from \cref{main_thm_planar}? That is, is every $n$-vertex planar graph contained in the $O(\sqrt{n})$-blowup of a fan? This would imply and strengthen the known result that $n$-vertex planar graphs have pathwidth $O(\sqrt{n})$ (see \citep{Bodlaender98}). Such a result seems to require techniques beyond local density, since a factor of at least $\log n$ is necessary in
-\cref{feige_bandwidth_vs_density,rao_bandwidth_vs_density}  even for trees (by the example of \citet{chvatalova:on}).  
+\cref{feige_bandwidth_vs_density,rao_bandwidth_vs_density}  even for trees (by the example of \citet{chvatalova:on}).
 % In fact, a factor of $\log n/\log\log n$ is necessary, even for trees of pathwidth $2$ (by the example of \citet{CS89}).
 
 
