@@ -189,6 +189,10 @@ where a \defin{fan} is a graph consisting of a path $P$ plus one vertex that dom
     \label{2blowup}
 \end{figure}
 
+% \david{perhaps this paragraph should go in the opening subsection, what do you think?} 
+The $\sqrt{n}$ blowup in this result is not arbitrary. A $k$-blowup of a graph $H$ with treewidth\footnote{A \defin{tree-decomposition} of a graph $G$ is a collection $(B_x)_{x \in V(T)}$ of subsets of $V(G)$ indexed by a tree $T$, such that: (a) for every edge ${vw \in E(G)}$, there exists a node ${x \in V(T)}$ with ${v,w \in B_x}$, and (b) for every vertex ${v \in V(G)}$, the set $\{ x \in V(T) \colon v \in B_x \}$ induces a non-empty (connected) subtree of $T$. The \defin{width} of such a tree-decomposition is ${\max\{ |B_x| \colon x \in V(T) \}-1}$. A \defin{path-decomposition} is a tree-decomposition where the underlying tree is a path, denoted by the corresponding sequence of bags. The \defin{treewidth $\tw(G)$} of a graph $G$ is the minimum width of a tree-decomposition of $G$. The \defin{pathwidth $\pw(G)$} of a graph $G$ is the minimum width of a path-decomposition of $G$. Treewidth is the standard measure of how similar a graph is to a tree. Pathwidth is the standard measure of how similar a graph is to a path. By definition, $\tw(G)\leq\pw(G)$ for every graph $G$.} $t$ has treewidth at most $k(t+1)-1$.  Since there are $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.
+
+
 %\david{Move restatement of \cref{main_thm_planar} bandwidth  here? One issue is that the discussion about bandwidth below depends on path-partition-width, which is not yet introduced. One could describe the restatement of \cref{main_thm_planar} without mentioning path-partitions, but it would be unatural. Another alternative is to also move the paragraph about $H$-partitions to here, but then the prevous results section gets delayed. Any thoughts? I am leaning towards moving the stuff on $H$-partitions and the stuff on bandwidth here, and call it `Equivalent Formulations'. Any thoughts?}
 
 %\gwen{We discussed it with Piotr: What about keeping it as short as possible here: just defining bandwidth and stating the equivalent statement of thm 1 in terms of bandwidth, and that's it?}
@@ -255,10 +259,10 @@ class $\mathcal{G}$ &$H$
     &  &
     & $\tw(G)+1$ & \cite{ISW}\\[1.5ex]
     $K_t$-minor-free & $\tw\leq4$
-    & $\Omega(t\sqrt{n})$ &
+    & \textcolor{red}{$\Omega(t\sqrt{n})$} &
     & $O_t(\sqrt{n})$ & \cite{distel.dujmovic.ea:product}\\[1.5ex]
     $K_{3,t}$-minor-free & $\tw\leq 2$
-    &&& $O(t\sqrt{n})$ & \cite{distel.dujmovic.ea:product}\\
+    & $\Omega(\sqrt{tn})$ && $O(t\sqrt{n})$ & \cite{distel.dujmovic.ea:product}\\
 \midrule
      & fan
      & $\Omega(\sqrt{gn})$ & \cite{gilbert.hutchinson.ea:separator}
@@ -280,33 +284,31 @@ class $\mathcal{G}$ &$H$
 \midrule
     $Q\boxtimes P$ subgraph & fan
     & $\Omega(\sqrt{\tw(Q)\cdot n})$
-    & \textcolor{red}{prove}
+    & 
     & $O(\sqrt{\tw(Q)\,n}\log^2 n)$ & \cref{main_thm_products}\\
     \bottomrule
 \end{tabular}
 \label{results_table}
 \end{table}
 
-\pat{I remember now why, $\Omega(\sqrt{\tw(Q)n})$ is a lower bound. Let $Q:=P_{\sqrt{n/t}}\boxtimes K_t$ and let $G:=Q\boxtimes P_{\sqrt{n/t}}$.  Then $G$ has $n$ vertices and treewidth $\Omega(\sqrt{nt})$.  Why? $G$ contains the $\sqrt{n/t}\times t\times\sqrt{n/t}$ grid (maybe that's enough). If not, here's a bramble of order $\Omega(\sqrt{tn})$. Let $\{v_0,\ldots,v_{t-1}\}:=V(K_t)$, and let $w_0,\ldots,w_{\sqrt{n/t}-1}:=P_{\sqrt{n/t}}$.  For each $i\in\{0,\ldots,\sqrt{tn}\}$, let
-\[
-   Q_i:=\left(V(P_{\sqrt{n/t}})\times\{v_{i\bmod t}\}\times\{w_{\floor{i/t}}\}\right)
-   \cup \left(\{w_{\floor{i/t}}\}\times\{v_{i\bmod t}\}\times V(P_{\sqrt{n/t}})\right) \enspace .
-\]
-We claim that $\mathcal{Q}:=\{Q_0,\ldots,Q_{\sqrt{nt}-1}\}$ is a bramble of order $\sqrt{nt}/2$.  For any $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ are adjacent or intersect because $Q_i$ contains $q_{i,j}:=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$ and $Q_j$ contains $q_{i,j}':=(w_{\floor{i/t}},v_{j\bmod t},w_{\floor{j/t}})$.  If $i\equiv j\pmod t$ then $q_{i,j}=q_{i,j}'$, otherwise $q_{i,j}q_{i,j}'$ is an edge of $G$.  Therefore $\mathcal{Q}$ is a bramble in $G$.  For distinct $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ have at most two vertices, namely $q_{i,j}=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$, and $q_{j,i}=(w_{\floor{j/t}},v_{j\bmod t},w_{\floor{i/t}})$ in common. So the order of $\mathcal{Q}$ is at least $|\mathcal{Q}|/2=\sqrt{nt}/2$.
-}
+% \pat{I remember now why, $\Omega(\sqrt{\tw(Q)n})$ is a lower bound. Let $Q:=P_{\sqrt{n/t}}\boxtimes K_t$ and let $G:=Q\boxtimes P_{\sqrt{n/t}}$.  Then $G$ has $n$ vertices and treewidth $\Omega(\sqrt{nt})$.  Why? $G$ contains the $\sqrt{n/t}\times t\times\sqrt{n/t}$ grid (maybe that's enough). If not, here's a bramble of order $\Omega(\sqrt{tn})$. Let $\{v_0,\ldots,v_{t-1}\}:=V(K_t)$, and let $w_0,\ldots,w_{\sqrt{n/t}-1}:=P_{\sqrt{n/t}}$.  For each $i\in\{0,\ldots,\sqrt{tn}\}$, let
+% \[
+%    Q_i:=\left(V(P_{\sqrt{n/t}})\times\{v_{i\bmod t}\}\times\{w_{\floor{i/t}}\}\right)
+%    \cup \left(\{w_{\floor{i/t}}\}\times\{v_{i\bmod t}\}\times V(P_{\sqrt{n/t}})\right) \enspace .
+% \]
+% We claim that $\mathcal{Q}:=\{Q_0,\ldots,Q_{\sqrt{nt}-1}\}$ is a bramble of order $\sqrt{nt}/2$.  For any $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ are adjacent or intersect because $Q_i$ contains $q_{i,j}:=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$ and $Q_j$ contains $q_{i,j}':=(w_{\floor{i/t}},v_{j\bmod t},w_{\floor{j/t}})$.  If $i\equiv j\pmod t$ then $q_{i,j}=q_{i,j}'$, otherwise $q_{i,j}q_{i,j}'$ is an edge of $G$.  Therefore $\mathcal{Q}$ is a bramble in $G$.  For distinct $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $Q_i$ and $Q_j$ have at most two vertices, namely $q_{i,j}=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$, and $q_{j,i}=(w_{\floor{j/t}},v_{j\bmod t},w_{\floor{i/t}})$ in common. So the order of $\mathcal{Q}$ is at least $|\mathcal{Q}|/2=\sqrt{nt}/2$.
+% }
 
-\david{delete ``Previous and new'' from the caption?}
 
-\david{we never explain the $\Delta^{1/3}\cdot \tw(G))$ lower bound. So I would remove this line from the table. }
+% \david{we never explain the $\Delta^{1/3}\cdot \tw(G))$ lower bound. So I would remove this line from the table. }
 
-\david{There are genus $g$ graphs with treewidth $\Omega(\sqrt{gn}$, so we can add $\Omega(\sqrt{gn}$ as a lower bound for genus $g$ graphs. For the same reason, there are $K_{3,t}$-minor-free graphs with treewidth $\Omega(\sqrt{tn}$. So we can add $\Omega(\sqrt{tn}$ as a lower bound for $K_{3,t}$-minor-free graphs. Similarly, we can add $\Omega(\sqrt{\tw(Q)\,n})$ as  a lower bound in the last line.}
+% \david{There are genus $g$ graphs with treewidth $\Omega(\sqrt{gn}$, so we can add $\Omega(\sqrt{gn}$ as a lower bound for genus $g$ graphs. For the same reason, there are $K_{3,t}$-minor-free graphs with treewidth $\Omega(\sqrt{tn}$. So we can add $\Omega(\sqrt{tn}$ as a lower bound for $K_{3,t}$-minor-free graphs. Similarly, we can add $\Omega(\sqrt{\tw(Q)\,n})$ as  a lower bound in the last line.}
 
-\david{the red characters can be removed}
+% \david{the red characters can be removed}
 
 %\david{Where does the lower bound $\Omega(\sqrt{\tw(Q)\cdot n})$ come from?} \pat{I can't remember.} \david{let's remove it} \pat{Agreed}
 
-Using different methods, \citet{ISW} show that every $n$-vertex planar graph is contained in a $O(\sqrt{n})$-blowup of a graph with treewidth 3. Thus, in the above question, one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs.\footnote{A \defin{tree-decomposition} of a graph $G$ is a collection $(B_x)_{x \in V(T)}$ of subsets of $V(G)$ indexed by a tree $T$, such that: (a) for every edge ${vw \in E(G)}$, there exists a node ${x \in V(T)}$ with ${v,w \in B_x}$, and (b) for every vertex ${v \in V(G)}$, the set $\{ x \in V(T) \colon v \in B_x \}$ induces a non-empty (connected) subtree of $T$. The \defin{width} of such a tree-decomposition is ${\max\{ |B_x| \colon x \in V(T) \}-1}$. A \defin{path-decomposition} is a tree-decomposition where the underlying tree is a path, denoted by the corresponding sequence of bags. The \defin{treewidth $\tw(G)$} of a graph $G$ is the minimum width of a tree-decomposition of $G$. The \defin{pathwidth $\pw(G)$} of a graph $G$ is the minimum width of a path-decomposition of $G$. Treewidth is the standard measure of how similar a graph is to a tree. Pathwidth is the standard measure of how similar a graph is to a path. By definition, $\tw(G)\leq\pw(G)$ for every graph $G$.}
-Improving this result, \citet{distel.dujmovic.ea:product} show that even the class of treewidth-$2$ graphs is sufficient. They  ask whether every planar graph is contained in an $O(\sqrt{n})$-blowup of a bounded pathwidth graph.
+Using different methods, \citet{ISW} show that every $n$-vertex planar graph is contained in a $O(\sqrt{n})$-blowup of a graph with treewidth 3. Thus, in the above question, one can take $\mathcal{H}$ to be the class of treewidth-$3$ graphs. Improving this result, \citet{distel.dujmovic.ea:product} show that even the class of treewidth-$2$ graphs is sufficient. They  ask whether every planar graph is contained in an $O(\sqrt{n})$-blowup of a bounded pathwidth graph.
 Since fans have pathwidth $2$, \cref{main_thm_planar} answers this question, with $O(\sqrt{n})$ replaced by $O(\sqrt{n}\log^2 n)$.  With the exception of the star result (which requires an $\Omega(n^{2/3})$ blowup), all these results require blowing up a graph with many high-degree vertices.  \Cref{main_thm_planar} shows that a pathwidth-$2$ graph with one high-degree vertex is enough, with a quasi-optimal blowup of $O(\sqrt{n}\log^2 n)$.  Thus, \cref{main_thm_planar} offers a significantly simpler structural description of planar graphs than previous results.
 
 
@@ -343,9 +345,7 @@ We now review results in the literature that show that every planar graph $G$ is
 
 \subsection{Optimality}
 
-We now explain why, except possibly for the $\log^2 n$ factor, \cref{main_thm_planar} cannot be strengthened.
-
-\david{perhaps this paragraph should go in the opening subsection, what do you think?} The $\sqrt{n}$ factor in the size of the blowups used in these results is not arbitrary. A $k$-blowup of a treewidth-$t$ graph $H$ has treewidth at most $k(t+1)-1$.  Since there are $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.
+We now explain why, except possibly for the $\log^2 n$ factor, \cref{main_thm_planar} cannot be strengthened.  As already discussed in the introduction, factor of $\sqrt{n}$ in the size of the blowup is necessary, since there are $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$.
 
 % Note that a graph of treewidth $k(t+1)-1$ has a balanced separator of size $k(t+1)$. Thus, the results of \cite{ISW,distel.dujmovic.ea:product} imply and strengthen the Lipton-Tarjan Planar Separator Theorem \cite{lipton.tarjan:separator}
 
@@ -522,7 +522,7 @@ Let $G$ be a graph and let $v_1,\ldots,v_n$ be an ordering of $V(G)$.
 Then $v_1,\ldots,v_n$ has \defin{bandwidth} $\mathdefin{\bw_G(v_1,\ldots,v_n)}:=\max\{|j-i|: v_iv_j\in E(G)\}\cup\{0\}$.
 The \defin{bandwidth} of $G$ is $\mathdefin{\bw(G)}:=\min\{\bw_G(v_1,\ldots,v_n):\text{$v_1,\ldots,v_n$ is an ordering of $V(G)$}\}$. The bandwidth of a graph $G$ is closely related to the path-partition-width of $G$.  Indeed, if $\bw_G(v_1,\ldots,v_n)=w$, and $P:=x_1,\ldots,x_{\lceil n/w\rceil}$ is a path, then setting $B_{x_i}:=\{v_j: (i-1)w+1 \le j \le iw\}$ for each $i\in\{1,\ldots,\lceil n/w\rceil\}$ gives a path-partition $\{B_{x}:x\in V(P)\}$ of width $w$.  In the other direction, if $P:=x_1,\ldots,x_k$ is a path and  $\{B_x:x\in V(P)\}$ is a path-partition of width $w$, then any ordering $v_1,\ldots,v_n$ of $V(G)$ that places all vertices of $B_{x_i}$ before those in $B_{x_{i+1}}$ for each $i\in\{1,\ldots,k-1\}$ has $\bw_G(v_1,\ldots,v_n)\le 2w-1$.
 
-Thus, \cref{main_thm_planar} is equivalent to saying that every $n$-vertex planar graph $G$ has a set $X$ of  $O(\sqrt{n}\log^2 n)$ vertices (the part $B_{x_0}$ in a fan-partition of $G$) such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$ \david{The reader will have long ago forgotten what $x_0$ refers to, especially since it is buried in a footnote. Perhaps we should define `fan' in the main body of the start of the paper, without the $x_0,x_1,\dots,x_k$ notation. And give a name like `root part'  or `dominant part', which we can re-use here (and elsewhere?).}. We actually obtain the following slight strengthening of \cref{main_thm_planar}, since as shown above, if $\bw(G)\leq k$ then $G$ is contained in a $k$-blowup of a path on at most $\ceil{|V(G)|/k}$ vertices.
+Thus, \cref{main_thm_planar} is equivalent to saying that every $n$-vertex planar graph $G$ has a set $X$ of  $O(\sqrt{n}\log^2 n)$ vertices (the part indexed by the dominant vertex in a fan-partition of $G$) such that $G-X$ has bandwidth $O(\sqrt{n}\log^2 n)$ \david{The reader will have long ago forgotten what $x_0$ refers to, especially since it is buried in a footnote. Perhaps we should define `fan' in the main body of the start of the paper, without the $x_0,x_1,\dots,x_k$ notation. And give a name like `root part'  or `dominant part', which we can re-use here (and elsewhere?).} \pat{For now, this is good enough, unless we find it keeps coming up.}. We actually obtain the following slight strengthening of \cref{main_thm_planar}, since as shown above, if $\bw(G)\leq k$ then $G$ is contained in a $k$-blowup of a path on at most $\ceil{|V(G)|/k}$ vertices.
 
 \begin{thm}\label{main_thm_planar_order}
   Every $n$-vertex planar graph is contained in a $O(\sqrt{n}\log^2 n)$-blowup of a fan with
@@ -546,11 +546,10 @@ The \defin{local density} of a graph $G$ is $\mathdefin{\ld(G)}:=\max\{(|B(v,r)|
 % } If $|B_G(v,r)|=Dr+1$ then in any permutation $v_1,\ldots,v_n$ of $V(G)$, one of the vertices $w$ in $B_G(v,r)\setminus \{v\}$ is at distance at least $Dr/2$ from $v$. That is, $v=v_i$ and $w=v_j$, and $|j-i|\ge Dr/2$.  Since $G$ contains a path with at most $r$ edges from $v$ to $w$, one of the edges $v_{i'}v_{j'}$ of this path must have $|i'-j'|\ge Dr/2r=D/2$.  Therefore $\bw(G)\ge\ld(G)/2$.
 
 
-The local density of $G$ provides a lower bound on the bandwidth of $G$. For any ordering $v_1,\dots,v_n$ of $V(G)$ with bandwidth $b$, for each vertex $v_i$, $B_G(v_i,r) \subseteq \{v_{i-rb},\dots,v_{i+rb}\}$, so $|B_G(v_i,r)|\leq 2rb+1$ and $\ld(G)\leq 2\bw(G)$. \david{Let's add more to this story .... Erd\H{o}s~[ref?] conjectured that $\bw(G)\leq O(\ld(G))$ for every graph $G$. This was disproved by \citet{chvatalova:on} who described a family of $n$-vertex trees $T$ with local density at most $3$ and $\bw(T)\in\Omega(\log n)$. Thus, $\bw(G)$ is not upper bounded by any function of $\ld(G)$, even for trees. This remains true for trees of bounded pathwidth: \citet{CS89} describe a family of $n$-vertex trees $T$ with local density at most $9$, pathwidth $2$, and  $\bw(T)\in\Omega(\log n/\log\log n)$. On the other hand, in his seminal work, Fiege ...}
-On the other hand, $\bw(G)$ is not upper bounded by any function of $\ld(G)$. In fact, \citet{chvatalova:on} describes a family of $n$-vertex trees $T$ with local density at most $3$ and $\bw(T)\in\Omega(\log n)$.  \citet{CS89} even describe a family of $n$-vertex trees $T$ with local density at most $9$, pathwidth $2$, and  $\bw(T)\in\Omega(\log n/\log\log n)$.  In his seminal work, \citet{feige:approximating} proves that bandwidth is upper bounded by the local density times a polylogarithmic function of the number of vertices.
+The local density of $G$ provides a lower bound on the bandwidth of $G$. For any ordering $v_1,\dots,v_n$ of $V(G)$ with bandwidth $b$, for each vertex $v_i$, $B_G(v_i,r) \subseteq \{v_{i-rb},\dots,v_{i+rb}\}$, so $|B_G(v_i,r)|\leq 2rb+1$ and $\ld(G)\leq 2\bw(G)$. Erd\H{o}s~[ref?] conjectured that $\bw(G)\leq O(\ld(G))$ for every graph $G$. This was disproved by \citet{chvatalova:on} who described a family of $n$-vertex trees $T$ with local density at most $3$ and $\bw(T)\in\Omega(\log n)$. Thus, $\bw(G)$ is not upper bounded by any function of $\ld(G)$, even for trees. This remains true for trees of bounded pathwidth: \citet{CS89} describe a family of $n$-vertex trees $T$ with local density at most $9$, pathwidth $2$, and  $\bw(T)\in\Omega(\log n/\log\log n)$. On the other hand, in his seminal work, \citet{feige:approximating} proves that bandwidth is upper bounded by the local density times a polylogarithmic function of the number of vertices.
 
-\pat{The correct reference is \citet{chvatalova:on}, who shows that a tree of local density $3$ having $c^k$ vertices has bandwidth $\Omega(k)$.  \citet{CS89} give a tree of pathwidth $2$ with $c^{k\log k}$ vertices and bandwidth $\Omega(k)$.} \david{So in the original sentence about \cite{CS89}, $\Omega(\log n)$ should be replaced by $\Omega(\log n/ \log\log n)$? \pat{Yes, done.} Anyway,
-\citet{chvatalova:on} predates \citep{CS89} by several years, so we should put the original reference. I would also mention \citet{CS89} since I think it is interesting there is an example with pathwidth 2. I think \citet{CCDG82} also has a construction.}. \pat{\citet{CCDG82} is fascinating.  Erd\"os conjectured that bandwidth was linear in local density, in my birth year. Chvátalová disproved it and also won a \$5 Erd\H{o}s prize for solving another question related to bandwidth.  I can't get my hands on her thesis, so we'll have to take Chung and Seymour's word for it.} \david{I have asked my library to get the  Chvátalová  thesis.}
+% \pat{The correct reference is \citet{chvatalova:on}, who shows that a tree of local density $3$ having $c^k$ vertices has bandwidth $\Omega(k)$.  \citet{CS89} give a tree of pathwidth $2$ with $c^{k\log k}$ vertices and bandwidth $\Omega(k)$.} \david{So in the original sentence about \cite{CS89}, $\Omega(\log n)$ should be replaced by $\Omega(\log n/ \log\log n)$? \pat{Yes, done.} Anyway,
+% \citet{chvatalova:on} predates \citep{CS89} by several years, so we should put the original reference. I would also mention \citet{CS89} since I think it is interesting there is an example with pathwidth 2. I think \citet{CCDG82} also has a construction.}. \pat{\citet{CCDG82} is fascinating.  Erd\"os conjectured that bandwidth was linear in local density, in my birth year. Chvátalová disproved it and also won a \$5 Erd\H{o}s prize for solving another question related to bandwidth.  I can't get my hands on her thesis, so we'll have to take Chung and Seymour's word for it.} \david{I have asked my library to get the  Chvátalová  thesis.}
 
 \begin{thm}[\citet{feige:approximating}]
 \label{feige_bandwidth_vs_density}
@@ -641,7 +640,7 @@ In this section, we will prove a generalization of the following result:
 \end{lem}
 
 \david{Is it more natural to write
-$O((n\log n)/D)$ instead of $O((n/D)\log n)$? Similarly elsewhere?} \pat{The only reason I use $(n/D)\log n$ is that, in my mind, $n/D$ is the important part and the $\log n$ factor is an artifact of our proof technique.} \david{I understand, but I still think $O((n\log n)/D)$ reads better and is easier for the reader. I am happy to make  the change if you approve. }
+$O((n\log n)/D)$ instead of $O((n/D)\log n)$? Similarly elsewhere?} \pat{The only reason I use $(n/D)\log n$ is that, in my mind, $n/D$ is the important part and the $\log n$ factor is an artifact of our proof technique.} \david{I understand, but I still think $O((n\log n)/D)$ reads better and is easier for the reader. I am happy to make  the change if you approve. } \pat{I approve.}
 
 Before continuing, we show how this lemma establishes \cref{main_thm_planar}. First note that
 \cref{rao_bandwidth_vs_density,planar_sparsifier} imply:
@@ -871,7 +870,22 @@ $\bw(G-X)\in O(D(k+1)\log^3 n')
 \section{\boldmath Subgraphs of $H\boxtimes P$}
 \label{htimesp_section}
 
-In this section we prove \cref{main_thm_products}, the generalization of \cref{main_thm_planar} to subgraphs of $H\boxtimes P$, which is needed to prove \cref{main_thm_apexmf}, the generalization of \cref{main_thm_planar} to apex-minor-free graphs.  This requires developing the techniques used by \citet{feige:approximating,rao:small} to prove bounds relating local density to bandwidth. These proofs use so-called volume-preserving Euclidean contractions, so we begin with some necessary background.
+In this section we prove \cref{main_thm_products}, the generalization of \cref{main_thm_planar} to subgraphs of $H\boxtimes P$, which is needed to prove \cref{main_thm_apexmf}, the generalization of \cref{main_thm_planar} to apex-minor-free graphs.  
+Before doing so, we first prove a lower bound.
+\begin{thm}
+  For all positive integers $t$ and $n$ such that $tn$ is a perfect square, there exists a graph $H$ of treewidth $t-1$ and a path $P$ such that $\tw(H\boxtimes P)\ge \sqrt{tn}/2$.
+\end{thm}
+
+\begin{proof}
+  Let $H:=P_{\sqrt{n/t}}\boxtimes K_t$ and let $G:=H\boxtimes P_{\sqrt{n/t}}$.  Then $G$ has $n$ vertices.  We claim that $G$ has treewidth $\Omega(\sqrt{nt})$.  To prove this, we describe a bramble of order $\Omega(\sqrt{tn})$. Let $\{v_0,\ldots,v_{t-1}\}:=V(K_t)$, and let $w_0,\ldots,w_{\sqrt{n/t}-1}:=P_{\sqrt{n/t}}$.  For each $i\in\{0,\ldots,\sqrt{tn}\}$, let
+\[
+   B_i:=\left(V(P_{\sqrt{n/t}})\times\{v_{i\bmod t}\}\times\{w_{\floor{i/t}}\}\right)
+   \cup \left(\{w_{\floor{i/t}}\}\times\{v_{i\bmod t}\}\times V(P_{\sqrt{n/t}})\right) \enspace .
+\]
+We claim that $\mathcal{B}:=\{B_0,\ldots,B_{\sqrt{tn}-1}\}$ is a bramble of order at least $\sqrt{tn}/2$, which implies that $\tw(G)\ge\sqrt{tn}/2$.  For any $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $B_i$ and $B_j$ are adjacent or have a vertex in common because $B_i$ contains $q_{i,j}:=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$ and $B_j$ contains $q_{i,j}':=(w_{\floor{i/t}},v_{j\bmod t},w_{\floor{j/t}})$.  If $i\equiv j\pmod t$ then $q_{i,j}=q_{i,j}'$, otherwise $q_{i,j}q_{i,j}'$ is an edge of $G$.  Therefore $\mathcal{B}$ is a bramble in $G$.  For distinct $i,j\in\{0,\ldots,\sqrt{tn}-1\}$, $B_i$ and $B_j$ have at most two vertices, namely $q_{i,j}=(w_{\floor{i/t}},v_{i\bmod t},w_{\floor{j/t}})$, and $q_{j,i}=(w_{\floor{j/t}},v_{j\bmod t},w_{\floor{i/t}})$ in common. So the order of $\mathcal{B}$ is at least $|\mathcal{Q}|/2=\sqrt{nt}/2$.
+\end{proof}
+
+The proof of \cref{main_thm_products} requires developing the techniques used by \citet{feige:approximating,rao:small} to prove bounds relating local density to bandwidth. These proofs use so-called volume-preserving Euclidean contractions, so we begin with some necessary background.
 
 \begin{figure}
   \centering
@@ -1178,11 +1192,11 @@ Let $\Delta\ge 4$ be a power of $2$. We now show how to randomly decompose $H\bo
 
 Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\Delta_a:=H[\bigcup_{s=r_H+a\Delta}^{r_H+(a+1)\Delta-1} L_s]$ so that $\{H^\Delta_a:a\in \Z\}$ is a pairwise vertex-disjoint collection of induced subgraphs that covers $V(H)$ and each $H^\Delta_a$ is a subgraph of $H$ induced by $\Delta$ consecutive BFS layers. For each integer $b$, let $P^\Delta_b:=P[\{y_{r_P+b\Delta},\ldots,y_{r_P+(b+1)\Delta-1}]$ so that $\{P^\Delta_b:b\in\Z\}$ is a collection of vertex disjoint paths, each having $\Delta$ vertices, that cover $P$.   For each $(a,b)\in\Z^2$, let $(H\boxtimes P)^\Delta_{a,b}:= H^\Delta_a \boxtimes P^\Delta_b$.
 
-\david{Given that the following lemmas are not self-contained, I suggest it would be better to call them claims. }
+% \david{Given that the following lemmas are not self-contained, I suggest it would be better to call them claims. }
 
-\begin{lem}\label{component_diameter}
+\begin{clm}\label{component_diameter}
   For each $(a,b)\in\Z^2$, each component $C$ of $(H\boxtimes P)^\Delta_{a,b}$ has $\diam_{H\boxtimes P}(C)\le 2\Delta+1$.
-\end{lem}
+\end{clm}
 
 \begin{proof}
   Let $v:=(v_1,v_2)$ and $w:=(w_1,w_2)$ be two vertices of $(H\boxtimes P)^\Delta_{a,b}$.  Our task is to show that $d_{H\boxtimes P}(v,w)\le 2\Delta+1$.  Recall that
@@ -1194,9 +1208,9 @@ Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\De
   Since $v_1$ and $w_1$ are in the same component $A$ of $H^\Delta_a$, this implies that $C:=A[L_{r_H+a\Delta}]$ is connected.  This implies that the set $N_C$ of vertices in $L_{r_H+a\Delta-1}$ adjacent to vertices in $C$ form a clique.  Then $H^\Delta_a$ contains a path of length at most $\Delta$ from $v_1$ to a vertex $v_1'$ in $N_C$.   Likewise, $H^\Delta_a$ contains a path of length at most $\Delta$ from $w$ to a vertex $w'$ in $N_C$. Since $N_C$ is clique $v'=w'$ or $v'$ and $w'$ are adjacent.  In the former case, there is a path in $H$ from $v$ to $w$ of length at most $2\Delta$. In the latter case there is a path from $v$ to $w$ of length at most $2\Delta+1$.
 \end{proof}
 
-\begin{lem}\label{good_probability}
+\begin{clm}\label{good_probability}
   Fix some vertex $v$ of $H\boxtimes P$ independently of $r_H$ and $r_P$ and let $(a,b)$ be such that $v$ is a vertex of $(H\boxtimes P)^\Delta_{a,b}$.  Then, with probability at least $1/4$,  $d_{H\boxtimes P}(v, V(H\boxtimes P)\setminus V((H\boxtimes P)^\Delta_{a,b})) \ge \Delta/4$.
-\end{lem}
+\end{clm}
 
 \begin{proof}
   Let $v:=(v_1,v_2)$.
@@ -1301,9 +1315,9 @@ Let $\{L_s:s\in\Z\}$ be a BFS layering of $H$.  For each integer $a$, let $H^\De
 Let $I$ be the union of the vertex-disjoint graphs $(H\boxtimes P)^\Delta_{a,b}$ over all integer $a$ and $b$.
 Thus, $I$ is a random subgraph of $H\boxtimes P$ whose value depends only on the random choices $r_H$ and $r_P$.  For each component $C$ of $I$, let $X_C:=\cup\{X_{i,j}:C\subseteq Q^+_{i,j},\, i\in\{0,\ldots,\log N\}, j\in\{0,\ldots,N/2^i-1\}\}$.  In words, $X_C$ contains only the vertical cuts used to construct $X$ that cut $C$ from top to bottom. Let $J$ be the subgraph of $I$ obtained by removing, for each component $C$ of $I$, the vertices in $X_C\cap V(C)$.
 
-\begin{lem}\label{dstar_component_diameter}
+\begin{clm}\label{dstar_component_diameter}
   Each component $C'$ of $J$ has $\diam_{d^*}(C')\le 5\Delta$.
-\end{lem}
+\end{clm}
 
 \begin{proof}
   Let $C'$ be a component of $J$, let $C$ be the component of $I$ that contains $C'$, and let $v$ and $w$ be two vertices of $C'$. Our task is to show that $d^*(v,w)\le 5\Delta$.  By \cref{component_diameter}, $d_{H\boxtimes P}(v,w)\le 2\Delta+1< 5\Delta$, so we may assume that $d^*(v,w)\neq d_{H\boxtimes P}(v,w)$.  Therefore $d^*(v,w)=d_{i,j}(v,w)$ for some $i$ and $j$ such that $v$ and $w$ are in different components of $Q^+_{i,j}-X_{i,j}$.  Since $v$ and $w$ are in the same component $C$ of $I$, the component $C$ is not contained in $Q^+_{i,j}$. (Otherwise, $X_{i,j}$ would be in $X_C$ and $v$ and $w$ would be in different components of $J$.) Therefore $C$ contains a vertex $x$ that is not in $Q^+_{i,j}$.  By \cref{component_diameter}, $d_{H\boxtimes P}(x,v)\le 2\Delta+1$ and $d_{H\boxtimes P}(x,w)\le 2\Delta+1$.  Therefore $d^*(v,w)=d_{i,j}(v,w)\le d_P(v_P,x_P)+d_P(x_P,w_P)\le d_{H\boxtimes P}(v,x)+d_{H\boxtimes P}(x,w)\le 4\Delta+2\le 5\Delta$.
@@ -1355,12 +1369,12 @@ For each component $C$ of $I$, each component of $C'$ of $J$ that is contained i
 % \end{obs}
 
 
-\begin{lem}\label{double_distance}
+\begin{clm}\label{double_distance}
   For every two vertices $v,w\in V(H\boxtimes P)\setminus X$,
   \[
     |\varphi_I(v)-\varphi_I(w)| \le 2\, d^*(v,w) \enspace .
   \]
-\end{lem}
+\end{clm}
 
 \begin{proof}
   If $v=w$ then $|\varphi_I(v)-\varphi_I(w)|=0 = 2 d^*(v,w)$, so we assume $v\neq w$. In particular $d^*(v,w)\ge d_{H\boxtimes P}(v,w)\ge 1$.  There are three cases to consider, depending on the placement of $v$ and $w$ with respect to the components of $I$ and $J$.
@@ -1419,9 +1433,9 @@ Finally, define the Euclidean embedding $\phi:V((H\boxtimes P)-X)\to\R^L$ as
 
 The following lemma says that $\phi/2\sqrt{L}$ is a Euclidean contraction of $(V(H\boxtimes P)\setminus X,d^*)$.  In a final step, we will divide each coordinate of $\phi$ by $2\sqrt{L}$ to obtain a Euclidean contraction. Until then, it is more convenient to work directly with $\phi$.
 
-\begin{lem}\label{euclidean_contraction}
+\begin{clm}\label{euclidean_contraction}
   For each $v,w\in V((H\boxtimes P)-X)$, $$d_2(\phi(v),\phi(w)) \le 2\sqrt{L}\cdot d^*(v,w).$$
-\end{lem}
+\end{clm}
 
 \begin{proof}
   By \cref{double_distance}, $|\phi_{i,j}(v)-\phi_{i,j}(w)|\le 2d^*(v,w)$ for each $(i,j)\in\{0,\ldots,\log N\}\times\{1,\ldots,\lceil ak\ln n\rceil\}$.  Therefore,
@@ -1443,7 +1457,7 @@ The remaining analysis in this section closely follows \citet{rao:small}, which 
 Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in \R^k:\sum_{j=1}^k\lambda_j=1\}$, that is, $\Gamma_k$ is the set of coefficients that can be used to obtain an affine combination of $k$ points.  In the following lemma, which is the crux of the proofs in \cite{rao:small,feige:approximating} it is critical that the function $\lambda$ chooses an affine combination $\lambda_1,\ldots,\lambda_{p-1}$ by only considering $\phi(v_1),\ldots,\phi(v_{p-1})$.  Thus any dependence between $\lambda_1,\ldots,\lambda_{p-1}$ and $\phi(v_p)$ is limited to the random choices made during the construction of $\phi$ that contribute to $\phi(v_1),\ldots,\phi(v_{p-1})$.
 
 
-\begin{lem}\label{crux}
+\begin{clm}\label{crux}
   Fix some function $\lambda:(\R^{L})^{p-1}\to \Gamma_{p-1}$.
   % Let $G$, $H\boxtimes P$, $X$,  be $K_{t+1}$-minor-free graph with at most $n$ vertices, let $P$ be a path with at most $n$ vertices, and let $\phi:V(H\boxtimes P)\to\R^L$ be the probabilistic embedding defined above. In particular, the random choices made in the construction of $\phi$ are independent of $\lambda$.
   Let $v_1,\ldots,v_p$ be distinct vertices of $(H\boxtimes P)-X$ and let $h:=d^*(v_p,\{v_1,\ldots,v_{p-1}\})$.  Let $(\lambda_1,\ldots,\lambda_{p-1}):=\lambda(\phi(v_1),\ldots,\phi(v_{p-1}))$ and let $x:=\sum_{j=1}^{p-1}\lambda_j\phi(v_j)$.
@@ -1451,7 +1465,7 @@ Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in \R^k:\sum_{j=1}^k\lambda_j=1\}$
   \[
     d_2(\phi(v_p),x)\ge \frac{h\sqrt{\lceil ak\ln n\rceil}}{640\sqrt{2}} \enspace .
   \]
-\end{lem}
+\end{clm}
 
 \begin{proof}
   If $h \le 5$ then let $i:=0$.  Otherwise, let $i$ be the unique integer such that $h/10\le 2^i < h/5$, Let $\Delta=2^i$.  To prove the lower bound on $d_2(\phi(v_p),x)$, we will only use the coordinates $\phi_{i,1},\ldots,\phi_{i,\lceil a k\ln n\rceil}$.  For each $j\in\{1,\ldots,\lceil ak\ln n\rceil$, let $C_{i,j}$ and $C'_{i,j}$ be the components of $I_{i,j}$ and $J_{i,j}$, respectively, that contain $v_p$. We say that $j\in\{1,\ldots,\lceil a k\ln n\rceil\}$ is \defin{good} if $d_{H\boxtimes P}(v_p,\overline{C}_{i,j})\ge \Delta/4$.  By \cref{good_probability},  $\Pr(\text{$j$ is good})\ge 1/4$. Let $S:=\{j\in\{1,\ldots,\lceil a k\ln n\rceil\}:\text{$j$ is good}\}$.  Since $I_{i,1},\ldots,I_{i,\lceil a k\ln n\rceil}$ are mutually independent, $|S|$ dominates\footnote{We say that a random variable $X$ \defin{dominates} a random variable $Y$ if $\Pr(X\ge x)\ge\Pr(Y\ge x)$ for all $x\in\R$.} a $\operatorname{binomial}(\lceil a k\ln n\rceil,1/4)$ random variable. By the Chernoff Bound,
@@ -1479,13 +1493,13 @@ Let $\Gamma_k:=\{(\lambda_1,\ldots,\lambda_k)\in \R^k:\sum_{j=1}^k\lambda_j=1\}$
   \end{align*}
 \end{proof}
 
-\begin{lem}\label{volume_preserver}
+\begin{clm}\label{volume_preserver}
   For every $k$-element subset $K$ of $V((H\boxtimes P)-X)$,
   \[
     \Pr\left(\evol(\phi(K)) \ge \frac{\tvol_{d^*}(K)\cdot(2\zeta/3)^{k-1}}{(k-1)!}\right) \ge 1- O(kn^{-k}) \enspace .
   \]
   where $\zeta:=\sqrt{\lceil ak\ln n\rceil}/(640\sqrt{2})$ is the expression that also appears in \cref{crux}.
-\end{lem}
+\end{clm}
 
 \begin{proof}
   The following argument is due to \citet[Pages~529--530]{feige:approximating}.  Let $K$ be a set of $k$ vertices of $(H\boxtimes P)-X$. Let $T$ be a minimum spanning tree of the complete graph on $K$ where the weight of an edge $xy$ is $d^*(x,y)$.  Let $x_1,\ldots,x_k$ be an ordering of the vertices in $K$ and $T_1,\ldots,T_k$ be a sequence of trees such that $T_{p}$ is a minimum spanning tree of $x_1,\ldots,x_{p}$ that contains $T_{p-1}$ as a subgraph, for each $p\in\{2,\ldots,k\}$.  That such an ordering and sequence of trees exist follows from the correctness of Prim's Algorithm. For each $p\in\{2,\ldots,k\}$, let $h_p:=d^*(x_p,\{x_1,\ldots,x_{p-1}\})$ be the cost of the unique edge in $E(T_p)\setminus E(T_{p-1})$.  Observe that $\prod_{p=2}^k h_p = \tvol_{d^*}(K)$.
@@ -1542,12 +1556,11 @@ We now have all the pieces needed to complete the proof of \cref{dstar_contracti
 % \david{I suggest we replace the previous proof by the following intermediate lemma because (1) my student Marc will need it, (2) someone else might need it, (3) the optimal choice of $D$ is then obvious, (4) even for genus $g$ graphs (which have row treewidth $2g+6$), it is technicaly stronger than the previous result which has a $\sqrt{gn}$ term in the upper bound on $|X|$ (which does not decrease with increasing $D$):
 
 We now state and prove the most general version of our main result.
-\david{I think the following should be a theorem.}
 
-\begin{lem}
+\begin{thm}
 \label{main_thm_products_D}
 For any $t,n\in\N$ and $D\in\mathbb{R}$ with $1\leq D\leq n$, any $n$-vertex graph $G$ with row treewidth $t$ has a set $X$ of $O((tn/D)\log n)$ vertices such that $\bw(G-X)\in O(D\log^3 n)$.
-\end{lem}
+\end{thm}
 
 \begin{proof}
 We may assume that $G$ is connected.
@@ -1611,8 +1624,8 @@ O(D\log^3 n)$.
 
 \section*{Acknowledgement}
 
-This research was initiated and much of it was done at the \emph{Eleventh Annual Workshop on Geometry and Graphs (WoGaG~2024)} held at the Bellairs Research Institute of McGill University, March 8--15, 2024. The authors are grateful to the workshop organizers and other participants for providing a working environment that somehow manages to be simultaneously stimulating and comfortable.
-\david{I would replace ``somehow manages to be'' by ``is''.}
+This research was initiated and much of it was done at the \emph{Eleventh Annual Workshop on Geometry and Graphs (WoGaG~2024)} held at the Bellairs Research Institute of McGill University, March 8--15, 2024. The authors are grateful to the workshop organizers and other participants for providing a working environment that is simultaneously stimulating and comfortable.
+% \david{I would replace ``somehow manages to be'' by ``is''.}
 
 % ?Let $\phi'(x):=\phi(x)/\sqrt{L}$ for each $x\in V(H\boxtimes P)$.
 
@@ -1690,13 +1703,14 @@ This research was initiated and much of it was done at the \emph{Eleventh Annual
     \sum_{K\in \binom{S}{k}} \Pr(\text{$K$ is bad})
     & \le \sum_{K\in \binom{S}{k}} \frac{\left((8\beta a\ln n)^{1/2}\eta\right)^{k}\, k\log\Delta}{\tvol_{d}(K)} \notag \\
     & \le \left((8\beta a\ln n)^{1/2}\eta DH_n\right)^{k}\, nk\log\Delta
-    & \text{(by \cref{reciprocal_sum})} \notag \\
-    & \le \left(O(\eta D\log^{3/2}n)\right)^{k}\, nk\log\Delta \enspace .
-    \label{bad_expectation}
+    \enspace ,
+    % & \le \left(O(\eta D\log^{3/2}n)\right)^{k}\, nk\log\Delta \enspace .
+     \label{bad_expectation}
   \end{align}
-  Let $B$ a maximum cardinality subset of $S$ with $\ell(B)<\sqrt{4a\ln n/L}$.  The vertices in $B$ form $\binom{|B|}{k}$ bad sets. Therefore, by Markov's Inequality, the probability that $\binom{|B|}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\cdot\eqref{bad_expectation}$, which implies that $|B|\in O((nk\log\Delta)^{1/k}\,Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw_d(x_1,\ldots,x_n)\in O((nk\log\Delta)^{1/k}\,Dk\eta\log^{3/2} n)$.
+  by \cref{reciprocal_sum}.
+  Let $B$ a maximum cardinality subset of $S$ with $\ell(B)<\sqrt{4a\ln n/L}$.  The vertices in $B$ form $\binom{|B|}{k}$ bad sets. Therefore, by Markov's Inequality, the probability that $\binom{|B|}{k}$ exceeds \eqref{bad_expectation} by a factor of at least $2$ is at most $1/2$.  Therefore, with probability at least $1/2$, $\binom{|B|}{k}\le 2\left((8\beta a\ln n)^{1/2}\eta DH_n\right)^{k}\, nk\log\Delta$, which implies that $|B|\in O((nk\log\Delta)^{1/k}\,Dk\eta\log^{3/2} n)$ with probability at least $1/2$.\footnote{Very roughly, $\binom{|B|}{k}$ is approximated by $(|B|/k)^k$.}  Therefore, with probability at least $1/2-n^{-a+2}$, $\bw_d(x_1,\ldots,x_n)\in O((nk\log\Delta)^{1/k}\,Dk\eta\log^{3/2} n)$.
 \end{proof}
 
-\david{When I first saw $2\cdot\eqref{bad_expectation}$, I thought we meant $2\cdot 4= 8$. Please rephrase. This is particularly troubling since there is a $O$ in \eqref{bad_expectation}. I suggest we keep $(8\beta a)^{1/2}$ to the end of the proof, and then introduce $O$.}
+% \david{When I first saw $2\cdot\eqref{bad_expectation}$, I thought we meant $2\cdot 4= 8$. Please rephrase. This is particularly troubling since there is a $O$ in \eqref{bad_expectation}. I suggest we keep $(8\beta a)^{1/2}$ to the end of the proof, and then introduce $O$.}
 
 \end{document}
