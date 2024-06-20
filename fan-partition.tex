@@ -179,6 +179,13 @@ This paper studies the global structure of planar graphs and more general graph 
 where a \defin{fan} is a graph consisting of a path $P$ plus one vertex that dominates $P$.
 % \footnote{A \defin{fan} $F_k$ is a graph with $V(F_k):=\{x_0,\ldots,x_k\}$ and $E(F_k):=\{x_0x_i:1\leq i\leq k\}\cup\{x_ix_{i+1}:1\leq i\leq k-1\}$. Note that $\{x_0,x_1,x_2\},\{x_0,x_2,x_3\},\dots,\{x_0,x_{k-1},x_k\}$ is a width-$2$ path-decomposition of $F_k$.}.
 
+\begin{figure}[h]
+   \centering
+   \includegraphics{figs/fan-blowup}
+    \caption{A 5-blowup of a fan.}
+    \label{2blowup}
+\end{figure}
+
 \begin{thm}\label{main_thm_planar}
   Every $n$-vertex planar graph is contained in a $O(\sqrt{n}\log^2 n)$-blowup of a fan.
 \end{thm}
@@ -189,12 +196,6 @@ where a \defin{fan} is a graph consisting of a path $P$ plus one vertex that dom
 %     \label{2blowup}
 % \end{figure}
 
-\begin{figure}[h]
-   \centering
-   \includegraphics{figs/fan-blowup}
-    \caption{A 5-blowup of a fan.}
-    \label{2blowup}
-\end{figure}
 
 % \david{perhaps this paragraph should go in the opening subsection, what do you think?}
 The $\sqrt{n}$ blowup in this result is not arbitrary. A $k$-blowup of a graph $H$ with treewidth\footnote{A \defin{tree-decomposition} of a graph $G$ is a collection $(B_x)_{x \in V(T)}$ of subsets of $V(G)$ indexed by a tree $T$, such that: (a) for every edge ${vw \in E(G)}$, there exists a node ${x \in V(T)}$ with ${v,w \in B_x}$, and (b) for every vertex ${v \in V(G)}$, the set $\{ x \in V(T) \colon v \in B_x \}$ induces a non-empty (connected) subtree of $T$. The \defin{width} of such a tree-decomposition is ${\max\{ |B_x| \colon x \in V(T) \}-1}$. A \defin{path-decomposition} is a tree-decomposition where the underlying tree is a path, denoted by the corresponding sequence of bags. The \defin{treewidth $\tw(G)$} of a graph $G$ is the minimum width of a tree-decomposition of $G$. The \defin{pathwidth $\pw(G)$} of a graph $G$ is the minimum width of a path-decomposition of $G$. Treewidth is the standard measure of how similar a graph is to a tree. Pathwidth is the standard measure of how similar a graph is to a path. By definition, $\tw(G)\leq\pw(G)$ for every graph $G$.} $t$ has treewidth at most $k(t+1)-1$.  Since there are $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$ (such as the $\sqrt{n}\times\sqrt{n}$ grid), any result like \cref{main_thm_planar} that finds all planar graphs in blowups of bounded treewidth graphs must have blowups of size $\Omega(\sqrt{n})$.
@@ -225,10 +226,6 @@ of height $O(\log\log n)$. That is, $G$ is contained in the $O(\sqrt{n})$-blowup
 
 \begin{table}[!ht]
 \centering
-\caption{
-%\piotr{I worked a bit on this table. I hope you like it more :P}\pat{Very nice, thanks!}
-%\piotr{How about switching the order of columns? Lower bounds left and upper bounds right?} \pat{Sure.}
-Results on $k$-blowups of a graph $H$ that contain every $n$-vertex graph $G$ from graph class $\mathcal{G}$.}
 \begin{tabular}{llclcl}
 \toprule
 class $\mathcal{G}$ &$H$
@@ -252,10 +249,10 @@ class $\mathcal{G}$ &$H$
 & $O(n^{1/2+\epsilon})$ & \cite{DvoWoo}\\[1ex]
 \midrule
    planar $\mathrm{deg}\le \Delta$ & tree
-   & \textcolor{white}{$\Omega(\Delta^{1/3}\cdot\tw(G))$} & \cite{LMST08}
+   & \textcolor{white}{$\Omega(\Delta^{1/3}\cdot\tw(G))$} & %\textcolor{white}{\cite{LMST08}}
    & $O(\Delta\cdot\tw(G))$ & \cite{ding.oporowski:some}\\
 \midrule
-     maximum degree $\Delta$  & tree
+     $\mathrm{deg}\le\Delta$  & tree
      & $\Omega(\Delta\cdot\tw(G))$ & \cite{Wood09}
      & $O(\Delta\cdot\tw(G))$ & \cite{ding.oporowski:some,Wood09}\\
 \midrule
@@ -278,7 +275,7 @@ class $\mathcal{G}$ &$H$
     & $\Omega(\sqrt{gn})$ & \cite{gilbert.hutchinson.ea:separator}
     & $O((g+1)\sqrt{n})$& \cite{distel.dujmovic.ea:product}\\[1.5ex]
      & $\tw\leq3$
-     & $\Omega(\sqrt{gn})$ & \cite{gilbert.hutchinson.ea:separator}
+     &  & 
      & $2(g+1)(\tw(G)+1)$ & \cite{ISW}\\
 \midrule
     $k$-planar & fan
@@ -295,6 +292,7 @@ class $\mathcal{G}$ &$H$
     & $O(\sqrt{\tw(Q)\,n}\log^2 n)$ & \cref{main_thm_products}\\
     \bottomrule
 \end{tabular}
+\caption{Results on $k$-blowups of a graph $H$ that contain every $n$-vertex graph $G$ from graph class $\mathcal{G}$.}
 \label{results_table}
 \end{table}
 
@@ -352,7 +350,7 @@ We now review results in the literature that show that every planar graph $G$ is
 
 \subsection{Optimality}
 
-We now explain why, except possibly for the $\log^2 n$ factor, \cref{main_thm_planar} cannot be strengthened.  As already discussed in the introduction, factor of $\sqrt{n}$ in the size of the blowup is necessary, since there are $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$.
+We now explain why, except possibly for the $\log^2 n$ factor, \cref{main_thm_planar} cannot be strengthened.  As already discussed in the introduction, a factor of $\sqrt{n}$ in the size of the blowup is necessary, since there are $n$-vertex planar graphs of treewidth $\Omega(\sqrt{n})$.
 
 % Note that a graph of treewidth $k(t+1)-1$ has a balanced separator of size $k(t+1)$. Thus, the results of \cite{ISW,distel.dujmovic.ea:product} imply and strengthen the Lipton-Tarjan Planar Separator Theorem \cite{lipton.tarjan:separator}
 
