@@ -54,16 +54,6 @@
   % \end{center}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Outline}
-
-  \begin{itemize}
-    \item Theorem statement
-    \item Some related work
-    \item Proof sketch
-  \end{itemize}
-\end{frame}
-
 
 \begin{frame}
   \frametitle{Lipton-Tarjan Planar Separator Theorem}
@@ -101,7 +91,7 @@
   \frametitle{Treewidth-$2$ Partitions}
   \framesubtitle{Distel-Dujmović-Eppstein-Hickingbotham-Joret-Micek-M-Seweryn-Wood 2022}
 
-  \textbf{Question:} What is the simplest graph class $\mathcal{H}$ such that every $n$-vertex planar graph $G$ is a subgraph of $H\boxtimes K_O(\sqrt{n})$ for some $H\in\mathcal{H}$?\\[3ex]
+  \textbf{Question:} What is the simplest graph class $\mathcal{H}$ such that every $n$-vertex planar graph $G$ is a subgraph of $H\boxtimes K_{O(\sqrt{n})}$ for some $H\in\mathcal{H}$?\\[3ex]
 
   \uncover<2->{\textbf{Theorem (DDEHJMMSW2022):} $G\subseteq H\boxtimes K_{O(\sqrt{n})}$ for some graph $H$ of \textcolor{red}{treewidth 2}.\\[3ex]}
 
@@ -155,7 +145,7 @@
 
   \textbf{Theorem (Feige 2000):} If $G-X$ has local density $\widetilde{O}(\sqrt{n})$ then $G$ has bandwidth $\widetilde{O}(\sqrt{n})$.\\[3ex]
 
-  \only<2->{Find $X\subseteq V(G)$ of size $\widetilde{O}(\sqrt{n})$ so that every $r$-ball in $G-X$ contains $\widetilde{O}(r\sqrt{n})$ vertices.}
+  \uncover<2->{\textbf{Goal:} Find $X\subseteq V(G)$ of size $\widetilde{O}(\sqrt{n})$ so that every $r$-ball in $G-X$ contains $\widetilde{O}(r\sqrt{n})$ vertices.}
 \end{frame}
 
 \begin{frame}
@@ -178,11 +168,11 @@
 
   Same results hold for broader graph classes:\\[2ex]
 
-  \only<2->{$k$-planar, bounded genus, $(g,k)$-planar, apex-minor-free, \newline \textcolor{red}{product structured}} \\[2ex]
+  \uncover<2->{$k$-planar, bounded genus, $(g,k)$-planar, apex-minor-free, \newline \textcolor{red}{product structured}} \\[2ex]
 
-  \only<3->{\textbf{Theorem (Distel 2024):} Every $K_t$-minor-free $G$ has a fan-partition of width $\widetilde{O}_t(\sqrt{n})$.}\\[3ex]
+  \uncover<3->{\textbf{Theorem (Distel 2024):} Every $K_t$-minor-free $G$ has a fan-partition of width $\widetilde{O}_t(\sqrt{n})$.}\\[3ex]
 
-  \only<4->{\Huge\bf Thank You!}
+  \uncover<4->{\Huge\bf Thank You!}
 
 \end{frame}
 
