@@ -8,7 +8,7 @@
 % \usepackage[dvipsnames]{xcolor}
 % \usepackage{enumitem}
 
-
+\DeclareMathOperator{\td}{td}
 \newcommand{\emphh}[1]{\textcolor{blue}{\emph{#1}}}
 \newcommand{\hilite}[1]{\emphh{#1}}
 \title{Planar Graphs in Blowups of Fans}
@@ -29,11 +29,11 @@
     David R. Wood \newline \and
     Vida~Dujmović \and
     Piotr~Micek \and
-    [Marc Distel]}%
+    Marc Distel}%
      \\[3ex]
   \only<1>{\includegraphics[height=.428\textheight]{images/pat-and-kids}\\(How we started)}
   %
-  \only<2>{\includegraphics[height=.428\textheight]{images/authors}\\(How we finished)}%
+  \only<2>{\includegraphics[height=.428\textheight]{images/authors}\includegraphics[height=.428\textheight]{images/marc-cropped}\\(How we finished)}%
 }
 \date{}
 
@@ -86,7 +86,22 @@
     \only<22>{\includegraphics[page=22]{figs/lipton-tarjan-star}}%
     \only<23>{\includegraphics[page=23]{figs/lipton-tarjan-star}}%
     \only<24>{\includegraphics[page=24]{figs/lipton-tarjan-star}}%
+    \only<25>{\includegraphics[page=25]{figs/lipton-tarjan-star}}%
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Two Variations}
+  \framesubtitle{Dvořák-Wood 2022}
+
+  \begin{center}
+    \includegraphics[page=10,trim={0 2.2cm 0 0},clip]{figs/lipton-tarjan-star}
+  \end{center}
+  \textbf{Theorem:}
+  $G\subseteq H\boxtimes K_{O(\sqrt{n})}$ where $\td(H)=O(\log\log n)$
+  \\[2ex]
+  \textbf{Theorem:}
+  $G\subseteq H\boxtimes K_{O(n^{1/2+\epsilon})}$ where $\td(H)=O(1/\epsilon)$
 \end{frame}
 
 \begin{frame}
@@ -95,6 +110,8 @@
 
   \textbf{Question:} What is the simplest graph class $\mathcal{H}$ such that every $n$-vertex planar graph $G$ is a subgraph of $H\boxtimes K_{O(\sqrt{n})}$ for some $H\in\mathcal{H}$?\\[3ex]
 
+  % \uncover<2->{\textbf{Theorem (Dvořák-Wood 2022):} $G\subseteq H\boxtimes K_{O(\sqrt{n})}$ for some graph $H$ of \textcolor{red}{treedepth $O(\log\log n)$}.
+  % \\[3ex]
   \uncover<2->{\textbf{Theorem (DDEHJMMSW2022):} $G\subseteq H\boxtimes K_{O(\sqrt{n})}$ for some graph $H$ of \textcolor{red}{treewidth 2}.\\[3ex]}
 
   \uncover<3->{What is simpler than treewidth 2?}\\[3ex]
