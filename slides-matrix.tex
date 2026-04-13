@@ -9,9 +9,14 @@
 % \usepackage{enumitem}
 
 \DeclareMathOperator{\td}{td}
+\DeclareMathOperator{\ld}{ld}
+\DeclareMathOperator{\bw}{bw}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dist}{dist}
 \newcommand{\emphh}[1]{\textcolor{blue}{\emph{#1}}}
 \newcommand{\hilite}[1]{\emphh{#1}}
-\title{Planar Graphs in Blowups of Fans}
+\title{Planar Graphs in Blowups of Fans \\
+Using Product Structure with Metric Embeddings}
 
 \newcommand{\verteq}{\rotatebox{90}{$\equiv$}}
 
@@ -91,7 +96,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Two Variations}
+  \frametitle{Two variations}
   \framesubtitle{Dvořák-Wood 2022}
 
   \begin{center}
@@ -105,7 +110,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Treewidth-$2$ Partitions}
+  \frametitle{Treewidth-$2$ partitions}
   \framesubtitle{Distel-Dujmović-Eppstein-Hickingbotham-Joret-Micek-M-Seweryn-Wood 2022}
 
   \textbf{Question:} What is the simplest graph class $\mathcal{H}$ such that every $n$-vertex planar graph $G$ is a subgraph of $H\boxtimes K_{O(\sqrt{n})}$ for some $H\in\mathcal{H}$?\\[3ex]
@@ -120,15 +125,15 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Main Result}
+  \frametitle{Main result}
   % \framesubtitle{Distel-Dujmović-Eppstein-Hickingbotham-Joret-Micek-M-Seweryn-Wood 2022}
 
-  \only<1>{\textbf{Main Theorem:} Every $n$-vertex planar $G$ is a subgraph of $F\boxtimes K_{O(\sqrt{n}\log^2 n)}$, where $F$ is a \textcolor{red}{fan}.}%
-  \only<2->{\textbf{Main Theorem:} Every $n$-vertex planar $G$ is a subgraph of $F\boxtimes K_{\widetilde{O}(\sqrt{n})}$, where $F$ is a \textcolor{red}{fan}.}\\[2ex]
+  \only<1>{\textbf{Theorem 1:} Every $n$-vertex planar $G$ is a subgraph of $F\boxtimes K_{O(\sqrt{n}\log^2 n)}$, where $F$ is a \textcolor{red}{fan}.}%
+  \only<2->{\textbf{Theorem 1:} Every $n$-vertex planar $G$ is a subgraph of $F\boxtimes K_{\tilde{O}(\sqrt{n})}$, where $F$ is a \textcolor{red}{fan}.}\\[2ex]
 
-  \uncover<3->{\textbf{Main Theorem:} Every $n$-vertex planar $G$ has a \textcolor{red}{fan partition} of width $\widetilde{O}(\sqrt{n})$.}\\[2ex]
+  \uncover<3->{\textbf{Theorem 1:} Every $n$-vertex planar $G$ has a \textcolor{red}{fan partition} of width $\tilde{O}(\sqrt{n})$.}\\[2ex]
 
-  \uncover<4->{\textbf{Main Theorem:} Every $n$-vertex planar $G$ has a set $X$ of $\widetilde{O}(\sqrt{n})$ vertices such that $G-X$ has a \textcolor{red}{path partition} of width $\widetilde{O}(\sqrt{n})$}
+  \uncover<4->{\textbf{Theorem 1:} Every $n$-vertex planar $G$ has a set $X$ of $\tilde{O}(\sqrt{n})$ vertices such that $G-X$ has a \textcolor{red}{path partition} of width $\tilde{O}(\sqrt{n})$}
 
   \begin{center}
     \includegraphics[width=.8\textwidth]{figs/fan-blowup}
@@ -136,11 +141,11 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Path Partitions and Bandwidth}
+  \frametitle{Path partitions and bandwidth}
 
-  \uncover<1->{\textbf{Main Theorem:} Every $n$-vertex planar $G$ has a set $X$ of $\widetilde{O}(\sqrt{n})$ vertices such that $G-X$ has a \textcolor{red}{path partition} of width $\widetilde{O}(\sqrt{n})$}\\[2ex]
+  \uncover<1->{\textbf{Theorem 1:} Every $n$-vertex planar $G$ has a set $X$ of $\tilde{O}(\sqrt{n})$ vertices such that $G-X$ has a \textcolor{red}{path partition} of width $\tilde{O}(\sqrt{n})$}\\[2ex]
 
-  \uncover<2->{\textbf{Main Theorem:} Every $n$-vertex planar $G$ has a set $X$ of $\widetilde{O}(\sqrt{n})$ vertices such that $G-X$ has a \textcolor{red}{bandwidth} $\widetilde{O}(\sqrt{n})$}
+  \uncover<2->{\textbf{Theorem 1:} Every $n$-vertex planar $G$ has a set $X$ of $\tilde{O}(\sqrt{n})$ vertices such that $G-X$ has a \textcolor{red}{bandwidth} $\tilde{O}(\sqrt{n})$}
 
   \begin{center}
     \includegraphics[width=.8\textwidth,page=2]{figs/fan-blowup-slides}
@@ -149,7 +154,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Obstacles to Small Bandwidth}
+  \frametitle{Obstacles to small bandwidth}
 
   \begin{tabular}{lr}
     \only<1>{\includegraphics[page=1]{figs/bandwidth-obstacles}}%
@@ -161,15 +166,15 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Local Sparsification}
+  \frametitle{Local sparsification}
 
-  \textbf{Theorem (Feige 2000):} If $G-X$ has local density $\widetilde{O}(\sqrt{n})$ then $G-X$ has bandwidth $\widetilde{O}(\sqrt{n})$.\\[3ex]
+  \textbf{Theorem (Feige 2000):} If $G-X$ has local density $\tilde{O}(\sqrt{n})$ then $G-X$ has bandwidth $\tilde{O}(\sqrt{n})$.\\[3ex]
 
-  \uncover<2->{\textbf{Goal:} Find $X\subseteq V(G)$ of size $\widetilde{O}(\sqrt{n})$ so that every $r$-ball in $G-X$ contains $\widetilde{O}(r\sqrt{n})$ vertices.}
+  \uncover<2->{\textbf{Goal:} Find $X\subseteq V(G)$ of size $\tilde{O}(\sqrt{n})$ so that every $r$-ball in $G-X$ contains $\tilde{O}(r\sqrt{n})$ vertices.}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Local Sparsification}
+  \frametitle{Local sparsification}
 
   \only<1>{\includegraphics[page=1]{figs/layering}}%
   \only<2>{\includegraphics[page=2]{figs/layering}}%
@@ -184,17 +189,106 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Other Stuff}
+  \frametitle{Looking under the tilde}
 
-  Same results hold for broader graph classes:\\[2ex]
+  \begin{itemize}[<+->]
+    \item Tradeoff:  $\ld(G-X)\le D \Leftrightarrow |X|\in O((n\log n)/D)$
 
-  \uncover<2->{$k$-planar, bounded genus, $(g,k)$-planar, apex-minor-free, \newline \textcolor{red}{product structured}} \\[2ex]
+    \item Feige: For \emphh{any} $G$, $\ld(G)\le D$ implies $\bw(G)\in O(D\log^3 n\sqrt{\log n\log\log n})$
 
-  \uncover<3->{\textbf{Theorem (Distel 2024):} Every $K_t$-minor-free $G$ has a fan-partition of width $\widetilde{O}_t(\sqrt{n})$.}\\[2ex]
+    \item Rao (Better): For \emphh{planar} $G$, $\ld(G)\le D$ implies $\bw(G)\in O(D\log^3 n)$
 
-  \uncover<4->{\textbf{Open Problem:} Replace $\widetilde{O}(\cdot)$ with $O(\cdot)$ everywhere.}\\[3ex]
+    \item Take $D=n/\log n$, so $|X|\in O(n\log^2 n)$ and $\bw(G-X)\in O(n\log^2 n)$.
 
-  \uncover<5->{\Huge\bf Thank You!}
+    \item For any planar $G$, $G\subseteq F\boxtimes K_{O(n\log^2 n)}$
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Product Structure}
+  % \framesubtitle{Planar graphs and beyond}
+
+  \includegraphics[height=.3\textheight]{figs/product}
+  \begin{itemize}[<+->]
+    \item Does the same result hold for $G\subseteq H\boxtimes P$?
+    \item[$\surd$] Local sparsification: $\ld(G-X)\le D \Leftrightarrow |X|\in O((n\log n)/D)$
+    \item[$\surd$] bandwidth of $G-X$ (stuck with Feige):
+    $\ld(G)\le D \Rightarrow \bw(G)\in O(D\log^3 n\sqrt{\log n\log\log n})$
+    \item For any $G\subseteq H\boxtimes P$,
+    \only<4>{$G\subseteq F\boxtimes K_{O(n\log^2 n(\log n\log\log n)^{1/4})}$}%
+    \only<5->{$G\subseteq F\boxtimes K_{O(n\log^2 n{\color{red}(\log n\log\log n)^{1/4}})}$}%
+    \item (Immediate) applications: bounded-genus graphs, apex-minor-free graphs, $k$-planar graphs, \ldots
+    \item Application: proper minor-closed graph classes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proper minor-closed graph classes}
+  % \framesubtitle{Planar graphs and beyond}
+
+  \textbf{Theorem:} For every proper minor-closed graph class $\mathcal{G}$, every $n$-vertex $G\in\mathcal{G}$ is a subgraph of $F\boxtimes K_{\tilde{O}(\sqrt{n})}$, where $F$ is a \textcolor{red}{fan}.\\[2ex]%
+
+  Proof uses product structure version of GMST.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tightening things up}
+  % \framesubtitle{Planar graphs and beyond}
+
+  \begin{itemize}
+    \item Feige: For \emphh{any} $G$, $\ld(G)\le D$ implies $\bw(G)\in O(D\log^3 n\sqrt{\log n\log\log n})$
+
+    \item Rao (Better): For \emphh{planar} $G$, $\ld(G)\le D$ implies $\bw(G)\in O(D\log^3 n)$
+
+    \item<2-> Here: For  $G\subseteq H\boxtimes P$, $\ld(G)\le D$ implies $\bw(G)\in O(D\log^3 n)$
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Techniques}
+  % \framesubtitle{Planar graphs and beyond}
+
+  \begin{center}
+  \only<1>{\includegraphics[page=1]{figs/techniques}}%
+  \only<2>{\includegraphics[page=2]{figs/techniques}}%
+  \only<3>{\includegraphics[page=3]{figs/techniques}}%
+  \only<4>{\includegraphics[page=1]{figs/techniques-ii}}%
+  \only<5>{\includegraphics[page=2]{figs/techniques-ii}}%
+  \only<6>{\includegraphics[page=3]{figs/techniques-ii}}%
+  \only<7>{\includegraphics[page=4]{figs/techniques-ii}}%
+  \only<8>{\includegraphics[page=5]{figs/techniques-ii}}%
+  \only<9>{\includegraphics[page=6]{figs/techniques-ii}}%
+  \only<10>{\includegraphics[height=.6\textheight,page=2]{figs/product}}%
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Complications}
+  % \framesubtitle{Planar graphs and beyond}
+
+  \begin{itemize}
+    \item We work with distances in $H\boxtimes P$
+    \item Each piece $Q$ has $\diam_{H\boxtimes P}(Q)\le \Delta$, not $\diam_{(H\boxtimes P)-X}(Q)\le \Delta$.
+    \item Requires new distance function ``between'' $\dist_{H\boxtimes P}$ and $\dist_{(H\boxtimes P)-X}$
+    \item Requires generalizing results of Feige from graph metrics to general metrics
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Summary}
+
+
+  \uncover<1->{Results for product structured and proper-minor closed:\\ $G\subseteq F\boxtimes K_{O(\sqrt{n}\log^2 n)}$} \\[2ex]
+
+  \uncover<2->Relation to a ``quasi-isometric product structure theorem''}
+
+  \uncover<3->{\textbf{Open Problem:} Get rid of $\log^2 n$ factor?}
+
+  \uncover<4->{\Huge\bf Thank You!}
 
 \end{frame}
 
